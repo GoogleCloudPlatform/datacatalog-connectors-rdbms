@@ -1,0 +1,14 @@
+{
+    "databases": [
+        {
+            "name": "tpch",
+            "creator": "DBC",
+            "owner": "DBC",
+            "desc": NaN,
+            "create_time": "2018-07-20 13:24:11",
+            "update_time": "2018-07-27 18:47:19",
+            "update_user": "DBC",
+            "tables": []
+        }
+    ]
+}

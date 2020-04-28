@@ -1,0 +1,43 @@
+{
+    "table_container_def": {
+        "key": "schemas",
+        "type": "schema",
+        "name": "schema_name",
+        "fields": [
+            {
+                "source": "schema_owner",
+                "target": "owner"
+            },
+            {
+                "source": "schema_create_time",
+                "target": "create_time"
+            }
+        ]
+    },
+    "table_def": {
+        "key": "tables",
+        "type": "table",
+        "name": "table_name",
+        "fields": [
+            {
+                "source": "table_owner",
+                "target": "owner"
+            },
+            {
+                "source": "table_create_time",
+                "target": "create_time"
+            }
+        ]
+    },
+    "column_def": {
+        "key": "columns",
+        "type": "column",
+        "name": "column_name",
+        "fields": [
+            {
+                "source": "column_type",
+                "target": "type"
+            }
+        ]
+    }
+}

@@ -1,0 +1,71 @@
+{
+    "table_container_def": {
+        "key": "schemas",
+        "type": "schema",
+        "name": "schema_name",
+        "fields": [
+            {
+                "source": "schema_create_time",
+                "target": "create_time"
+            }
+        ]
+    },
+    "table_def": {
+        "key": "tables",
+        "type": "table",
+        "name": "table_name",
+        "fields": [
+            {
+                "source": "table_comments",
+                "target": "desc"
+            },
+            {
+                "source": "table_create_time",
+                "target": "create_time"
+            },
+            {
+                "source": "table_update_time",
+                "target": "update_time"
+            },
+            {
+                "source": "table_rows",
+                "target": "num_rows"
+            }
+        ]
+    },
+    "column_def": {
+        "key": "columns",
+        "type": "column",
+        "name": "column_name",
+        "fields": [
+            {
+                "source": "data_type",
+                "target": "type"
+            },
+            {
+                "source": "data_type_ext",
+                "target": "type_ext"
+            },
+            {
+                "source": "col_comments",
+                "target": "desc"
+            },
+            {
+                "source": "data_length",
+                "target": "length"
+            },
+            {
+                "source": "data_precision",
+                "target": "data_precision"
+            },
+            {
+                "source": "data_scale",
+                "target": "data_scale"
+            },
+            {
+                "source": "nullable",
+                "target": "nullable"
+            }
+        ]
+    }
+}

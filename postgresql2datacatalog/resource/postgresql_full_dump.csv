@@ -1,0 +1,8 @@
+schema_name,table_name,table_type,column_name,column_default_value,column_nullable,column_type,column_char_length,column_numeric_precision
+postgres,test_temp,BASE TABLE,a,,YES,integer,,32
+postgres,messages,BASE TABLE,uid,,YES,integer,,32
+postgres,messages,BASE TABLE,mid,,NO,integer,,32
+postgres,users,BASE TABLE,uid,,NO,integer,,32
+postgres,messages,BASE TABLE,message,,YES,character varying,,
+postgres,users,BASE TABLE,name,,YES,character varying,,
+postgres,messages,BASE TABLE,ptime,,YES,date,,

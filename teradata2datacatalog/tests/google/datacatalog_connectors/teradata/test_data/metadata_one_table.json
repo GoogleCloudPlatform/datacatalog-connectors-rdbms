@@ -1,0 +1,153 @@
+{
+    "databases": [
+        {
+            "name": "tpch",
+            "creator": "DBC",
+            "owner": "DBC",
+            "desc": NaN,
+            "create_time": "2018-07-20 13:24:11",
+            "update_time": "2018-07-27 18:47:19",
+            "update_user": "DBC",
+            "tables": [
+                {
+                    "name": "customer",
+                    "creator": "DBC",
+                    "desc": NaN,
+                    "create_time": "2018-07-27 18:23:27",
+                    "update_time": "2018-07-27 18:23:27",
+                    "update_user": "DBC",
+                    "columns": [
+                        {
+                            "name": "C_ACCTBAL",
+                            "type": "D",
+                            "creator": "DBC",
+                            "desc": NaN,
+                            "create_time": "2018-07-27 18:23:27",
+                            "update_time": "2018-07-27 18:23:27",
+                            "update_user": "DBC",
+                            "format": "--------------.99",
+                            "title": NaN,
+                            "length": "8",
+                            "default_value": NaN,
+                            "decimal_total_digits": 15.0,
+                            "decimal_fractional_digits": 2.0,
+                            "nullable": "N"
+                        },
+                        {
+                            "name": "C_ADDRESS",
+                            "type": "CV",
+                            "creator": "DBC",
+                            "desc": NaN,
+                            "create_time": "2018-07-27 18:23:27",
+                            "update_time": "2018-07-27 18:23:27",
+                            "update_user": "DBC",
+                            "format": "X(40)",
+                            "title": NaN,
+                            "length": "40",
+                            "default_value": NaN,
+                            "decimal_total_digits": NaN,
+                            "decimal_fractional_digits": NaN,
+                            "nullable": "N"
+                        },
+                        {
+                            "name": "C_COMMENT",
+                            "type": "CV",
+                            "creator": "DBC",
+                            "desc": NaN,
+                            "create_time": "2018-07-27 18:23:27",
+                            "update_time": "2018-07-27 18:23:27",
+                            "update_user": "DBC",
+                            "format": "X(117)",
+                            "title": NaN,
+                            "length": "117",
+                            "default_value": NaN,
+                            "decimal_total_digits": NaN,
+                            "decimal_fractional_digits": NaN,
+                            "nullable": "N"
+                        },
+                        {
+                            "name": "C_CUSTKEY",
+                            "type": "I",
+                            "creator": "DBC",
+                            "desc": NaN,
+                            "create_time": "2018-07-27 18:23:27",
+                            "update_time": "2018-07-27 18:23:27",
+                            "update_user": "DBC",
+                            "format": "-(10)9",
+                            "title": NaN,
+                            "length": "4",
+                            "default_value": NaN,
+                            "decimal_total_digits": NaN,
+                            "decimal_fractional_digits": NaN,
+                            "nullable": "N"
+                        },
+                        {
+                            "name": "C_MKTSEGMENT",
+                            "type": "CF",
+                            "creator": "DBC",
+                            "desc": NaN,
+                            "create_time": "2018-07-27 18:23:27",
+                            "update_time": "2018-07-27 18:23:27",
+                            "update_user": "DBC",
+                            "format": "X(10)",
+                            "title": NaN,
+                            "length": "10",
+                            "default_value": NaN,
+                            "decimal_total_digits": NaN,
+                            "decimal_fractional_digits": NaN,
+                            "nullable": "N"
+                        },
+                        {
+                            "name": "C_NAME",
+                            "type": "CV",
+                            "creator": "DBC",
+                            "desc": NaN,
+                            "create_time": "2018-07-27 18:23:27",
+                            "update_time": "2018-07-27 18:23:27",
+                            "update_user": "DBC",
+                            "format": "X(25)",
+                            "title": NaN,
+                            "length": "25",
+                            "default_value": NaN,
+                            "decimal_total_digits": NaN,
+                            "decimal_fractional_digits": NaN,
+                            "nullable": "N"
+                        },
+                        {
+                            "name": "C_NATIONKEY",
+                            "type": "I",
+                            "creator": "DBC",
+                            "desc": NaN,
+                            "create_time": "2018-07-27 18:23:27",
+                            "update_time": "2018-07-27 18:23:27",
+                            "update_user": "DBC",
+                            "format": "-(10)9",
+                            "title": NaN,
+                            "length": "4",
+                            "default_value": NaN,
+                            "decimal_total_digits": NaN,
+                            "decimal_fractional_digits": NaN,
+                            "nullable": "N"
+                        },
+                        {
+                            "name": "C_PHONE",
+                            "type": "CF",
+                            "creator": "DBC",
+                            "desc": NaN,
+                            "create_time": "2018-07-27 18:23:27",
+                            "update_time": "2018-07-27 18:23:27",
+                            "update_user": "DBC",
+                            "format": "X(15)",
+                            "title": NaN,
+                            "length": "15",
+                            "default_value": NaN,
+                            "decimal_total_digits": NaN,
+                            "decimal_fractional_digits": NaN,
+                            "nullable": "N"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

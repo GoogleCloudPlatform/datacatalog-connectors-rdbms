@@ -1,0 +1,59 @@
+{
+    "table_container_def": {
+        "key": "databases",
+        "type": "database",
+        "name": "database_name",
+        "fields": [
+            {
+                "source": "database_create_time",
+                "target": "create_time"
+            },
+            {
+                "source": "database_update_time",
+                "target": "update_time"
+            },
+            {
+                "source": "database_owner",
+                "target": "owner"
+            },
+            {
+                "source": "database_desc",
+                "target": "desc"
+            }                       
+        ]
+    },
+    "table_def": {
+        "key": "tables",
+        "type": "table",
+        "name": "table_name",
+        "fields": [
+            {
+                "source": "table_desc",
+                "target": "desc"
+            },
+            {
+                "source": "table_create_time",
+                "target": "create_time"
+            },
+            {
+                "source": "table_update_time",
+                "target": "update_time"
+            }
+        ]
+    },
+    "column_def": {
+        "key": "columns",
+        "type": "column",
+        "name": "column_name",
+        "fields": [
+            {
+                "source": "column_type",
+                "target": "type"
+            },
+            {
+                "source": "column_desc",
+                "target": "desc"
+            }
+        ]
+    }
+}

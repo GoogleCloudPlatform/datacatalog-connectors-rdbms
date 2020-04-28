@@ -1,0 +1,21 @@
+{
+    "schemas": [
+        {
+            "name": "postgres",
+            "tables": [
+                {
+                    "name": "messages",
+                    "type": "BASE TABLE",
+                    "columns": [
+                        {
+                            "name": "uid",
+                            "type": "integer",
+                            "default_value": "None",
+                            "nullable": "YES"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,119 @@
+{
+    "table_container_def": {
+        "key": "databases",
+        "type": "database",
+        "name": "database_name",
+        "fields": [
+            {
+                "source": "database_creator",
+                "target": "creator"
+            },
+            {
+                "source": "database_owner",
+                "target": "owner"
+            },
+            {
+                "source": "database_desc",
+                "target": "desc"
+            },
+            {
+                "source": "database_create_time",
+                "target": "create_time"
+            },
+            {
+                "source": "database_update_time",
+                "target": "update_time"
+            },
+            {
+                "source": "database_update_user",
+                "target": "update_user"
+            }
+        ]
+    },
+    "table_def": {
+        "key": "tables",
+        "type": "table",
+        "name": "table_name",
+        "fields": [
+            {
+                "source": "table_creator",
+                "target": "creator"
+            },
+            {
+                "source": "table_desc",
+                "target": "desc"
+            },
+            {
+                "source": "table_create_time",
+                "target": "create_time"
+            },
+            {
+                "source": "table_update_time",
+                "target": "update_time"
+            },
+            {
+                "source": "table_update_user",
+                "target": "update_user"
+            }
+        ]
+    },
+    "column_def": {
+        "key": "columns",
+        "type": "column",
+        "name": "column_name",
+        "fields": [
+            {
+                "source": "column_type",
+                "target": "type"
+            },
+            {
+                "source": "column_creator",
+                "target": "creator"
+            },
+            {
+                "source": "column_desc",
+                "target": "desc"
+            },
+            {
+                "source": "column_create_time",
+                "target": "create_time"
+            },
+            {
+                "source": "column_update_time",
+                "target": "update_time"
+            },
+            {
+                "source": "column_update_user",
+                "target": "update_user"
+            },
+            {
+                "source": "column_format",
+                "target": "format"
+            },
+            {
+                "source": "column_title",
+                "target": "title"
+            },
+            {
+                "source": "column_length",
+                "target": "length"
+            },
+            {
+                "source": "column_default_value",
+                "target": "default_value"
+            },
+            {
+                "source": "column_decimal_total_digits",
+                "target": "decimal_total_digits"
+            },
+            {
+                "source": "column_decimal_fractional_digits",
+                "target": "decimal_fractional_digits"
+            },
+            {
+                "source": "column_nullable",
+                "target": "nullable"
+            }
+        ]
+    }
+}

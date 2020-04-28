@@ -1,0 +1,49 @@
+{
+    "schemas": [
+        {
+            "name": "CO",
+            "create_time": "2019-11-19 00:00:00",
+            "tables": [
+                {
+                    "name": "CUSTOMERS",
+                    "desc": "Details of the people placing orders",
+                    "create_time": "2019-11-19 00:00:00",
+                    "update_time": "2019-11-19 00:00:00",
+                    "num_rows": 392.0,
+                    "columns": [
+                        {
+                            "name": "CUSTOMER_ID",
+                            "type": "NUMBER",
+                            "type_ext": "NUMBER",
+                            "desc": "Auto-incrementing primary key",
+                            "length": "22",
+                            "data_precision": NaN,
+                            "data_scale": 0.0,
+                            "nullable": "N"
+                        },
+                        {
+                            "name": "EMAIL_ADDRESS",
+                            "type": "VARCHAR2",
+                            "type_ext": "VARCHAR2(255)",
+                            "desc": "The email address the person uses to access the account",
+                            "length": "1020",
+                            "data_precision": NaN,
+                            "data_scale": NaN,
+                            "nullable": "N"
+                        },
+                        {
+                            "name": "FULL_NAME",
+                            "type": "VARCHAR2",
+                            "type_ext": "VARCHAR2(255)",
+                            "desc": "What this customer is called",
+                            "length": "1020",
+                            "data_precision": NaN,
+                            "data_scale": NaN,
+                            "nullable": "N"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

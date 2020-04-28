@@ -1,0 +1,38 @@
+{
+    "table_container_def": {
+        "key": "databases",
+        "type": "database",
+        "name": "database_name",
+        "fields": []
+    },
+    "table_def": {
+        "key": "tables",
+        "type": "table",
+        "name": "table_name",
+        "fields": [
+            {
+                "source": "table_type",
+                "target": "type"
+            }
+        ]
+    },
+    "column_def": {
+        "key": "columns",
+        "type": "column",
+        "name": "column_name",
+        "fields": [
+            {
+                "source": "column_type",
+                "target": "type"
+            },
+            {
+                "source": "column_default_value",
+                "target": "default_value"
+            },
+            {
+                "source": "column_nullable",
+                "target": "nullable"
+            }
+        ]
+    }
+}
