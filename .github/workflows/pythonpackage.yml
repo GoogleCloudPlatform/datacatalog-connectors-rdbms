@@ -16,7 +16,7 @@ jobs:
     strategy:
       matrix:
         build-dir: ['./rdbms2datacatalog', './rdbmscsv2datacatalog']
-        python-version: [3.5, 3.6, 3.7, 3.8]
+        python-version: [3.7]
     defaults:
       run:
         working-directory: ${{ matrix.build-dir }}
@@ -36,7 +36,7 @@ jobs:
         pip install ./lib/datacatalog_connectors_commons_test-1.0.0-py2.py3-none-any.whl
         pip install pytest mock pytest-cov
         if [ -f ./lib/rdbms2datacatalog-1.0.0-py2.py3-none-any.whl ]; then pip install -r ./lib/rdbms2datacatalog-1.0.0-py2.py3-none-any.whl; fi
-        
+        if [ -f ./lib/postgresql2datacatalog-1.0.0-py2.py3-none-any.whl ]; then pip install -r ./lib/postgresql2datacatalog-1.0.0-py2.py3-none-any.whl; fi
     - name: Formatting rules with yapf
       run: |
         # stop the build if formatting is different from yapf
