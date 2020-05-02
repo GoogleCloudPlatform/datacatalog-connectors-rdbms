@@ -15,10 +15,11 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
+        build-dir: ['./rdbms2datacatalog', './rdbmscsv2datacatalog']
         python-version: [3.5, 3.6, 3.7, 3.8]
-    defaults:
-      run:
-        working-directory: ./rdbms2datacatalog
+    #defaults:
+    #  run:
+    #    working-directory: ./rdbms2datacatalog
 
     steps:
     - uses: actions/checkout@v2
