@@ -11,7 +11,7 @@ on:
 
 jobs:
   build:
-
+    if: contains(github.event.pull_request.labels.*.name, 'ci:run')
     runs-on: ubuntu-latest
     strategy:
       matrix:
