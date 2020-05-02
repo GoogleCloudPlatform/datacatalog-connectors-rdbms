@@ -2,7 +2,7 @@
 Customized from the template (https://github.com/docker/cli/blob/master/.github/PULL_REQUEST_TEMPLATE.md)
 
 Please make sure you've read and understood our contributing guidelines;
-https://github.com/mesmacosta/datacatalog-connectors-rdbms/blob/master/docs/contributing.md
+https://github.com/GoogleCloudPlatform/datacatalog-connectors-rdbms/blob/master/docs/contributing.md
 
 Please provide the following information:
 -->
