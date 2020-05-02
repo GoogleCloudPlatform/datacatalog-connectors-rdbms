@@ -16,7 +16,7 @@ jobs:
     strategy:
       matrix:
         build-dir: ['./rdbms2datacatalog', './rdbmscsv2datacatalog']
-        python-version: [3.7]
+        python-version: [3.5, 3.6, 3.7, 3.8]
     defaults:
       run:
         working-directory: ${{ matrix.build-dir }}
