@@ -29,11 +29,11 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        python -m pip install install flake8 yapf
-        python -m pip install ./lib/datacatalog_connectors_commons-1.0.0-py2.py3-none-any.whl
-        python -m pip install ./lib/datacatalog_connectors_commons_test-1.0.0-py2.py3-none-any.whl
-        python -m pip install pytest mock pytest-cov
-        if [ -f requirements.txt ]; then python -m pip install -r requirements.txt; fi
+        pip install flake8 yapf
+        pip install ./lib/datacatalog_connectors_commons-1.0.0-py2.py3-none-any.whl
+        pip install ./lib/datacatalog_connectors_commons_test-1.0.0-py2.py3-none-any.whl
+        pip install pytest mock pytest-cov
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     - name: Formatting rules with yapf
       run: |
         # stop the build if formatting is different from yapf
