@@ -1,0 +1,47 @@
+# Add 'repo' label to any root file changes
+repo:
+  - ./*
+  
+@greenplum2datacatalog:
+  - greenplum2datacatalog/*
+  - greenplum2datacatalog/**/*
+
+@mysql2datacatalog:
+  - mysql2datacatalog/*
+  - mysql2datacatalog/**/*
+
+@oracle2datacatalog:
+  - oracle2datacatalog/*
+  - oracle2datacatalog/**/*
+
+@postgresql2datacatalog:
+  - postgresql2datacatalog/*
+  - postgresql2datacatalog/**/*
+
+@rdbms2datacatalog:
+  - rdbms2datacatalog/*
+  - rdbms2datacatalog/**/*
+
+@rdbmscsv2datacatalog:
+  - rdbmscsv2datacatalog/*
+  - rdbmscsv2datacatalog/**/*
+
+@redshift2datacatalog:
+  - redshift2datacatalog/*
+  - redshift2datacatalog/**/*
+  
+@sqlserver2datacatalog:
+  - sqlserver2datacatalog/*
+  - sqlserver2datacatalog/**/*
+  
+@teradata2datacatalog:
+  - teradata2datacatalog/*
+  - teradata2datacatalog/**/*
+
+@vertica2datacatalog:
+  - vertica2datacatalog/*
+  - vertica2datacatalog/**/*
+
+# Add 'test' label to any change to test.py files
+test:
+  - ./**/*.test.py
