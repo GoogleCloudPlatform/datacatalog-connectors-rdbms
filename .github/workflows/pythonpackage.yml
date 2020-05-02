@@ -16,7 +16,7 @@ jobs:
     strategy:
       matrix:
         build-dir: ['./rdbms2datacatalog', './rdbmscsv2datacatalog', './postgresql2datacatalog', './greenplum2datacatalog', './redshift2datacatalog', './sqlserver2datacatalog', './mysql2datacatalog', './teradata2datacatalog', './oracle2datacatalog', './vertica2datacatalog']
-        python-version: [3.6, 3.7, 3.8]
+        python-version: [3.6, 3.7]
     defaults:
       run:
         working-directory: ${{ matrix.build-dir }}
