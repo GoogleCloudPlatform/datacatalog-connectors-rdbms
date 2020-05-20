@@ -1,4 +1,4 @@
-# datacatalog-connectors-rdbms 
+# datacatalog-connectors-rdbms
 
 This repository contains sample code with integration between Data Catalog and RDBMS data sources.
 
