@@ -16,9 +16,11 @@
 
 import pandas as pd
 from google.cloud import datacatalog_v1beta1
+from google.datacatalog_connectors.commons.prepare.base_entry_factory import \
+    BaseEntryFactory
 
 
-class DataCatalogEntryFactory:
+class DataCatalogEntryFactory(BaseEntryFactory):
     NO_VALUE_SPECIFIED = 'UNDEFINED'
     EMPTY_TOKEN = '?'
 
@@ -37,7 +39,7 @@ class DataCatalogEntryFactory:
          :return: entry_id, entry
         """
 
-        entry_id = table_container['name']
+        entry_id = self._format_id(table_container['name'])
         entry = datacatalog_v1beta1.types.Entry()
 
         entry.user_specified_type = self.__metadata_definition[
@@ -77,7 +79,8 @@ class DataCatalogEntryFactory:
          :return: entry_id, entry
         """
 
-        entry_id = '{}__{}'.format(table_container_name, table['name'])
+        entry_id = self._format_id('{}__{}'.format(table_container_name,
+                                                   table['name']))
 
         entry = datacatalog_v1beta1.types.Entry()
 
@@ -85,7 +88,7 @@ class DataCatalogEntryFactory:
             'type']
         entry.user_specified_system = self.__entry_group_id
 
-        entry.display_name = table['name']
+        entry.display_name = self._format_display_name(table['name'])
 
         entry.name = datacatalog_v1beta1.DataCatalogClient.entry_path(
             self.__project_id, self.__location_id, self.__entry_group_id,
