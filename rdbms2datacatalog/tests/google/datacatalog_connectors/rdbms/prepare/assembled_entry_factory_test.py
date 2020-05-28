@@ -187,7 +187,7 @@ class AssembledEntryFactoryTestCase(unittest.TestCase):
 
             for table in tables:
                 table_entry = table.entry
-                self.assertEqual('CO__CUSTOMERS', table.entry_id)
+                self.assertEqual('CO_CUSTOMERS', table.entry_id)
                 # Assert specific fields for table
                 self.assertEqual('table', table_entry.user_specified_type)
                 self.assertEqual('oracle', table_entry.user_specified_system)
