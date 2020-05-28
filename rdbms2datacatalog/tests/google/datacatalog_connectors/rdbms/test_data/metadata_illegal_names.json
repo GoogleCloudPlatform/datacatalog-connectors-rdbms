@@ -1,0 +1,29 @@
+{
+    "schemas": [
+        {
+            "name": "CO_$/\\_very_looooooooooooooooooooooooooooooooooooooooooooooooong",
+            "create_time": "2019-11-19 00:00:00",
+            "tables": [
+                {
+                    "name": "CUSTOMERS_$/\\_very_loooooooooooooooooooooooooooooooooooooooooong",
+                    "desc": "Details of the people placing orders",
+                    "create_time": "2019-11-19 00:00:00",
+                    "update_time": "2019-11-19 00:00:00",
+                    "num_rows": 392.0,
+                    "columns": [
+                        {
+                            "name": "CUSTOMER_ID/2",
+                            "type": "NUMBER",
+                            "type_ext": "NUMBER",
+                            "desc": "Auto-incrementing primary key",
+                            "length": "22",
+                            "data_precision": NaN,
+                            "data_scale": 0.0,
+                            "nullable": "N"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

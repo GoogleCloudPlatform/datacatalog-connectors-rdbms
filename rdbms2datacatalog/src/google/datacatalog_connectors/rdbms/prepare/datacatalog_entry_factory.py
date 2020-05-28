@@ -46,7 +46,7 @@ class DataCatalogEntryFactory(BaseEntryFactory):
             'table_container_def']['type']
         entry.user_specified_system = self.__entry_group_id
 
-        entry.display_name = table_container['name']
+        entry.display_name = self._format_display_name(table_container['name'])
 
         create_time, update_time = \
             DataCatalogEntryFactory.__convert_source_system_timestamp_fields(
@@ -66,8 +66,8 @@ class DataCatalogEntryFactory(BaseEntryFactory):
             self.__project_id, self.__location_id, self.__entry_group_id,
             entry_id)
 
-        entry.linked_resource = '//{}//{}'.format(
-            self.__metadata_host_server, table_container['name'].strip())
+        entry.linked_resource = '//{}//{}'.format(self.__metadata_host_server,
+                                                  entry_id)
 
         return entry_id, entry
 
@@ -100,8 +100,8 @@ class DataCatalogEntryFactory(BaseEntryFactory):
 
         entry.description = desc
 
-        entry.linked_resource = '//{}//{}'.format(self.__metadata_host_server,
-                                                  table['name'])
+        entry.linked_resource = '//{}//{}'.format(
+            self.__metadata_host_server, self._format_id(table['name']))
 
         create_time, update_time = \
             DataCatalogEntryFactory.__convert_source_system_timestamp_fields(
@@ -118,7 +118,7 @@ class DataCatalogEntryFactory(BaseEntryFactory):
                 desc = ''
             columns.append(
                 datacatalog_v1beta1.types.ColumnSchema(
-                    column=column['name'],
+                    column=self._format_id(column['name']),
                     description=desc,
                     type=DataCatalogEntryFactory.__format_entry_column_type(
                         column['type']),
