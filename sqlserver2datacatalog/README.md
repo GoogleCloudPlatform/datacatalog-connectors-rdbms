@@ -5,6 +5,45 @@ Currently supports SQL Server 2017 Standard.
 
 **Disclaimer: This is not an officially supported Google product.**
 
+<!--
+  ⚠️ DO NOT UPDATE THE TABLE OF CONTENTS MANUALLY ️️⚠️
+  run `npx markdown-toc -i README.md`.
+
+  Please stick to 80-character line wraps as much as you can.
+-->
+
+## Table of Contents
+
+<!-- toc -->
+
+- [1. Environment setup](#1-environment-setup)
+  * [1.1. Get the code](#11-get-the-code)
+  * [1.2. Auth credentials](#12-auth-credentials)
+      - [1.2.1. Create a service account and grant it below roles](#121-create-a-service-account-and-grant-it-below-roles)
+      - [1.2.2. Download a JSON key and save it as](#122-download-a-json-key-and-save-it-as)
+  * [1.3. Virtualenv](#13-virtualenv)
+      - [1.3.1. Install Python 3.6+](#131-install-python-36)
+      - [1.3.2. Create and activate a *virtualenv*](#132-create-and-activate-a-virtualenv)
+      - [1.3.3. Install the dependencies](#133-install-the-dependencies)
+      - [1.3.4 Set up SQL Server Driver (Optional)](#134-set-up-sql-server-driver--optional)
+      - [1.3.5. Set environment variables](#135-set-environment-variables)
+  * [1.4. Docker](#14-docker)
+- [2. Sample application entry point](#2-sample-application-entry-point)
+  * [2.1. Run main.py](#21-run-mainpy)
+      - [3. Generate wheel file](#3-generate-wheel-file)
+- [4 Scripts inside tools](#4-scripts-inside-tools)
+  * [4.1. Run clean up](#41-run-clean-up)
+- [5. Developer environment](#5-developer-environment)
+  * [5.1. Install and run Yapf formatter](#51-install-and-run-yapf-formatter)
+  * [5.2. Install and run Flake8 linter](#52-install-and-run-flake8-linter)
+  * [5.3. Run Tests](#53-run-tests)
+- [6. Metrics](#6-metrics)
+- [7. Troubleshooting](#7-troubleshooting)
+
+<!-- tocstop -->
+
+-----
+
 ## 1. Environment setup
 
 ### 1.1. Get the code

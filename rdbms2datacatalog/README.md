@@ -4,6 +4,35 @@ Common resources for Data Catalog RDBMS connectors.
 
 **Disclaimer: This is not an officially supported Google product.**
 
+<!--
+  ⚠️ DO NOT UPDATE THE TABLE OF CONTENTS MANUALLY ️️⚠️
+  run `npx markdown-toc -i README.md`.
+
+  Please stick to 80-character line wraps as much as you can.
+-->
+
+## Table of Contents
+
+<!-- toc -->
+
+- [1. Installable file build process](#1-installable-file-build-process)
+  * [1.1. Get the code](#11-get-the-code)
+  * [1.2. Virtualenv](#12-virtualenv)
+      - [1.2.1. Install Python 3.5](#121-install-python-35)
+      - [1.2.2. Create and activate a *virtualenv*](#122-create-and-activate-a-virtualenv)
+  * [1.3. Generate a *wheel* file](#13-generate-a-wheel-file)
+- [2. Developer environment](#2-developer-environment)
+  * [2.1. Install local dependencies](#21-install-local-dependencies)
+  * [2.2. Install and run YAPF formatter](#22-install-and-run-yapf-formatter)
+  * [2.3. Install and run Flake8 linter](#23-install-and-run-flake8-linter)
+  * [2.4. Install the package in editable mode (i.e. setuptools “develop mode”)](#24-install-the-package-in-editable-mode-ie-setuptools-develop-mode)
+  * [2.5. Run the unit tests](#25-run-the-unit-tests)
+- [3. Setting up the RDBMS conenctor](#3-setting-up-the-rdbms-conenctor)
+
+<!-- tocstop -->
+
+-----
+
 ## 1. Installable file build process
 
 ### 1.1. Get the code
@@ -121,4 +150,4 @@ For columns they are used to create the Data Catalog Entry schema, two `target` 
 | Level      | Target   | Description         | Mandatory | 
 | ---        | ---      | ---                 | ---       |  
 | column_def | **type** | Column type.        |  Y        | 
-| column_def | **desc** | Column description. |  N        | 
+| column_def | **desc** | Column description. |  N        |
