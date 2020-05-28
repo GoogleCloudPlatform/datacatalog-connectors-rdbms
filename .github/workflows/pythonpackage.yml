@@ -34,7 +34,7 @@ jobs:
         pip install ./lib/datacatalog_connectors_commons-1.0.0-py2.py3-none-any.whl
         pip install ./lib/datacatalog_connectors_commons_test-1.0.0-py2.py3-none-any.whl
         pip install pytest mock pytest-cov
-        if [ -f ./lib/rdbms2datacatalog-1.0.0-py2.py3-none-any.whl ]; then pip install ./lib/rdbms2datacatalog-1.0.0-py2.py3-none-any.whl; fi
+        if [ -f ./lib/rdbms2datacatalog-1.1.0-py2.py3-none-any.whl ]; then pip install ./lib/rdbms2datacatalog-1.1.0-py2.py3-none-any.whl; fi
         if [ -f ./lib/postgresql2datacatalog-1.0.0-py2.py3-none-any.whl ]; then pip install ./lib/postgresql2datacatalog-1.0.0-py2.py3-none-any.whl; fi
     - name: Formatting rules with yapf
       run: |
