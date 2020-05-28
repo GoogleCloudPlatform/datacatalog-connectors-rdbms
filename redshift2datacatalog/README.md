@@ -78,7 +78,7 @@ source ./env/bin/activate
 
 ```bash
 pip install ./lib/datacatalog_connectors_commons-1.0.0-py2.py3-none-any.whl
-pip install ./lib/rdbms2datacatalog-1.0.0-py2.py3-none-any.whl
+pip install ./lib/rdbms2datacatalog-1.1.0-py2.py3-none-any.whl
 pip install ./lib/postgresql2datacatalog-1.0.0-py2.py3-none-any.whl
 pip install --editable .
 ```
