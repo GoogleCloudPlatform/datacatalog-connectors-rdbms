@@ -20,7 +20,7 @@ release_status = 'Development Status :: 3 - Alpha'
 
 setuptools.setup(
     name='rdbms2datacatalog',
-    version='1.0.0',
+    version='1.1.0',
     author='Google LLC',
     description=
     'Commons library for ingesting RDBMS metadata into Google Cloud Data Catalog',
