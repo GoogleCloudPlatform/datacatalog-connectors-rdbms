@@ -24,7 +24,7 @@ SELECT  t.table_schema as schema_name,
         c.numeric_precision as column_numeric_precision
     FROM information_schema.tables t
         JOIN  information_schema.columns c
-        on c.table_name = t.table_name
+        on c.table_name = t.table_name and c.table_schema = t.table_schema
     WHERE t.table_schema NOT IN
         ('pg_catalog', 'information_schema',
             'pg_toast', 'gp_toolkit', 'pg_internal')
