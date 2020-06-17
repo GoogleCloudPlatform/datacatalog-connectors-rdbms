@@ -24,11 +24,11 @@ Currently supports SQL Server 2017 Standard.
     + [1.3.2. Create and activate a *virtualenv*](#132-create-and-activate-a-virtualenv)
     + [1.3.3. Install the library](#133-install-the-library)
 - [2. Environment setup](#2-environment-setup)
-  * [2.2. Auth credentials](#22-auth-credentials)
-    + [2.2.1. Create a service account and grant it below roles](#221-create-a-service-account-and-grant-it-below-roles)
-    + [2.2.2. Download a JSON key and save it as](#222-download-a-json-key-and-save-it-as)
-  * [2.3 Set up SQL Server Driver (Optional)](#23-set-up-sql-server-driver--optional)
-  * [2.4. Set environment variables](#24-set-environment-variables)
+  * [2.1. Auth credentials](#21-auth-credentials)
+    + [2.1.1. Create a service account and grant it below roles](#211-create-a-service-account-and-grant-it-below-roles)
+    + [2.1.2. Download a JSON key and save it as](#212-download-a-json-key-and-save-it-as)
+  * [2.2 Set up SQL Server Driver (Optional)](#22-set-up-sql-server-driver--optional)
+  * [2.3. Set environment variables](#23-set-environment-variables)
 - [3. Run entry point](#3-run-entry-point)
   * [3.1. Run Python entry point](#31-run-python-entry-point)
   * [3.2. Run Docker entry point](#32-run-docker-entry-point)
@@ -99,24 +99,23 @@ pip install .
 
 ## 2. Environment setup
 
-### 2.2. Auth credentials
+### 2.1. Auth credentials
 
-#### 2.2.1. Create a service account and grant it below roles
+#### 2.1.1. Create a service account and grant it below roles
 
 - Data Catalog Admin
 
-#### 2.2.2. Download a JSON key and save it as
+#### 2.1.2. Download a JSON key and save it as
 - `<YOUR-CREDENTIALS_FILES_FOLDER>/sqlserver2dc-credentials.json`
 
 > Please notice this folder and file will be required in next steps.
 
-### 2.3 Set up SQL Server Driver  (Optional)
+### 2.2 Set up SQL Server Driver  (Optional)
 This is step is needed when you are running the connector on a machine that does not have the SQLServer installation.
 
 https://docs.microsoft.com/en-us/sql/connect/odbc/linux-mac/installing-the-microsoft-odbc-driver-for-sql-server?view=sql-server-2017
 
-
-### 2.4. Set environment variables
+### 2.3. Set environment variables
 
 Replace below values according to your environment:
 

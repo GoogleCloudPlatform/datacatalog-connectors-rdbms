@@ -23,13 +23,13 @@ Library for ingesting Oracle metadata into Google Cloud Data Catalog.
     + [1.3.2. Create and activate a *virtualenv*](#132-create-and-activate-a-virtualenv)
     + [1.3.3. Install the library](#133-install-the-library)
 - [2. Environment setup](#2-environment-setup)
-  * [2.2. Auth credentials](#22-auth-credentials)
-    + [2.2.1. Create a service account and grant it below roles](#221-create-a-service-account-and-grant-it-below-roles)
-    + [2.2.2. Download a JSON key and save it as](#222-download-a-json-key-and-save-it-as)
-  * [2.3 Set up Oracle Driver (Optional)](#23-set-up-oracle-driver--optional)
-    + [2.3.1 Set Oracle client for Linux (Cloud Shell)](#231-set-oracle-client-for-linux-cloud-shell)
-    + [2.3.2 Set Oracle client for Mac](#232--set-oracle-client-for-mac)
-  * [2.4. Set environment variables](#24-set-environment-variables)
+  * [2.1. Auth credentials](#21-auth-credentials)
+    + [2.1.1. Create a service account and grant it below roles](#211-create-a-service-account-and-grant-it-below-roles)
+    + [2.1.2. Download a JSON key and save it as](#212-download-a-json-key-and-save-it-as)
+  * [2.2 Set up Oracle Driver (Optional)](#22-set-up-oracle-driver--optional)
+    + [2.2.1 Set Oracle client for Linux (Cloud Shell)](#221-set-oracle-client-for-linux-cloud-shell)
+    + [2.2.2 Set Oracle client for Mac](#222--set-oracle-client-for-mac)
+  * [2.3. Set environment variables](#23-set-environment-variables)
 - [3. Run entry point](#3-run-entry-point)
   * [3.1. Run Python entry point](#31-run-python-entry-point)
   * [3.2. Run Docker entry point](#32-run-docker-entry-point)
@@ -100,21 +100,21 @@ pip install .
 
 ## 2. Environment setup
 
-### 2.2. Auth credentials
+### 2.1. Auth credentials
 
-#### 2.2.1. Create a service account and grant it below roles
+#### 2.1.1. Create a service account and grant it below roles
 
 - Data Catalog Admin
 
-#### 2.2.2. Download a JSON key and save it as
+#### 2.1.2. Download a JSON key and save it as
 - `<YOUR-CREDENTIALS_FILES_FOLDER>/oracle2dc-datacatalog-credentials.json`
 
 > Please notice this folder and file will be required in next steps.
 
-### 2.3 Set up Oracle Driver  (Optional)
+### 2.2 Set up Oracle Driver  (Optional)
 This is step is needed when you are running the connector on a machine that does not have the Oracle installation.
 
-#### 2.3.1 Set Oracle client for Linux (Cloud Shell)
+#### 2.2.1 Set Oracle client for Linux (Cloud Shell)
 Download the zip file:
 https://oracle.github.io/odpi/doc/installation.html#linux
 
@@ -125,7 +125,7 @@ unzip instantclient-basic-linux.x64-19.5.0.0.0dbru.zip
 export LD_LIBRARY_PATH=/oracle2datacatalog/bin/instantclient_19_5
 ```
 
-#### 2.3.2  Set Oracle client for Mac
+#### 2.2.2  Set Oracle client for Mac
 Download the zip file:
 https://oracle.github.io/odpi/doc/installation.html#macos
 
@@ -136,7 +136,7 @@ unzip instantclient-basic-macos.x64-19.3.0.0.0dbru.zip
 export LD_LIBRARY_PATH=/oracle2datacatalog/bin/instantclient_19_3
 ```
 
-### 2.4. Set environment variables
+### 2.3. Set environment variables
 
 Replace below values according to your environment:
 
