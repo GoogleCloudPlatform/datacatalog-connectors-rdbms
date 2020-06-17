@@ -27,7 +27,7 @@ Library for ingesting PostgreSQL metadata into Google Cloud Data Catalog.
     + [2.2.1. Create a service account and grant it below roles](#221-create-a-service-account-and-grant-it-below-roles)
     + [2.2.2. Download a JSON key and save it as](#222-download-a-json-key-and-save-it-as)
     + [2.2.3. Set environment variables](#223-set-environment-variables)
-- [3. RUN entry point](#3-run-entry-point)
+- [3. Run entry point](#3-run-entry-point)
   * [3.1. Run Python entry point](#31-run-python-entry-point)
   * [3.2. Run Docker entry point](#32-run-docker-entry-point)
 - [4 Scripts inside tools](#4-scripts-inside-tools)
@@ -127,21 +127,35 @@ export POSTGRESQL2DC_RAW_METADATA_CSV=postgresql_raw_csv (If supplied ignores th
 
 ```
 
-## 3. RUN entry point
+## 3. Run entry point
 
 ### 3.1. Run Python entry point
 
 - Virtualenv
 
 ```bash
-google-datacatalog-postgresql-connector --datacatalog-project-id=$POSTGRESQL2DC_DATACATALOG_PROJECT_ID --datacatalog-location-id=$POSTGRESQL2DC_DATACATALOG_LOCATION_ID --postgresql-host=$POSTGRESQL2DC_POSTGRESQL_SERVER --postgresql-user=$POSTGRESQL2DC_POSTGRESQL_USERNAME --postgresql-pass=$POSTGRESQL2DC_POSTGRESQL_PASSWORD --postgresql-database=$POSTGRESQL2DC_POSTGRESQL_DATABASE  --raw-metadata-csv=$POSTGRESQL2DC_RAW_METADATA_CSV      
+google-datacatalog-postgresql-connector \
+--datacatalog-project-id=$POSTGRESQL2DC_DATACATALOG_PROJECT_ID \
+--datacatalog-location-id=$POSTGRESQL2DC_DATACATALOG_LOCATION_ID \
+--postgresql-host=$POSTGRESQL2DC_POSTGRESQL_SERVER \
+--postgresql-user=$POSTGRESQL2DC_POSTGRESQL_USERNAME \
+--postgresql-pass=$POSTGRESQL2DC_POSTGRESQL_PASSWORD \
+--postgresql-database=$POSTGRESQL2DC_POSTGRESQL_DATABASE  \
+--raw-metadata-csv=$POSTGRESQL2DC_RAW_METADATA_CSV
 ```
 
 ### 3.2. Run Docker entry point
 
 ```bash
 docker build -t postgresql2datacatalog .
-docker run --rm --tty -v YOUR-CREDENTIALS_FILES_FOLDER:/data postgresql2datacatalog --datacatalog-project-id=$POSTGRESQL2DC_DATACATALOG_PROJECT_ID --datacatalog-location-id=$POSTGRESQL2DC_DATACATALOG_LOCATION_ID --postgresql-host=$POSTGRESQL2DC_POSTGRESQL_SERVER --postgresql-user=$POSTGRESQL2DC_POSTGRESQL_USERNAME --postgresql-pass=$POSTGRESQL2DC_POSTGRESQL_PASSWORD --postgresql-database=$POSTGRESQL2DC_POSTGRESQL_DATABASE  --raw-metadata-csv=$POSTGRESQL2DC_RAW_METADATA_CSV       
+docker run --rm --tty -v YOUR-CREDENTIALS_FILES_FOLDER:/data postgresql2datacatalog \
+--datacatalog-project-id=$POSTGRESQL2DC_DATACATALOG_PROJECT_ID \
+--datacatalog-location-id=$POSTGRESQL2DC_DATACATALOG_LOCATION_ID \
+--postgresql-host=$POSTGRESQL2DC_POSTGRESQL_SERVER \
+--postgresql-user=$POSTGRESQL2DC_POSTGRESQL_USERNAME \
+--postgresql-pass=$POSTGRESQL2DC_POSTGRESQL_PASSWORD \
+--postgresql-database=$POSTGRESQL2DC_POSTGRESQL_DATABASE  \
+--raw-metadata-csv=$POSTGRESQL2DC_RAW_METADATA_CSV       
 ```
 
 ## 4 Scripts inside tools
@@ -224,3 +238,5 @@ debug_error_string =
 "{"created":"@1587396969.506556000", "description":"Error received from peer ipv4:172.217.29.42:443","file":"src/core/lib/surface/call.cc","file_line":1056,"grpc_message":"Quota exceeded for quota metric 'Read requests' and limit 'Read requests per minute' of service 'datacatalog.googleapis.com' for consumer 'project_number:1111111111111'.","grpc_status":8}"
 ```
 For more info about Data Catalog quota, go to: [Data Catalog quota docs](https://cloud.google.com/data-catalog/docs/resources/quotas).
+
+[1]: https://virtualenv.pypa.io/en/latest/
