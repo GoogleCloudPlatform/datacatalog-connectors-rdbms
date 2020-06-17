@@ -6,6 +6,9 @@ This repository contains sample code with integration between Data Catalog and R
 
 ![Python package](https://github.com/GoogleCloudPlatform/datacatalog-connectors-rdbms/workflows/Python%20package/badge.svg?branch=master&force_cache=true)
 
+**Note:**
+The package names were renamed, if you are still using the older version use: [release-v0.0.0](ttps://github.com/GoogleCloudPlatform/datacatalog-connectors-rdbms/tree/release-v0.0.0)
+
 ## Project structure
 
 Each subfolder contains a Python package. Please check components' README files for
