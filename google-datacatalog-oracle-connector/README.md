@@ -60,8 +60,8 @@ dependencies. Make sure you use Python 3.6+.
 ### 1.1. Mac/Linux
 
 ```bash
-pip install virtualenv
-virtualenv <your-env>
+pip3 install virtualenv
+virtualenv --python python3.6 <your-env>
 source <your-env>/bin/activate
 <your-env>/bin/pip install google-datacatalog-oracle-connector
 ```
@@ -69,8 +69,8 @@ source <your-env>/bin/activate
 ### 1.2. Windows
 
 ```bash
-pip install virtualenv
-virtualenv <your-env>
+pip3 install virtualenv
+virtualenv --python python3.6 <your-env>
 <your-env>\Scripts\activate
 <your-env>\Scripts\pip.exe install google-datacatalog-oracle-connector
 ```
@@ -87,8 +87,8 @@ cd datacatalog-connectors-rdbms/google-datacatalog-oracle-connector
 #### 1.3.2. Create and activate a *virtualenv*
 
 ```bash
-pip install virtualenv
-virtualenv <your-env>
+pip3 install virtualenv
+virtualenv --python python3.6 <your-env>
 source <your-env>/bin/activate
 ```
 
