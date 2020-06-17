@@ -16,9 +16,14 @@
 
 import setuptools
 
+release_status='Development Status :: 4 - Beta'
+
+with open('README.md') as readme_file:
+    readme = readme_file.read()
+
 setuptools.setup(
-    name='redshift2datacatalog',
-    version='1.0.0',
+    name='google-datacatalog-redshift-connector',
+    version='0.5.0',
     author='Google LLC',
     description='Library for ingesting Redshift metadata into Google Cloud Data Catalog',
     platforms='Posix; MacOS X; Windows',
@@ -27,19 +32,22 @@ setuptools.setup(
     package_dir={'': 'src'},
     entry_points={
         'console_scripts': [
-            'redshift2datacatalog = google.datacatalog_connectors.redshift:main',
+            'google-datacatalog-redshift-connector = google.datacatalog_connectors.redshift:main',
         ],
     },
     include_package_data=True,
-    install_requires=(),
+    install_requires=('google-datacatalog-postgresql-connector'),
     setup_requires=(
         'pytest-runner',
     ),
     tests_require=(
         'pytest-cov',
+        'google-datacatalog-connectors-commons-test'
     ),
     classifiers=(
-        'Development Status :: 1 - Alpha',
+        release_status,
         'Programming Language :: Python :: 3.7',
     ),
+    long_description=readme,
+    long_description_content_type='text/markdown',
 )

@@ -1,4 +1,4 @@
-# sqlserver2datacatalog
+# google-datacatalog-sqlserver-connector
 
 Library for ingesting SQLServer metadata into Google Cloud Data Catalog.
 Currently supports SQL Server 2017 Standard.
@@ -16,21 +16,22 @@ Currently supports SQL Server 2017 Standard.
 
 <!-- toc -->
 
-- [1. Environment setup](#1-environment-setup)
-  * [1.1. Get the code](#11-get-the-code)
-  * [1.2. Auth credentials](#12-auth-credentials)
-      - [1.2.1. Create a service account and grant it below roles](#121-create-a-service-account-and-grant-it-below-roles)
-      - [1.2.2. Download a JSON key and save it as](#122-download-a-json-key-and-save-it-as)
-  * [1.3. Virtualenv](#13-virtualenv)
-      - [1.3.1. Install Python 3.6+](#131-install-python-36)
-      - [1.3.2. Create and activate a *virtualenv*](#132-create-and-activate-a-virtualenv)
-      - [1.3.3. Install the dependencies](#133-install-the-dependencies)
-      - [1.3.4 Set up SQL Server Driver (Optional)](#134-set-up-sql-server-driver--optional)
-      - [1.3.5. Set environment variables](#135-set-environment-variables)
-  * [1.4. Docker](#14-docker)
-- [2. Sample application entry point](#2-sample-application-entry-point)
-  * [2.1. Run main.py](#21-run-mainpy)
-      - [3. Generate wheel file](#3-generate-wheel-file)
+- [1. Installation](#1-installation)
+  * [1.1. Mac/Linux](#11-maclinux)
+  * [1.2. Windows](#12-windows)
+  * [1.3. Install from source](#13-install-from-source)
+    + [1.3.1. Get the code](#131-get-the-code)
+    + [1.3.2. Create and activate a *virtualenv*](#132-create-and-activate-a-virtualenv)
+    + [1.3.3. Install the library](#133-install-the-library)
+- [2. Environment setup](#2-environment-setup)
+  * [2.2. Auth credentials](#22-auth-credentials)
+    + [2.2.1. Create a service account and grant it below roles](#221-create-a-service-account-and-grant-it-below-roles)
+    + [2.2.2. Download a JSON key and save it as](#222-download-a-json-key-and-save-it-as)
+  * [2.3 Set up SQL Server Driver (Optional)](#23-set-up-sql-server-driver--optional)
+  * [2.4. Set environment variables](#24-set-environment-variables)
+- [3. Run entry point](#3-run-entry-point)
+  * [3.1. Run Python entry point](#31-run-python-entry-point)
+  * [3.2. Run Docker entry point](#32-run-docker-entry-point)
 - [4 Scripts inside tools](#4-scripts-inside-tools)
   * [4.1. Run clean up](#41-run-clean-up)
 - [5. Developer environment](#5-developer-environment)
@@ -44,55 +45,78 @@ Currently supports SQL Server 2017 Standard.
 
 -----
 
-## 1. Environment setup
+## 1. Installation
 
-### 1.1. Get the code
+Install this library in a [virtualenv][1] using pip. [virtualenv][1] is a tool to
+create isolated Python environments. The basic problem it addresses is one of
+dependencies and versions, and indirectly permissions.
+
+With [virtualenv][1], it's possible to install this library without needing system
+install permissions, and without clashing with the installed system
+dependencies. Make sure you use Python 3.6+.
+
+
+### 1.1. Mac/Linux
+
+```bash
+pip install virtualenv
+virtualenv <your-env>
+source <your-env>/bin/activate
+<your-env>/bin/pip install google-datacatalog-sqlserver-connector
+```
+
+### 1.2. Windows
+
+```bash
+pip install virtualenv
+virtualenv <your-env>
+<your-env>\Scripts\activate
+<your-env>\Scripts\pip.exe install google-datacatalog-sqlserver-connector
+```
+
+### 1.3. Install from source
+
+#### 1.3.1. Get the code
 
 ````bash
-git clone https://.../sqlserver2datacatalog.git
-cd sqlserver2datacatalog
+git clone https://github.com/GoogleCloudPlatform/datacatalog-connectors-rdbms/
+cd google-datacatalog-sqlserver-connector
 ````
 
-### 1.2. Auth credentials
+#### 1.3.2. Create and activate a *virtualenv*
 
-##### 1.2.1. Create a service account and grant it below roles
+```bash
+pip install virtualenv
+virtualenv <your-env>
+source <your-env>/bin/activate
+```
+
+#### 1.3.3. Install the library
+
+```bash
+pip install .
+```
+
+## 2. Environment setup
+
+### 2.2. Auth credentials
+
+#### 2.2.1. Create a service account and grant it below roles
 
 - Data Catalog Admin
 
-##### 1.2.2. Download a JSON key and save it as
+#### 2.2.2. Download a JSON key and save it as
 - `<YOUR-CREDENTIALS_FILES_FOLDER>/sqlserver2dc-credentials.json`
 
 > Please notice this folder and file will be required in next steps.
 
-### 1.3. Virtualenv
-
-Using *virtualenv* is optional, but strongly recommended unless you use Docker or a PEX file.
-
-##### 1.3.1. Install Python 3.6+
-
-##### 1.3.2. Create and activate a *virtualenv*
-
-```bash
-pip install --upgrade virtualenv
-python3 -m virtualenv --python python3 env
-source ./env/bin/activate
-```
-
-##### 1.3.3. Install the dependencies
-
-```bash
-pip install ./lib/datacatalog_connectors_commons-1.0.0-py2.py3-none-any.whl
-pip install ./lib/rdbms2datacatalog-1.1.0-py2.py3-none-any.whl
-pip install --editable .
-```
-
-##### 1.3.4 Set up SQL Server Driver  (Optional)
+### 2.3 Set up SQL Server Driver  (Optional)
 This is step is needed when you are running the connector on a machine that does not have the SQLServer installation.
 
 https://docs.microsoft.com/en-us/sql/connect/odbc/linux-mac/installing-the-microsoft-odbc-driver-for-sql-server?view=sql-server-2017
 
 
-##### 1.3.5. Set environment variables
+### 2.4. Set environment variables
 
 Replace below values according to your environment:
 
@@ -109,31 +133,35 @@ export SQLSERVER2DC_RAW_METADATA_CSV=sqlserver_raw_csv (If supplied ignores the 
 
 ```
 
-### 1.4. Docker
+## 3. Run entry point
 
-See instructions below.
-
-## 2. Sample application entry point
-
-### 2.1. Run main.py
+### 3.1. Run Python entry point
 
 - Virtualenv
 
 ```bash
-sqlserver2datacatalog --datacatalog-project-id=$SQLSERVER2DC_DATACATALOG_PROJECT_ID --datacatalog-location-id=$SQLSERVER2DC_DATACATALOG_LOCATION_ID --sqlserver-host=$SQLSERVER2DC_SQLSERVER_SERVER --sqlserver-user=$SQLSERVER2DC_SQLSERVER_USERNAME --sqlserver-pass=$SQLSERVER2DC_SQLSERVER_PASSWORD --sqlserver-database=$SQLSERVER2DC_SQLSERVER_DATABASE  --raw-metadata-csv=$SQLSERVER2DC_RAW_METADATA_CSV      
+google-datacatalog-sqlserver-connector \
+--datacatalog-project-id=$SQLSERVER2DC_DATACATALOG_PROJECT_ID \
+--datacatalog-location-id=$SQLSERVER2DC_DATACATALOG_LOCATION_ID \
+--sqlserver-host=$SQLSERVER2DC_SQLSERVER_SERVER \
+--sqlserver-user=$SQLSERVER2DC_SQLSERVER_USERNAME \
+--sqlserver-pass=$SQLSERVER2DC_SQLSERVER_PASSWORD \
+--sqlserver-database=$SQLSERVER2DC_SQLSERVER_DATABASE  \
+--raw-metadata-csv=$SQLSERVER2DC_RAW_METADATA_CSV      
 ```
 
-- Or using Docker
+### 3.2. Run Docker entry point
 
 ```bash
 docker build -t sqlserver2datacatalog .
-docker run --rm --tty -v YOUR-CREDENTIALS_FILES_FOLDER:/data sqlserver2datacatalog --datacatalog-project-id=$SQLSERVER2DC_DATACATALOG_PROJECT_ID --datacatalog-location-id=$SQLSERVER2DC_DATACATALOG_LOCATION_ID --sqlserver-host=$SQLSERVER2DC_SQLSERVER_SERVER --sqlserver-user=$SQLSERVER2DC_SQLSERVER_USERNAME --sqlserver-pass=$SQLSERVER2DC_SQLSERVER_PASSWORD --sqlserver-database=$SQLSERVER2DC_SQLSERVER_DATABASE  --raw-metadata-csv=$SQLSERVER2DC_RAW_METADATA_CSV       
-```
-
-##### 3. Generate wheel file
-
-```bash
-python setup.py bdist_wheel
+docker run --rm --tty -v YOUR-CREDENTIALS_FILES_FOLDER:/data sqlserver2datacatalog \
+--datacatalog-project-id=$SQLSERVER2DC_DATACATALOG_PROJECT_ID \
+--datacatalog-location-id=$SQLSERVER2DC_DATACATALOG_LOCATION_ID \
+--sqlserver-host=$SQLSERVER2DC_SQLSERVER_SERVER \
+--sqlserver-user=$SQLSERVER2DC_SQLSERVER_USERNAME \
+--sqlserver-pass=$SQLSERVER2DC_SQLSERVER_PASSWORD \
+--sqlserver-database=$SQLSERVER2DC_SQLSERVER_DATABASE  \
+--raw-metadata-csv=$SQLSERVER2DC_RAW_METADATA_CSV       
 ```
 
 ## 4 Scripts inside tools
@@ -182,7 +210,6 @@ flake8 src tests
 ### 5.3. Run Tests
 
 ```bash
-pip install ./lib/datacatalog_connectors_commons_test-1.0.0-py2.py3-none-any.whl
 python setup.py test
 ```
 
@@ -200,3 +227,5 @@ debug_error_string =
 "{"created":"@1587396969.506556000", "description":"Error received from peer ipv4:172.217.29.42:443","file":"src/core/lib/surface/call.cc","file_line":1056,"grpc_message":"Quota exceeded for quota metric 'Read requests' and limit 'Read requests per minute' of service 'datacatalog.googleapis.com' for consumer 'project_number:1111111111111'.","grpc_status":8}"
 ```
 For more info about Data Catalog quota, go to: [Data Catalog quota docs](https://cloud.google.com/data-catalog/docs/resources/quotas).
+
+[1]: https://virtualenv.pypa.io/en/latest/

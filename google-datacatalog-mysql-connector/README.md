@@ -26,7 +26,7 @@ Library for ingesting MySQL metadata into Google Cloud Data Catalog.
   * [2.2. Auth credentials](#22-auth-credentials)
     + [2.2.1. Create a service account and grant it below roles](#221-create-a-service-account-and-grant-it-below-roles)
     + [2.2.2. Download a JSON key and save it as](#222-download-a-json-key-and-save-it-as)
-      - [2.2.3. Set environment variables](#223-set-environment-variables)
+  * [2.3. Set environment variables](#23-set-environment-variables)
 - [3. Run entry point](#3-run-entry-point)
   * [3.1. Run Python entry point](#31-run-python-entry-point)
   * [3.2. Run Docker entry point](#32-run-docker-entry-point)
@@ -108,7 +108,7 @@ pip install .
 
 > Please notice this folder and file will be required in next steps.
 
-##### 2.2.3. Set environment variables
+### 2.3. Set environment variables
 
 Replace below values according to your environment:
 

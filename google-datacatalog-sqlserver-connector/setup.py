@@ -16,9 +16,14 @@
 
 import setuptools
 
+release_status='Development Status :: 4 - Beta'
+
+with open('README.md') as readme_file:
+    readme = readme_file.read()
+
 setuptools.setup(
-    name='sqlserver2datacatalog',
-    version='1.0.0',
+    name='google-datacatalog-sqlserver-connector',
+    version='0.5.0',
     author='Google LLC',
     description=
     'Library for ingesting SQLServer metadata into Google Cloud Data Catalog',
@@ -28,15 +33,17 @@ setuptools.setup(
     package_dir={'': 'src'},
     entry_points={
         'console_scripts': [
-            'sqlserver2datacatalog = google.datacatalog_connectors.sqlserver:main',
+            'google-datacatalog-sqlserver-connector = google.datacatalog_connectors.sqlserver:main',
         ],
     },
     include_package_data=True,
-    install_requires=('pyodbc',),
+    install_requires=('pyodbc', 'google-datacatalog-rdbms-connector'),
     setup_requires=('pytest-runner',),
-    tests_require=('pytest-cov',),
+    tests_require=('pytest-cov', 'google-datacatalog-connectors-commons-test'),
     classifiers=(
-        'Development Status :: 1 - Alpha',
+        release_status,
         'Programming Language :: Python :: 3.7',
     ),
+    long_description=readme,
+    long_description_content_type='text/markdown',
 )
