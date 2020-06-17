@@ -1,4 +1,4 @@
-# mysql2datacatalog
+# google-datacatalog-mysql-connector
 
 Library for ingesting MySQL metadata into Google Cloud Data Catalog.
 
