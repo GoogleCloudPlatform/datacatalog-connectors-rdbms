@@ -1,4 +1,4 @@
-# rdbmscsv2datacatalog
+# google-datacatalog-rdbmscsv-connector
 
 Library for ingesting a CSV metadata extraction from a RDBMS into Google Cloud Data Catalog.
 
@@ -15,74 +15,99 @@ Library for ingesting a CSV metadata extraction from a RDBMS into Google Cloud D
 
 <!-- toc -->
 
-- [1. Environment setup](#1-environment-setup)
-  * [1.1. Get the code](#11-get-the-code)
-  * [1.2. Auth credentials](#12-auth-credentials)
-      - [1.2.1. Create a service account and grant it below roles](#121-create-a-service-account-and-grant-it-below-roles)
-      - [1.2.2. Download a JSON key and save it as](#122-download-a-json-key-and-save-it-as)
-  * [1.3. Virtualenv](#13-virtualenv)
-      - [1.3.1. Install Python 3.6+](#131-install-python-36)
-      - [1.3.2. Create and activate a *virtualenv*](#132-create-and-activate-a-virtualenv)
-      - [1.3.3. Install the dependencies](#133-install-the-dependencies)
-      - [1.3.5. Set environment variables](#135-set-environment-variables)
-  * [1.4. Docker](#14-docker)
-- [2. Sample application entry point](#2-sample-application-entry-point)
-  * [2.1. Run main.py](#21-run-mainpy)
-- [3 Scripts inside tools](#3-scripts-inside-tools)
-  * [3.1. Run clean up](#31-run-clean-up)
-- [4. Developer environment](#4-developer-environment)
-  * [4.1. Install and run Yapf formatter](#41-install-and-run-yapf-formatter)
-  * [4.2. Install and run Flake8 linter](#42-install-and-run-flake8-linter)
-  * [4.3. Run Tests](#43-run-tests)
-- [5. Troubleshooting](#5-troubleshooting)
+- [1. Installation](#1-installation)
+  * [1.1. Mac/Linux](#11-maclinux)
+  * [1.2. Windows](#12-windows)
+  * [1.3. Install from source](#13-install-from-source)
+    + [1.3.1. Get the code](#131-get-the-code)
+    + [1.3.2. Create and activate a *virtualenv*](#132-create-and-activate-a-virtualenv)
+    + [1.3.3. Install the library](#133-install-the-library)
+- [2. Environment setup](#2-environment-setup)
+  * [2.2. Auth credentials](#22-auth-credentials)
+    + [2.2.1. Create a service account and grant it below roles](#221-create-a-service-account-and-grant-it-below-roles)
+    + [2.2.2. Download a JSON key and save it as](#222-download-a-json-key-and-save-it-as)
+    + [2.2.3. Set environment variables](#223-set-environment-variables)
+- [3. Run entry point](#3-run-entry-point)
+  * [3.1. Run Python entry point](#31-run-python-entry-point)
+  * [3.2. Run Docker entry point](#32-run-docker-entry-point)
+- [4 Scripts inside tools](#4-scripts-inside-tools)
+  * [4.1. Run clean up](#41-run-clean-up)
+- [5. Developer environment](#5-developer-environment)
+  * [5.1. Install and run Yapf formatter](#51-install-and-run-yapf-formatter)
+  * [5.2. Install and run Flake8 linter](#52-install-and-run-flake8-linter)
+  * [5.3. Run Tests](#53-run-tests)
+- [6. Troubleshooting](#6-troubleshooting)
 
 <!-- tocstop -->
 
 -----
 
-## 1. Environment setup
+## 1. Installation
 
-### 1.1. Get the code
+Install this library in a [virtualenv][1] using pip. [virtualenv][1] is a tool to
+create isolated Python environments. The basic problem it addresses is one of
+dependencies and versions, and indirectly permissions.
+
+With [virtualenv][1], it's possible to install this library without needing system
+install permissions, and without clashing with the installed system
+dependencies. Make sure you use Python 3.6+.
+
+
+### 1.1. Mac/Linux
+
+```bash
+pip install virtualenv
+virtualenv <your-env>
+source <your-env>/bin/activate
+<your-env>/bin/pip install google-datacatalog-rdbmscsv-connector
+```
+
+### 1.2. Windows
+
+```bash
+pip install virtualenv
+virtualenv <your-env>
+<your-env>\Scripts\activate
+<your-env>\Scripts\pip.exe install google-datacatalog-rdbmscsv-connector
+```
+
+### 1.3. Install from source
+
+#### 1.3.1. Get the code
 
 ````bash
-git clone https://.../rdbmscsv2datacatalog.git
-cd rdbmscsv2datacatalog
+git clone https://github.com/GoogleCloudPlatform/datacatalog-connectors-rdbms/
+cd google-datacatalog-rdbmscsv-connector
 ````
 
-### 1.2. Auth credentials
+#### 1.3.2. Create and activate a *virtualenv*
 
-##### 1.2.1. Create a service account and grant it below roles
+```bash
+pip install virtualenv
+virtualenv <your-env>
+source <your-env>/bin/activate
+```
+
+#### 1.3.3. Install the library
+
+```bash
+pip install .
+```
+
+## 2. Environment setup
+
+### 2.2. Auth credentials
+
+#### 2.2.1. Create a service account and grant it below roles
 
 - Data Catalog Admin
 
-##### 1.2.2. Download a JSON key and save it as
+#### 2.2.2. Download a JSON key and save it as
 - `<YOUR-CREDENTIALS_FILES_FOLDER>/rdbmscsv2dc-credentials.json`
 
 > Please notice this folder and file will be required in next steps.
 
-### 1.3. Virtualenv
-
-Using *virtualenv* is optional, but strongly recommended unless you use Docker or a PEX file.
-
-##### 1.3.1. Install Python 3.6+
-
-##### 1.3.2. Create and activate a *virtualenv*
-
-```bash
-pip install --upgrade virtualenv
-virtualenv --python python3 env
-source ./env/bin/activate
-```
-
-##### 1.3.3. Install the dependencies
-
-```bash
-pip install ./lib/datacatalog_connectors_commons-1.0.0-py2.py3-none-any.whl
-pip install ./lib/rdbms2datacatalog-1.1.0-py2.py3-none-any.whl
-pip install --editable .
-```
-
-##### 1.3.5. Set environment variables
+#### 2.2.3. Set environment variables
 
 Replace below values according to your environment:
 
@@ -97,18 +122,14 @@ export RDBMS2DC_RAW_METADATA_CSV=rdms_raw_csv
 
 ```
 
-### 1.4. Docker
+## 3. Run entry point
 
-See instructions below.
-
-## 2. Sample application entry point
-
-### 2.1. Run main.py
+### 3.1. Run Python entry point
 
 - Virtualenv
 
 ```bash
-rdbmscsv2datacatalog \
+google-datacatalog-rdbmscsv-connector \
 --datacatalog-project-id=$RDBMS2DC_DATACATALOG_PROJECT_ID \
 --datacatalog-location-id=$RDBMS2DC_DATACATALOG_LOCATION_ID \
 --rdbms-host=$RDBMS2DC_SERVER \
@@ -116,7 +137,7 @@ rdbmscsv2datacatalog \
 --raw-metadata-csv=$RDBMS2DC_RAW_METADATA_CSV
 ```
 
-- Or using Docker
+### 3.2. Run Docker entry point
 
 ```bash
 docker build -t rdbmscsv2datacatalog .
@@ -128,9 +149,9 @@ docker run --rm --tty -v YOUR-CREDENTIALS_FILES_FOLDER:/data rdbmscsv2datacatalo
 --raw-metadata-csv=$RDBMS2DC_RAW_METADATA_CSV
 ```
 
-## 3 Scripts inside tools
+## 4 Scripts inside tools
 
-### 3.1. Run clean up
+### 4.1. Run clean up
 
 ```bash
 # List of projects split by comma. Can be a single value without comma
@@ -145,9 +166,9 @@ python tools/cleanup_datacatalog.py \
 --rdbms-type=$RDBMS2DC_TYPE
 ```
 
-## 4. Developer environment
+## 5. Developer environment
 
-### 4.1. Install and run Yapf formatter
+### 5.1. Install and run Yapf formatter
 
 ```bash
 pip install --upgrade yapf
@@ -165,14 +186,14 @@ chmod a+x pre-commit.sh
 mv pre-commit.sh .git/hooks/pre-commit
 ```
 
-### 4.2. Install and run Flake8 linter
+### 5.2. Install and run Flake8 linter
 
 ```bash
 pip install --upgrade flake8
 flake8 src tests
 ```
 
-### 4.3. Run Tests
+### 5.3. Run Tests
 
 ```bash
 pip install ./lib/datacatalog_connectors_commons_test-1.0.0-py2.py3-none-any.whl
@@ -180,7 +201,7 @@ pip install pytest mock
 python setup.py test
 ```
 
-## 5. Troubleshooting
+## 6. Troubleshooting
 
 In the case a connector execution hits Data Catalog quota limit, an error will be raised and logged with the following detailement, depending on the performed operation READ/WRITE/SEARCH: 
 ```
@@ -190,3 +211,5 @@ debug_error_string =
 "{"created":"@1587396969.506556000", "description":"Error received from peer ipv4:172.217.29.42:443","file":"src/core/lib/surface/call.cc","file_line":1056,"grpc_message":"Quota exceeded for quota metric 'Read requests' and limit 'Read requests per minute' of service 'datacatalog.googleapis.com' for consumer 'project_number:1111111111111'.","grpc_status":8}"
 ```
 For more info about Data Catalog quota, go to: [Data Catalog quota docs](https://cloud.google.com/data-catalog/docs/resources/quotas).
+
+[1]: https://virtualenv.pypa.io/en/latest/

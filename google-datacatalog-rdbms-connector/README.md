@@ -43,7 +43,7 @@ dependencies and versions, and indirectly permissions.
 
 With [virtualenv][1], it's possible to install this library without needing system
 install permissions, and without clashing with the installed system
-dependencies.
+dependencies. Make sure you use Python 3.6+.
 
 
 ### 1.1. Mac/Linux
@@ -83,9 +83,9 @@ Using *virtualenv* is optional, but strongly recommended.
 ##### 2.2.2. Create and activate a *virtualenv*
 
 ```bash
-pip install --upgrade virtualenv
-python3 -m virtualenv --python python3 env
-source ./env/bin/activate
+pip install virtualenv
+virtualenv <your-env>
+source <your-env>/bin/activate
 ```
 
 ##### 2.2.3. Install
