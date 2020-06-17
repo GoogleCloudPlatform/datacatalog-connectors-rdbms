@@ -16,9 +16,14 @@
 
 import setuptools
 
+release_status='Development Status :: 4 - Beta'
+
+with open('README.md') as readme_file:
+    readme = readme_file.read()
+
 setuptools.setup(
-    name='vertica2datacatalog',
-    version='1.0.0',
+    name='google-datacatalog-vertica-connector',
+    version='0.5.0',
     author='Google LLC',
     description='Package for ingesting Vertica metadata'
                 ' into Google Cloud Data Catalog',
@@ -28,17 +33,19 @@ setuptools.setup(
     package_dir={'': 'src'},
     entry_points={
         'console_scripts': [
-            'vertica2datacatalog = google.datacatalog_connectors.vertica:main',
+            'google-datacatalog-vertica-connector = google.datacatalog_connectors.vertica:main',
         ],
     },
     include_package_data=True,
-    install_requires=('vertica-python',),
+    install_requires=('vertica-python', 'google-datacatalog-rdbms-connector'),
     setup_requires=('pytest-runner',),
-    tests_require=('pytest-cov',),
+    tests_require=('pytest-cov', 'google-datacatalog-connectors-commons-test'),
     classifiers=[
-        'Development Status :: 3 - Alpha',
+        release_status,
         'Natural Language :: English',
         'Programming Language :: Python',
         'Programming Language :: Python :: 3.6',
     ],
+    long_description=readme,
+    long_description_content_type='text/markdown',
 )
