@@ -9,15 +9,6 @@ ENV GOOGLE_APPLICATION_CREDENTIALS=/data/teradata2dc-credentials.json
 # Copy the local client library dependency and install it (temporary).
 WORKDIR /lib
 
-COPY ./lib/datacatalog_connectors_commons-1.0.0-py2.py3-none-any.whl .
-RUN pip install datacatalog_connectors_commons-1.0.0-py2.py3-none-any.whl
-
-COPY ./lib/rdbms2datacatalog-1.1.0-py2.py3-none-any.whl .
-RUN pip install rdbms2datacatalog-1.1.0-py2.py3-none-any.whl
-
-COPY ./lib/datacatalog_connectors_commons_test-1.0.0-py2.py3-none-any.whl .
-RUN pip install datacatalog_connectors_commons_test-1.0.0-py2.py3-none-any.whl
-
 RUN pip install flake8
 RUN pip install yapf
 
@@ -31,7 +22,7 @@ RUN flake8 src tests
 
 RUN python setup.py test
 
-# Install teradata2datacatalog package from source files.
+# Install google-datacatalog-teradata-connector package from source files.
 RUN pip install .
 
-ENTRYPOINT ["teradata2datacatalog"]
+ENTRYPOINT ["google-datacatalog-teradata-connector"]
