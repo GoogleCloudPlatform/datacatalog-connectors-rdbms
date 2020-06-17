@@ -1,4 +1,4 @@
-# greenplum2datacatalog
+# google-datacatalog-greenplum-connector
 
 Library for ingesting Greenplum metadata into Google Cloud Data Catalog.
 
@@ -42,33 +42,45 @@ Library for ingesting Greenplum metadata into Google Cloud Data Catalog.
 
 -----
 
-## 1. Environment setup
+## 1. Installation
 
-### 1.1. Get the code
+Install this library in a [virtualenv][1] using pip. [virtualenv][1] is a tool to
+create isolated Python environments. The basic problem it addresses is one of
+dependencies and versions, and indirectly permissions.
+
+With [virtualenv][1], it's possible to install this library without needing system
+install permissions, and without clashing with the installed system
+dependencies.
+
+
+### 1.1. Mac/Linux
+
+```bash
+pip install virtualenv
+virtualenv <your-env>
+source <your-env>/bin/activate
+<your-env>/bin/pip install google-datacatalog-greenplum-connector
+```
+
+### 1.2. Windows
+
+```bash
+pip install virtualenv
+virtualenv <your-env>
+<your-env>\Scripts\activate
+<your-env>\Scripts\pip.exe install google-datacatalog-greenplum-connector
+```
+
+### 1.3. Install from source
+
+#### 1.3.1. Get the code
 
 ````bash
-git clone https://.../greenplum2datacatalog.git
-cd greenplum2datacatalog
+git clone https://github.com/GoogleCloudPlatform/datacatalog-connectors-rdbms/
+cd google-datacatalog-greenplum-connector
 ````
 
-### 1.2. Auth credentials
-
-##### 1.2.1. Create a service account and grant it below roles
-
-- Data Catalog Admin
-
-##### 1.2.2. Download a JSON key and save it as
-- `<YOUR-CREDENTIALS_FILES_FOLDER>/greenplum2dc-credentials.json`
-
-> Please notice this folder and file will be required in next steps.
-
-### 1.3. Virtualenv
-
-Using *virtualenv* is optional, but strongly recommended unless you use Docker or a PEX file.
-
-##### 1.3.1. Install Python 3.6+
-
-##### 1.3.2. Create and activate a *virtualenv*
+#### 1.3.2. Create and activate a *virtualenv*
 
 ```bash
 pip install --upgrade virtualenv
@@ -76,16 +88,26 @@ python3 -m virtualenv --python python3 env
 source ./env/bin/activate
 ```
 
-##### 1.3.3. Install the dependencies
+#### 1.3.3. Install the library
 
 ```bash
-pip install ./lib/datacatalog_connectors_commons-1.0.0-py2.py3-none-any.whl
-pip install ./lib/rdbms2datacatalog-1.1.0-py2.py3-none-any.whl
-pip install ./lib/postgresql2datacatalog-1.0.0-py2.py3-none-any.whl
-pip install --editable .
+pip install .
 ```
 
-##### 1.3.4. Set environment variables
+## 2. Environment setup
+
+### 2.2. Auth credentials
+
+#### 2.2.1. Create a service account and grant it below roles
+
+- Data Catalog Admin
+
+#### 2.2.2. Download a JSON key and save it as
+- `<YOUR-CREDENTIALS_FILES_FOLDER>/greenplum2dc-credentials.json`
+
+> Please notice this folder and file will be required in next steps.
+
+#### 2.3.3. Set environment variables
 
 Replace below values according to your environment:
 
@@ -102,30 +124,39 @@ export GREENPLUM2DC_RAW_METADATA_CSV=greenplum_raw_csv (If supplied ignores the 
 
 ```
 
-### 1.4. Docker
+## 3. Run entry point
 
-See instructions below.
-
-## 2. Sample application entry point
-
-### 2.1. Run main.py
+### 3.1. Run Python entry point
 
 - Virtualenv
 
 ```bash
-greenplum2datacatalog --datacatalog-project-id=$GREENPLUM2DC_DATACATALOG_PROJECT_ID --datacatalog-location-id=$GREENPLUM2DC_DATACATALOG_LOCATION_ID --greenplum-host=$GREENPLUM2DC_GREENPLUM_SERVER --greenplum-user=$GREENPLUM2DC_GREENPLUM_USERNAME --greenplum-pass=$GREENPLUM2DC_GREENPLUM_PASSWORD --greenplum-database=$GREENPLUM2DC_GREENPLUM_DATABASE  --raw-metadata-csv=$GREENPLUM2DC_RAW_METADATA_CSV      
+google-datacatalog-greenplum-connector \
+--datacatalog-project-id=$GREENPLUM2DC_DATACATALOG_PROJECT_ID \
+--datacatalog-location-id=$GREENPLUM2DC_DATACATALOG_LOCATION_ID \
+--greenplum-host=$GREENPLUM2DC_GREENPLUM_SERVER \
+--greenplum-user=$GREENPLUM2DC_GREENPLUM_USERNAME \
+--greenplum-pass=$GREENPLUM2DC_GREENPLUM_PASSWORD \
+--greenplum-database=$GREENPLUM2DC_GREENPLUM_DATABASE \
+--raw-metadata-csv=$GREENPLUM2DC_RAW_METADATA_CSV      
 ```
 
-- Or using Docker
+### 3.2. Run Docker entry point
 
 ```bash
 docker build -t greenplum2datacatalog .
-docker run --rm --tty -v YOUR-CREDENTIALS_FILES_FOLDER:/data greenplum2datacatalog --datacatalog-project-id=$GREENPLUM2DC_DATACATALOG_PROJECT_ID --datacatalog-location-id=$GREENPLUM2DC_DATACATALOG_LOCATION_ID --greenplum-host=$GREENPLUM2DC_GREENPLUM_SERVER --greenplum-user=$GREENPLUM2DC_GREENPLUM_USERNAME --greenplum-pass=$GREENPLUM2DC_GREENPLUM_PASSWORD --greenplum-database=$GREENPLUM2DC_GREENPLUM_DATABASE  --raw-metadata-csv=$GREENPLUM2DC_RAW_METADATA_CSV       
+docker run --rm --tty -v YOUR-CREDENTIALS_FILES_FOLDER:/data greenplum2datacatalog \ --datacatalog-project-id=$GREENPLUM2DC_DATACATALOG_PROJECT_ID \
+--datacatalog-location-id=$GREENPLUM2DC_DATACATALOG_LOCATION_ID \
+--greenplum-host=$GREENPLUM2DC_GREENPLUM_SERVER \
+--greenplum-user=$GREENPLUM2DC_GREENPLUM_USERNAME \
+--greenplum-pass=$GREENPLUM2DC_GREENPLUM_PASSWORD \
+--greenplum-database=$GREENPLUM2DC_GREENPLUM_DATABASE  \
+--raw-metadata-csv=$GREENPLUM2DC_RAW_METADATA_CSV       
 ```
 
-## 3 Scripts inside tools
+## 4 Scripts inside tools
 
-### 3.1. Run clean up
+### 4.1. Run clean up
 
 ```bash
 # List of projects split by comma. Can be a single value without comma
@@ -138,7 +169,7 @@ python tools/cleanup_datacatalog.py --datacatalog-project-ids=$TGREENPLUM2DC_DAT
 
 ```
 
-### 3.2. Extract CSV
+### 4.2. Extract CSV
 
 ```bash
 # Run  inside your greenplum database instance
@@ -155,9 +186,9 @@ COPY (
 
 ```
 
-## 4. Developer environment
+## 5. Developer environment
 
-### 4.1. Install and run Yapf formatter
+### 5.1. Install and run Yapf formatter
 
 ```bash
 pip install --upgrade yapf
@@ -175,25 +206,25 @@ chmod a+x pre-commit.sh
 mv pre-commit.sh .git/hooks/pre-commit
 ```
 
-### 4.2. Install and run Flake8 linter
+### 5.2. Install and run Flake8 linter
 
 ```bash
 pip install --upgrade flake8
 flake8 src tests
 ```
 
-### 4.3. Run Tests
+### 5.3. Run Tests
 
 ```bash
 pip install ./lib/datacatalog_connectors_commons_test-1.0.0-py2.py3-none-any.whl
 python setup.py test
 ```
 
-## 5. Metrics
+## 6. Metrics
 
 [Metrics README.md](docs/README.md)
 
-## 6. Troubleshooting
+## 7. Troubleshooting
 
 In the case a connector execution hits Data Catalog quota limit, an error will be raised and logged with the following detailement, depending on the performed operation READ/WRITE/SEARCH: 
 ```
@@ -203,3 +234,5 @@ debug_error_string =
 "{"created":"@1587396969.506556000", "description":"Error received from peer ipv4:172.217.29.42:443","file":"src/core/lib/surface/call.cc","file_line":1056,"grpc_message":"Quota exceeded for quota metric 'Read requests' and limit 'Read requests per minute' of service 'datacatalog.googleapis.com' for consumer 'project_number:1111111111111'.","grpc_status":8}"
 ```
 For more info about Data Catalog quota, go to: [Data Catalog quota docs](https://cloud.google.com/data-catalog/docs/resources/quotas).
+
+[1]: https://virtualenv.pypa.io/en/latest/

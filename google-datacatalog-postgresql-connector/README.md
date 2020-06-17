@@ -18,7 +18,7 @@ Library for ingesting PostgreSQL metadata into Google Cloud Data Catalog.
 - [1. Installation](#1-installation)
   * [1.1. Mac/Linux](#11-maclinux)
   * [1.2. Windows](#12-windows)
-  * [1.3. Install from source (Optional)](#13-install-from-source-optional)
+  * [1.3. Install from source](#13-install-from-source)
     + [1.3.1. Get the code](#131-get-the-code)
     + [1.3.2. Create and activate a *virtualenv*](#132-create-and-activate-a-virtualenv)
     + [1.3.3. Install the library](#133-install-the-library)
@@ -30,7 +30,7 @@ Library for ingesting PostgreSQL metadata into Google Cloud Data Catalog.
 - [3. Run entry point](#3-run-entry-point)
   * [3.1. Run Python entry point](#31-run-python-entry-point)
   * [3.2. Run Docker entry point](#32-run-docker-entry-point)
-- [4 Scripts inside tools](#4-scripts-inside-tools)
+- [4. Scripts inside tools](#4-scripts-inside-tools)
   * [4.1. Run clean up](#41-run-clean-up)
   * [4.2. Extract CSV](#42-extract-csv)
 - [5. Developer environment](#5-developer-environment)
@@ -64,7 +64,6 @@ source <your-env>/bin/activate
 <your-env>/bin/pip install google-datacatalog-postgresql-connector
 ```
 
-
 ### 1.2. Windows
 
 ```bash
@@ -94,7 +93,7 @@ source ./env/bin/activate
 #### 1.3.3. Install the library
 
 ```bash
-pip install --editable .
+pip install .
 ```
 
 ## 2. Environment setup

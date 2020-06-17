@@ -36,7 +36,7 @@ setuptools.setup(
         ],
     },
     include_package_data=True,
-    install_requires=('google-datacatalog-rdbms-connector'),
+    install_requires=('google-datacatalog-postgresql-connector'),
     setup_requires=(
         'pytest-runner',
     ),
@@ -45,7 +45,7 @@ setuptools.setup(
         'google-datacatalog-connectors-commons-test'
     ),
     classifiers=(
-        'Development Status :: 1 - Alpha',
+        release_status,
         'Programming Language :: Python :: 3.7',
     ),
     long_description=readme,
