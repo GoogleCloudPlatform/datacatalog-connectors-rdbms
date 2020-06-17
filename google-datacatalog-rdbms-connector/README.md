@@ -1,4 +1,4 @@
-# rdbms2datacatalog
+# google-datacatalog-rdbms-connector
 
 Common resources for Data Catalog RDBMS connectors.
 
@@ -15,40 +15,72 @@ Common resources for Data Catalog RDBMS connectors.
 
 <!-- toc -->
 
-- [1. Installable file build process](#1-installable-file-build-process)
-  * [1.1. Get the code](#11-get-the-code)
-  * [1.2. Virtualenv](#12-virtualenv)
-      - [1.2.1. Install Python 3.5](#121-install-python-35)
-      - [1.2.2. Create and activate a *virtualenv*](#122-create-and-activate-a-virtualenv)
-  * [1.3. Generate a *wheel* file](#13-generate-a-wheel-file)
-- [2. Developer environment](#2-developer-environment)
-  * [2.1. Install local dependencies](#21-install-local-dependencies)
-  * [2.2. Install and run YAPF formatter](#22-install-and-run-yapf-formatter)
-  * [2.3. Install and run Flake8 linter](#23-install-and-run-flake8-linter)
-  * [2.4. Install the package in editable mode (i.e. setuptools “develop mode”)](#24-install-the-package-in-editable-mode-ie-setuptools-develop-mode)
-  * [2.5. Run the unit tests](#25-run-the-unit-tests)
-- [3. Setting up the RDBMS conenctor](#3-setting-up-the-rdbms-conenctor)
+- [1. Installation](#1-installation)
+  * [1.1. Mac/Linux](#11-maclinux)
+  * [1.2. Windows](#12-windows)
+- [2. Install from source](#2-install-from-source)
+  * [2.1. Get the code](#21-get-the-code)
+  * [2.2. Virtualenv](#22-virtualenv)
+      - [2.2.1. Install Python 3.6](#221-install-python-36)
+      - [2.2.2. Create and activate a *virtualenv*](#222-create-and-activate-a-virtualenv)
+      - [2.2.3. Install](#223-install)
+- [3. Developer environment](#3-developer-environment)
+  * [3.1. Install and run YAPF formatter](#31-install-and-run-yapf-formatter)
+  * [3.2. Install and run Flake8 linter](#32-install-and-run-flake8-linter)
+  * [3.3. Install the package in editable mode (i.e. setuptools “develop mode”)](#33-install-the-package-in-editable-mode-ie-setuptools-develop-mode)
+  * [3.4. Run the unit tests](#34-run-the-unit-tests)
+- [4. Setting up the RDBMS on a new connector](#4-setting-up-the-rdbms-on-a-new-connector)
 
 <!-- tocstop -->
 
 -----
 
-## 1. Installable file build process
+## 1. Installation
 
-### 1.1. Get the code
+Install this library in a [virtualenv][1] using pip. [virtualenv][1] is a tool to
+create isolated Python environments. The basic problem it addresses is one of
+dependencies and versions, and indirectly permissions.
+
+With [virtualenv][1], it's possible to install this library without needing system
+install permissions, and without clashing with the installed system
+dependencies.
+
+
+### 1.1. Mac/Linux
+
+```bash
+pip install virtualenv
+virtualenv <your-env>
+source <your-env>/bin/activate
+<your-env>/bin/pip install google-datacatalog-rdbms-connector
+```
+
+
+### 1.2. Windows
+
+```bash
+pip install virtualenv
+virtualenv <your-env>
+<your-env>\Scripts\activate
+<your-env>\Scripts\pip.exe install google-datacatalog-rdbms-connector
+```
+
+## 2. Install from source
+
+### 2.1. Get the code
 
 ````bash
-git clone https://.../rdbms2datacatalog.git
-cd rdbms2datacatalog
+git clone https://github.com/GoogleCloudPlatform/datacatalog-connectors-rdbms/
+cd google-datacatalog-rdbms-connector
 ````
 
-### 1.2. Virtualenv
+### 2.2. Virtualenv
 
 Using *virtualenv* is optional, but strongly recommended.
 
-##### 1.2.1. Install Python 3.5
+##### 2.2.1. Install Python 3.6
 
-##### 1.2.2. Create and activate a *virtualenv*
+##### 2.2.2. Create and activate a *virtualenv*
 
 ```bash
 pip install --upgrade virtualenv
@@ -56,25 +88,15 @@ python3 -m virtualenv --python python3 env
 source ./env/bin/activate
 ```
 
-### 1.3. Generate a *wheel* file
+##### 2.2.3. Install
 
 ```bash
-python setup.py bdist_wheel
+pip install .
 ```
 
-> The wheel file can used to install the package as a local pip dependency to
-> other projects while it's not published to The Python Package Index (PyPI).
+## 3. Developer environment
 
-## 2. Developer environment
-
-### 2.1. Install local dependencies
-
-```bash
-pip install ./lib/datacatalog_connectors_commons-1.0.0-py2.py3-none-any.whl
-pip install --editable .
-```
-
-### 2.2. Install and run YAPF formatter
+### 3.1. Install and run YAPF formatter
 
 ```bash
 pip install --upgrade yapf
@@ -92,28 +114,26 @@ chmod a+x pre-commit.sh
 mv pre-commit.sh .git/hooks/pre-commit
 ```
 
-### 2.3. Install and run Flake8 linter
+### 3.2. Install and run Flake8 linter
 
 ```bash
 pip install --upgrade flake8
 flake8 src tests
 ```
 
-### 2.4. Install the package in editable mode (i.e. setuptools “develop mode”)
+### 3.3. Install the package in editable mode (i.e. setuptools “develop mode”)
 
 ```bash
 pip install --editable .
 ```
 
-### 2.5. Run the unit tests
+### 3.4. Run the unit tests
 
 ```bash
-pip install ./lib/datacatalog_connectors_commons_test-1.0.0-py2.py3-none-any.whl
-pip install pytest mock
 python setup.py test
 ```
 
-## 3. Setting up the RDBMS conenctor
+## 4. Setting up the RDBMS on a new connector
 To set up the RDBMS connector to work with a Relational Database 3 files are needed.
 * `metadata_definition.json`
 * `metadata_query.sql`
@@ -151,3 +171,6 @@ For columns they are used to create the Data Catalog Entry schema, two `target` 
 | ---        | ---      | ---                 | ---       |  
 | column_def | **type** | Column type.        |  Y        | 
 | column_def | **desc** | Column description. |  N        |
+
+
+[1]: https://virtualenv.pypa.io/en/latest/

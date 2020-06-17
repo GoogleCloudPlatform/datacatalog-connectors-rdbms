@@ -21,5 +21,5 @@ VERSION=$(sed -n 's/^ *version=['\'']//p' setup.py | sed -n 's/['\'',]*$//p')
 docker build --rm --tag rdbms2datacatalog .
 docker create --name dc-rdbms-commons-wheel rdbms2datacatalog
 mkdir -p dist
-docker cp dc-rdbms-commons-wheel:/app/dist/rdbms2datacatalog-"$VERSION"-py2.py3-none-any.whl ./dist/.
+docker cp dc-rdbms-commons-wheel:/app/dist/google_datacatalog_rdbms_connector-"$VERSION"-py2.py3-none-any.whl ./dist/.
 docker rm -fv dc-rdbms-commons-wheel

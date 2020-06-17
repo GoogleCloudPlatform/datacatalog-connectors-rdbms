@@ -24,6 +24,5 @@ steps:
     pip install flake8 yapf && \
     yapf --diff --recursive src tests && \
     flake8 src tests && \
-    pip install ./lib/datacatalog_connectors_commons-1.0.0-py2.py3-none-any.whl && \
-    pip install ./lib/datacatalog_connectors_commons_test-1.0.0-py2.py3-none-any.whl && \
+    pip install . && \
     python setup.py test

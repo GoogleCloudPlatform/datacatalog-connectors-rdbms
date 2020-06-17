@@ -16,11 +16,14 @@
 
 import setuptools
 
-release_status = 'Development Status :: 3 - Alpha'
+release_status='Development Status :: 4 - Beta'
+
+with open('README.md') as readme_file:
+    readme = readme_file.read()
 
 setuptools.setup(
-    name='rdbms2datacatalog',
-    version='1.1.0',
+    name='google-datacatalog-rdbms-connector',
+    version='0.5.0',
     author='Google LLC',
     description=
     'Commons library for ingesting RDBMS metadata into Google Cloud Data Catalog',
@@ -28,14 +31,18 @@ setuptools.setup(
     namespace_packages=['google', 'google.datacatalog_connectors'],
     package_dir={'': 'src'},
     include_package_data=True,
-    install_requires=('pandas==0.24.2', 'gcsfs'),
-    setup_requires=('pytest-runner', 'mock==3.0.5', 'pytest'),
-    tests_require=('pytest-cov',),
+    install_requires=('pandas==0.24.2', 'gcsfs',
+                      'google-datacatalog-connectors-commons'),
+    setup_requires=('pytest-runner'),
+    tests_require=('mock==3.0.5', 'pytest', 'pytest-cov',
+                   'google-datacatalog-connectors-commons-test'),
     classifiers=[
         release_status,
         'Programming Language :: Python :: 3.7',
         'Operating System :: OS Independent',
         'Topic :: Internet',
     ],
+    long_description=readme,
+    long_description_content_type='text/markdown',
     platforms='Posix; MacOS X; Windows',
 )
