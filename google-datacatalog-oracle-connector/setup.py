@@ -16,11 +16,14 @@
 
 import setuptools
 
-release_status = 'Development Status :: 3 - Alpha'
+release_status='Development Status :: 4 - Beta'
+
+with open('README.md') as readme_file:
+    readme = readme_file.read()
 
 setuptools.setup(
-    name='oracle2datacatalog',
-    version='1.0.0',
+    name='google-datacatalog-oracle-connector',
+    version='0.5.0',
     author='Google LLC',
     description=
     'Library for ingesting Oracle metadata into Google Cloud Data Catalog',
@@ -29,13 +32,14 @@ setuptools.setup(
     package_dir={'': 'src'},
     entry_points={
         'console_scripts': [
-            'oracle2datacatalog = google.datacatalog_connectors.oracle:main',
+            'google-datacatalog-oracle-connector = google.datacatalog_connectors.oracle:main',
         ],
     },
     include_package_data=True,
-    install_requires='cx_Oracle',
-    setup_requires=('pytest-runner', 'mock==3.0.5', 'pytest'),
-    tests_require=('pytest-cov',),
+    install_requires=('cx_Oracle', 'google-datacatalog-rdbms-connector'),
+    setup_requires=('pytest-runner',),
+    tests_require=('pytest-cov', 'mock==3.0.5', 'pytest',
+                   'google-datacatalog-connectors-commons-test'),
     classifiers=[
         release_status,
         'Programming Language :: Python :: 3.7',
@@ -43,4 +47,6 @@ setuptools.setup(
         'Topic :: Internet',
     ],
     platforms='Posix; MacOS X; Windows',
+    long_description=readme,
+    long_description_content_type='text/markdown',
 )

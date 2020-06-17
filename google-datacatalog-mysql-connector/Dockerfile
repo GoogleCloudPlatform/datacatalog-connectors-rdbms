@@ -17,8 +17,6 @@ WORKDIR /app
 # Copy project files (see .dockerignore).
 COPY . .
 
-RUN pip install .
-
 RUN yapf --diff --recursive src tests
 RUN flake8 src tests
 
