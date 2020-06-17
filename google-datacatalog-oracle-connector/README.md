@@ -81,7 +81,7 @@ virtualenv <your-env>
 
 ````bash
 git clone https://github.com/GoogleCloudPlatform/datacatalog-connectors-rdbms/
-cd google-datacatalog-oracle-connector
+cd datacatalog-connectors-rdbms/google-datacatalog-oracle-connector
 ````
 
 #### 1.3.2. Create and activate a *virtualenv*

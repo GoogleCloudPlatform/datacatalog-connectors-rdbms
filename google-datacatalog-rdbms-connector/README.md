@@ -71,7 +71,7 @@ virtualenv <your-env>
 
 ````bash
 git clone https://github.com/GoogleCloudPlatform/datacatalog-connectors-rdbms/
-cd google-datacatalog-rdbms-connector
+cd datacatalog-connectors-rdbms/google-datacatalog-rdbms-connector
 ````
 
 ### 2.2. Virtualenv
