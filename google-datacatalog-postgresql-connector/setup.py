@@ -16,9 +16,14 @@
 
 import setuptools
 
+release_status='Development Status :: 4 - Beta'
+
+with open('README.md') as readme_file:
+    readme = readme_file.read()
+
 setuptools.setup(
-    name='postgresql2datacatalog',
-    version='1.0.0',
+    name='google-datacatalog-postgresql-connector',
+    version='0.5.0',
     author='Google LLC',
     description=
     'Library for ingesting Postgresql metadata into Google Cloud Data Catalog',
@@ -28,15 +33,17 @@ setuptools.setup(
     package_dir={'': 'src'},
     entry_points={
         'console_scripts': [
-            'postgresql2datacatalog = google.datacatalog_connectors.postgresql:main',
+            'google-datacatalog-postgresql-connector = google.datacatalog_connectors.postgresql:main',
         ],
     },
     include_package_data=True,
-    install_requires=('psycopg2-binary',),
+    install_requires=('psycopg2-binary', 'google-datacatalog-rdbms-connector'),
     setup_requires=('pytest-runner',),
-    tests_require=('pytest-cov',),
+    tests_require=('pytest-cov', 'google-datacatalog-connectors-commons-test'),
     classifiers=(
-        'Development Status :: 1 - Alpha',
+        release_status,
         'Programming Language :: Python :: 3.7',
     ),
+    long_description=readme,
+    long_description_content_type='text/markdown',
 )

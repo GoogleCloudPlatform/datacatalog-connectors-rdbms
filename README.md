@@ -18,7 +18,7 @@ The following components are available in this repo:
 
 | Component | Description | Folder | Language | 
 |-----------|-------------|--------|----------|
-| google-datacatalog-rdbms-connector | Commons code for RDBMS data sources. | [./google-datacatalog-rdbms-connector](https://github.com/GoogleCloudPlatform/datacatalog-connectors-rdbms/tree/master/google-datacatalog-rdbms-connector) | Python |
+| google-datacatalog-rdbms-connector | Commons code for RDBMS data sources. | [google-datacatalog-rdbms-connector](https://github.com/GoogleCloudPlatform/datacatalog-connectors-rdbms/tree/master/google-datacatalog-rdbms-connector) | Python |
 | google-datacatalog-mysql-connector | Sample code for MySQL data source. | [google-datacatalog-mysql-connector](https://github.com/GoogleCloudPlatform/datacatalog-connectors-rdbms/tree/master/google-datacatalog-mysql-connector) | Python |
 | google-datacatalog-postgresql-connector | Sample code for PostgreSQL data source. | [google-datacatalog-postgresql-connector](https://github.com/GoogleCloudPlatform/datacatalog-connectors-rdbms/tree/master/google-datacatalog-postgresql-connector) | Python |
 | google-datacatalog-sqlserver-connector | Sample code for SQLServer data source. | [google-datacatalog-sqlserver-connector](https://github.com/GoogleCloudPlatform/datacatalog-connectors-rdbms/tree/master/google-datacatalog-sqlserver-connector) | Python |

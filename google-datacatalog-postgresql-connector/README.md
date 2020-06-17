@@ -1,4 +1,4 @@
-# postgresql2datacatalog
+# google-datacatalog-postgresql-connector
 
 Library for ingesting PostgreSQL metadata into Google Cloud Data Catalog.
 
@@ -15,20 +15,21 @@ Library for ingesting PostgreSQL metadata into Google Cloud Data Catalog.
 
 <!-- toc -->
 
-- [1. Environment setup](#1-environment-setup)
-  * [1.1. Get the code](#11-get-the-code)
-  * [1.2. Auth credentials](#12-auth-credentials)
-      - [1.2.1. Create a service account and grant it below roles](#121-create-a-service-account-and-grant-it-below-roles)
-      - [1.2.2. Download a JSON key and save it as](#122-download-a-json-key-and-save-it-as)
-  * [1.3. Virtualenv](#13-virtualenv)
-      - [1.3.1. Install Python 3.6+](#131-install-python-36)
-      - [1.3.2. Create and activate a *virtualenv*](#132-create-and-activate-a-virtualenv)
-      - [1.3.3. Install the dependencies](#133-install-the-dependencies)
-      - [1.3.4. Set environment variables](#134-set-environment-variables)
-  * [1.4. Docker](#14-docker)
-- [2. Sample application entry point](#2-sample-application-entry-point)
-  * [2.1. Run main.py](#21-run-mainpy)
-      - [3. Generate wheel file](#3-generate-wheel-file)
+- [1. Installation](#1-installation)
+  * [1.1. Mac/Linux](#11-maclinux)
+  * [1.2. Windows](#12-windows)
+  * [1.3. Install from source (Optional)](#13-install-from-source-optional)
+    + [1.3.1. Get the code](#131-get-the-code)
+    + [1.3.2. Create and activate a *virtualenv*](#132-create-and-activate-a-virtualenv)
+    + [1.3.3. Install the library](#133-install-the-library)
+- [2. Environment setup](#2-environment-setup)
+  * [2.2. Auth credentials](#22-auth-credentials)
+    + [2.2.1. Create a service account and grant it below roles](#221-create-a-service-account-and-grant-it-below-roles)
+    + [2.2.2. Download a JSON key and save it as](#222-download-a-json-key-and-save-it-as)
+    + [2.2.3. Set environment variables](#223-set-environment-variables)
+- [3. RUN entry point](#3-run-entry-point)
+  * [3.1. Run Python entry point](#31-run-python-entry-point)
+  * [3.2. Run Docker entry point](#32-run-docker-entry-point)
 - [4 Scripts inside tools](#4-scripts-inside-tools)
   * [4.1. Run clean up](#41-run-clean-up)
   * [4.2. Extract CSV](#42-extract-csv)
@@ -43,33 +44,46 @@ Library for ingesting PostgreSQL metadata into Google Cloud Data Catalog.
 
 -----
 
-## 1. Environment setup
+## 1. Installation
 
-### 1.1. Get the code
+Install this library in a [virtualenv][1] using pip. [virtualenv][1] is a tool to
+create isolated Python environments. The basic problem it addresses is one of
+dependencies and versions, and indirectly permissions.
+
+With [virtualenv][1], it's possible to install this library without needing system
+install permissions, and without clashing with the installed system
+dependencies.
+
+
+### 1.1. Mac/Linux
+
+```bash
+pip install virtualenv
+virtualenv <your-env>
+source <your-env>/bin/activate
+<your-env>/bin/pip install google-datacatalog-postgresql-connector
+```
+
+
+### 1.2. Windows
+
+```bash
+pip install virtualenv
+virtualenv <your-env>
+<your-env>\Scripts\activate
+<your-env>\Scripts\pip.exe install google-datacatalog-postgresql-connector
+```
+
+### 1.3. Install from source (Optional)
+
+#### 1.3.1. Get the code
 
 ````bash
-git clone https://.../postgresql2datacatalog.git
-cd postgresql2datacatalog
+git clone https://github.com/GoogleCloudPlatform/datacatalog-connectors-rdbms/
+cd google-datacatalog-postgresql-connector
 ````
 
-### 1.2. Auth credentials
-
-##### 1.2.1. Create a service account and grant it below roles
-
-- Data Catalog Admin
-
-##### 1.2.2. Download a JSON key and save it as
-- `<YOUR-CREDENTIALS_FILES_FOLDER>/postgresql2dc-credentials.json`
-
-> Please notice this folder and file will be required in next steps.
-
-### 1.3. Virtualenv
-
-Using *virtualenv* is optional, but strongly recommended unless you use Docker or a PEX file.
-
-##### 1.3.1. Install Python 3.6+
-
-##### 1.3.2. Create and activate a *virtualenv*
+#### 1.3.2. Create and activate a *virtualenv*
 
 ```bash
 pip install --upgrade virtualenv
@@ -77,15 +91,26 @@ python3 -m virtualenv --python python3 env
 source ./env/bin/activate
 ```
 
-##### 1.3.3. Install the dependencies
+#### 1.3.3. Install the library
 
 ```bash
-pip install ./lib/datacatalog_connectors_commons-1.0.0-py2.py3-none-any.whl
-pip install ./lib/rdbms2datacatalog-1.1.0-py2.py3-none-any.whl
 pip install --editable .
 ```
 
-##### 1.3.4. Set environment variables
+## 2. Environment setup
+
+### 2.2. Auth credentials
+
+#### 2.2.1. Create a service account and grant it below roles
+
+- Data Catalog Admin
+
+#### 2.2.2. Download a JSON key and save it as
+- `<YOUR-CREDENTIALS_FILES_FOLDER>/postgresql2dc-credentials.json`
+
+> Please notice this folder and file will be required in next steps.
+
+#### 2.2.3. Set environment variables
 
 Replace below values according to your environment:
 
@@ -102,31 +127,21 @@ export POSTGRESQL2DC_RAW_METADATA_CSV=postgresql_raw_csv (If supplied ignores th
 
 ```
 
-### 1.4. Docker
+## 3. RUN entry point
 
-See instructions below.
-
-## 2. Sample application entry point
-
-### 2.1. Run main.py
+### 3.1. Run Python entry point
 
 - Virtualenv
 
 ```bash
-postgresql2datacatalog --datacatalog-project-id=$POSTGRESQL2DC_DATACATALOG_PROJECT_ID --datacatalog-location-id=$POSTGRESQL2DC_DATACATALOG_LOCATION_ID --postgresql-host=$POSTGRESQL2DC_POSTGRESQL_SERVER --postgresql-user=$POSTGRESQL2DC_POSTGRESQL_USERNAME --postgresql-pass=$POSTGRESQL2DC_POSTGRESQL_PASSWORD --postgresql-database=$POSTGRESQL2DC_POSTGRESQL_DATABASE  --raw-metadata-csv=$POSTGRESQL2DC_RAW_METADATA_CSV      
+google-datacatalog-postgresql-connector --datacatalog-project-id=$POSTGRESQL2DC_DATACATALOG_PROJECT_ID --datacatalog-location-id=$POSTGRESQL2DC_DATACATALOG_LOCATION_ID --postgresql-host=$POSTGRESQL2DC_POSTGRESQL_SERVER --postgresql-user=$POSTGRESQL2DC_POSTGRESQL_USERNAME --postgresql-pass=$POSTGRESQL2DC_POSTGRESQL_PASSWORD --postgresql-database=$POSTGRESQL2DC_POSTGRESQL_DATABASE  --raw-metadata-csv=$POSTGRESQL2DC_RAW_METADATA_CSV      
 ```
 
-- Or using Docker
+### 3.2. Run Docker entry point
 
 ```bash
 docker build -t postgresql2datacatalog .
 docker run --rm --tty -v YOUR-CREDENTIALS_FILES_FOLDER:/data postgresql2datacatalog --datacatalog-project-id=$POSTGRESQL2DC_DATACATALOG_PROJECT_ID --datacatalog-location-id=$POSTGRESQL2DC_DATACATALOG_LOCATION_ID --postgresql-host=$POSTGRESQL2DC_POSTGRESQL_SERVER --postgresql-user=$POSTGRESQL2DC_POSTGRESQL_USERNAME --postgresql-pass=$POSTGRESQL2DC_POSTGRESQL_PASSWORD --postgresql-database=$POSTGRESQL2DC_POSTGRESQL_DATABASE  --raw-metadata-csv=$POSTGRESQL2DC_RAW_METADATA_CSV       
-```
-
-##### 3. Generate wheel file
-
-```bash
-python setup.py bdist_wheel
 ```
 
 ## 4 Scripts inside tools
