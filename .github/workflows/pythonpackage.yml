@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        build-dir: ['./rdbms2datacatalog', './rdbmscsv2datacatalog', './postgresql2datacatalog', './greenplum2datacatalog', './redshift2datacatalog', './sqlserver2datacatalog', './mysql2datacatalog', './teradata2datacatalog', './oracle2datacatalog', './vertica2datacatalog']
+        build-dir: ['./google-datacatalog-rdbms-connector', './google-datacatalog-rdbmscsv-connector', './google-datacatalog-postgresql-connector', './google-datacatalog-greenplum-connector', './google-datacatalog-redshift-connector', './google-datacatalog-sqlserver-connector', './google-datacatalog-mysql-connector', './google-datacatalog-teradata-connector', './google-datacatalog-oracle-connector', './google-datacatalog-vertica-connector']
         python-version: [3.6, 3.7]
     defaults:
       run:
@@ -30,12 +30,7 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install flake8 yapf
-        # [TODO] Remove this once we publish do PYPI.
-        pip install ./lib/datacatalog_connectors_commons-1.0.0-py2.py3-none-any.whl
-        pip install ./lib/datacatalog_connectors_commons_test-1.0.0-py2.py3-none-any.whl
-        pip install pytest mock pytest-cov
-        if [ -f ./lib/rdbms2datacatalog-1.1.0-py2.py3-none-any.whl ]; then pip install ./lib/rdbms2datacatalog-1.1.0-py2.py3-none-any.whl; fi
-        if [ -f ./lib/postgresql2datacatalog-1.0.0-py2.py3-none-any.whl ]; then pip install ./lib/postgresql2datacatalog-1.0.0-py2.py3-none-any.whl; fi
+        pip install .
     - name: Formatting rules with yapf
       run: |
         # stop the build if formatting is different from yapf
