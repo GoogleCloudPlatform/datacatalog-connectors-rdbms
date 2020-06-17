@@ -74,7 +74,7 @@ virtualenv <your-env>
 <your-env>\Scripts\pip.exe install google-datacatalog-postgresql-connector
 ```
 
-### 1.3. Install from source (Optional)
+### 1.3. Install from source
 
 #### 1.3.1. Get the code
 
@@ -158,7 +158,7 @@ docker run --rm --tty -v YOUR-CREDENTIALS_FILES_FOLDER:/data postgresql2datacata
 --raw-metadata-csv=$POSTGRESQL2DC_RAW_METADATA_CSV       
 ```
 
-## 4 Scripts inside tools
+## 4. Scripts inside tools
 
 ### 4.1. Run clean up
 
@@ -220,7 +220,6 @@ flake8 src tests
 ### 5.3. Run Tests
 
 ```bash
-pip install ./lib/datacatalog_connectors_commons_test-1.0.0-py2.py3-none-any.whl
 python setup.py test
 ```
 
