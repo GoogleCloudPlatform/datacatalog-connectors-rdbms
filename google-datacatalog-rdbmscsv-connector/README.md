@@ -198,8 +198,6 @@ flake8 src tests
 ### 5.3. Run Tests
 
 ```bash
-pip install ./lib/datacatalog_connectors_commons_test-1.0.0-py2.py3-none-any.whl
-pip install pytest mock
 python setup.py test
 ```
 
