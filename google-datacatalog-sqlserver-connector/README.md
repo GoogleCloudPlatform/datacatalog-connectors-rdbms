@@ -3,7 +3,7 @@
 Library for ingesting SQLServer metadata into Google Cloud Data Catalog.
 Currently supports SQL Server 2017 Standard.
 
-![Python package](2)[![PyPi][3]][4] [![License][5]][5] [![Issues][6]][7]
+[![Python package][2]][2] [![PyPi][3]][4] [![License][5]][5] [![Issues][6]][7]
 
 **Disclaimer: This is not an officially supported Google product.**
 

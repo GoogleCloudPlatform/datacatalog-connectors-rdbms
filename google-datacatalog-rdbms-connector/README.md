@@ -2,7 +2,7 @@
 
 Common resources for Data Catalog RDBMS connectors.
 
-![Python package](2)[![PyPi][3]][4] [![License][5]][5] [![Issues][6]][7]
+[![Python package][2]][2] [![PyPi][3]][4] [![License][5]][5] [![Issues][6]][7]
 
 **Disclaimer: This is not an officially supported Google product.**
 
