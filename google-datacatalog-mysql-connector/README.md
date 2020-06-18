@@ -134,14 +134,28 @@ export MYSQL2DC_RAW_METADATA_CSV=mysql_raw_csv (If supplied ignores the MYSQL se
 - Virtualenv
 
 ```bash
-mysql2datacatalog --datacatalog-project-id=$MYSQL2DC_DATACATALOG_PROJECT_ID --datacatalog-location-id=$MYSQL2DC_DATACATALOG_LOCATION_ID --mysql-host=$MYSQL2DC_MYSQL_SERVER --mysql-user=$MYSQL2DC_MYSQL_USERNAME --mysql-pass=$MYSQL2DC_MYSQL_PASSWORD --mysql-database=$MYSQL2DC_MYSQL_DATABASE  --raw-metadata-csv=$MYSQL2DC_RAW_METADATA_CSV      
+google-datacatalog-mysql-connector \
+--datacatalog-project-id=$MYSQL2DC_DATACATALOG_PROJECT_ID \
+--datacatalog-location-id=$MYSQL2DC_DATACATALOG_LOCATION_ID \
+--mysql-host=$MYSQL2DC_MYSQL_SERVER \
+--mysql-user=$MYSQL2DC_MYSQL_USERNAME \
+--mysql-pass=$MYSQL2DC_MYSQL_PASSWORD \
+--mysql-database=$MYSQL2DC_MYSQL_DATABASE \
+--raw-metadata-csv=$MYSQL2DC_RAW_METADATA_CSV
 ```
 
 ### 3.2. Run Docker entry point
 
 ```bash
 docker build -t mysql2datacatalog .
-docker run --rm --tty -v YOUR-CREDENTIALS_FILES_FOLDER:/data mysql2datacatalog --datacatalog-project-id=$MYSQL2DC_DATACATALOG_PROJECT_ID --datacatalog-location-id=$MYSQL2DC_DATACATALOG_LOCATION_ID --mysql-host=$MYSQL2DC_MYSQL_SERVER --mysql-user=$MYSQL2DC_MYSQL_USERNAME --mysql-pass=$MYSQL2DC_MYSQL_PASSWORD --mysql-database=$MYSQL2DC_MYSQL_DATABASE  --raw-metadata-csv=$MYSQL2DC_RAW_METADATA_CSV       
+docker run --rm --tty -v YOUR-CREDENTIALS_FILES_FOLDER:/data mysql2datacatalog \
+--datacatalog-project-id=$MYSQL2DC_DATACATALOG_PROJECT_ID \
+--datacatalog-location-id=$MYSQL2DC_DATACATALOG_LOCATION_ID \
+--mysql-host=$MYSQL2DC_MYSQL_SERVER \
+--mysql-user=$MYSQL2DC_MYSQL_USERNAME \
+--mysql-pass=$MYSQL2DC_MYSQL_PASSWORD \
+--mysql-database=$MYSQL2DC_MYSQL_DATABASE  \
+--raw-metadata-csv=$MYSQL2DC_RAW_METADATA_CSV
 ```
 
 ## 4 Scripts inside tools

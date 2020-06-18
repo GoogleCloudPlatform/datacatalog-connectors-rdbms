@@ -163,14 +163,30 @@ export ORACLE2DC_RAW_METADATA_CSV=oracle_raw_csv (If supplied ignores the Oracle
 - Virtualenv
 
 ```bash
-oracle2datacatalog --datacatalog-project-id=$ORACLE2DC_DATACATALOG_PROJECT_ID --datacatalog-location-id=$ORACLE2DC_DATACATALOG_LOCATION_ID --oracle-host=$ORACLE2DC_ORACLE_SERVER --oracle-port=$ORACLE2DC_ORACLE_SERVER_PORT --oracle-user=$ORACLE2DC_ORACLE_USERNAME --oracle-pass=$ORACLE2DC_ORACLE_PASSWORD --oracle-db-service=$ORACLE2DC_ORACLE_DATABASE_SERVICE --raw-metadata-csv=$ORACLE2DC_RAW_METADATA_CSV      
+google-datacatalog-oracle-connector \
+--datacatalog-project-id=$ORACLE2DC_DATACATALOG_PROJECT_ID \
+--datacatalog-location-id=$ORACLE2DC_DATACATALOG_LOCATION_ID \
+--oracle-host=$ORACLE2DC_ORACLE_SERVER \
+--oracle-port=$ORACLE2DC_ORACLE_SERVER_PORT \
+--oracle-user=$ORACLE2DC_ORACLE_USERNAME \
+--oracle-pass=$ORACLE2DC_ORACLE_PASSWORD \
+--oracle-db-service=$ORACLE2DC_ORACLE_DATABASE_SERVICE \
+--raw-metadata-csv=$ORACLE2DC_RAW_METADATA_CSV
 ```
 
 ### 3.2. Run Docker entry point
 
 ```bash
 docker build -t oracle2datacatalog .
-docker run --rm --tty -v YOUR-CREDENTIALS_FILES_FOLDER:/data oracle2datacatalog --datacatalog-project-id=$ORACLE2DC_DATACATALOG_PROJECT_ID  --datacatalog-location-id=$ORACLE2DC_DATACATALOG_LOCATION_ID --oracle-host=$ORACLE2DC_ORACLE_SERVER --oracle-port=$ORACLE2DC_ORACLE_SERVER_PORT  --oracle-user=$ORACLE2DC_ORACLE_USERNAME --oracle-pass=$ORACLE2DC_ORACLE_PASSWORD --oracle-db-service=$ORACLE2DC_ORACLE_DATABASE_SERVICE --raw-metadata-csv=$ORACLE2DC_RAW_METADATA_CSV    
+docker run --rm --tty -v YOUR-CREDENTIALS_FILES_FOLDER:/data oracle2datacatalog \
+--datacatalog-project-id=$ORACLE2DC_DATACATALOG_PROJECT_ID  \
+--datacatalog-location-id=$ORACLE2DC_DATACATALOG_LOCATION_ID \
+--oracle-host=$ORACLE2DC_ORACLE_SERVER \
+--oracle-port=$ORACLE2DC_ORACLE_SERVER_PORT  \
+--oracle-user=$ORACLE2DC_ORACLE_USERNAME \
+--oracle-pass=$ORACLE2DC_ORACLE_PASSWORD \
+--oracle-db-service=$ORACLE2DC_ORACLE_DATABASE_SERVICE \
+--raw-metadata-csv=$ORACLE2DC_RAW_METADATA_CSV
 ```
 
 ## 4 Scripts inside tools
