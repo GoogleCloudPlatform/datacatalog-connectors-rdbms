@@ -2,6 +2,8 @@
 
 Library for ingesting Teradata metadata into Google Cloud Data Catalog.
 
+![Python package](2)[![PyPi][3]][4] [![License][5]][5] [![Issues][6]][7]
+
 **Disclaimer: This is not an officially supported Google product.**
 
 <!--
@@ -240,3 +242,9 @@ debug_error_string =
 For more info about Data Catalog quota, go to: [Data Catalog quota docs](https://cloud.google.com/data-catalog/docs/resources/quotas).
 
 [1]: https://virtualenv.pypa.io/en/latest/
+[2]: https://github.com/GoogleCloudPlatform/datacatalog-connectors-rdbms/workflows/Python%20package/badge.svg?branch=master
+[3]: https://img.shields.io/pypi/v/google-datacatalog-teradata-connector.svg
+[4]: https://pypi.org/project/google-datacatalog-teradata-connector/
+[5]: https://img.shields.io/github/license/GoogleCloudPlatform/datacatalog-connectors-rdbms.svg
+[6]: https://img.shields.io/github/issues/GoogleCloudPlatform/datacatalog-connectors-rdbms.svg
+[7]: https://github.com/GoogleCloudPlatform/datacatalog-connectors-rdbms/issues

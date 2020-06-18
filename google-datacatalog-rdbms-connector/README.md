@@ -2,6 +2,8 @@
 
 Common resources for Data Catalog RDBMS connectors.
 
+![Python package](2)[![PyPi][3]][4] [![License][5]][5] [![Issues][6]][7]
+
 **Disclaimer: This is not an officially supported Google product.**
 
 <!--
@@ -174,3 +176,9 @@ For columns they are used to create the Data Catalog Entry schema, two `target` 
 
 
 [1]: https://virtualenv.pypa.io/en/latest/
+[2]: https://github.com/GoogleCloudPlatform/datacatalog-connectors-rdbms/workflows/Python%20package/badge.svg?branch=master
+[3]: https://img.shields.io/pypi/v/google-datacatalog-rdbms-connector.svg
+[4]: https://pypi.org/project/google-datacatalog-rdbms-connector/
+[5]: https://img.shields.io/github/license/GoogleCloudPlatform/datacatalog-connectors-rdbms.svg
+[6]: https://img.shields.io/github/issues/GoogleCloudPlatform/datacatalog-connectors-rdbms.svg
+[7]: https://github.com/GoogleCloudPlatform/datacatalog-connectors-rdbms/issues
