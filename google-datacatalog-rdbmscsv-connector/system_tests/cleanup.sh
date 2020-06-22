@@ -15,9 +15,9 @@
 # limitations under the License.
 
 echo 'Execute CLEANUP'
-python tools/cleanup_datacatalog.py --datacatalog-project-ids $RDBSCSV2DC_DATACATALOG_PROJECT_ID --rdbms-type $RDBSCSV2DC_TYPE
+python google-datacatalog-rdbmscsv-connector/tools/cleanup_datacatalog.py --datacatalog-project-ids $RDBSCSV2DC_DATACATALOG_PROJECT_ID --rdbms-type $RDBSCSV2DC_TYPE
 
 # Sleep 5 seconds to wait for search index
 sleep 5
 echo 'Assert CLEANUP'
-python system_tests/cleanup_results_test.py
+python google-datacatalog-rdbmscsv-connector/system_tests/cleanup_results_test.py

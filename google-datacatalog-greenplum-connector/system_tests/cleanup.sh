@@ -15,9 +15,9 @@
 # limitations under the License.
 
 echo 'Execute CLEANUP'
-python tools/cleanup_datacatalog.py --datacatalog-project-ids $GREENPLUM2DC_DATACATALOG_PROJECT_ID
+python google-datacatalog-greenplum-connector/tools/cleanup_datacatalog.py --datacatalog-project-ids $GREENPLUM2DC_DATACATALOG_PROJECT_ID
 
 # Sleep 5 seconds to wait for search index
 sleep 5
 echo 'Assert CLEANUP'
-python system_tests/cleanup_results_test.py
+python google-datacatalog-greenplum-connector/system_tests/cleanup_results_test.py

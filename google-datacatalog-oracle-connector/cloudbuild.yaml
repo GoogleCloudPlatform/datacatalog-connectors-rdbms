@@ -20,7 +20,7 @@ steps:
   args: ['build',
          '-t',
          'gcr.io/$PROJECT_ID/oracle2datacatalog:$COMMIT_SHA',
-         '.']
+         '/workspace/google-datacatalog-oracle-connector/.']
   # Create custom image tag and write to file /workspace/_TAG
 - name: 'alpine'
   id: 'SETUP_TAG'
@@ -49,20 +49,19 @@ steps:
   args:
   - -c
   - 'pip install google-cloud-datacatalog &&
-     system_tests/cleanup.sh'
-# System_tests disabled: b/152768468        
-#- name: 'gcr.io/cloud-builders/docker'
-#  id: 'SYSTEM_TESTS'
-#  args: ['run',
-#         '--rm',
-#         '--tty',
-#         '-v',
-#         '/workspace:/data',
-#         'gcr.io/$PROJECT_ID/oracle2datacatalog:$COMMIT_SHA',
-#         '--datacatalog-project-id=${_ORACLE2DC_DATACATALOG_PROJECT_ID}',
-#         '--datacatalog-location-id=${_ORACLE2DC_DATACATALOG_LOCATION_ID}',
-#         '--oracle-host=${_ORACLE2DC_ORACLE_SERVER}',
-#         '--raw-metadata-csv=${_ORACLE2DC_RAW_METADATA_CSV}']
+     /workspace/google-datacatalog-oracle-connector/system_tests/cleanup.sh'
+- name: 'gcr.io/cloud-builders/docker'
+  id: 'SYSTEM_TESTS'
+  args: ['run',
+         '--rm',
+         '--tty',
+         '-v',
+         '/workspace:/data',
+         'gcr.io/$PROJECT_ID/oracle2datacatalog:$COMMIT_SHA',
+         '--datacatalog-project-id=${_ORACLE2DC_DATACATALOG_PROJECT_ID}',
+         '--datacatalog-location-id=${_ORACLE2DC_DATACATALOG_LOCATION_ID}',
+         '--oracle-host=${_ORACLE2DC_ORACLE_SERVER}',
+         '--raw-metadata-csv=${_ORACLE2DC_RAW_METADATA_CSV}']
 - name: 'docker.io/library/python:3.7'
   id: 'ASSERT_RESULTS'
   entrypoint: 'bash'
@@ -72,7 +71,7 @@ steps:
   args:
   - -c
   - 'pip install google-cloud-datacatalog &&
-     system_tests/assert.sh'
+     /workspace/google-datacatalog-oracle-connector/system_tests/assert.sh'
 - name: 'gcr.io/cloud-builders/docker'
   id: 'TAG_STABLE'
   entrypoint: '/bin/bash'

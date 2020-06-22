@@ -17,4 +17,4 @@
 # Sleep 5 seconds to wait for search index
 sleep 5
 echo 'Assert INGESTION'
-python system_tests/execution_results_test.py
+python google-datacatalog-oracle-connector/system_tests/execution_results_test.py

@@ -22,7 +22,7 @@ steps:
   args: ['build',
          '-t',
          'gcr.io/$PROJECT_ID/vertica2datacatalog:$COMMIT_SHA',
-         '.']
+         '/workspace/google-datacatalog-vertica-connector/.']
 
   # Create a custom tag and write to file /workspace/_TAG
 - name: 'alpine'
