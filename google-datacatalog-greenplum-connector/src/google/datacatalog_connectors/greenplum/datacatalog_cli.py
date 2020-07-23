@@ -35,7 +35,7 @@ class Greenplum2DatacatalogCli(datacatalog_cli.PostgreSQL2DatacatalogCli):
         }
 
     def _get_entry_group_id(self, args):
-        return 'greenplum'
+        return args.datacatalog_entry_group_id or 'greenplum'
 
     def _parse_args(self, argv):
         parser = argparse.ArgumentParser(
@@ -49,6 +49,9 @@ class Greenplum2DatacatalogCli(datacatalog_cli.PostgreSQL2DatacatalogCli):
             '--datacatalog-location-id',
             help='Location ID to be used for your Google Cloud Datacatalog',
             required=True)
+        parser.add_argument('--datacatalog-entry-group-id',
+                            help='Entry group ID to be used for your Google '
+                            'Cloud Datacatalog')
         parser.add_argument(
             '--greenplum-host',
             help='Your Greenplum server host, this is required even'

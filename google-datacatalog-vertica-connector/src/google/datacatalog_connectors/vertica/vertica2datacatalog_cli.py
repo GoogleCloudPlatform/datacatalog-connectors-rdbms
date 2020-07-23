@@ -36,7 +36,7 @@ class Vertica2DataCatalogCli(datacatalog_cli.DatacatalogCli):
         }
 
     def _get_entry_group_id(self, args):
-        return 'vertica'
+        return args.datacatalog_entry_group_id or 'vertica'
 
     def _get_metadata_scraper(self):
         return scrape.MetadataScraper
@@ -68,6 +68,9 @@ class Vertica2DataCatalogCli(datacatalog_cli.DatacatalogCli):
         parser.add_argument('--datacatalog-location-id',
                             help='Google Cloud Location ID',
                             required=True)
+        parser.add_argument('--datacatalog-entry-group-id',
+                            help='Entry group ID to be used for your Google '
+                            'Cloud Datacatalog')
         parser.add_argument('--service-account-path',
                             help='Local Service Account path (can be supplied'
                             ' as the GOOGLE_APPLICATION_CREDENTIALS'

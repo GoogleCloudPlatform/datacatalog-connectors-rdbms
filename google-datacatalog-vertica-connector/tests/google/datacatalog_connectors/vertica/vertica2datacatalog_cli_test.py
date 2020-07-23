@@ -48,8 +48,15 @@ class Vertica2DataCatalogCliTest(unittest.TestCase):
         self.assertEqual(expected_connection_args,
                          self.__cli._get_connection_args(args))
 
-    def test_get_entry_group_id_should_return_vertica(self):
-        self.assertEqual('vertica', self.__cli._get_entry_group_id({}))
+    def test_get_entry_group_id_should_return_value(self):
+        args = DictWithAttributeAccess()
+        args['datacatalog_entry_group_id'] = 'entry-group'
+        self.assertEqual('entry-group', self.__cli._get_entry_group_id(args))
+
+    def test_get_entry_group_id_should_return_vertica_when_missing(self):
+        args = DictWithAttributeAccess()
+        args['datacatalog_entry_group_id'] = None
+        self.assertEqual('vertica', self.__cli._get_entry_group_id(args))
 
     def test_get_metadata_scraper_should_return_vertica_scraper(self):
         self.assertEqual(scrape.MetadataScraper,

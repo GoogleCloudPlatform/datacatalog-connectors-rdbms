@@ -37,6 +37,7 @@ class DatacatalogCLITestCase(TestCase):
 
         mocked_parse_args.datacatalog_project_id = 'test_project_id'
         mocked_parse_args.datacatalog_location_id = 'location_id'
+        mocked_parse_args.datacatalog_entry_group_id = 'entry_group_id'
         mocked_parse_args.teradata_host = 'host'
         mocked_parse_args.hive_metastore_db_user = 'user'
         mocked_parse_args.teradata_user = 'pass'
@@ -56,7 +57,8 @@ class DatacatalogCLITestCase(TestCase):
                     or '--teradata-user' in command \
                     or '--teradata-pass' in command \
                     or '--raw-metadata-csv' in command \
-                    or '--enable-monitoring' in command:
+                    or '--enable-monitoring' in command \
+                    or '--datacatalog-entry-group-id' in command:
                 params = call_arg[1]
                 required = params.get('required')
                 self.assertFalse(required)
