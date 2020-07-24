@@ -36,7 +36,7 @@ class Redshift2DatacatalogCli(datacatalog_cli.PostgreSQL2DatacatalogCli):
         }
 
     def _get_entry_group_id(self, args):
-        return 'redshift'
+        return args.datacatalog_entry_group_id or 'redshift'
 
     def _parse_args(self, argv):
         parser = argparse.ArgumentParser(
@@ -50,6 +50,9 @@ class Redshift2DatacatalogCli(datacatalog_cli.PostgreSQL2DatacatalogCli):
             '--datacatalog-location-id',
             help='Location ID to be used for your Google Cloud Datacatalog',
             required=True)
+        parser.add_argument('--datacatalog-entry-group-id',
+                            help='Entry group ID to be used for your Google '
+                            'Cloud Datacatalog')
         parser.add_argument(
             '--redshift-host',
             help='Your Redshift server host, this is required even'

@@ -28,7 +28,7 @@ class RDBMSCSV2DatacatalogCli(datacatalog_cli.DatacatalogCli):
         return args.rdbms_host
 
     def _get_entry_group_id(self, args):
-        return args.rdbms_type
+        return args.datacatalog_entry_group_id or args.rdbms_type
 
     def _get_metadata_definition_path(self):
         return os.path.join(os.path.dirname(os.path.abspath(__file__)),
@@ -46,6 +46,9 @@ class RDBMSCSV2DatacatalogCli(datacatalog_cli.DatacatalogCli):
                             help='Location ID to be used for your'
                             ' Google Cloud Datacatalog',
                             required=True)
+        parser.add_argument('--datacatalog-entry-group-id',
+                            help='Entry group ID to be used for your Google '
+                            'Cloud Datacatalog')
         parser.add_argument('--rdbms-host',
                             help='Your RDBMS server host',
                             required=True)

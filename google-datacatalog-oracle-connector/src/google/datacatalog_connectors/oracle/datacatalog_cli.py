@@ -41,7 +41,7 @@ class Oracle2DatacatalogCli(datacatalog_cli.DatacatalogCli):
         }
 
     def _get_entry_group_id(self, args):
-        return 'oracle'
+        return args.datacatalog_entry_group_id or 'oracle'
 
     def _get_metadata_definition_path(self):
         return os.path.join(os.path.dirname(os.path.abspath(__file__)),
@@ -63,6 +63,9 @@ class Oracle2DatacatalogCli(datacatalog_cli.DatacatalogCli):
                             help='Location ID to be used for your'
                             ' Google Cloud Datacatalog',
                             required=True)
+        parser.add_argument('--datacatalog-entry-group-id',
+                            help='Entry group ID to be used for your Google '
+                            'Cloud Datacatalog')
         parser.add_argument('--oracle-host',
                             help='Your Oracle server host,'
                             ' this is required even'

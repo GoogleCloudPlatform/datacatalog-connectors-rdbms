@@ -39,7 +39,7 @@ class Teradata2DatacatalogCli(datacatalog_cli.DatacatalogCli):
         }
 
     def _get_entry_group_id(self, args):
-        return 'teradata'
+        return args.datacatalog_entry_group_id or 'teradata'
 
     def _get_metadata_definition_path(self):
         return os.path.join(os.path.dirname(os.path.abspath(__file__)),
@@ -61,6 +61,9 @@ class Teradata2DatacatalogCli(datacatalog_cli.DatacatalogCli):
                             help='Location ID to be used for your'
                             ' Google Cloud Datacatalog',
                             required=True)
+        parser.add_argument('--datacatalog-entry-group-id',
+                            help='Entry group ID to be used for your Google '
+                            'Cloud Datacatalog')
         parser.add_argument('--teradata-host',
                             help='Your Teradata server host,'
                             ' this is required even'
