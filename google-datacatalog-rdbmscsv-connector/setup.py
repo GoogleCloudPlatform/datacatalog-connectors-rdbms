@@ -23,7 +23,7 @@ with open('README.md') as readme_file:
 
 setuptools.setup(
     name='google-datacatalog-rdbmscsv-connector',
-    version='0.5.0',
+    version='0.6.0',
     author='Google LLC',
     description='Library for ingesting RDBMS CSV metadata into Google Cloud Data Catalog',
     packages=setuptools.find_packages(where='./src'),
