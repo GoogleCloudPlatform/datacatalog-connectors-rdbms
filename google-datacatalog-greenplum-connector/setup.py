@@ -23,7 +23,7 @@ with open('README.md') as readme_file:
 
 setuptools.setup(
     name='google-datacatalog-greenplum-connector',
-    version='0.5.0',
+    version='0.6.0',
     author='Google LLC',
     description='Library for ingesting Greenplum metadata into Google Cloud Data Catalog',
     platforms='Posix; MacOS X; Windows',
