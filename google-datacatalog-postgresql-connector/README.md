@@ -121,6 +121,7 @@ export GOOGLE_APPLICATION_CREDENTIALS=data_catalog_credentials_file
 export POSTGRESQL2DC_DATACATALOG_PROJECT_ID=google_cloud_project_id
 export POSTGRESQL2DC_DATACATALOG_LOCATION_ID=google_cloud_location_id
 export POSTGRESQL2DC_POSTGRESQL_SERVER=postgresql_server
+export POSTGRESQL2DC_POSTGRESQL_SERVER_PORT=postgresql_port
 export POSTGRESQL2DC_POSTGRESQL_USERNAME=postgresql_username
 export POSTGRESQL2DC_POSTGRESQL_PASSWORD=postgresql_password
 export POSTGRESQL2DC_POSTGRESQL_DATABASE=postgresql_database
@@ -139,6 +140,7 @@ google-datacatalog-postgresql-connector \
 --datacatalog-project-id=$POSTGRESQL2DC_DATACATALOG_PROJECT_ID \
 --datacatalog-location-id=$POSTGRESQL2DC_DATACATALOG_LOCATION_ID \
 --postgresql-host=$POSTGRESQL2DC_POSTGRESQL_SERVER \
+--postgresql-port=$POSTGRESQL2DC_POSTGRESQL_SERVER_PORT \
 --postgresql-user=$POSTGRESQL2DC_POSTGRESQL_USERNAME \
 --postgresql-pass=$POSTGRESQL2DC_POSTGRESQL_PASSWORD \
 --postgresql-database=$POSTGRESQL2DC_POSTGRESQL_DATABASE  \
@@ -153,6 +155,7 @@ docker run --rm --tty -v YOUR-CREDENTIALS_FILES_FOLDER:/data postgresql2datacata
 --datacatalog-project-id=$POSTGRESQL2DC_DATACATALOG_PROJECT_ID \
 --datacatalog-location-id=$POSTGRESQL2DC_DATACATALOG_LOCATION_ID \
 --postgresql-host=$POSTGRESQL2DC_POSTGRESQL_SERVER \
+--postgresql-port=$POSTGRESQL2DC_POSTGRESQL_SERVER_PORT \
 --postgresql-user=$POSTGRESQL2DC_POSTGRESQL_USERNAME \
 --postgresql-pass=$POSTGRESQL2DC_POSTGRESQL_PASSWORD \
 --postgresql-database=$POSTGRESQL2DC_POSTGRESQL_DATABASE  \

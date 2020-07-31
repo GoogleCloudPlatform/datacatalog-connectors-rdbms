@@ -36,6 +36,7 @@ class PostgreSQL2DatacatalogCli(datacatalog_cli.DatacatalogCli):
         return {
             'database': args.postgresql_database,
             'host': args.postgresql_host,
+            'port': args.postgresql_port,
             'user': args.postgresql_user,
             'pass': args.postgresql_pass
         }
