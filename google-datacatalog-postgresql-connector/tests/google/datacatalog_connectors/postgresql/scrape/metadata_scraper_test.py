@@ -127,7 +127,7 @@ class MetadataScraperTestCase(unittest.TestCase):
                           connection_args={
                               'database': 'db',
                               'host': 'mysql_host',
-                              'post': 5432,
+                              'port': 5432,
                               'user': 'dbc',
                               'pass': 'dbc'
                           })
