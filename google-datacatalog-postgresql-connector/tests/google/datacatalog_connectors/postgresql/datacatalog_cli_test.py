@@ -39,6 +39,7 @@ class DatacatalogCLITestCase(unittest.TestCase):
         mocked_parse_args.datacatalog_location_id = 'location_id'
         mocked_parse_args.datacatalog_entry_group_id = 'entry_group_id'
         mocked_parse_args.postgresql_host = 'host'
+        mocked_parse_args.postgresql_port = 5432
         mocked_parse_args.postgresql_user = 'user'
         mocked_parse_args.postgresql_pass = 'pass'
         mocked_parse_args.postgresql_database = 'db'
@@ -54,6 +55,7 @@ class DatacatalogCLITestCase(unittest.TestCase):
             command = arg[0]
             # Verify args which should not contain the required attribute
             if '--service-account-path' in command \
+                    or '--postgresql-port' in command \
                     or '--postgresql-user' in command \
                     or '--postgresql-pass' in command \
                     or '--postgresql-database' in command \

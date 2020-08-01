@@ -36,6 +36,7 @@ class PostgreSQL2DatacatalogCli(datacatalog_cli.DatacatalogCli):
         return {
             'database': args.postgresql_database,
             'host': args.postgresql_host,
+            'port': args.postgresql_port,
             'user': args.postgresql_user,
             'pass': args.postgresql_pass
         }
@@ -73,6 +74,8 @@ class PostgreSQL2DatacatalogCli(datacatalog_cli.DatacatalogCli):
             ' so we are able to map the created entries'
             ' resource with the postgresql host',
             required=True)
+        parser.add_argument('--postgresql-port',
+                            help='Your postgresql server port')
         parser.add_argument('--postgresql-user',
                             help='Your postgresql credentials user')
         parser.add_argument('--postgresql-pass',

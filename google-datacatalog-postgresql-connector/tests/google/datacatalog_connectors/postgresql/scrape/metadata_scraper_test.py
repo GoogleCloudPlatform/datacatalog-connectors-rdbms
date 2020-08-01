@@ -69,6 +69,7 @@ class MetadataScraperTestCase(unittest.TestCase):
                                                   connection_args={
                                                       'database': 'db',
                                                       'host': 'mysql_host',
+                                                      'port': 5432,
                                                       'user': 'dbc',
                                                       'pass': 'dbc'
                                                   })
@@ -104,7 +105,7 @@ class MetadataScraperTestCase(unittest.TestCase):
                                                   connection_args={
                                                       'database': 'db',
                                                       'host': 'mysql_host',
-                                                      'port': 5555,
+                                                      'port': 5432,
                                                       'user': 'dbc',
                                                       'pass': 'dbc'
                                                   })
@@ -126,6 +127,7 @@ class MetadataScraperTestCase(unittest.TestCase):
                           connection_args={
                               'database': 'db',
                               'host': 'mysql_host',
+                              'port': 5432,
                               'user': 'dbc',
                               'pass': 'dbc'
                           })
