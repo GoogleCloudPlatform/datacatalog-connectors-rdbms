@@ -15,7 +15,7 @@
 */
 
 SELECT  t.table_schema as database_name,
-        t.table_name, t.table_type,
+        t.table_name, t.table_type, t.create_time, t.update_time,
         c.column_name,
         c.column_default as column_default_value,
         c.is_nullable as column_nullable,
