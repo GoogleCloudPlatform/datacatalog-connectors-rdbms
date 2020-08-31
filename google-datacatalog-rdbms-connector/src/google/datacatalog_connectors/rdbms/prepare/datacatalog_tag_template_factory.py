@@ -111,6 +111,10 @@ class DataCatalogTagTemplateFactory:
         tag_template.fields['num_rows'].type.primitive_type = \
             DataCatalogTagTemplateFactory.__DOUBLE_TYPE
 
+        tag_template.fields['table_size_mb'].display_name = 'Table Size in Mb'
+        tag_template.fields['table_size_mb'].type.primitive_type = \
+            DataCatalogTagTemplateFactory.__DOUBLE_TYPE
+
         return tag_template_id, tag_template
 
     def __add_database_name_to_tag_template(self, tag_template):

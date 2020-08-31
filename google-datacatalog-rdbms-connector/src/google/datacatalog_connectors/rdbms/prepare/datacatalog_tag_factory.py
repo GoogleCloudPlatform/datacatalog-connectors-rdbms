@@ -92,7 +92,7 @@ class DataCatalogTagFactory:
             table_container_name
 
         self.__add_database_name_to_tag(tag)
-
+        self.__add_table_size_value_to_tag(table, tag)
         self.__add_creator_value_to_tag(
             self.__metadata_definition['table_def']['type'], table, tag)
         self.__add_owner_value_to_tag(
@@ -110,6 +110,16 @@ class DataCatalogTagFactory:
             if database_name:
                 tag.fields['database_name'].string_value = \
                     database_name
+
+    @classmethod
+    def __add_table_size_value_to_tag(cls, metadata, tag):
+        table_size = metadata.get('table_size_mb')
+        print('TABLE SIZE')
+        print(table_size)
+        if table_size:
+            if pd.isnull(table_size):
+                table_size = 0
+            tag.fields['table_size_mb'].double_value = table_size
 
     @classmethod
     def __add_creator_value_to_tag(cls, attribute_type, metadata, tag):
