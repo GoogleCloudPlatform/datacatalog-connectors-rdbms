@@ -15,7 +15,9 @@
 */
 
 SELECT  t.table_schema as database_name,
-        t.table_name, t.table_type, t.create_time, t.update_time,
+        t.table_name, t.table_type,
+        t.create_time, t.update_time,
+        round((t.data_length+t.index_length) / (1024 * 1024), 3) as table_size,
         c.column_name,
         c.column_default as column_default_value,
         c.is_nullable as column_nullable,

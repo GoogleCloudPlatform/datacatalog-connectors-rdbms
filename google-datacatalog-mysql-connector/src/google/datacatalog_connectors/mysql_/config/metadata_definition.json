@@ -23,6 +23,11 @@
             {
                 "source": "update_time",
                 "target": "update_time"
+            },
+
+            {
+                "source": "table_size",
+                "target": "table_size_mb"
             }
         ]
     },
