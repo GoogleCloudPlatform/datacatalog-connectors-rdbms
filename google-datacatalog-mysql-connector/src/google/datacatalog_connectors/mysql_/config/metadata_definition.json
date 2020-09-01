@@ -28,6 +28,11 @@
             {
                 "source": "table_size",
                 "target": "table_size_mb"
+            },
+
+            {
+                "source": "table_rows",
+                "target": "num_rows"
             }
         ]
     },
