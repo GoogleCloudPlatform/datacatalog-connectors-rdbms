@@ -16,6 +16,7 @@
 
 from google.datacatalog_connectors.rdbms.scrape import\
     metadata_scraper
+from .query_assembler import QueryAssembler
 
 
 class MetadataScraper(metadata_scraper.MetadataScraper):
@@ -30,3 +31,6 @@ class MetadataScraper(metadata_scraper.MetadataScraper):
                       user=connection_args['user'],
                       password=connection_args['pass'])
         return con
+
+    def _get_query_assembler(self, user_config):
+        return QueryAssembler(user_config)
