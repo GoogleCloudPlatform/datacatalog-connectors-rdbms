@@ -29,9 +29,10 @@ class MetadataScraper:
                      metadata_definition,
                      connection_args=None,
                      query=None,
-                     csv_path=None):
+                     csv_path=None,
+                     user_config=None):
         dataframe = self._get_metadata_as_dataframe(connection_args, query,
-                                                    csv_path)
+                                                    csv_path, user_config)
 
         return MetadataNormalizer.to_metadata_dict(dataframe,
                                                    metadata_definition)
@@ -39,14 +40,22 @@ class MetadataScraper:
     def _get_metadata_as_dataframe(self,
                                    connection_args=None,
                                    query=None,
-                                   csv_path=None):
+                                   csv_path=None,
+                                   user_config=None):
         if csv_path:
             logging.info('Scrapping metadata from csv path: "%s"', csv_path)
             dataframe = self._get_metadata_from_csv(csv_path)
         elif connection_args and len(connection_args.keys()) > 0:
             logging.info('Scrapping metadata from connection_args')
-            dataframe = self._get_metadata_from_rdbms_connection(
-                connection_args, query)
+            if not user_config:
+                dataframe = self._get_metadata_from_rdbms_connection(
+                    connection_args, query)
+            else:
+                query_assembler = self._get_query_assembler(user_config)
+                base_query = query_assembler.get_base_query()
+                # todo: Implement metadata update and optional queries
+                dataframe = self._get_metadata_from_rdbms_connection(
+                    connection_args, base_query)
         else:
             raise Exception('Must supply either connection_args or csv_path')
 
@@ -86,3 +95,8 @@ class MetadataScraper:
     @classmethod
     def _get_metadata_from_csv(cls, csv_path):
         return pd.read_csv(csv_path)
+
+    def _get_query_assembler(self, user_config):
+        raise NotImplementedError(
+            'Implementing this method is required to run multiple optional queries'
+        )
