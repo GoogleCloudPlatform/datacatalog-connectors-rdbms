@@ -21,7 +21,3 @@ update-metadata: true
 
 # Retrieve number of columns in each table
 num_columns: true
-
-
-
-

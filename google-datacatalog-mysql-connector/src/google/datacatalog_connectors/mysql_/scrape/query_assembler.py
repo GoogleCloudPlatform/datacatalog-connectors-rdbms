@@ -1,18 +1,7 @@
-# Read configuration file and deliver a list of queries that should be executed to fetch metadata.
-# Execute analyze if needed
+from google.datacatalog_connectors.rdbms.scrape import query_assembler
 
 
-class QueryAssembler:
+class QueryAssembler(query_assembler.QueryAssembler):
 
-    def __init__(self, user_config):
-        """
-        ingest_config: contents of .yaml configuration file
-        """
-        self._user_config = user_config
-
-    def get_update_queries(self, table_names):
-        queries = list()
-        for tbl_name in table_names:
-            update_statement = "ANALYZE TABLE {};".format(tbl_name)
-            queries.append(update_statement)
-        return queries
+    def _get_update_statement(self, table_name):
+        return "ANALYZE TABLE {};".format(table_name)
