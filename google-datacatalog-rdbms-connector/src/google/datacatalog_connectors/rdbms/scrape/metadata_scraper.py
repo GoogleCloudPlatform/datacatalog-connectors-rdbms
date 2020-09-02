@@ -98,12 +98,7 @@ class MetadataScraper:
             con = self._create_rdbms_connection(connection_args)
             cur = con.cursor()
             for query in update_queries:
-                # todo: delete following printf debugging
-                print(query)
                 cur.execute(query)
-
-                rows = cur.fetchall()
-                print(rows)
         except:  # noqa:E722
             logging.error(
                 'Error connecting to the database to update metadata.')
