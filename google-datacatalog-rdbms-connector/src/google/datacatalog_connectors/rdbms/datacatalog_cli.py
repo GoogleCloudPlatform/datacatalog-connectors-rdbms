@@ -77,8 +77,8 @@ class DatacatalogCli(ABC):
     def _get_user_config(self):
         path = self._get_user_config_path()
         if path:
-            config = config.Config(path)
-            return config
+            user_config = config.Config(path)
+            return user_config
         return None
 
     @abstractmethod

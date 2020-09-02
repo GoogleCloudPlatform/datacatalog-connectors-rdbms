@@ -1,4 +1,5 @@
 import yaml
+import logging
 
 
 class Config:
@@ -12,7 +13,7 @@ class Config:
 
     def _read_config_file(self):
         with open(self._config_path, 'r') as f:
-            conf = yaml.load(f)
+            conf = yaml.load(f, Loader=yaml.FullLoader)
         return conf
 
     def _determine_scraping_steps(self):

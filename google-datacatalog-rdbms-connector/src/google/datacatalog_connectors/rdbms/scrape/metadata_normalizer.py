@@ -222,3 +222,10 @@ class MetadataNormalizer:
             return True
 
         return False
+
+    @staticmethod
+    def get_table_names_from_dataframe(dataframe, metadata_definition):
+        col_name = metadata_definition['table_def']['name']
+        tbl_names = dataframe[col_name].unique()
+        tbl_names = [name.strip() for name in tbl_names]
+        return tbl_names

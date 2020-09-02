@@ -44,8 +44,7 @@ class MySQL2DatacatalogCli(datacatalog_cli.DatacatalogCli):
         return args.datacatalog_entry_group_id or 'mysql'
 
     def _get_user_config_path(self):
-        return os.path.join(
-            os.getcwd(), 'google-datacatalog-mysql-connector/ingest_cnfg.yaml')
+        return os.path.join(os.getcwd(), 'ingest_cnfg.yaml')
 
     def _get_metadata_definition_path(self):
         return os.path.join(os.path.dirname(os.path.abspath(__file__)),

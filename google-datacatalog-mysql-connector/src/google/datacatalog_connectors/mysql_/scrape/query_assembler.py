@@ -4,18 +4,15 @@
 
 class QueryAssembler:
 
-    def __init__(self, ingest_config):
+    def __init__(self, user_config):
         """
         ingest_config: contents of .yaml configuration file
         """
-        self._ingest_config = ingest_config
+        self._user_config = user_config
 
-    def _update_metadata(self):
-        if self._ingest_config['analyze']:
-            self._run_analyze()
-
-    def _run_analyze(self):
-        pass
-
-    def _get_base_query(self):
-        pass
+    def get_update_queries(self, table_names):
+        queries = list()
+        for tbl_name in table_names:
+            update_statement = "ANALYZE TABLE {};".format(tbl_name)
+            queries.append(update_statement)
+        return queries

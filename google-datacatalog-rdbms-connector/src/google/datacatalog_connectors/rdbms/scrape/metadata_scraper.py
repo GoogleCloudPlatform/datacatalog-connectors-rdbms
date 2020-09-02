@@ -31,13 +31,15 @@ class MetadataScraper:
                      query=None,
                      csv_path=None,
                      user_config=None):
-        dataframe = self._get_metadata_as_dataframe(connection_args, query,
+        dataframe = self._get_metadata_as_dataframe(metadata_definition,
+                                                    connection_args, query,
                                                     csv_path, user_config)
 
         return MetadataNormalizer.to_metadata_dict(dataframe,
                                                    metadata_definition)
 
     def _get_metadata_as_dataframe(self,
+                                   metadata_definition,
                                    connection_args=None,
                                    query=None,
                                    csv_path=None,
@@ -47,21 +49,24 @@ class MetadataScraper:
             dataframe = self._get_metadata_from_csv(csv_path)
         elif connection_args and len(connection_args.keys()) > 0:
             logging.info('Scrapping metadata from connection_args')
-            if not user_config:
-                dataframe = self._get_metadata_from_rdbms_connection(
-                    connection_args, query)
-            else:
+            dataframe = self._get_base_metadata_from_rdbms_connection(
+                connection_args, query)
+            if user_config:
                 query_assembler = self._get_query_assembler(user_config)
-                base_query = query_assembler.get_base_query()
-                # todo: Implement metadata update and optional queries
-                dataframe = self._get_metadata_from_rdbms_connection(
-                    connection_args, base_query)
+                if user_config.update_metadata:
+                    tbl_names = MetadataNormalizer.get_table_names_from_dataframe(
+                        dataframe, metadata_definition)
+                    update_queries = query_assembler.get_update_queries(
+                        tbl_names)
+                    logging.info('Updating metadata')
+                    self._update_metadata_from_rdbms_connection(
+                        connection_args, update_queries)
         else:
             raise Exception('Must supply either connection_args or csv_path')
 
         return dataframe
 
-    def _get_metadata_from_rdbms_connection(self, connection_args, query):
+    def _get_base_metadata_from_rdbms_connection(self, connection_args, query):
         con = None
         try:
             con = self._create_rdbms_connection(connection_args)
@@ -85,6 +90,27 @@ class MetadataScraper:
 
     def _create_dataframe(self, rows):
         return pd.DataFrame(rows)
+
+    def _update_metadata_from_rdbms_connection(self, connection_args,
+                                               update_queries):
+        con = None
+        try:
+            con = self._create_rdbms_connection(connection_args)
+            cur = con.cursor()
+            for query in update_queries:
+                # todo: delete following printf debugging
+                print(query)
+                cur.execute(query)
+
+                rows = cur.fetchall()
+                print(rows)
+        except:  # noqa:E722
+            logging.error(
+                'Error connecting to the database to update metadata.')
+            raise
+        finally:
+            if con:
+                con.close()
 
     # To connect to the RDBMS, it's required to override this method.
     # If you are ingesting from a CSV file, this method is not used.
