@@ -16,6 +16,7 @@
 
 import logging
 import warnings
+import time
 
 from .metadata_normalizer import MetadataNormalizer
 import pandas as pd
@@ -113,8 +114,13 @@ class MetadataScraper:
         try:
             con = self._create_rdbms_connection(connection_args)
             cur = con.cursor()
+            start_update = time.time()
             for query in update_queries:
                 self._execute_update_query(cur, query)
+            end_update = time.time()
+            logging.info(
+                'Metadata update took {} seconds to run. You can turn it off in ingest_cnfg.yaml configuration file'
+                .format(end_update - start_update))
         except:  # noqa:E722
             logging.error(
                 'Error connecting to the database to update metadata.')
