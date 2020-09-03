@@ -19,5 +19,5 @@
 # Note, that it might take long time to ANALYZE big tables
 update-metadata: true
 
-# Retrieve number of columns in each table
-num_columns: true
+# Retrieve number of rows in each table
+num_rows: true
