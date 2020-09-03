@@ -1,10 +1,7 @@
 class QueryAssembler:
 
-    def __init__(self, user_config):
-        """
-        user_config: contents of .yaml configuration file
-        """
-        self._user_config = user_config
+    def __init__(self):
+        pass
 
     def get_update_queries(self, table_names):
         queries = list()

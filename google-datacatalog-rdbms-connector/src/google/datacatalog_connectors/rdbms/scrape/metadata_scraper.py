@@ -54,7 +54,7 @@ class MetadataScraper:
             dataframe = self._get_base_metadata_from_rdbms_connection(
                 connection_args, query)
             if user_config:
-                query_assembler = self._get_query_assembler(user_config)
+                query_assembler = self._get_query_assembler()
                 if user_config.update_metadata:
                     tbl_names = MetadataNormalizer.get_table_names_from_dataframe(
                         dataframe, metadata_definition)
@@ -173,7 +173,7 @@ class MetadataScraper:
     def _get_metadata_from_csv(cls, csv_path):
         return pd.read_csv(csv_path)
 
-    def _get_query_assembler(self, user_config):
+    def _get_query_assembler(self):
         raise NotImplementedError(
             'Implementing this method is required to run multiple optional queries'
         )

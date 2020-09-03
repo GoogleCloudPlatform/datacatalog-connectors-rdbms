@@ -38,8 +38,8 @@ class MetadataScraper(metadata_scraper.MetadataScraper):
                       password=connection_args['pass'])
         return con
 
-    def _get_query_assembler(self, user_config):
-        return QueryAssembler(user_config)
+    def _get_query_assembler(self):
+        return QueryAssembler()
 
     def _execute_update_query(self, cursor, query):
         cursor.execute(query)
