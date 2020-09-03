@@ -114,7 +114,7 @@ class MetadataScraper:
             con = self._create_rdbms_connection(connection_args)
             cur = con.cursor()
             for query in update_queries:
-                cur.execute(query)
+                self._execute_update_query(cur, query)
         except:  # noqa:E722
             logging.error(
                 'Error connecting to the database to update metadata.')
@@ -170,4 +170,14 @@ class MetadataScraper:
     def _get_query_assembler(self, user_config):
         raise NotImplementedError(
             'Implementing this method is required to run multiple optional queries'
+        )
+
+    def _execute_update_query(self, cursor, query):
+        """
+        On update, some DBs deliver a table that has to be fetched after executing the query; others
+        don't. What to do with results of update is RDBMS-specific, and these details
+         have to be implemented in this method.
+        """
+        raise NotImplementedError(
+            'Implementing this method is required to execute an update query in a DB-specific way'
         )
