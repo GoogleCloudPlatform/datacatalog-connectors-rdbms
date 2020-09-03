@@ -37,7 +37,6 @@ SELECT t.table_schema as schema_name,
        c.character_maximum_length as column_char_length,
        c.numeric_precision as column_numeric_precision,
        e.enum_values as column_enum_values,
-       pc.reltuples as table_rows,
        CAST (pg_total_relation_size(pc.oid) AS FLOAT) / 1024 / 1024 as table_size
     FROM information_schema.tables t
         JOIN  information_schema.columns c
