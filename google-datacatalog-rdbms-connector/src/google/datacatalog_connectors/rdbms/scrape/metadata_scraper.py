@@ -15,6 +15,7 @@
 # limitations under the License.
 
 import logging
+import warnings
 
 from .metadata_normalizer import MetadataNormalizer
 import pandas as pd
@@ -48,7 +49,7 @@ class MetadataScraper:
             logging.info('Scrapping metadata from csv path: "%s"', csv_path)
             dataframe = self._get_metadata_from_csv(csv_path)
         elif connection_args and len(connection_args.keys()) > 0:
-            logging.info('Scrapping metadata from connection_args')
+            logging.info('Scrapping basic metadata from connection_args')
             dataframe = self._get_base_metadata_from_rdbms_connection(
                 connection_args, query)
             if user_config:
@@ -61,6 +62,21 @@ class MetadataScraper:
                     logging.info('Updating metadata')
                     self._update_metadata_from_rdbms_connection(
                         connection_args, update_queries)
+                if user_config.scrape_optional_metadata:
+                    optional_metadata = user_config.get_chosen_metadata_options(
+                    )
+                    optional_queries = query_assembler.get_optional_queries(
+                        optional_metadata)
+                    logging.info(
+                        'Scraping metadata according to configuration file: {}'
+                        .format(optional_metadata))
+                    column_with_table_names = metadata_definition['table_def'][
+                        'name']
+                    column_with_container_names = metadata_definition[
+                        'table_container_def']['name']
+                    dataframe = self._get_optional_metadata_from_rdbms_connection(
+                        connection_args, optional_queries, dataframe,
+                        column_with_container_names, column_with_table_names)
         else:
             raise Exception('Must supply either connection_args or csv_path')
 
@@ -102,6 +118,40 @@ class MetadataScraper:
         except:  # noqa:E722
             logging.error(
                 'Error connecting to the database to update metadata.')
+            raise
+        finally:
+            if con:
+                con.close()
+
+    def _get_optional_metadata_from_rdbms_connection(self, connection_args,
+                                                     optional_queries,
+                                                     base_dataframe, cont_name,
+                                                     tbl_name):
+        con = None
+        try:
+            con = self._create_rdbms_connection(connection_args)
+            cur = con.cursor()
+            for query in optional_queries:
+                cur.execute(query)
+                rows = cur.fetchall()
+                if len(rows) == 0:
+                    warnings.warn(
+                        "Query {} delivered no rows. Skipping it.".format(
+                            query))
+                else:
+                    new_dataframe = self._create_dataframe(rows)
+                    new_dataframe.columns = [
+                        item[0].lower() for item in cur.description
+                    ]
+                    dataframe = pd.merge(base_dataframe,
+                                         new_dataframe,
+                                         on=[cont_name, tbl_name])
+                    base_dataframe = dataframe
+            return base_dataframe
+        except:  # noqa:E722
+            logging.error(
+                'Error connecting to the database to extract optional metadata.'
+            )
             raise
         finally:
             if con:
