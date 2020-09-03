@@ -54,30 +54,9 @@ class MetadataScraper:
             dataframe = self._get_base_metadata_from_rdbms_connection(
                 connection_args, query)
             if user_config:
-                query_assembler = self._get_query_assembler()
-                if user_config.update_metadata:
-                    tbl_names = MetadataNormalizer.get_table_names_from_dataframe(
-                        dataframe, metadata_definition)
-                    update_queries = query_assembler.get_update_queries(
-                        tbl_names)
-                    logging.info('Updating metadata')
-                    self._update_metadata_from_rdbms_connection(
-                        connection_args, update_queries)
-                if user_config.scrape_optional_metadata:
-                    optional_metadata = user_config.get_chosen_metadata_options(
-                    )
-                    optional_queries = query_assembler.get_optional_queries(
-                        optional_metadata)
-                    logging.info(
-                        'Scraping metadata according to configuration file: {}'
-                        .format(optional_metadata))
-                    column_with_table_names = metadata_definition['table_def'][
-                        'name']
-                    column_with_container_names = metadata_definition[
-                        'table_container_def']['name']
-                    dataframe = self._get_optional_metadata_from_rdbms_connection(
-                        connection_args, optional_queries, dataframe,
-                        column_with_container_names, column_with_table_names)
+                dataframe = self._enrich_metadata_based_on_user_config(
+                    user_config, dataframe, connection_args,
+                    metadata_definition)
         else:
             raise Exception('Must supply either connection_args or csv_path')
 
@@ -108,6 +87,30 @@ class MetadataScraper:
     def _create_dataframe(self, rows):
         return pd.DataFrame(rows)
 
+    def _enrich_metadata_based_on_user_config(self, user_config,
+                                              base_dataframe, connection_args,
+                                              metadata_definition):
+        query_assembler = self._get_query_assembler()
+        enriched_dataframe = base_dataframe
+        if user_config.update_metadata:
+            tbl_names = MetadataNormalizer.get_table_names_from_dataframe(
+                base_dataframe, metadata_definition)
+            update_queries = query_assembler.get_update_queries(tbl_names)
+            logging.info('Updating metadata')
+            self._update_metadata_from_rdbms_connection(
+                connection_args, update_queries)
+        if user_config.scrape_optional_metadata:
+            optional_metadata = user_config.get_chosen_metadata_options()
+            optional_queries = query_assembler.get_optional_queries(
+                optional_metadata)
+            logging.info(
+                'Scraping metadata according to configuration file: {}'.format(
+                    optional_metadata))
+            enriched_dataframe = self._get_optional_metadata_from_rdbms_connection(
+                connection_args, optional_queries, base_dataframe,
+                metadata_definition)
+        return enriched_dataframe
+
     def _update_metadata_from_rdbms_connection(self, connection_args,
                                                update_queries):
         con = None
@@ -131,8 +134,8 @@ class MetadataScraper:
 
     def _get_optional_metadata_from_rdbms_connection(self, connection_args,
                                                      optional_queries,
-                                                     base_dataframe, cont_name,
-                                                     tbl_name):
+                                                     base_dataframe,
+                                                     metadata_definition):
         con = None
         try:
             con = self._create_rdbms_connection(connection_args)
@@ -149,10 +152,8 @@ class MetadataScraper:
                     new_dataframe.columns = [
                         item[0].lower() for item in cur.description
                     ]
-                    dataframe = pd.merge(base_dataframe,
-                                         new_dataframe,
-                                         on=[cont_name, tbl_name])
-                    base_dataframe = dataframe
+                    base_dataframe = self._get_merged_dataframe(
+                        base_dataframe, new_dataframe, metadata_definition)
             return base_dataframe
         except:  # noqa:E722
             logging.error(
@@ -162,6 +163,15 @@ class MetadataScraper:
         finally:
             if con:
                 con.close()
+
+    def _get_merged_dataframe(self, old_df, new_df, metadata_definition):
+        table_name_col = metadata_definition['table_def']['name']
+        table_container_mame_col = metadata_definition['table_container_def'][
+            'name']
+        dataframe = pd.merge(old_df,
+                             new_df,
+                             on=[table_container_mame_col, table_name_col])
+        return dataframe
 
     # To connect to the RDBMS, it's required to override this method.
     # If you are ingesting from a CSV file, this method is not used.
