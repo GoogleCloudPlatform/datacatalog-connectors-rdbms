@@ -114,8 +114,6 @@ class DataCatalogTagFactory:
     @classmethod
     def __add_table_size_value_to_tag(cls, metadata, tag):
         table_size = metadata.get('table_size_mb')
-        print('TABLE SIZE')
-        print(table_size)
         if table_size:
             if pd.isnull(table_size):
                 table_size = 0
