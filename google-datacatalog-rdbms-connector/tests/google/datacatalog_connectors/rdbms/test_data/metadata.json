@@ -38,6 +38,7 @@
           "desc": "Details of the people placing orders",
           "name": "CUSTOMERS",
           "num_rows": 392.0,
+          "table_size_mb": 2.0,
           "update_time": "2019-11-19 00:00:00"
         },
         {
@@ -92,6 +93,7 @@
           "desc": "Details of who made purchases where",
           "name": "ORDERS",
           "num_rows": 1950.0,
+          "table_size_mb": 6.55,
           "update_time": "2019-11-19 00:00:00"
         },
         {
@@ -146,6 +148,7 @@
           "desc": "Details of which products the customer has purchased in an order",
           "name": "ORDER_ITEMS",
           "num_rows": 3914.0,
+          "table_size_mb": 0.2,
           "update_time": "2019-11-19 00:00:00"
         },
         {
@@ -236,6 +239,7 @@
           "desc": "Details of goods that customers can purchase",
           "name": "PRODUCTS",
           "num_rows": 46.0,
+          "table_size_mb": 0.2,
           "update_time": "2019-11-19 00:00:00"
         },
         {
@@ -344,6 +348,7 @@
           "desc": "Physical and virtual locations where people can purchase products",
           "name": "STORES",
           "num_rows": 23.0,
+          "table_size_mb": 1.3,
           "update_time": "2019-11-19 00:00:00"
         }
       ]
@@ -386,6 +391,7 @@
           "desc": "country table. Contains 25 rows. References with locations table.",
           "name": "COUNTRIES",
           "num_rows": 25.0,
+          "table_size_mb": 1.3,
           "update_time": "2019-11-19 00:00:00"
         },
         {
@@ -431,6 +437,7 @@
           "desc": "Departments table that shows details of departments where employees work. Contains 27 rows; references with locations; employees; and job_history tables.",
           "name": "DEPARTMENTS",
           "num_rows": 27.0,
+          "table_size_mb": 1.3,
           "update_time": "2019-11-19 00:00:00"
         },
         {
@@ -539,6 +546,7 @@
           "desc": "employees table. Contains 107 rows. References with departments; jobs; job_history tables. Contains a self reference.",
           "name": "EMPLOYEES",
           "num_rows": 107.0,
+          "table_size_mb": 1.3,
           "update_time": "2019-11-19 00:00:00"
         },
         {
@@ -584,6 +592,7 @@
           "desc": "jobs table with job titles and salary ranges. Contains 19 rows. References with employees and job_history table.",
           "name": "JOBS",
           "num_rows": 19.0,
+          "table_size_mb": 1.3,
           "update_time": "2019-11-19 00:00:00"
         },
         {
@@ -638,6 +647,7 @@
           "desc": "Table that stores job history of the employees. If an employee changes departments within the job or changes jobs within the department; new rows get inserted into this table with old job information of the employee. Contains a complex primary key: employee_id+start_date. Contains 25 rows. References with jobs; employees; and departments tables.",
           "name": "JOB_HISTORY",
           "num_rows": 10.0,
+          "table_size_mb": 1.3,
           "update_time": "2019-11-19 00:00:00"
         },
         {
@@ -701,6 +711,7 @@
           "desc": "Locations table that contains specific address of a specific office; warehouse; and/or production site of a company. Does not store addresses / locations of customers. Contains 23 rows; references with the departments and countries tables.",
           "name": "LOCATIONS",
           "num_rows": 23.0,
+          "table_size_mb": 1.3,
           "update_time": "2019-11-19 00:00:00"
         },
         {
@@ -728,6 +739,7 @@
           "desc": NaN,
           "name": "REGIONS",
           "num_rows": 4.0,
+          "table_size_mb": NaN,
           "update_time": "2019-11-19 00:00:00"
         }
       ]
@@ -770,6 +782,7 @@
           "desc": NaN,
           "name": "CUSTOMERS",
           "num_rows": 0.0,
+          "table_size_mb": NaN,
           "update_time": "2019-11-20 00:00:00"
         }
       ]
@@ -812,6 +825,7 @@
           "desc": NaN,
           "name": "TRIPS",
           "num_rows": NaN,
+          "table_size_mb": NaN,
           "update_time": "2019-11-21 00:00:00"
         }
       ]
