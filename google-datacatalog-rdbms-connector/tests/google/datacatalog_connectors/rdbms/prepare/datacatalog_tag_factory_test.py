@@ -80,7 +80,8 @@ class DataCatalogTagFactoryTest(unittest.TestCase):
             'creator': 'creator_test',
             'owner': 'owner_test',
             'update_user': 'update_user_test',
-            'num_rows': 5
+            'num_rows': 5,
+            'table_size_mb': 2.0
         }
 
         tag = factory. \
@@ -92,6 +93,7 @@ class DataCatalogTagFactoryTest(unittest.TestCase):
         self.assertEqual('update_user_test',
                          tag.fields['table_update_user'].string_value)
         self.assertEqual(5, tag.fields['num_rows'].double_value)
+        self.assertEqual(2.0, tag.fields['table_size_mb'].double_value)
 
     def test_tag_for_table_nan_values_should_set_all_available_fields(  # noqa:E501
             self):  # noqa:E125
@@ -106,7 +108,8 @@ class DataCatalogTagFactoryTest(unittest.TestCase):
             'creator': 'creator_test',
             'owner': 'owner_test',
             'update_user': 'update_user_test',
-            'num_rows': float('nan')
+            'num_rows': float('nan'),
+            'table_size_mb': float('nan')
         }
 
         tag = factory. \
@@ -118,6 +121,7 @@ class DataCatalogTagFactoryTest(unittest.TestCase):
         self.assertEqual('update_user_test',
                          tag.fields['table_update_user'].string_value)
         self.assertEqual(0, tag.fields['num_rows'].double_value)
+        self.assertEqual(0, tag.fields['table_size_mb'].double_value)
 
     def test_make_tag_for_table_metadata_with_database_should_succeed(
             self):  # noqa:E125
