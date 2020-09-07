@@ -224,8 +224,17 @@ class MetadataNormalizer:
         return False
 
     @staticmethod
-    def get_table_names_from_dataframe(dataframe, metadata_definition):
-        col_name = metadata_definition['table_def']['name']
-        tbl_names = dataframe[col_name].unique()
-        tbl_names = [name.strip() for name in tbl_names]
-        return tbl_names
+    def get_container_table_pairs_from_dataframe(dataframe,
+                                                 metadata_definition):
+        container_name_col = metadata_definition['table_container_def']['name']
+        table_name_col = metadata_definition['table_def']['name']
+        container_table_pairs_df = dataframe[[
+            container_name_col, table_name_col
+        ]]
+        container_table_pairs_records = container_table_pairs_df.to_dict(
+            orient='records')
+        container_table_pairs = list()
+        for pair_dict in container_table_pairs_records:
+            values = [val.strip() for val in pair_dict.values()]
+            container_table_pairs.append(values)
+        return container_table_pairs
