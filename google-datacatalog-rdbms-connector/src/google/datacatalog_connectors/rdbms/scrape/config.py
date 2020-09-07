@@ -13,7 +13,7 @@ class Config:
     def _read_config_file(self):
         with open(self._config_path, 'r') as f:
             conf = yaml.load(f, Loader=yaml.FullLoader)
-        return conf
+        return conf or dict()
 
     def _determine_scraping_steps(self):
         if self._conf_content.get('update-metadata') is not None:
