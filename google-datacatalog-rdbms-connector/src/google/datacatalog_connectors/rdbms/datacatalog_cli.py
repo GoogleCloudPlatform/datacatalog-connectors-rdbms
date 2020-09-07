@@ -97,7 +97,6 @@ class DatacatalogCli(ABC):
     def _parse_args(self, argv):
         pass
 
-    @abstractmethod
     def _get_user_config_path(self):
         pass
 
