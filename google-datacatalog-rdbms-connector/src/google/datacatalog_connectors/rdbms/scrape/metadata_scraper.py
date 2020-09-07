@@ -106,9 +106,10 @@ class MetadataScraper:
             logging.info(
                 'Scraping metadata according to configuration file: {}'.format(
                     optional_metadata))
-            enriched_dataframe = self._get_optional_metadata_from_rdbms_connection(
-                connection_args, optional_queries, base_dataframe,
-                metadata_definition)
+            enriched_dataframe = \
+                self._get_optional_metadata_from_rdbms_connection(
+                    connection_args, optional_queries, base_dataframe,
+                    metadata_definition)
         return enriched_dataframe
 
     def _update_metadata_from_rdbms_connection(self, connection_args,
@@ -122,8 +123,9 @@ class MetadataScraper:
                 self._execute_update_query(cur, query)
             end_update = time.time()
             logging.info(
-                'Metadata update took {} seconds to run. You can turn it off in ingest_cnfg.yaml configuration file'
-                .format(end_update - start_update))
+                'Metadata update took {} seconds to run.'
+                'You can turn it off in ingest_cnfg.yaml configuration file'.
+                format(end_update - start_update))
         except:  # noqa:E722
             logging.error(
                 'Error connecting to the database to update metadata.')
@@ -156,9 +158,8 @@ class MetadataScraper:
                         base_dataframe, new_dataframe, metadata_definition)
             return base_dataframe
         except:  # noqa:E722
-            logging.error(
-                'Error connecting to the database to extract optional metadata.'
-            )
+            logging.error('Error connecting to the database '
+                          'to extract optional metadata.')
             raise
         finally:
             if con:
@@ -184,16 +185,16 @@ class MetadataScraper:
         return pd.read_csv(csv_path)
 
     def _get_query_assembler(self):
-        raise NotImplementedError(
-            'Implementing this method is required to run multiple optional queries'
-        )
+        raise NotImplementedError('Implementing this method is required '
+                                  'to run multiple optional queries')
 
     def _execute_update_query(self, cursor, query):
         """
-        On update, some DBs deliver a table that has to be fetched after executing the query; others
-        don't. What to do with results of update is RDBMS-specific, and these details
-         have to be implemented in this method.
+        On update, some DBs deliver a table that has to be fetched
+        after executing the query; others don't.
+        What to do with results of update is RDBMS-specific,
+        and these details have to be implemented in this method.
         """
         raise NotImplementedError(
-            'Implementing this method is required to execute an update query in a DB-specific way'
-        )
+            'Implementing this method is required to execute an update query '
+            'in a DB-specific way')
