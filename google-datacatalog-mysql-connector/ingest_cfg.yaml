@@ -5,7 +5,7 @@
 # table type,
 # creation time,
 # time of the last update,
-# table size in Mb,
+# table size in MB,
 # names of columns,
 # column default value,
 # information whether column nullable

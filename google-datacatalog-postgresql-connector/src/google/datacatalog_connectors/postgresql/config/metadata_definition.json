@@ -21,7 +21,7 @@
 
             {
                 "source": "table_size",
-                "target": "table_size_mb"
+                "target": "table_size_MB"
             }
         ]
     },

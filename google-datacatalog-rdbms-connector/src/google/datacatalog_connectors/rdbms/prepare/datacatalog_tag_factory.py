@@ -113,11 +113,11 @@ class DataCatalogTagFactory:
 
     @classmethod
     def __add_table_size_value_to_tag(cls, metadata, tag):
-        table_size = metadata.get('table_size_mb')
+        table_size = metadata.get('table_size_MB')
         if table_size:
             if pd.isnull(table_size):
                 table_size = 0
-            tag.fields['table_size_mb'].double_value = table_size
+            tag.fields['table_size_MB'].double_value = table_size
 
     @classmethod
     def __add_creator_value_to_tag(cls, attribute_type, metadata, tag):

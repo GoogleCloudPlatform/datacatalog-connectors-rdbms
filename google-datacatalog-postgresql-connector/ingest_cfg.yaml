@@ -3,7 +3,7 @@
 # table schema,
 # table name,
 # table type,
-# table size in Mb,
+# table size in MB,
 # names of columns,
 # column default value,
 # information whether column is nullable
