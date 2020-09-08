@@ -1,2 +1,2 @@
-update-metadata: true
-num_rows: true
+refresh_metadata_tables: true
+sync_row_counts: true

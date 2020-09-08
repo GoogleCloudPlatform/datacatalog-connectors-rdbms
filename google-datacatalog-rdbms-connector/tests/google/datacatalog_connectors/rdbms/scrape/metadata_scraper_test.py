@@ -19,6 +19,7 @@ import unittest
 
 from .. import test_utils
 from google.datacatalog_connectors.commons_test import utils
+from google.datacatalog_connectors.rdbms.scrape import config
 import mock
 
 
@@ -61,6 +62,41 @@ class MetadataScraperTestCase(unittest.TestCase):
                                                     'host': 'localhost',
                                                     'port': 1234
                                                 })
+
+        self.assertEqual(1, len(schemas_metadata))
+
+    @mock.patch('{}.'.format(__SCRAPE_PACKAGE) +
+                'metadata_scraper.MetadataNormalizer.' +
+                'get_exact_table_names_from_dataframe')
+    @mock.patch('{}.'.format(__SCRAPE_PACKAGE) +
+                'metadata_scraper.MetadataNormalizer.' + 'to_metadata_dict')
+    def test_scrape_metadata_with_user_config_should_return_objects(
+            self, to_metadata_dict,
+            get_exact_table_names_from_dataframe):  # noqa
+        metadata = \
+            utils.Utils.convert_json_to_object(self.__MODULE_PATH,
+                                               'metadata.json')
+
+        to_metadata_dict.return_value = metadata
+
+        get_exact_table_names_from_dataframe.return_value = [
+            "schema0.table0", "schema1.table1"
+        ]
+
+        scraper = test_utils.FakeScraper()
+
+        config_path = os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                                   '../test_data/ingest_cnfg.yaml')
+        user_config = config.Config(config_path)
+
+        metada_def = utils.Utils.get_metadata_def_obj(self.__MODULE_PATH)
+
+        schemas_metadata = scraper.get_metadata(metada_def,
+                                                connection_args={
+                                                    'host': 'localhost',
+                                                    'port': 1234
+                                                },
+                                                user_config=user_config)
 
         self.assertEqual(1, len(schemas_metadata))
 

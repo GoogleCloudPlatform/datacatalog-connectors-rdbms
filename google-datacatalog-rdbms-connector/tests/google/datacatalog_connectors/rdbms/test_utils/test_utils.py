@@ -36,7 +36,14 @@ class FakeScraper(metadata_scraper.MetadataScraper):
         return con
 
     def _get_query_assembler(self):
-        return query_assembler.QueryAssembler()
+        return FakeQueryAssembler()
+
+    def _execute_refresh_query(self, cursor, query):
+        pass
+
+    def _get_merged_dataframe(self, old_df, new_df, metadata_definition):
+        fake_merged_dataframe = old_df
+        return fake_merged_dataframe
 
 
 class FakeScraperWithConError(metadata_scraper.MetadataScraper):
@@ -46,6 +53,18 @@ class FakeScraperWithConError(metadata_scraper.MetadataScraper):
         cur = mock.Mock()
         cur.fetchall.side_effect = Exception('connection error')
         return con, cur
+
+
+class FakeQueryAssembler(query_assembler.QueryAssembler):
+
+    def _get_refresh_statement(self, tbl_name):
+        return "Fake query for {}".format(tbl_name)
+
+    def _get_path_to_num_rows_query(self):
+        resolved_name = os.path.join(
+            os.path.dirname(os.path.abspath(__file__)),
+            '../test_data/num_rows_query.sql')
+        return resolved_name
 
 
 class FakeCLI(datacatalog_cli.DatacatalogCli):
