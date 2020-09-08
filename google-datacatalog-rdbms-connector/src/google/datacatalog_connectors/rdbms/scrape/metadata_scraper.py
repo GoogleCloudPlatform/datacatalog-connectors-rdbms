@@ -126,7 +126,7 @@ class MetadataScraper:
             end_update = time.time()
             logging.info(
                 'Metadata update took {} seconds to run.'
-                'You can turn it off in ingest_cnfg.yaml configuration file'.
+                'You can turn it off in ingest_cfg.yaml configuration file'.
                 format(end_update - start_update))
         except:  # noqa:E722
             logging.error(
