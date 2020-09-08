@@ -137,7 +137,7 @@ class DataCatalogEntryFactory(BaseEntryFactory):
                                                  raw_update_time):
         create_time = DataCatalogEntryFactory. \
             __convert_date_value_to_epoch(raw_create_time)
-        if raw_update_time is not None:
+        if not pd.isnull(raw_update_time):
             update_time = DataCatalogEntryFactory. \
                 __convert_date_value_to_epoch(raw_update_time)
         else:
