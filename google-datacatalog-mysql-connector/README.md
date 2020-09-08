@@ -127,9 +127,14 @@ export MYSQL2DC_RAW_METADATA_CSV=mysql_raw_csv (If supplied ignores the MYSQL se
 
 ```
 
-## 3. Run entry point
+## 3. Adapt user configurations
 
-### 3.1. Run Python entry point
+Along with default metadata, the connector can ingest optional metadata as well, such as number of
+rows in each table. Please check configuration file ingest_cfg.yaml and adapt according to your needs. 
+
+## 4. Run entry point
+
+### 4.1. Run Python entry point
 
 - Virtualenv
 
@@ -144,7 +149,7 @@ google-datacatalog-mysql-connector \
 --raw-metadata-csv=$MYSQL2DC_RAW_METADATA_CSV
 ```
 
-### 3.2. Run Docker entry point
+### 4.2. Run Docker entry point
 
 ```bash
 docker build -t mysql2datacatalog .
@@ -158,9 +163,9 @@ docker run --rm --tty -v YOUR-CREDENTIALS_FILES_FOLDER:/data mysql2datacatalog \
 --raw-metadata-csv=$MYSQL2DC_RAW_METADATA_CSV
 ```
 
-## 4 Scripts inside tools
+## 5 Scripts inside tools
 
-### 4.1. Run clean up
+### 5.1. Run clean up
 
 ```bash
 # List of projects split by comma. Can be a single value without comma
@@ -173,9 +178,9 @@ python tools/cleanup_datacatalog.py --datacatalog-project-ids=$MYSQL2DC_DATACATA
 
 ```
 
-## 5. Developer environment
+## 6. Developer environment
 
-### 5.1. Install and run Yapf formatter
+### 6.1. Install and run Yapf formatter
 
 ```bash
 pip install --upgrade yapf
@@ -193,7 +198,7 @@ chmod a+x pre-commit.sh
 mv pre-commit.sh .git/hooks/pre-commit
 ```
 
-### 5.2. Install and run Flake8 linter
+### 6.2. Install and run Flake8 linter
 
 ```bash
 pip install --upgrade flake8
@@ -201,17 +206,17 @@ flake8 src tests
 ```
 
 
-### 5.3. Run Tests
+### 6.3. Run Tests
 
 ```bash
 python setup.py test
 ```
 
-## 6. Metrics
+## 7. Metrics
 
 [Metrics README.md](docs/README.md)
 
-## 7. Troubleshooting
+## 8. Troubleshooting
 
 In the case a connector execution hits Data Catalog quota limit, an error will be raised and logged with the following detailement, depending on the performed operation READ/WRITE/SEARCH: 
 ```
