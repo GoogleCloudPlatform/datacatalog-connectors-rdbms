@@ -93,11 +93,11 @@ class MetadataScraper:
         query_assembler = self._get_query_assembler()
         enriched_dataframe = base_dataframe
         if user_config.update_metadata:
-            container_table_pairs = MetadataNormalizer.\
-                get_container_table_pairs_from_dataframe(
+            exact_table_names = MetadataNormalizer.\
+                get_exact_table_names_from_dataframe(
                     base_dataframe, metadata_definition)
             update_queries = query_assembler.get_update_queries(
-                container_table_pairs)
+                exact_table_names)
             logging.info('Updating metadata')
             self._update_metadata_from_rdbms_connection(
                 connection_args, update_queries)

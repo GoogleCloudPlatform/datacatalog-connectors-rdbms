@@ -3,10 +3,10 @@ class QueryAssembler:
     def __init__(self):
         pass
 
-    def get_update_queries(self, container_table_pairs):
+    def get_update_queries(self, exact_table_names):
         queries = list()
-        for pair in container_table_pairs:
-            update_statement = self._get_update_statement(pair)
+        for name in exact_table_names:
+            update_statement = self._get_update_statement(name)
             queries.append(update_statement)
         return queries
 

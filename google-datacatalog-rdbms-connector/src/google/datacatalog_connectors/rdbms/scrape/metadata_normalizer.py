@@ -224,8 +224,10 @@ class MetadataNormalizer:
         return False
 
     @staticmethod
-    def get_container_table_pairs_from_dataframe(dataframe,
-                                                 metadata_definition):
+    def get_exact_table_names_from_dataframe(dataframe, metadata_definition):
+        """
+        Get table names in a form schema_name.table_name
+        """
         container_name_col = metadata_definition['table_container_def']['name']
         table_name_col = metadata_definition['table_def']['name']
         container_table_pairs_df = dataframe[[
@@ -233,8 +235,9 @@ class MetadataNormalizer:
         ]]
         container_table_pairs_records = container_table_pairs_df.to_dict(
             orient='records')
-        container_table_pairs = list()
+        exact_table_names = list()
         for pair_dict in container_table_pairs_records:
             values = [val.strip() for val in pair_dict.values()]
-            container_table_pairs.append(values)
-        return container_table_pairs
+            exact_table_name = ".".join(values)
+            exact_table_names.append(exact_table_name)
+        return exact_table_names
