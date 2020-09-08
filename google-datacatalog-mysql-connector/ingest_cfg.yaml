@@ -17,7 +17,7 @@
 
 # Runs ANALYZE command for each user table, to update metadata tables and make database statistics more accurate.
 # Note, that it might take long time to ANALYZE big tables
-update-metadata: true
+refresh_metadata_tables: true
 
 # Retrieve number of rows in each table
-num_rows: true
+sync_row_counts: true

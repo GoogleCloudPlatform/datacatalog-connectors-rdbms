@@ -3,20 +3,20 @@ class QueryAssembler:
     def __init__(self):
         pass
 
-    def get_update_queries(self, exact_table_names):
+    def get_refresh_metadata_queries(self, exact_table_names):
         queries = list()
         for name in exact_table_names:
-            update_statement = self._get_update_statement(name)
-            queries.append(update_statement)
+            refresh_statement = self._get_refresh_statement(name)
+            queries.append(refresh_statement)
         return queries
 
-    def _get_update_statement(self, tbl_name):
+    def _get_refresh_statement(self, tbl_name):
         raise NotImplementedError(
             "Implement this method to get a DB-specific update method")
 
     def get_optional_queries(self, optional_metadata):
         queries = list()
-        if 'num_rows' in optional_metadata:
+        if 'sync_row_counts' in optional_metadata:
             queries.append(self._get_num_rows_query())
         return queries
 
@@ -28,4 +28,5 @@ class QueryAssembler:
 
     def _get_path_to_num_rows_query(self):
         raise NotImplementedError(
-            "Implement to deliver a DB-specific path to the num_rows query")
+            "Implement to deliver a DB-specific path to the query "
+            "for scraping number of rows")

@@ -92,15 +92,15 @@ class MetadataScraper:
                                               metadata_definition):
         query_assembler = self._get_query_assembler()
         enriched_dataframe = base_dataframe
-        if user_config.update_metadata:
+        if user_config.refresh_metadata_tables:
             exact_table_names = MetadataNormalizer.\
                 get_exact_table_names_from_dataframe(
                     base_dataframe, metadata_definition)
-            update_queries = query_assembler.get_update_queries(
+            refresh_queries = query_assembler.get_refresh_metadata_queries(
                 exact_table_names)
-            logging.info('Updating metadata')
-            self._update_metadata_from_rdbms_connection(
-                connection_args, update_queries)
+            logging.info('Refreshing metadata')
+            self._refresh_metadata_from_rdbms_connection(
+                connection_args, refresh_queries)
         if user_config.scrape_optional_metadata:
             optional_metadata = user_config.get_chosen_metadata_options()
             optional_queries = query_assembler.get_optional_queries(
@@ -114,20 +114,21 @@ class MetadataScraper:
                     metadata_definition)
         return enriched_dataframe
 
-    def _update_metadata_from_rdbms_connection(self, connection_args,
-                                               update_queries):
+    def _refresh_metadata_from_rdbms_connection(self, connection_args,
+                                                refresh_queries):
         con = None
         try:
             con = self._create_rdbms_connection(connection_args)
             cur = con.cursor()
             start_update = time.time()
-            for query in update_queries:
-                self._execute_update_query(cur, query)
+            for query in refresh_queries:
+                self._execute_refresh_query(cur, query)
             end_update = time.time()
             logging.info(
-                'Metadata update took {} seconds to run.'
-                'You can turn it off in ingest_cfg.yaml configuration file'.
-                format(end_update - start_update))
+                'Metadata analysis took {} seconds to run.'
+                'You can turn it off in ingest_cfg.yaml configuration file, '
+                'using refresh_metadata_tables flag'.format(end_update -
+                                                            start_update))
         except:  # noqa:E722
             logging.error(
                 'Error connecting to the database to update metadata.')
@@ -190,7 +191,7 @@ class MetadataScraper:
         raise NotImplementedError('Implementing this method is required '
                                   'to run multiple optional queries')
 
-    def _execute_update_query(self, cursor, query):
+    def _execute_refresh_query(self, cursor, query):
         """
         On update, some DBs deliver a table that has to be fetched
         after executing the query; others don't.

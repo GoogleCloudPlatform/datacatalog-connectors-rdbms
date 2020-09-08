@@ -30,9 +30,10 @@ class QueryAssemblerTestCase(unittest.TestCase):
     @mock.patch('{}.'.format(__SCRAPE_PACKAGE) +
                 'metadata_scraper.MetadataNormalizer.' + 'to_metadata_dict')
     @mock.patch('{}.'.format(__SCRAPE_PACKAGE) +
-                'query_assembler.QueryAssembler.' + 'get_update_queries')
+                'query_assembler.QueryAssembler.' +
+                'get_refresh_metadata_queries')
     def test_metadata_should_not_be_updated_without_config(
-            self, get_update_queries, to_metadata_dict):
+            self, get_refresh_metadata_queries, to_metadata_dict):
         scraper = test_utils.FakeScraper()
         metadata = \
             utils.Utils.convert_json_to_object(self.__MODULE_PATH,
@@ -47,7 +48,7 @@ class QueryAssemblerTestCase(unittest.TestCase):
                                                 user_config=None)
 
         self.assertEqual(1, len(schemas_metadata))
-        self.assertEqual(0, get_update_queries.call_count)
+        self.assertEqual(0, get_refresh_metadata_queries.call_count)
 
     @mock.patch('{}.'.format(__SCRAPE_PACKAGE) +
                 'metadata_scraper.MetadataNormalizer.' + 'to_metadata_dict')
@@ -74,9 +75,10 @@ class QueryAssemblerTestCase(unittest.TestCase):
     @mock.patch('{}.'.format(__SCRAPE_PACKAGE) +
                 'metadata_scraper.MetadataNormalizer.' + 'to_metadata_dict')
     @mock.patch('{}.'.format(__SCRAPE_PACKAGE) +
-                'query_assembler.QueryAssembler.' + 'get_update_queries')
+                'query_assembler.QueryAssembler.' +
+                'get_refresh_metadata_queries')
     def test_metadata_should_not_be_updated_with_empty_config(
-            self, get_update_queries, to_metadata_dict):
+            self, get_refresh_metadata_queries, to_metadata_dict):
         path_to_empty_config = utils.Utils.get_resolved_file_name(
             self.__MODULE_PATH, 'empty_ingest_cfg.yaml')
         empty_config = config.Config(path_to_empty_config)
@@ -94,7 +96,7 @@ class QueryAssemblerTestCase(unittest.TestCase):
                                                 },
                                                 user_config=empty_config)
         self.assertEqual(1, len(schemas_metadata))
-        self.assertEqual(0, get_update_queries.call_count)
+        self.assertEqual(0, get_refresh_metadata_queries.call_count)
 
     @mock.patch('{}.'.format(__SCRAPE_PACKAGE) +
                 'metadata_scraper.MetadataNormalizer.' + 'to_metadata_dict')

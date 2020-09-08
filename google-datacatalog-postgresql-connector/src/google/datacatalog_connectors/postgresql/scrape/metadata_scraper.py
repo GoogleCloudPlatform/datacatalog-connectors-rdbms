@@ -41,5 +41,5 @@ class MetadataScraper(metadata_scraper.MetadataScraper):
     def _get_query_assembler(self):
         return QueryAssembler()
 
-    def _execute_update_query(self, cursor, query):
+    def _execute_refresh_query(self, cursor, query):
         cursor.execute(query)
