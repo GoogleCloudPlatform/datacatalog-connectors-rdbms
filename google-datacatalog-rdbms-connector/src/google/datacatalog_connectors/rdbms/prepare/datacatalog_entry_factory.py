@@ -129,7 +129,7 @@ class DataCatalogEntryFactory(BaseEntryFactory):
 
     @staticmethod
     def __convert_date_value_to_epoch(date_value):
-        if date_value is not None:
+        if not pd.isnull(date_value):
             return int(date_value.timestamp())
 
     @staticmethod
