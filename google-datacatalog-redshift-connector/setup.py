@@ -23,7 +23,7 @@ with open('README.md') as readme_file:
 
 setuptools.setup(
     name='google-datacatalog-redshift-connector',
-    version='0.6.0',
+    version='0.6.1',
     author='Google LLC',
     description='Library for ingesting Redshift metadata into Google Cloud Data Catalog',
     platforms='Posix; MacOS X; Windows',

@@ -139,8 +139,8 @@ google-datacatalog-redshift-connector \
 --datacatalog-location-id=$REDSHIFT2DC_DATACATALOG_LOCATION_ID \
 --redshift-host=$REDSHIFT2DC_SERVER \
 --redshift-user=$REDSHIFT2DC_USERNAME \
---redshift-pass=$REDSHIFT_PASSWORD \
---redshift-database=$REDSHIFT_DATABASE  \
+--redshift-pass=$REDSHIFT2DC_PASSWORD \
+--redshift-database=$REDSHIFT2DC_DATABASE  \
 --raw-metadata-csv=$REDSHIFT2DC_RAW_METADATA_CSV      
 ```
 
@@ -153,8 +153,8 @@ docker run --rm --tty -v YOUR-CREDENTIALS_FILES_FOLDER:/data redshift2datacatalo
 --datacatalog-location-id=$REDSHIFT2DC_DATACATALOG_LOCATION_ID \
 --redshift-host=$REDSHIFT2DC_SERVER \
 --redshift-user=$REDSHIFT2DC_USERNAME \
---redshift-pass=$REDSHIFT_PASSWORD \
---redshift-database=$REDSHIFT_DATABASE  \
+--redshift-pass=$REDSHIFT2DC_PASSWORD \
+--redshift-database=$REDSHIFT2DC_DATABASE  \
 --raw-metadata-csv=$REDSHIFT2DC_RAW_METADATA_CSV       
 ```
 

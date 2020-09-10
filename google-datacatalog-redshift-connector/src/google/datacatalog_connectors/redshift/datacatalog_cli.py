@@ -15,6 +15,7 @@
 # limitations under the License.
 
 import argparse
+import os
 import sys
 
 from google.datacatalog_connectors.postgresql import \
@@ -34,6 +35,10 @@ class Redshift2DatacatalogCli(datacatalog_cli.PostgreSQL2DatacatalogCli):
             'user': args.redshift_user,
             'pass': args.redshift_pass
         }
+
+    def _get_query_path(self, args):
+        return os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                            'config/metadata_query.sql')
 
     def _get_entry_group_id(self, args):
         return args.datacatalog_entry_group_id or 'redshift'
