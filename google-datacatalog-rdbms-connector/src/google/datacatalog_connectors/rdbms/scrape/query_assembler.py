@@ -1,3 +1,6 @@
+from .config_constants import ROW_COUNT_OPTION
+
+
 class QueryAssembler:
 
     def __init__(self):
@@ -15,9 +18,12 @@ class QueryAssembler:
             "Implement this method to get a DB-specific update method")
 
     def get_optional_queries(self, optional_metadata):
-        queries = list()
-        if 'sync_row_counts' in optional_metadata:
-            queries.append(self._get_num_rows_query())
+        """
+        Extend this method to add more optional queries
+        """
+        queries = dict()
+        if ROW_COUNT_OPTION in optional_metadata:
+            queries[ROW_COUNT_OPTION] = self._get_num_rows_query()
         return queries
 
     def _get_num_rows_query(self):

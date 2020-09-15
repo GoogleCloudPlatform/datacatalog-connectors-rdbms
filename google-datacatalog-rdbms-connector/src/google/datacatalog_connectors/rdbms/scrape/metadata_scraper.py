@@ -147,7 +147,10 @@ class MetadataScraper:
         try:
             con = self._create_rdbms_connection(connection_args)
             cur = con.cursor()
-            for query in optional_queries:
+            for option, query in optional_queries.items():
+                logging.info(
+                    "Executing query to process configuration option {}".
+                    format(option))
                 cur.execute(query)
                 rows = cur.fetchall()
                 if len(rows) == 0:

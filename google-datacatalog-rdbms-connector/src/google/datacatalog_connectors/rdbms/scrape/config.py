@@ -1,9 +1,9 @@
 import yaml
 
+from .config_constants import REFRESH_OPTION
+
 
 class Config:
-
-    _REFRESH_OPTION = 'refresh_metadata_tables'
 
     def __init__(self, config_path):
         self._config_path = config_path
@@ -18,9 +18,8 @@ class Config:
         return conf or dict()
 
     def _determine_scraping_steps(self):
-        if self._conf_content.get(self._REFRESH_OPTION) is not None:
-            self.refresh_metadata_tables = self._conf_content[
-                self._REFRESH_OPTION]
+        if self._conf_content.get(REFRESH_OPTION) is not None:
+            self.refresh_metadata_tables = self._conf_content[REFRESH_OPTION]
         options = self.get_chosen_metadata_options()
         if len(options):
             self.scrape_optional_metadata = True
@@ -31,6 +30,6 @@ class Config:
         '''
         options = [
             option for option, choice in self._conf_content.items()
-            if choice and option != self._REFRESH_OPTION
+            if choice and option != REFRESH_OPTION
         ]
         return options
