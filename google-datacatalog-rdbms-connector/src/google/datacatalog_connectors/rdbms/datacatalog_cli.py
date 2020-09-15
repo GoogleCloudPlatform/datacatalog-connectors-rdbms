@@ -98,7 +98,10 @@ class DatacatalogCli(ABC):
         pass
 
     def _get_user_config_path(self):
-        pass
+        user_config_path = os.path.join(os.getcwd(), 'ingest_cfg.yaml')
+        if os.path.exists(user_config_path):
+            return user_config_path
+        return None
 
     # Begin RDBMS connection methods
     def _get_query_path(self, args):

@@ -43,9 +43,6 @@ class MySQL2DatacatalogCli(datacatalog_cli.DatacatalogCli):
     def _get_entry_group_id(self, args):
         return args.datacatalog_entry_group_id or 'mysql'
 
-    def _get_user_config_path(self):
-        return os.path.join(os.getcwd(), 'ingest_cfg.yaml')
-
     def _get_metadata_definition_path(self):
         return os.path.join(os.path.dirname(os.path.abspath(__file__)),
                             'config/metadata_definition.json')
