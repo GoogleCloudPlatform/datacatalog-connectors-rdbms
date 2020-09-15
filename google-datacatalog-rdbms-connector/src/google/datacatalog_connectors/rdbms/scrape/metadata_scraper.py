@@ -144,7 +144,7 @@ class MetadataScraper:
                                                      base_dataframe,
                                                      metadata_definition):
         con = None
-        merged_dataframe = None
+        merged_dataframe = base_dataframe
         try:
             con = self._create_rdbms_connection(connection_args)
             cur = con.cursor()
@@ -165,7 +165,7 @@ class MetadataScraper:
                     ]
                     merged_dataframe = self._get_merged_dataframe(
                         base_dataframe, new_dataframe, metadata_definition)
-            return merged_dataframe or base_dataframe
+            return merged_dataframe
         except:  # noqa:E722
             logging.error('Error connecting to the database '
                           'to extract optional metadata.')
