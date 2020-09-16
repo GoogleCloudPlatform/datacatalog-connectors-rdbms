@@ -16,6 +16,7 @@
 
 import os
 import unittest
+import pandas as pd
 
 from google.datacatalog_connectors.commons_test import utils
 from google.datacatalog_connectors.rdbms.scrape \
@@ -43,3 +44,22 @@ class MetadataNormalizerTestCase(unittest.TestCase):
         # can compare all json fields, and guarantee that they are equal.
         self.assertEqual(utils.Utils.convert_json_to_str(expected_metadata),
                          utils.Utils.convert_json_to_str(metadata_dict))
+
+    def test_normalizer_should_build_exact_table_names(self):
+        test_rows = [[" Schema1", "Table1"], ["Schema1", " Table2"],
+                     ["Schema1", "Table3"], ["Schema2  ", "Table1"],
+                     ["Schema2", "Table4"], ["Schema2", "Table5"]]
+        metadata_def = utils.Utils.get_metadata_def_obj(self.__MODULE_PATH)
+        columns_names = [
+            metadata_def["table_container_def"]["name"],
+            metadata_def["table_def"]["name"]
+        ]
+        test_df = pd.DataFrame(test_rows, columns=columns_names)
+        exact_table_names = metadata_normalizer.MetadataNormalizer.\
+            get_exact_table_names_from_dataframe(
+                test_df, metadata_def)
+        expected_table_names = [
+            "Schema1.Table1", "Schema1.Table2", "Schema1.Table3",
+            "Schema2.Table1", "Schema2.Table4", "Schema2.Table5"
+        ]
+        self.assertCountEqual(expected_table_names, exact_table_names)
