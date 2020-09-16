@@ -86,7 +86,7 @@ class MetadataScraperTestCase(unittest.TestCase):
         scraper = test_utils.FakeScraper()
 
         config_path = os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                                   '../test_data/ingest_cnfg.yaml')
+                                   '../test_data/ingest_cfg.yaml')
         user_config = config.Config(config_path)
 
         metada_def = utils.Utils.get_metadata_def_obj(self.__MODULE_PATH)

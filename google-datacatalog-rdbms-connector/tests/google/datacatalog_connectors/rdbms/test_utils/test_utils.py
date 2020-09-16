@@ -89,7 +89,7 @@ class FakeCLI(datacatalog_cli.DatacatalogCli):
 
     def _get_user_config_path(self):
         return os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                            '../test_data/ingest_cnfg.yaml')
+                            '../test_data/ingest_cfg.yaml')
 
     def _get_metadata_scraper(self):
         return FakeScraper
