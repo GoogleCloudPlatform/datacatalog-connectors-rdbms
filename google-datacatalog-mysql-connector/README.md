@@ -130,7 +130,27 @@ export MYSQL2DC_RAW_METADATA_CSV=mysql_raw_csv (If supplied ignores the MYSQL se
 ## 3. Adapt user configurations
 
 Along with default metadata, the connector can ingest optional metadata as well, such as number of
-rows in each table. Please check configuration file ingest_cfg.yaml and adapt according to your needs. 
+rows in each table. The table below shows what metadata is scraped by default, and what is configurable.
+
+| Metadata                 | Description                                | Scraped by default | Config option           |                    
+| ---                      | ---                                        | ---                | ---                     |                       
+| database_name            | Name of a database                         | Y                  | ---                     | 
+| table_name               | Name of a table                            | Y                  | ---                     | 
+| table_type               | Type of a table (BASE, VIEW, etc)          | Y                  | ---                     | 
+| create_time              | When the table was created                 | Y                  | ---                     | 
+| update_time              | When the table was updated                 | Y                  | ---                     | 
+| table_size_mb            | Size of a table, in MB                     | Y                  | ---                     | 
+| column_name              | Name of a column                           | Y                  | ---                     | 
+| column_type              | Column data type                           | Y                  | ---                     | 
+| column_default_value     | Default value of a column                  | Y                  | ---                     | 
+| column_nullable          | Whether a column is nullable               | Y                  | ---                     | 
+| column_char_length       | Char length of values in a column          | Y                  | ---                     | 
+| column_numeric_precision | Numeric precision of values in a column    | Y                  | ---                     | 
+|ANALYZE TABLE statement   | Statement to refresh metadata information  | N                  | refresh_metadata_tables |
+|table_rows                | Number of rows in a table                  | N                  | sync_row_counts         |
+
+Sample configuration file ingest_cfg.yaml in the repository root shows what kind of configuration is expected. 
+**If you want to run optional queries, please add ingest_cfg.yaml to your working directory and adapt it to your needs.** 
 
 ## 4. Run entry point
 

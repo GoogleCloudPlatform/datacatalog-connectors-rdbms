@@ -1,19 +1,5 @@
 ---
-# By default, the connector retrieves the following metadata from a MySQL database:
-# table schema,
-# table name,
-# table type,
-# creation time,
-# time of the last update,
-# table size in MB,
-# names of columns,
-# column default value,
-# information whether column nullable
-# column data type,
-# max length of char values in a column
-# and numeric precision of values in a column.
-#
-# Using this configuration file, you can turn on or off the scraping of other pieces of data.
+# Using this configuration file, you can turn on or off the scraping of optional pieces of data.
 
 # Runs ANALYZE command for each user table, to update metadata tables and make database statistics more accurate.
 # Note, that it might take long time to ANALYZE big tables
