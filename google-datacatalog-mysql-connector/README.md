@@ -149,8 +149,10 @@ rows in each table. The table below shows what metadata is scraped by default, a
 |ANALYZE TABLE statement   | Statement to refresh metadata information  | N                  | refresh_metadata_tables |
 |table_rows                | Number of rows in a table                  | N                  | sync_row_counts         |
 
-Sample configuration file ingest_cfg.yaml in the repository root shows what kind of configuration is expected. 
-**If you want to run optional queries, please add ingest_cfg.yaml to your working directory and adapt it to your needs.** 
+Sample configuration file [ingest_cfg.yaml][https://github.com/GoogleCloudPlatform/datacatalog-connectors-rdbms/blob/master/google-datacatalog-mysql-connector/ingest_cfg.yaml] in the repository root shows what kind of configuration is expected. 
+
+**If you want to run optional queries, please add ingest_cfg.yaml to the directory from which you execute the connector 
+and adapt it to your needs.** 
 
 ## 4. Run entry point
 
