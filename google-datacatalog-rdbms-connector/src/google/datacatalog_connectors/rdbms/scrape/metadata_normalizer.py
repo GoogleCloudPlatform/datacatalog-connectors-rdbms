@@ -191,12 +191,13 @@ class MetadataNormalizer:
             source = field['source']
             target = field['target']
 
-            value = cls.__extract_value_from_first_row(metadata, source)
+            if source in metadata:  # could be that optional information ('source') is not present in scraped metadata
+                value = cls.__extract_value_from_first_row(metadata, source)
 
-            if cls.__is_date_field(target):
-                value = cls.__normalize_timestamp_field(value)
+                if cls.__is_date_field(target):
+                    value = cls.__normalize_timestamp_field(value)
 
-            fields_dict[target] = value
+                fields_dict[target] = value
         return fields_dict
 
     @classmethod
