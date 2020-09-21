@@ -191,7 +191,9 @@ class MetadataNormalizer:
             source = field['source']
             target = field['target']
 
-            if source in metadata:  # could be that optional information ('source') is not present in scraped metadata
+            # could be that optional information ('source')
+            # is not present in scraped metadata
+            if source in metadata:
                 value = cls.__extract_value_from_first_row(metadata, source)
 
                 if cls.__is_date_field(target):
