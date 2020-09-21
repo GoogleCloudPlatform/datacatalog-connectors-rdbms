@@ -13,6 +13,15 @@
             {
                 "source": "table_type",
                 "target": "type"
+            },
+            {
+                "source": "table_rows",
+                "target": "num_rows"
+            },
+
+            {
+                "source": "table_size_mb",
+                "target": "table_size_MB"
             }
         ]
     },

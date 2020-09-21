@@ -151,18 +151,18 @@ PostgreSQL, Greenplum, Redshift and SQLServer.
 
 For the `metadata_defition` target fields you have the following options as `target`:
 
-| Level               | Target          | Description                                 | Mandatory | 
-| ---                 | ---             | ---                                         | ---       | 
-| table_container_def | **creator**     | Creator of the Table Container.             |  N        |
-| table_container_def | **owner**       | Owner of the Table Container.               |  N        | 
-| table_container_def | **update_user** | Last user that updated the Table Container. |  N        | 
-| table_container_def | **desc**        | Table Container Description.                |  N        | 
-| table_def           | **num_rows**    | Number of rows contained in the Table.      |  N        | 
-| table_def           | **creator**     | Creator of the Table.                       |  N        | 
-| table_def           | **owner**       | Owner of the Table.                         |  N        | 
-| table_def           | **update_user** | Last user that updated the Table.           |  N        | 
-| table_def           | **desc**        | Table Description.                          |  N        | 
-
+| Level               | Target              | Description                                 | Mandatory | 
+| ---                 | ---                 | ---                                         | ---       | 
+| table_container_def | **creator**         | Creator of the Table Container.             |  N        |
+| table_container_def | **owner**           | Owner of the Table Container.               |  N        | 
+| table_container_def | **update_user**     | Last user that updated the Table Container. |  N        | 
+| table_container_def | **desc**            | Table Container Description.                |  N        | 
+| table_def           | **num_rows**        | Number of rows contained in the Table.      |  N        | 
+| table_def           | **creator**         | Creator of the Table.                       |  N        | 
+| table_def           | **owner**           | Owner of the Table.                         |  N        | 
+| table_def           | **update_user**     | Last user that updated the Table.           |  N        | 
+| table_def           | **desc**            | Table Description.                          |  N        | 
+| table_def           | **table_size_MB**   | Table size, in MB.                          |  N        |     
 
 If those fields are configured they will be used to create Tags.
 
@@ -173,6 +173,20 @@ For columns they are used to create the Data Catalog Entry schema, two `target` 
 | ---        | ---      | ---                 | ---       |  
 | column_def | **type** | Column type.        |  Y        | 
 | column_def | **desc** | Column description. |  N        |
+
+### 4.1 Add support for optional queries
+You can use user configuration file and execute optional queries to scrape additional metadata from a database. 
+You would need to do the following:
+* Create additional SQL queries. At the moment, support for two optional queries are implemented in this common 
+RDBMS package: 
+    - Statement for refreshing metadata (e.g. ANALYZE)
+    - Query to scrape number of rows in each table
+* Extend the `query_assembler` class and implement a methods for getting optional queries: `_get_refresh_statement` 
+and `_get_path_to_num_rows_query`.
+* Implement `_get_query_assembler` and `_execute_refresh_query` on the extension of the `matadata_scraper` class.
+
+You can see working examples of implementing optional queries in the connectors code for PostgreSQL and MySQL. 
+Please also refer to these samples to see how user configuration file `ingest_cfg.yaml` should look like.
 
 
 [1]: https://virtualenv.pypa.io/en/latest/

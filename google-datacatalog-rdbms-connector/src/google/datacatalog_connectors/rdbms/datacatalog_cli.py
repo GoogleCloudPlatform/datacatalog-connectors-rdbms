@@ -21,7 +21,7 @@ import logging
 import os
 import sys
 
-from google.datacatalog_connectors.rdbms.scrape import metadata_scraper
+from google.datacatalog_connectors.rdbms.scrape import metadata_scraper, config
 from google.datacatalog_connectors.rdbms.sync import \
     datacatalog_synchronizer
 
@@ -51,7 +51,8 @@ class DatacatalogCli(ABC):
             connection_args=self._get_connection_args(args),
             query=self._query(args),
             csv_path=args.raw_metadata_csv,
-            enable_monitoring=args.enable_monitoring).run()
+            enable_monitoring=args.enable_monitoring,
+            user_config=self._get_user_config()).run()
 
     def _metadata_definition(self):
         path = self._get_metadata_definition_path()
@@ -73,6 +74,13 @@ class DatacatalogCli(ABC):
                 data = f.read()
                 return data
 
+    def _get_user_config(self):
+        path = self._get_user_config_path()
+        if path:
+            user_config = config.Config(path)
+            return user_config
+        return None
+
     @abstractmethod
     def _get_metadata_definition_path(self):
         pass
@@ -88,6 +96,12 @@ class DatacatalogCli(ABC):
     @abstractmethod
     def _parse_args(self, argv):
         pass
+
+    def _get_user_config_path(self):
+        user_config_path = os.path.join(os.getcwd(), 'ingest_cfg.yaml')
+        if os.path.exists(user_config_path):
+            return user_config_path
+        return None
 
     # Begin RDBMS connection methods
     def _get_query_path(self, args):

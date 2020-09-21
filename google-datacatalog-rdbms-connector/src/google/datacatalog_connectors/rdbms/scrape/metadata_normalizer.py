@@ -191,12 +191,15 @@ class MetadataNormalizer:
             source = field['source']
             target = field['target']
 
-            value = cls.__extract_value_from_first_row(metadata, source)
+            # could be that optional information ('source')
+            # is not present in scraped metadata
+            if source in metadata:
+                value = cls.__extract_value_from_first_row(metadata, source)
 
-            if cls.__is_date_field(target):
-                value = cls.__normalize_timestamp_field(value)
+                if cls.__is_date_field(target):
+                    value = cls.__normalize_timestamp_field(value)
 
-            fields_dict[target] = value
+                fields_dict[target] = value
         return fields_dict
 
     @classmethod
@@ -222,3 +225,22 @@ class MetadataNormalizer:
             return True
 
         return False
+
+    @staticmethod
+    def get_exact_table_names_from_dataframe(dataframe, metadata_definition):
+        """
+        Get table names in a form schema_name.table_name
+        """
+        container_name_col = metadata_definition['table_container_def']['name']
+        table_name_col = metadata_definition['table_def']['name']
+        container_table_pairs_df = dataframe[[
+            container_name_col, table_name_col
+        ]]
+        container_table_pairs_records = container_table_pairs_df.to_dict(
+            orient='records')
+        exact_table_names = list()
+        for pair_dict in container_table_pairs_records:
+            values = [val.strip() for val in pair_dict.values()]
+            exact_table_name = ".".join(values)
+            exact_table_names.append(exact_table_name)
+        return exact_table_names

@@ -19,6 +19,7 @@ import unittest
 
 from .. import test_utils
 from google.datacatalog_connectors.commons_test import utils
+from google.datacatalog_connectors.rdbms.scrape import config
 import mock
 
 
@@ -65,6 +66,41 @@ class MetadataScraperTestCase(unittest.TestCase):
         self.assertEqual(1, len(schemas_metadata))
 
     @mock.patch('{}.'.format(__SCRAPE_PACKAGE) +
+                'metadata_scraper.MetadataNormalizer.' +
+                'get_exact_table_names_from_dataframe')
+    @mock.patch('{}.'.format(__SCRAPE_PACKAGE) +
+                'metadata_scraper.MetadataNormalizer.' + 'to_metadata_dict')
+    def test_scrape_metadata_with_user_config_should_return_objects(
+            self, to_metadata_dict,
+            get_exact_table_names_from_dataframe):  # noqa
+        metadata = \
+            utils.Utils.convert_json_to_object(self.__MODULE_PATH,
+                                               'metadata.json')
+
+        to_metadata_dict.return_value = metadata
+
+        get_exact_table_names_from_dataframe.return_value = [
+            "schema0.table0", "schema1.table1"
+        ]
+
+        scraper = test_utils.FakeScraper()
+
+        config_path = os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                                   '../test_data/ingest_cfg.yaml')
+        user_config = config.Config(config_path)
+
+        metada_def = utils.Utils.get_metadata_def_obj(self.__MODULE_PATH)
+
+        schemas_metadata = scraper.get_metadata(metada_def,
+                                                connection_args={
+                                                    'host': 'localhost',
+                                                    'port': 1234
+                                                },
+                                                user_config=user_config)
+
+        self.assertEqual(1, len(schemas_metadata))
+
+    @mock.patch('{}.'.format(__SCRAPE_PACKAGE) +
                 'metadata_scraper.MetadataNormalizer.' + 'to_metadata_dict')
     def test_scrape_metadata_on_exception_should_re_raise(
             self, to_metadata_dict):  # noqa
@@ -88,3 +124,99 @@ class MetadataScraperTestCase(unittest.TestCase):
                           })
 
         self.assertEqual(to_metadata_dict.call_count, 0)
+
+    @mock.patch('{}.'.format(__SCRAPE_PACKAGE) +
+                'metadata_scraper.MetadataNormalizer.' + 'to_metadata_dict')
+    @mock.patch('{}.'.format(__SCRAPE_PACKAGE) +
+                'query_assembler.QueryAssembler.' +
+                'get_refresh_metadata_queries')
+    def test_metadata_should_not_be_updated_without_config(
+            self, get_refresh_metadata_queries, to_metadata_dict):
+        scraper = test_utils.FakeScraper()
+        metadata = \
+            utils.Utils.convert_json_to_object(self.__MODULE_PATH,
+                                               'metadata.json')
+
+        to_metadata_dict.return_value = metadata
+        schemas_metadata = scraper.get_metadata({},
+                                                connection_args={
+                                                    'host': 'localhost',
+                                                    'port': 1234
+                                                },
+                                                user_config=None)
+
+        self.assertEqual(1, len(schemas_metadata))
+        self.assertEqual(0, get_refresh_metadata_queries.call_count)
+
+    @mock.patch('{}.'.format(__SCRAPE_PACKAGE) +
+                'metadata_scraper.MetadataNormalizer.' + 'to_metadata_dict')
+    @mock.patch('{}.'.format(__SCRAPE_PACKAGE) +
+                'query_assembler.QueryAssembler.' + 'get_optional_queries')
+    def test_optional_metadata_should_not_be_pulled_without_config(
+            self, get_optional_queries, to_metadata_dict):
+        scraper = test_utils.FakeScraper()
+        metadata = \
+            utils.Utils.convert_json_to_object(self.__MODULE_PATH,
+                                               'metadata.json')
+
+        to_metadata_dict.return_value = metadata
+        schemas_metadata = scraper.get_metadata({},
+                                                connection_args={
+                                                    'host': 'localhost',
+                                                    'port': 1234
+                                                },
+                                                user_config=None)
+
+        self.assertEqual(1, len(schemas_metadata))
+        self.assertEqual(0, get_optional_queries.call_count)
+
+    @mock.patch('{}.'.format(__SCRAPE_PACKAGE) +
+                'metadata_scraper.MetadataNormalizer.' + 'to_metadata_dict')
+    @mock.patch('{}.'.format(__SCRAPE_PACKAGE) +
+                'query_assembler.QueryAssembler.' +
+                'get_refresh_metadata_queries')
+    def test_metadata_should_not_be_updated_with_empty_config(
+            self, get_refresh_metadata_queries, to_metadata_dict):
+        path_to_empty_config = utils.Utils.get_resolved_file_name(
+            self.__MODULE_PATH, 'empty_ingest_cfg.yaml')
+        empty_config = config.Config(path_to_empty_config)
+
+        scraper = test_utils.FakeScraper()
+        metadata = \
+            utils.Utils.convert_json_to_object(self.__MODULE_PATH,
+                                               'metadata.json')
+
+        to_metadata_dict.return_value = metadata
+        schemas_metadata = scraper.get_metadata({},
+                                                connection_args={
+                                                    'host': 'localhost',
+                                                    'port': 1234
+                                                },
+                                                user_config=empty_config)
+        self.assertEqual(1, len(schemas_metadata))
+        self.assertEqual(0, get_refresh_metadata_queries.call_count)
+
+    @mock.patch('{}.'.format(__SCRAPE_PACKAGE) +
+                'metadata_scraper.MetadataNormalizer.' + 'to_metadata_dict')
+    @mock.patch('{}.'.format(__SCRAPE_PACKAGE) +
+                'query_assembler.QueryAssembler.' + 'get_optional_queries')
+    def test_optional_metadata_should_not_be_pulled_with_empty_config(
+            self, get_optional_queries, to_metadata_dict):
+        path_to_empty_config = utils.Utils.get_resolved_file_name(
+            self.__MODULE_PATH, 'empty_ingest_cfg.yaml')
+        empty_config = config.Config(path_to_empty_config)
+
+        scraper = test_utils.FakeScraper()
+        metadata = \
+            utils.Utils.convert_json_to_object(self.__MODULE_PATH,
+                                               'metadata.json')
+
+        to_metadata_dict.return_value = metadata
+        schemas_metadata = scraper.get_metadata({},
+                                                connection_args={
+                                                    'host': 'localhost',
+                                                    'port': 1234
+                                                },
+                                                user_config=empty_config)
+        self.assertEqual(1, len(schemas_metadata))
+        self.assertEqual(0, get_optional_queries.call_count)

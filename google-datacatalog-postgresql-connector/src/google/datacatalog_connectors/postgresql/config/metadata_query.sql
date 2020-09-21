@@ -36,10 +36,13 @@ SELECT t.table_schema as schema_name,
        END as column_type,
        c.character_maximum_length as column_char_length,
        c.numeric_precision as column_numeric_precision,
-       e.enum_values as column_enum_values
+       e.enum_values as column_enum_values,
+       CAST (pg_total_relation_size(pc.oid) AS FLOAT) / 1024 / 1024 as table_size_mb
     FROM information_schema.tables t
         JOIN  information_schema.columns c
         on c.table_name = t.table_name and c.table_schema = t.table_schema
+        JOIN pg_class pc
+        on pc.relname = t.table_name
         LEFT JOIN enums e on e.enum_schema = c.udt_schema and e.enum_name = c.udt_name
     WHERE t.table_schema NOT IN
         ('pg_catalog', 'information_schema',

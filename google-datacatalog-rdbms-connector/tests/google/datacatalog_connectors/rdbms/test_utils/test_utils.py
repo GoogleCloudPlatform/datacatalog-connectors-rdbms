@@ -18,7 +18,8 @@ import os
 
 from google.datacatalog_connectors.commons_test import utils
 from google.datacatalog_connectors.rdbms import datacatalog_cli
-from google.datacatalog_connectors.rdbms.scrape import metadata_scraper
+from google.datacatalog_connectors.rdbms.scrape import \
+    metadata_scraper, query_assembler
 import mock
 
 
@@ -34,6 +35,16 @@ class FakeScraper(metadata_scraper.MetadataScraper):
         con.cursor.return_value = cur
         return con
 
+    def _get_query_assembler(self):
+        return FakeQueryAssembler()
+
+    def _execute_refresh_query(self, cursor, query):
+        pass
+
+    def _get_merged_dataframe(self, old_df, new_df, metadata_definition):
+        fake_merged_dataframe = old_df
+        return fake_merged_dataframe
+
 
 class FakeScraperWithConError(metadata_scraper.MetadataScraper):
 
@@ -42,6 +53,18 @@ class FakeScraperWithConError(metadata_scraper.MetadataScraper):
         cur = mock.Mock()
         cur.fetchall.side_effect = Exception('connection error')
         return con, cur
+
+
+class FakeQueryAssembler(query_assembler.QueryAssembler):
+
+    def _get_refresh_statement(self, tbl_name):
+        return "Fake query for {}".format(tbl_name)
+
+    def _get_path_to_num_rows_query(self):
+        resolved_name = os.path.join(
+            os.path.dirname(os.path.abspath(__file__)),
+            '../test_data/num_rows_query.sql')
+        return resolved_name
 
 
 class FakeCLI(datacatalog_cli.DatacatalogCli):
@@ -63,6 +86,10 @@ class FakeCLI(datacatalog_cli.DatacatalogCli):
 
     def _get_entry_group_id(self, args):
         return 'rdbms_entry_group_id'
+
+    def _get_user_config_path(self):
+        return os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                            '../test_data/ingest_cfg.yaml')
 
     def _get_metadata_scraper(self):
         return FakeScraper

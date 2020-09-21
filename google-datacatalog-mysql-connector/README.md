@@ -127,9 +127,36 @@ export MYSQL2DC_RAW_METADATA_CSV=mysql_raw_csv (If supplied ignores the MYSQL se
 
 ```
 
-## 3. Run entry point
+## 3. Adapt user configurations
 
-### 3.1. Run Python entry point
+Along with default metadata, the connector can ingest optional metadata as well, such as number of
+rows in each table. The table below shows what metadata is scraped by default, and what is configurable.
+
+| Metadata                 | Description                                | Scraped by default | Config option           |                    
+| ---                      | ---                                        | ---                | ---                     |                       
+| database_name            | Name of a database                         | Y                  | ---                     | 
+| table_name               | Name of a table                            | Y                  | ---                     | 
+| table_type               | Type of a table (BASE, VIEW, etc)          | Y                  | ---                     | 
+| create_time              | When the table was created                 | Y                  | ---                     | 
+| update_time              | When the table was updated                 | Y                  | ---                     | 
+| table_size_mb            | Size of a table, in MB                     | Y                  | ---                     | 
+| column_name              | Name of a column                           | Y                  | ---                     | 
+| column_type              | Column data type                           | Y                  | ---                     | 
+| column_default_value     | Default value of a column                  | Y                  | ---                     | 
+| column_nullable          | Whether a column is nullable               | Y                  | ---                     | 
+| column_char_length       | Char length of values in a column          | Y                  | ---                     | 
+| column_numeric_precision | Numeric precision of values in a column    | Y                  | ---                     | 
+|ANALYZE TABLE statement   | Statement to refresh metadata information  | N                  | refresh_metadata_tables |
+|table_rows                | Number of rows in a table                  | N                  | sync_row_counts         |
+
+Sample configuration file [ingest_cfg.yaml](https://github.com/GoogleCloudPlatform/datacatalog-connectors-rdbms/blob/master/google-datacatalog-mysql-connector/ingest_cfg.yaml) in the repository root shows what kind of configuration is expected. 
+
+**If you want to run optional queries, please add ingest_cfg.yaml to the directory from which you execute the connector 
+and adapt it to your needs.** 
+
+## 4. Run entry point
+
+### 4.1. Run Python entry point
 
 - Virtualenv
 
@@ -144,7 +171,7 @@ google-datacatalog-mysql-connector \
 --raw-metadata-csv=$MYSQL2DC_RAW_METADATA_CSV
 ```
 
-### 3.2. Run Docker entry point
+### 4.2. Run Docker entry point
 
 ```bash
 docker build -t mysql2datacatalog .
@@ -158,9 +185,9 @@ docker run --rm --tty -v YOUR-CREDENTIALS_FILES_FOLDER:/data mysql2datacatalog \
 --raw-metadata-csv=$MYSQL2DC_RAW_METADATA_CSV
 ```
 
-## 4 Scripts inside tools
+## 5 Scripts inside tools
 
-### 4.1. Run clean up
+### 5.1. Run clean up
 
 ```bash
 # List of projects split by comma. Can be a single value without comma
@@ -173,9 +200,9 @@ python tools/cleanup_datacatalog.py --datacatalog-project-ids=$MYSQL2DC_DATACATA
 
 ```
 
-## 5. Developer environment
+## 6. Developer environment
 
-### 5.1. Install and run Yapf formatter
+### 6.1. Install and run Yapf formatter
 
 ```bash
 pip install --upgrade yapf
@@ -193,7 +220,7 @@ chmod a+x pre-commit.sh
 mv pre-commit.sh .git/hooks/pre-commit
 ```
 
-### 5.2. Install and run Flake8 linter
+### 6.2. Install and run Flake8 linter
 
 ```bash
 pip install --upgrade flake8
@@ -201,17 +228,17 @@ flake8 src tests
 ```
 
 
-### 5.3. Run Tests
+### 6.3. Run Tests
 
 ```bash
 python setup.py test
 ```
 
-## 6. Metrics
+## 7. Metrics
 
 [Metrics README.md](docs/README.md)
 
-## 7. Troubleshooting
+## 8. Troubleshooting
 
 In the case a connector execution hits Data Catalog quota limit, an error will be raised and logged with the following detailement, depending on the performed operation READ/WRITE/SEARCH: 
 ```
