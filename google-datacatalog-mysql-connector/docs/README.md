@@ -15,7 +15,7 @@ The following metrics are not a guarantee, they are approximations that may chan
 | **metadata_payload_bytes** | Amount of bytes processed from the source system. | 866864 (0.87 MB) |
 | **datacatalog_api_calls**  | Amount of Data Catalog API calls executed.        | 4008             |
 
-
+Refreshing metadata slows down the ingestion by factor of 2.3. Read more about toggling refreshing on/off in the Adapt User Configuration section of [README.md](../README.md).  
 
 ### Data Catalog API calls drilldown
 
