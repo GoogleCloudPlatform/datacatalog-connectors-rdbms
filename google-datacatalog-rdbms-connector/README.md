@@ -32,6 +32,7 @@ Common resources for Data Catalog RDBMS connectors.
   * [3.3. Install the package in editable mode (i.e. setuptools “develop mode”)](#33-install-the-package-in-editable-mode-ie-setuptools-develop-mode)
   * [3.4. Run the unit tests](#34-run-the-unit-tests)
 - [4. Setting up the RDBMS on a new connector](#4-setting-up-the-rdbms-on-a-new-connector)
+  * [4.1 Add support for optional queries](#41-add-support-for-optional-queries)
 
 <!-- tocstop -->
 
