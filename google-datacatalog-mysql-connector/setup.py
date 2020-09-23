@@ -23,7 +23,7 @@ with open('README.md') as readme_file:
 
 setuptools.setup(
     name='google-datacatalog-mysql-connector',
-    version='0.6.0',
+    version='0.7.0',
     author='Google LLC',
     description=
     'Library for ingesting MySQL metadata into Google Cloud Data Catalog',
