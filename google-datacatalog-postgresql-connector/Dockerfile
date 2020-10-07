@@ -23,8 +23,6 @@ RUN flake8 src tests
 RUN python setup.py test
 
 # Install google-datacatalog-postgresql-connector package from source files.
-RUN python setup.py bdist_wheel --universal
-
-RUN pip install dist/google_datacatalog_postgresql_connector-0.5.0-py2.py3-none-any.whl
+RUN pip install .
 
 ENTRYPOINT ["google-datacatalog-postgresql-connector"]
