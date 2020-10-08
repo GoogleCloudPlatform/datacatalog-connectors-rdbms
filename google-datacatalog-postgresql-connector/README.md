@@ -7,7 +7,7 @@ Library for ingesting PostgreSQL metadata into Google Cloud Data Catalog.
 **Disclaimer: This is not an officially supported Google product.**
 
 <!--
-  ⚠️ DO NOT UPDATE THE TABLE OF CONTENTS MANUALLY ️️⚠️
+  DO NOT UPDATE THE TABLE OF CONTENTS MANUALLY
   run `npx markdown-toc -i README.md`.
 
   Please stick to 80-character line wraps as much as you can.
