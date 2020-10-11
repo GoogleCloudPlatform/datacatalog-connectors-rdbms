@@ -101,6 +101,80 @@ class MetadataScraperTestCase(unittest.TestCase):
         self.assertEqual(1, len(schemas_metadata))
 
     @mock.patch('{}.'.format(__SCRAPE_PACKAGE) +
+                'metadata_scraper.MetadataNormalizer.' +
+                'get_exact_table_names_from_dataframe')
+    @mock.patch('{}.'.format(__SCRAPE_PACKAGE) +
+                'metadata_scraper.MetadataNormalizer.' + 'to_metadata_dict')
+    def test_scrape_metadata_with_enrich_metadata_user_config_should_return_objects(  # noqa:E501
+            self, to_metadata_dict,
+            get_exact_table_names_from_dataframe):  # noqa
+        metadata = \
+            utils.Utils.convert_json_to_object(self.__MODULE_PATH,
+                                               'metadata.json')
+
+        to_metadata_dict.return_value = metadata
+
+        get_exact_table_names_from_dataframe.return_value = [
+            "schema0.table0", "schema1.table1"
+        ]
+
+        scraper = test_utils.FakeScraperWithMetadataEnricher()
+
+        config_path = os.path.join(
+            os.path.dirname(os.path.abspath(__file__)),
+            '../test_data/enrich_metadata_ingest_cfg.yaml')
+        user_config = config.Config(config_path)
+
+        metada_def = utils.Utils.get_metadata_def_obj(self.__MODULE_PATH)
+
+        schemas_metadata = scraper.get_metadata(metada_def,
+                                                connection_args={
+                                                    'host': 'localhost',
+                                                    'port': 1234
+                                                },
+                                                user_config=user_config)
+
+        self.assertEqual(1, len(schemas_metadata))
+
+        metadata_dataframe, metadata_definition = \
+            to_metadata_dict.call_args_list[0][0]
+        self.assertTrue(
+            metadata_dataframe['schema_name'][0].startswith('mycompany'))
+        self.assertTrue(
+            metadata_dataframe['table_name'][0].startswith('mycompany'))
+
+    @mock.patch('{}.'.format(__SCRAPE_PACKAGE) +
+                'metadata_scraper.MetadataNormalizer.' +
+                'get_exact_table_names_from_dataframe')
+    @mock.patch('{}.'.format(__SCRAPE_PACKAGE) +
+                'metadata_scraper.MetadataNormalizer.' + 'to_metadata_dict')
+    def test_scrape_metadata_with_enrich_metadata_user_config_and_no_enricher_should_raise_error(  # noqa:E501
+            self, to_metadata_dict, _):  # noqa
+        metadata = \
+            utils.Utils.convert_json_to_object(self.__MODULE_PATH,
+                                               'metadata.json')
+
+        to_metadata_dict.return_value = metadata
+
+        config_path = os.path.join(
+            os.path.dirname(os.path.abspath(__file__)),
+            '../test_data/enrich_metadata_ingest_cfg.yaml')
+        user_config = config.Config(config_path)
+
+        metada_def = utils.Utils.get_metadata_def_obj(self.__MODULE_PATH)
+
+        scraper = test_utils.FakeScraper()
+
+        self.assertRaises(NotImplementedError,
+                          scraper.get_metadata,
+                          metada_def,
+                          connection_args={
+                              'host': 'localhost',
+                              'port': 1234
+                          },
+                          user_config=user_config)
+
+    @mock.patch('{}.'.format(__SCRAPE_PACKAGE) +
                 'metadata_scraper.MetadataNormalizer.' + 'to_metadata_dict')
     def test_scrape_metadata_on_exception_should_re_raise(
             self, to_metadata_dict):  # noqa

@@ -19,6 +19,7 @@ import warnings
 import time
 
 from .metadata_normalizer import MetadataNormalizer
+
 import pandas as pd
 
 
@@ -93,9 +94,10 @@ class MetadataScraper:
     def _enrich_metadata_based_on_user_config(self, user_config,
                                               base_dataframe, connection_args,
                                               metadata_definition):
-        query_assembler = self._get_query_assembler()
         enriched_dataframe = base_dataframe
+
         if user_config.refresh_metadata_tables:
+            query_assembler = self._get_query_assembler()
             exact_table_names = MetadataNormalizer.\
                 get_exact_table_names_from_dataframe(
                     base_dataframe, metadata_definition)
@@ -104,7 +106,9 @@ class MetadataScraper:
             logging.info('Refreshing metadata')
             self._refresh_metadata_from_rdbms_connection(
                 connection_args, refresh_queries)
+
         if user_config.scrape_optional_metadata:
+            query_assembler = self._get_query_assembler()
             optional_metadata = user_config.get_chosen_metadata_options()
             optional_queries = query_assembler.get_optional_queries(
                 optional_metadata)
@@ -115,6 +119,14 @@ class MetadataScraper:
                 self._get_optional_metadata_from_rdbms_connection(
                     connection_args, optional_queries, base_dataframe,
                     metadata_definition)
+
+        enrich_metadata_dict = user_config.get_enrich_metadata_dict()
+
+        if enrich_metadata_dict:
+            metadata_enricher = self._get_metadata_enricher(
+                metadata_definition, enrich_metadata_dict)
+            enriched_dataframe = metadata_enricher.enrich(base_dataframe)
+
         return enriched_dataframe
 
     def _refresh_metadata_from_rdbms_connection(self, connection_args,
@@ -197,6 +209,11 @@ class MetadataScraper:
     def _get_query_assembler(self):
         raise NotImplementedError('Implementing this method is required '
                                   'to run multiple optional queries')
+
+    def _get_metadata_enricher(self, metadata_definition,
+                               enrich_metadata_dict):
+        raise NotImplementedError('Implementing this method is required '
+                                  'to enrich metadata attributes')
 
     def _execute_refresh_query(self, cursor, query):
         """
