@@ -54,15 +54,16 @@ class MetadataScraper:
             logging.info('Scrapping basic metadata from connection_args')
             dataframe = self._get_base_metadata_from_rdbms_connection(
                 connection_args, query)
-            if user_config:
-                logging.info(
-                    'Scrapping additional metadata from connection_args,'
-                    'if configured')
-                dataframe = self._enrich_metadata_based_on_user_config(
-                    user_config, dataframe, connection_args,
-                    metadata_definition)
         else:
             raise Exception('Must supply either connection_args or csv_path')
+
+        if user_config:
+            logging.info(
+                'Scrapping additional metadata from connection_args,'
+                'if configured')
+            dataframe = self._enrich_metadata_based_on_user_config(
+                user_config, dataframe, connection_args,
+                metadata_definition)
 
         return dataframe
 
