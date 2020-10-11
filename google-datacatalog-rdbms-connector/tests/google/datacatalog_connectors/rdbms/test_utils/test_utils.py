@@ -48,9 +48,8 @@ class FakeScraper(metadata_scraper.MetadataScraper):
 
 class FakeScraperWithMetadataEnricher(FakeScraper):
 
-    def _get_metadata_enricher(self, metadata_definition,
-                               enrich_metadata_dict):
-        return FakeMetadataEnricher(metadata_definition, enrich_metadata_dict)
+    def _get_metadata_enricher(self):
+        return FakeMetadataEnricher
 
 
 class FakeScraperWithConError(metadata_scraper.MetadataScraper):

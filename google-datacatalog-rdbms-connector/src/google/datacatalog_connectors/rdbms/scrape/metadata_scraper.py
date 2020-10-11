@@ -124,7 +124,7 @@ class MetadataScraper:
         enrich_metadata_dict = user_config.get_enrich_metadata_dict()
 
         if enrich_metadata_dict:
-            metadata_enricher = self._get_metadata_enricher(
+            metadata_enricher = self._get_metadata_enricher()(
                 metadata_definition, enrich_metadata_dict)
             enriched_dataframe = metadata_enricher.enrich(base_dataframe)
 
@@ -211,8 +211,7 @@ class MetadataScraper:
         raise NotImplementedError('Implementing this method is required '
                                   'to run multiple optional queries')
 
-    def _get_metadata_enricher(self, metadata_definition,
-                               enrich_metadata_dict):
+    def _get_metadata_enricher(self):
         raise NotImplementedError('Implementing this method is required '
                                   'to enrich metadata attributes')
 
