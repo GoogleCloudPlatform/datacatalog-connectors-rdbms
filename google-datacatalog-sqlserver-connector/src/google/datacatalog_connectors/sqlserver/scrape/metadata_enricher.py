@@ -26,11 +26,11 @@ class MetadataEnricher(metadata_enricher.MetadataEnricher):
 
         if asset_prefix:
             table_container_name = self._metadata_definition[
-                config_constants.TABLE_CONTAINER_DEF_KEY][config_constants.
-                                                          ASSET_NAME_KEY]
+                config_constants.TABLE_CONTAINER_DEF_KEY][
+                    config_constants.ASSET_NAME_KEY]
             table_name = self._metadata_definition[
-                config_constants.TABLE_DEF_KEY][config_constants.
-                                                ASSET_NAME_KEY]
+                config_constants.TABLE_DEF_KEY][
+                    config_constants.ASSET_NAME_KEY]
             # Update Assets' name with user configured prefix
             scraped_dataframe[
                 table_name] = asset_prefix + scraped_dataframe[table_name]

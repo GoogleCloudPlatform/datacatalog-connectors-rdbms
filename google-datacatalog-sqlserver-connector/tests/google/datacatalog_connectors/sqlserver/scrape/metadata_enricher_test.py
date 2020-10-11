@@ -36,16 +36,16 @@ class MetadataScraperTestCase(unittest.TestCase):
                 self.__MODULE_PATH,
                 'metadata_definition.json')
 
-        scraped_dataframe = pd.read_csv(utils.Utils.get_resolved_file_name(
-                self.__MODULE_PATH, 'sqlserver_full_dump.csv'))
+        scraped_dataframe = pd.read_csv(
+            utils.Utils.get_resolved_file_name(self.__MODULE_PATH,
+                                               'sqlserver_full_dump.csv'))
 
         enriched_dataframe = metadata_enricher.MetadataEnricher(
-            metadata_definition, enrich_metadata_dict).enrich(
-            scraped_dataframe)
+            metadata_definition,
+            enrich_metadata_dict).enrich(scraped_dataframe)
 
         self.assertEqual(7, len(enriched_dataframe))
         self.assertTrue(
             enriched_dataframe['schema_name'][0].startswith('mycompany'))
         self.assertTrue(
             enriched_dataframe['table_name'][0].startswith('mycompany'))
-
