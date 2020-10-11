@@ -39,7 +39,7 @@ class Config:
             self.refresh_metadata_tables = self._conf_content[REFRESH_OPTION]
         options = self.get_chosen_metadata_options()
 
-        # TODO put the scrape_options in a parent key in the user defined config
+        # TODO put the scrape_options in a parent key in the user def config
         # similar to what is done with enrich_metadata, we should have a parent
         # scrape_metadata key.
         # If it's the enrich metadata option we do not enable scrape metadata.
