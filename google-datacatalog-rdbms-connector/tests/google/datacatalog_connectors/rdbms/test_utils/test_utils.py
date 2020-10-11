@@ -81,7 +81,7 @@ class FakeMetadataEnricher(metadata_enricher.MetadataEnricher):
         table_name = self._metadata_definition[config_constants.TABLE_DEF_KEY][config_constants.
                                                                                ASSET_NAME_KEY]
 
-        asset_prefix = self._enrich_metadata_dict[config_constants.METADATA_ENRICH_PREFIX]
+        asset_prefix = self._enrich_metadata_dict[config_constants.METADATA_ENRICH_ENTRY_PREFIX]
 
         scraped_dataframe[
             table_name] = asset_prefix + scraped_dataframe[table_name]

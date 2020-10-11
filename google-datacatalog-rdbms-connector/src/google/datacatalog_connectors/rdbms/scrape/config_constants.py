@@ -25,4 +25,4 @@ TABLE_CONTAINER_DEF_KEY = 'table_container_def'
 TABLE_DEF_KEY = 'table_def'
 
 # Metadata enrich attributes keys
-METADATA_ENRICH_PREFIX = 'prefix'
+METADATA_ENRICH_ENTRY_PREFIX = 'entry_prefix'
