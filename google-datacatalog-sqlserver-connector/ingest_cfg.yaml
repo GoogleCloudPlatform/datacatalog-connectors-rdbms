@@ -1,0 +1,8 @@
+---
+# Using this configuration file, you can turn on or off the scraping of optional pieces of data.
+# and change the behavior of ingested attributes and names.
+
+# Properties used to enrich metadata
+
+enrich_metadata:
+  prefix: 'mycompany'
