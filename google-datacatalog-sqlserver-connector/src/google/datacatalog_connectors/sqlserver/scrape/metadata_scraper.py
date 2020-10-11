@@ -42,3 +42,8 @@ class MetadataScraper(metadata_scraper.MetadataScraper):
         return 'DRIVER={ODBC Driver 17 for SQL Server};' + \
                'SERVER={};DATABASE={};UID={};PWD={}'.format(
                    host, database, user, password)
+
+    def _get_metadata_enricher(self, metadata_definition,
+                               enrich_metadata_dict):
+        raise NotImplementedError('Implementing this method is required '
+                                  'to enrich metadata attributes')
