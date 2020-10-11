@@ -29,7 +29,7 @@ class MetadataScraperTestCase(unittest.TestCase):
 
     def test_scrape_schemas_metadata_with_csv_should_return_objects(self):
 
-        enrich_metadata_dict = {'prefix': 'mycompany'}
+        enrich_metadata_dict = {'entry_prefix': 'mycompany'}
 
         metadata_definition = \
             utils.Utils.convert_json_to_object(

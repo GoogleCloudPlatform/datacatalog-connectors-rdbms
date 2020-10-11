@@ -16,6 +16,10 @@
 
 from google.datacatalog_connectors.rdbms.scrape import \
     metadata_scraper
+
+from google.datacatalog_connectors.sqlserver.scrape import \
+    metadata_enricher
+
 import pandas as pd
 
 
@@ -43,7 +47,5 @@ class MetadataScraper(metadata_scraper.MetadataScraper):
                'SERVER={};DATABASE={};UID={};PWD={}'.format(
                    host, database, user, password)
 
-    def _get_metadata_enricher(self, metadata_definition,
-                               enrich_metadata_dict):
-        raise NotImplementedError('Implementing this method is required '
-                                  'to enrich metadata attributes')
+    def _get_metadata_enricher(self):
+        return metadata_enricher.MetadataEnricher

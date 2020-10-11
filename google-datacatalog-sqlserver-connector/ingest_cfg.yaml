@@ -5,4 +5,5 @@
 # Properties used to enrich metadata
 
 enrich_metadata:
-  prefix: 'mycompany'
+  # ADD any string here that comply with Data Catalog Entry ID requirements
+  entry_prefix: ''
