@@ -58,12 +58,10 @@ class MetadataScraper:
             raise Exception('Must supply either connection_args or csv_path')
 
         if user_config:
-            logging.info(
-                'Scrapping additional metadata from connection_args,'
-                'if configured')
+            logging.info('Scrapping additional metadata from connection_args,'
+                         'if configured')
             dataframe = self._enrich_metadata_based_on_user_config(
-                user_config, dataframe, connection_args,
-                metadata_definition)
+                user_config, dataframe, connection_args, metadata_definition)
 
         return dataframe
 

@@ -22,7 +22,5 @@ class MetadataEnricher:
         self._enrich_metadata_dict = enrich_metadata_dict
 
     def enrich(self, scraped_dataframe):
-        raise NotImplementedError(
-            "Implement this method to enrich "
-            "attributes of RDBMS assets metadata"
-        )
+        raise NotImplementedError("Implement this method to enrich "
+                                  "attributes of RDBMS assets metadata")
