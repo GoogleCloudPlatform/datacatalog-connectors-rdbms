@@ -14,6 +14,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# User defined config keys
 ENRICH_METADATA_OPTION = 'enrich_metadata'
 REFRESH_OPTION = 'refresh_metadata_tables'
 ROW_COUNT_OPTION = 'sync_row_counts'
+
+# Metadata config keys
+ASSET_NAME_KEY = 'name'
+TABLE_CONTAINER_DEF_KEY = 'table_container_def'
+TABLE_DEF_KEY = 'table_def'
+
+# Metadata enrich attributes keys
+METADATA_ENRICH_PREFIX = 'prefix'
