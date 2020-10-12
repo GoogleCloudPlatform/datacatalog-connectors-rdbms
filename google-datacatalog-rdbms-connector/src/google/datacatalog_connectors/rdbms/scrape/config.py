@@ -48,9 +48,10 @@ class Config:
         '''
         options = [
             # TODO put the scrape_options in a parent key in the user def config
-            option for option, choice in self._conf_content.items()
-            if choice and (option != REFRESH_OPTION
-                           and option != ENRICH_METADATA_OPTION)
+            option
+            for option, choice in self._conf_content.items()
+            if choice and
+            (option != REFRESH_OPTION and option != ENRICH_METADATA_OPTION)
         ]
         return options
 
