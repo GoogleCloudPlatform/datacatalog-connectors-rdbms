@@ -19,7 +19,7 @@ import os
 from google.datacatalog_connectors.commons_test import utils
 from google.datacatalog_connectors.rdbms import datacatalog_cli
 from google.datacatalog_connectors.rdbms.scrape import \
-    metadata_scraper, query_assembler
+     config_constants, metadata_enricher, metadata_scraper, query_assembler
 import mock
 
 
@@ -46,6 +46,12 @@ class FakeScraper(metadata_scraper.MetadataScraper):
         return fake_merged_dataframe
 
 
+class FakeScraperWithMetadataEnricher(FakeScraper):
+
+    def _get_metadata_enricher(self):
+        return FakeMetadataEnricher
+
+
 class FakeScraperWithConError(metadata_scraper.MetadataScraper):
 
     def _create_rdbms_connection(self, connection_args):
@@ -65,6 +71,27 @@ class FakeQueryAssembler(query_assembler.QueryAssembler):
             os.path.dirname(os.path.abspath(__file__)),
             '../test_data/num_rows_query.sql')
         return resolved_name
+
+
+class FakeMetadataEnricher(metadata_enricher.MetadataEnricher):
+
+    def enrich(self, scraped_dataframe):
+        table_container_name = self._metadata_definition[
+            config_constants.TABLE_CONTAINER_DEF_KEY][
+                config_constants.ASSET_NAME_KEY]
+        table_name = self._metadata_definition[config_constants.TABLE_DEF_KEY][
+            config_constants.ASSET_NAME_KEY]
+
+        asset_prefix = self._enrich_metadata_dict[
+            config_constants.METADATA_ENRICH_ENTRY_PREFIX]
+
+        scraped_dataframe[
+            table_name] = asset_prefix + scraped_dataframe[table_name]
+        scraped_dataframe[
+            table_container_name] = asset_prefix + scraped_dataframe[
+                table_container_name]
+
+        return scraped_dataframe
 
 
 class FakeCLI(datacatalog_cli.DatacatalogCli):

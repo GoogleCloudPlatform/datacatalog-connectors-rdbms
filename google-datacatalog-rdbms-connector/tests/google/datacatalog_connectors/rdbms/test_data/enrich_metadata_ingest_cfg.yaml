@@ -1,0 +1,5 @@
+refresh_metadata_tables: true
+sync_row_counts: true
+
+enrich_metadata:
+  entry_prefix: 'mycompany'

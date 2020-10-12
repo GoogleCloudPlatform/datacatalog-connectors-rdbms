@@ -14,8 +14,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from .metadata_enricher import MetadataEnricher
-from .metadata_normalizer import MetadataNormalizer
-from .metadata_scraper import MetadataScraper
 
-__all__ = ('MetadataEnricher', 'MetadataNormalizer', 'MetadataScraper')
+class MetadataEnricher:
+
+    def __init__(self, metadata_definition, enrich_metadata_dict):
+        self._metadata_definition = metadata_definition
+        self._enrich_metadata_dict = enrich_metadata_dict
+
+    def enrich(self, scraped_dataframe):
+        raise NotImplementedError("Implement this method to enrich "
+                                  "attributes of RDBMS assets metadata")

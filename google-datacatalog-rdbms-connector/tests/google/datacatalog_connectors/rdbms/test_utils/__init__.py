@@ -17,5 +17,7 @@
 from .test_utils import FakeCLI
 from .test_utils import FakeScraper
 from .test_utils import FakeScraperWithConError
+from .test_utils import FakeScraperWithMetadataEnricher
 
-__all__ = ('FakeScraper', 'FakeScraperWithConError', 'FakeCLI')
+__all__ = ('FakeScraper', 'FakeScraperWithConError',
+           'FakeScraperWithMetadataEnricher', 'FakeCLI')
