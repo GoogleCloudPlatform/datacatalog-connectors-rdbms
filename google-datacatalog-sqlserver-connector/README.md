@@ -155,6 +155,11 @@ Along with default metadata, the connector can enrich metadata with user provide
 | column_numeric_precision | Numeric precision of values in a column       | Y                  | ---                           |
 | prefix                   | Prefix to be added to schema and tables name  | N/A                | enrich_metadata.entry_prefix  | 
  
+ `prefix` should comply with Data Catalog `entryId`: 
+ ```text
+The ID must begin with a letter or underscore, contain only English letters, numbers and underscores, and have at most 64 characters (combined the prefix + the entryId).
+```   
+ 
 
 Sample configuration file [ingest_cfg.yaml](https://github.com/GoogleCloudPlatform/datacatalog-connectors-rdbms/blob/master/google-datacatalog-sqlserver-connector/ingest_cfg.yaml) in the repository root shows what kind of configuration is expected. 
 
