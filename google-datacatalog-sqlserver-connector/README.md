@@ -153,7 +153,7 @@ Along with default metadata, the connector can enrich metadata with user provide
 | column_nullable          | Whether a column is nullable                  | Y                  | ---                           | 
 | column_char_length       | Char length of values in a column             | Y                  | ---                           | 
 | column_numeric_precision | Numeric precision of values in a column       | Y                  | ---                           |
-| prefix                   | Prefix to be added to schema and tables name  | Y                  | enrich_metadata.entry_prefix  | 
+| prefix                   | Prefix to be added to schema and tables name  | N/A                | enrich_metadata.entry_prefix  | 
  
 
 Sample configuration file [ingest_cfg.yaml](https://github.com/GoogleCloudPlatform/datacatalog-connectors-rdbms/blob/master/google-datacatalog-sqlserver-connector/ingest_cfg.yaml) in the repository root shows what kind of configuration is expected. 

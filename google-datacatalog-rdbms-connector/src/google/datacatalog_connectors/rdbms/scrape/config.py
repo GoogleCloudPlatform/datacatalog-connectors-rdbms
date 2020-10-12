@@ -39,12 +39,7 @@ class Config:
             self.refresh_metadata_tables = self._conf_content[REFRESH_OPTION]
         options = self.get_chosen_metadata_options()
 
-        # TODO put the scrape_options in a parent key in the user def config
-        # similar to what is done with enrich_metadata, we should have a parent
-        # scrape_metadata key.
-        # If it's the enrich metadata option we do not enable scrape metadata.
-        if len(options) and not (len(options) == 1 and
-                                 self.get_enrich_metadata_dict()):
+        if len(options):
             self.scrape_optional_metadata = True
 
     def get_chosen_metadata_options(self):
@@ -52,8 +47,10 @@ class Config:
         From the config contents, retrieve options that user has marked as true
         '''
         options = [
+            # TODO put the scrape_options in a parent key in the user def config
             option for option, choice in self._conf_content.items()
-            if choice and option != REFRESH_OPTION
+            if choice and (option != REFRESH_OPTION
+                           and option != ENRICH_METADATA_OPTION)
         ]
         return options
 
