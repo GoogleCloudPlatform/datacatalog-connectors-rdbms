@@ -47,7 +47,8 @@ class Config:
         From the config contents, retrieve options that user has marked as true
         '''
         options = [
-            # TODO put the scrape_options in a parent key in the user def config
+            # TODO put the scrape_options in a parent
+            #  key in the user def config
             option
             for option, choice in self._conf_content.items()
             if choice and
