@@ -23,7 +23,7 @@ with open('README.md') as readme_file:
 
 setuptools.setup(
     name='google-datacatalog-sqlserver-connector',
-    version='0.6.0',
+    version='0.7.0',
     author='Google LLC',
     description=
     'Library for ingesting SQLServer metadata into Google Cloud Data Catalog',
