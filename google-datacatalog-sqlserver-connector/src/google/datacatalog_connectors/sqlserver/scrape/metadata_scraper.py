@@ -16,6 +16,10 @@
 
 from google.datacatalog_connectors.rdbms.scrape import \
     metadata_scraper
+
+from google.datacatalog_connectors.sqlserver.scrape import \
+    metadata_enricher
+
 import pandas as pd
 
 
@@ -42,3 +46,6 @@ class MetadataScraper(metadata_scraper.MetadataScraper):
         return 'DRIVER={ODBC Driver 17 for SQL Server};' + \
                'SERVER={};DATABASE={};UID={};PWD={}'.format(
                    host, database, user, password)
+
+    def _get_metadata_enricher(self):
+        return metadata_enricher.MetadataEnricher
