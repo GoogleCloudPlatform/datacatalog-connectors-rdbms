@@ -163,7 +163,7 @@ The ID must begin with a letter or underscore, contain only English letters, num
 
 Sample configuration file [ingest_cfg.yaml](https://github.com/GoogleCloudPlatform/datacatalog-connectors-rdbms/blob/master/google-datacatalog-sqlserver-connector/ingest_cfg.yaml) in the repository root shows what kind of configuration is expected. 
 
-**If you want to run optional queries, please add ingest_cfg.yaml to the directory from which you execute the connector 
+**If you want to enable the user defined config, please add ingest_cfg.yaml to the directory from which you execute the connector 
 and adapt it to your needs.** 
 
 ## 4. Run entry point
