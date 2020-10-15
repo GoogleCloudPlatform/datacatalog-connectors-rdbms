@@ -37,8 +37,7 @@ setuptools.setup(
         ],
     },
     include_package_data=True,
-    install_requires=('psycopg2-binary', 'datacatalog-connectors-rdbms'),
-    dependencies_links=['https://github.com/GoogleCloudPlatform/datacatalog-connectors-rdbms.git@peter#egg=google-datacatalog-postgresql@peter#egg=datacatalog-connectors-rdbms&subdirectory=google-datacatalog-rdbms-connector'],
+    install_requires=('psycopg2-binary', 'repo @ https://github.com/GoogleCloudPlatform/datacatalog-connectors-rdbms.git@peter#egg=google-datacatalog-postgresql@peter#egg=datacatalog-connectors-rdbms&subdirectory=google-datacatalog-rdbms-connector'),
     setup_requires=('pytest-runner',),
     tests_require=('pytest-cov', 'google-datacatalog-connectors-commons-test'),
     classifiers=(
