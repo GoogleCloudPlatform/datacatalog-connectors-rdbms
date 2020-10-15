@@ -37,7 +37,7 @@ setuptools.setup(
         ],
     },
     include_package_data=True,
-    install_requires=('psycopg2-binary', 'google-datacatalog-rdbms-connector @ git+ssh://github.com/skadinyo/datacatalog-connectors-rdbms.git#egg=datacatalog-connectors-rdbmssubdirectory=google-datacatalog-rdbms-connector'),
+    install_requires=('psycopg2-binary', 'google-datacatalog-rdbms-connector @ git+ssh://github.com/skadinyo/datacatalog-connectors-rdbms.git#egg=google-datacatalog-rdbms-connector&subdirectory=google-datacatalog-rdbms-connector'),
     setup_requires=('pytest-runner',),
     tests_require=('pytest-cov', 'google-datacatalog-connectors-commons-test'),
     classifiers=(
