@@ -181,7 +181,7 @@ class DataCatalogSynchronizer:
         tag_templates_dict = \
             {schema_tag_template_id: schema_tag_template,
              table_tag_template_id: table_tag_template}
-        print("DEBUG", tag_templates_dict)
+        print("DEBUG PETER--------------------------", tag_templates_dict)
         return tag_templates_dict
 
     # Begin extension methods
