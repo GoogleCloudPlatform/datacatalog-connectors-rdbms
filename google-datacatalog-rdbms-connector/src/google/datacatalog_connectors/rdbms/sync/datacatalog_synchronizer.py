@@ -87,9 +87,9 @@ class DataCatalogSynchronizer:
         self.__metadata_definition = self._enrich_metadata_definition()
 
         self._log_metadata(metadata)
-
+        print('JOJOLIPET')
         logging.info('\n\n==============Prepare metadata===============')
-
+        print('JOJOLIPET')
         tag_templates_dict = self.__create_tag_templates()
         print('JOJOLIPET')
         logging.info("DEBUG PETER--------------------------", tag_templates_dict)
