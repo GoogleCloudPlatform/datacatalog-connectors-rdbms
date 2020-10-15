@@ -32,11 +32,11 @@ class DatacatalogCli(ABC):
 
     def run(self, argv):
         """Runs the command line."""
-
+        
         args = self._parse_args(argv)
         # Enable logging
         logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
-
+        print('DEBUG-DEBUG-DEBUG-DEBUG-DEBUG-DEBUG-DEBUG-DEBUG-DEBUG-DEBUG-DEBUG-')
         if args.service_account_path:
             os.environ['GOOGLE_APPLICATION_CREDENTIALS'] \
                 = args.service_account_path
