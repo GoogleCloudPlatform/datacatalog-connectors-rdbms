@@ -72,7 +72,7 @@ class DataCatalogSynchronizer:
         :return: task_id
         """
         self._before_run()
-
+        logging.info('DEBUGDEBUGDEBUGDEBUGDEBUGDEBUGDEBUGDEBUG')
         logging.info('\n\n==============Scrape metadata===============')
 
         metadata = self.__metadata_scraper().get_metadata(
