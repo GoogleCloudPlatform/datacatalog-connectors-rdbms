@@ -8,3 +8,7 @@ enrich_metadata:
   # ADD any string here that comply with Data Catalog Entry ID requirements,
   # check the README.md file for the Entry ID requirements.
   entry_prefix: ''
+  # ADD the REGEX pattern that will be used to apply the entry prefix.
+  # this sample applies the prefix to entry ids that do not start with letters
+  # or underscore.
+  entry_id_pattern_for_prefix: '^[^a-zA-Z_]+.*$'

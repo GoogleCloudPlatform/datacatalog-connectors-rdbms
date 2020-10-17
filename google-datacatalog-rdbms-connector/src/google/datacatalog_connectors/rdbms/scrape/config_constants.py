@@ -26,3 +26,4 @@ TABLE_DEF_KEY = 'table_def'
 
 # Metadata enrich attributes keys
 METADATA_ENRICH_ENTRY_PREFIX = 'entry_prefix'
+METADATA_ENRICH_ENTRY_ID_PATTERN_FOR_PREFIX = 'entry_id_pattern_for_prefix'
