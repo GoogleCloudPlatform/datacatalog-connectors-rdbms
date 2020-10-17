@@ -17,6 +17,8 @@
 from google.datacatalog_connectors.rdbms.scrape import \
     config_constants, metadata_enricher
 
+import re
+
 
 class MetadataEnricher(metadata_enricher.MetadataEnricher):
 
@@ -31,11 +33,33 @@ class MetadataEnricher(metadata_enricher.MetadataEnricher):
             table_name = self._metadata_definition[
                 config_constants.TABLE_DEF_KEY][
                     config_constants.ASSET_NAME_KEY]
-            # Update Assets' name with user configured prefix
-            scraped_dataframe[
-                table_name] = asset_prefix + scraped_dataframe[table_name]
-            scraped_dataframe[
-                table_container_name] = asset_prefix + scraped_dataframe[
-                    table_container_name]
+
+            asset_pattern_for_prefix = self._enrich_metadata_dict.get(
+                config_constants.METADATA_ENRICH_ENTRY_ID_PATTERN_FOR_PREFIX)
+
+            scraped_dataframe[table_name] = \
+                scraped_dataframe[table_name].apply(
+                    self.__apply_prefix,
+                    args=(asset_prefix,
+                          asset_pattern_for_prefix))
+
+            scraped_dataframe[table_container_name] = \
+                scraped_dataframe[table_container_name].apply(
+                    self.__apply_prefix,
+                    args=(asset_prefix,
+                          asset_pattern_for_prefix))
 
         return scraped_dataframe
+
+    # Update Assets' name with user configured prefix
+    @classmethod
+    def __apply_prefix(cls, val, asset_prefix, asset_pattern_for_prefix):
+        if asset_pattern_for_prefix:
+            match = re.match(pattern=asset_pattern_for_prefix, string=val)
+            if match:
+                return asset_prefix + val
+            else:
+                return val
+
+        else:
+            return asset_prefix + val
