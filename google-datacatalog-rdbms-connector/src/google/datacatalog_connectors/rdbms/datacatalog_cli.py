@@ -44,7 +44,7 @@ class DatacatalogCli(ABC):
             project_id=args.datacatalog_project_id,
             location_id=args.datacatalog_location_id,
             entry_group_id=self._get_entry_group_id(args),
-            template_tag_id=self.get_template_tag_id(args),
+            template_tag_id=self._get_template_tag_id(args),
             rbms_host=self._get_host_arg(args),
             metadata_definition=self._metadata_definition(),
             metadata_scraper=self._get_metadata_scraper(),
