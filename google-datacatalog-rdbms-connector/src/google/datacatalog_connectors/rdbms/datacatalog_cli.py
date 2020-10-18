@@ -95,6 +95,7 @@ class DatacatalogCli(ABC):
 
     @abstractmethod
     def _get_template_tag_id(self, args):
+        pass
 
     @abstractmethod
     def _parse_args(self, argv):
