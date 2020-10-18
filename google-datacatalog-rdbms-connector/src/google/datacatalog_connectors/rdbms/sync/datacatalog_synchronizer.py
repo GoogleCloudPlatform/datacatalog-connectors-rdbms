@@ -111,7 +111,7 @@ class DataCatalogSynchronizer:
 
     def __write_to_file(self, tag_templates, entries):
         f = open("tag_template.txt", "w")
-        f.write(tag_template_factory)
+        f.write(tag_templates)
         f.close()
         f = open("entries.txt", "w")
         f.write(entries)
