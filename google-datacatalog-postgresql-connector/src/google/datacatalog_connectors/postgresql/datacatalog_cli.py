@@ -42,7 +42,10 @@ class PostgreSQL2DatacatalogCli(datacatalog_cli.DatacatalogCli):
         }
 
     def _get_entry_group_id(self, args):
-        return args.datacatalog_entry_group_id or 'postgresql'
+        return args.datacatalog_entry_group_id or args.postgresql_database
+
+    def _get_template_tag_id(self, args):
+        return args.datacatalog_template_tag_id or 'postgresql'
 
     def _get_metadata_definition_path(self):
         return os.path.join(os.path.dirname(os.path.abspath(__file__)),
@@ -66,6 +69,9 @@ class PostgreSQL2DatacatalogCli(datacatalog_cli.DatacatalogCli):
             required=True)
         parser.add_argument('--datacatalog-entry-group-id',
                             help='Entry group ID to be used for your Google '
+                            'Cloud Datacatalog')
+        parser.add_argument('--datacatalog-template-tag-id',
+                            help='Template Tag ID to be used for your Google '
                             'Cloud Datacatalog')
         parser.add_argument(
             '--postgresql-host',

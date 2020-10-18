@@ -44,6 +44,7 @@ class DataCatalogSynchronizer:
                  project_id,
                  location_id,
                  entry_group_id,
+                 template_tag_id,
                  rbms_host,
                  metadata_definition,
                  metadata_scraper,
@@ -53,6 +54,7 @@ class DataCatalogSynchronizer:
                  enable_monitoring=None,
                  user_config=None):
         self.__entry_group_id = entry_group_id
+        self.__template_tag_id = template_tag_id
         self.__metadata_definition = metadata_definition
         self.__metadata_scraper = metadata_scraper
         self.__rbms_host = rbms_host
@@ -72,7 +74,6 @@ class DataCatalogSynchronizer:
         :return: task_id
         """
         self._before_run()
-        logging.info('DEBUGDEBUGDEBUGDEBUGDEBUGDEBUGDEBUGDEBUG')
         logging.info('\n\n==============Scrape metadata===============')
 
         metadata = self.__metadata_scraper().get_metadata(
@@ -87,29 +88,34 @@ class DataCatalogSynchronizer:
         self.__metadata_definition = self._enrich_metadata_definition()
 
         self._log_metadata(metadata)
-        print('JOJOLIPET')
         logging.info('\n\n==============Prepare metadata===============')
-        print('JOJOLIPET')
         tag_templates_dict = self.__create_tag_templates()
-        print('JOJOLIPET')
         logging.info("DEBUG PETER--------------------------", tag_templates_dict)
-        print(tag_templates_dict)
         prepared_entries = self.__prepare_datacatalog_entries(
             metadata, tag_templates_dict)
 
+        self.__write_to_file(tag_templates_dict, prepared_entries)
         self._log_entries(prepared_entries)
 
-        logging.info('\n==============Ingest metadata===============')
+        # logging.info('\n==============Ingest metadata===============')
 
-        self.__delete_obsolete_metadata(prepared_entries)
+        # self.__delete_obsolete_metadata(prepared_entries)
 
-        self.__ingest_metadata(prepared_entries, tag_templates_dict)
+        # self.__ingest_metadata(prepared_entries, tag_templates_dict)
 
         logging.info('\n============End %s-to-datacatalog============',
                      self.__entry_group_id)
         self._after_run()
 
         return self.__task_id
+
+    def __write_to_file(self, tag_templates, entries):
+        f = open("tag_template.txt", "w")
+        f.write(tag_template_factory)
+        f.close()
+        f = open("entries.txt", "w")
+        f.write(entries)
+        f.close()
 
     def __prepare_datacatalog_entries(self, metadata, tag_templates_dict):
         entry_factory = self.__create_assembled_entry_factory(
@@ -170,7 +176,7 @@ class DataCatalogSynchronizer:
 
     def __create_tag_templates(self):
         tag_template_factory = self._get_tag_template_factory()(
-            self.__project_id, self.__location_id, self.__entry_group_id,
+            self.__project_id, self.__location_id, self.__template_tag_id,
             self.__metadata_definition)
 
         schema_tag_template_id, schema_tag_template = \
