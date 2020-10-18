@@ -115,7 +115,7 @@ class DataCatalogSynchronizer:
         f.write(pprint.pformat(tag_templates))
         f.close()
         f = open("entries.txt", "w")
-        f.write(pprint.pformat(entries))
+        f.write(pprint.saferepr(entries))
         f.close()
 
     def __prepare_datacatalog_entries(self, metadata, tag_templates_dict):
