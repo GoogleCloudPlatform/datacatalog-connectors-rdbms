@@ -23,6 +23,7 @@ class AssembledEntryFactory:
 
     def __init__(self,
                  entry_group_id,
+                 tag_template_id,
                  metadata_definition,
                  datacatalog_entry_factory,
                  datacatalog_tag_factory,
@@ -30,6 +31,7 @@ class AssembledEntryFactory:
         self.__datacatalog_entry_factory = datacatalog_entry_factory
         self.__datacatalog_tag_factory = datacatalog_tag_factory
         self.__entry_group_id = entry_group_id
+        self.__tag_template_id = tag_template_id
         self.__metadata_definition = metadata_definition
         self.__tag_templates_dict = tag_templates_dict
 
@@ -61,7 +63,7 @@ class AssembledEntryFactory:
         tags = []
         if self.__tag_templates_dict:
             tag_template_id = '{}_{}_metadata'.format(
-                self.__entry_group_id,
+                self.__tag_template_id,
                 self.__metadata_definition['table_container_def']['type'])
             tag_template = self.__tag_templates_dict[tag_template_id]
             tags.append(
@@ -80,7 +82,7 @@ class AssembledEntryFactory:
             tags = []
             if self.__tag_templates_dict:
                 tag_template_id = '{}_{}_metadata'.format(
-                    self.__entry_group_id,
+                    self.__tag_template_id,
                     self.__metadata_definition['table_def']['type'])
                 tag_template = self.__tag_templates_dict[tag_template_id]
                 tags.append(

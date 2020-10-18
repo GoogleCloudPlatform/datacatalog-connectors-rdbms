@@ -161,7 +161,7 @@ class DataCatalogSynchronizer:
     # Create factories
     def __create_assembled_entry_factory(self, tag_templates_dict):
         return self._get_assembled_entry_factory()(
-            self.__entry_group_id, self.__metadata_definition,
+            self.__entry_group_id, self.__tag_template_id, self.__metadata_definition,
             self.__create_entry_factory(), self.__create_tag_factory(),
             tag_templates_dict)
 
