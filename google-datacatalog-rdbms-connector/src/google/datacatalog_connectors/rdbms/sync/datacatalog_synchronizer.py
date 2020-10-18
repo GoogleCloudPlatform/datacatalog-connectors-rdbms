@@ -16,6 +16,7 @@
 
 import logging
 import uuid
+import pprint
 
 from google.datacatalog_connectors.commons.cleanup \
     import datacatalog_metadata_cleaner
@@ -111,10 +112,10 @@ class DataCatalogSynchronizer:
 
     def __write_to_file(self, tag_templates, entries):
         f = open("tag_template.txt", "w")
-        f.write(tag_templates)
+        f.write(pprint.pformat(tag_templates))
         f.close()
         f = open("entries.txt", "w")
-        f.write(entries)
+        f.write(pprint.pformat(entries))
         f.close()
 
     def __prepare_datacatalog_entries(self, metadata, tag_templates_dict):
