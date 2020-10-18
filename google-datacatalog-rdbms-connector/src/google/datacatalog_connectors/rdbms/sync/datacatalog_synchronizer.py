@@ -116,7 +116,7 @@ class DataCatalogSynchronizer:
         f.write(pprint.pformat(tag_templates))
         f.close()
         f = open("entries.txt", "w")
-        json.dumps(entries, f, indent=4, sort_keys=True)
+        json.dump(entries, f, indent=4, sort_keys=True)
         f.close()
 
     def __prepare_datacatalog_entries(self, metadata, tag_templates_dict):
