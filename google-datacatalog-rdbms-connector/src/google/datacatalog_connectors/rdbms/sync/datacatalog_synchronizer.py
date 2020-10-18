@@ -44,7 +44,7 @@ class DataCatalogSynchronizer:
                  project_id,
                  location_id,
                  entry_group_id,
-                 template_tag_id,
+                 tag_template_id,
                  rbms_host,
                  metadata_definition,
                  metadata_scraper,
@@ -54,7 +54,7 @@ class DataCatalogSynchronizer:
                  enable_monitoring=None,
                  user_config=None):
         self.__entry_group_id = entry_group_id
-        self.__template_tag_id = template_tag_id
+        self.__tag_template_id = tag_template_id
         self.__metadata_definition = metadata_definition
         self.__metadata_scraper = metadata_scraper
         self.__rbms_host = rbms_host
@@ -176,7 +176,7 @@ class DataCatalogSynchronizer:
 
     def __create_tag_templates(self):
         tag_template_factory = self._get_tag_template_factory()(
-            self.__project_id, self.__location_id, self.__template_tag_id,
+            self.__project_id, self.__location_id, self.__tag_template_id,
             self.__metadata_definition)
 
         schema_tag_template_id, schema_tag_template = \
