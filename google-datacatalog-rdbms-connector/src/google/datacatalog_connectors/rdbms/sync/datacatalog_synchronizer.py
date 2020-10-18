@@ -17,6 +17,7 @@
 import logging
 import uuid
 import pprint
+import json
 
 from google.datacatalog_connectors.commons.cleanup \
     import datacatalog_metadata_cleaner
@@ -115,7 +116,8 @@ class DataCatalogSynchronizer:
         f.write(pprint.pformat(tag_templates))
         f.close()
         f = open("entries.txt", "w")
-        f.write(pprint.saferepr(entries))
+        j = json.dumps(entries, indent=4, sort_keys=True)
+        f.write(pprint.pformat(j))
         f.close()
 
     def __prepare_datacatalog_entries(self, metadata, tag_templates_dict):
