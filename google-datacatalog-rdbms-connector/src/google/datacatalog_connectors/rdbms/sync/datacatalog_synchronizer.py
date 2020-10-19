@@ -96,28 +96,19 @@ class DataCatalogSynchronizer:
         prepared_entries = self.__prepare_datacatalog_entries(
             metadata, tag_templates_dict)
 
-        self.__write_to_file(tag_templates_dict, prepared_entries)
         self._log_entries(prepared_entries)
 
-        # logging.info('\n==============Ingest metadata===============')
+        logging.info('\n==============Ingest metadata===============')
 
-        # self.__delete_obsolete_metadata(prepared_entries)
+        self.__delete_obsolete_metadata(prepared_entries)
 
-        # self.__ingest_metadata(prepared_entries, tag_templates_dict)
+        self.__ingest_metadata(prepared_entries, tag_templates_dict)
 
         logging.info('\n============End %s-to-datacatalog============',
                      self.__entry_group_id)
         self._after_run()
 
         return self.__task_id
-
-    def __write_to_file(self, tag_templates, entries):
-        f = open("tag_template.txt", "w")
-        f.write(pprint.pformat(tag_templates))
-        f.close()
-        f = open("entries.txt", "w")
-        json.dump(entries, f, indent=4, sort_keys=True)
-        f.close()
 
     def __prepare_datacatalog_entries(self, metadata, tag_templates_dict):
         entry_factory = self.__create_assembled_entry_factory(
