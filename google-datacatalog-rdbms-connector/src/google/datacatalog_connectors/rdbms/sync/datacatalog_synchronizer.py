@@ -86,7 +86,8 @@ class DataCatalogSynchronizer:
             user_config=self.__user_config)
 
         metadata = self._enrich_metadata(metadata)
-
+        logging.info('DEBUG', metadata)
+        
         self.__metadata_definition = self._enrich_metadata_definition()
 
         self._log_metadata(metadata)
@@ -95,14 +96,14 @@ class DataCatalogSynchronizer:
         logging.info("DEBUG PETER--------------------------", tag_templates_dict)
         prepared_entries = self.__prepare_datacatalog_entries(
             metadata, tag_templates_dict)
-
+        
         self._log_entries(prepared_entries)
 
-        logging.info('\n==============Ingest metadata===============')
+        # logging.info('\n==============Ingest metadata===============')
 
-        self.__delete_obsolete_metadata(prepared_entries)
+        # self.__delete_obsolete_metadata(prepared_entries)
 
-        self.__ingest_metadata(prepared_entries, tag_templates_dict)
+        # self.__ingest_metadata(prepared_entries, tag_templates_dict)
 
         logging.info('\n============End %s-to-datacatalog============',
                      self.__entry_group_id)
