@@ -86,7 +86,8 @@ class DataCatalogSynchronizer:
             user_config=self.__user_config)
 
         metadata = self._enrich_metadata(metadata)
-        logging.info('DEBUG', metadata)
+        logging.info("DEBUG")
+        logging.info(metadata)
         
         self.__metadata_definition = self._enrich_metadata_definition()
 
