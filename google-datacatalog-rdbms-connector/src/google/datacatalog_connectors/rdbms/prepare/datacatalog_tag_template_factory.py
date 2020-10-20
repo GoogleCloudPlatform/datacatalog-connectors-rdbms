@@ -65,7 +65,6 @@ class DataCatalogTagTemplateFactory:
             'num_tables'].type.primitive_type = \
             datacatalog_v1beta1.enums.FieldType.PrimitiveType.DOUBLE.value
         tag_template.fields['num_tables'].display_name = 'Number of tables'
-
         return tag_template_id, tag_template
 
     def make_tag_template_for_table_metadata(self):
@@ -114,6 +113,14 @@ class DataCatalogTagTemplateFactory:
         tag_template.fields['table_size_MB'].display_name = 'Table Size in MB'
         tag_template.fields['table_size_MB'].type.primitive_type = \
             DataCatalogTagTemplateFactory.__DOUBLE_TYPE
+
+        tag_template.fields['index_list'].display_name = 'Index List'
+        tag_template.fields['index_list'].type.primitive_type = \
+            DataCatalogTagTemplateFactory.__STRING_TYPE
+        
+        tag_template.fields['bq_replication'].display_name = 'Table replicated to bq'
+        tag_template.fields['bq_replication'].type.primitive_type = \
+            DataCatalogTagTemplateFactory.__BOOL_TYPE
 
         return tag_template_id, tag_template
 

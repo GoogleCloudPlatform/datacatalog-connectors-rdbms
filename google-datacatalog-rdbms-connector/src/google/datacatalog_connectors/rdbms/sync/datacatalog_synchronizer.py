@@ -91,7 +91,7 @@ class DataCatalogSynchronizer:
         metadata = self._enrich_metadata(metadata)
         
         self.__metadata_definition = self._enrich_metadata_definition()
-
+        
         self._log_metadata(metadata)
         logging.info('\n\n==============Prepare metadata===============')
         tag_templates_dict = self.__create_tag_templates()
