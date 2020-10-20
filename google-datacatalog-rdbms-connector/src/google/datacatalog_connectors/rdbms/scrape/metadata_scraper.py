@@ -201,11 +201,11 @@ class MetadataScraper:
         con = None
         from psycopg2 import connect
         try:
-            con = connect(database=external_connection_args.['database'],
-                          host=external_connection_args.['host'],
+            con = connect(database=external_connection_args['database'],
+                          host=external_connection_args['host'],
                           port=5432,
-                          user=external_connection_args.['user'],
-                          password=external_connection_args.['password'])
+                          user=external_connection_args['user'],
+                          password=external_connection_args['password'])
             cur = con.cursor()
             # TODO add it from file
             # TODO add db for the merger
