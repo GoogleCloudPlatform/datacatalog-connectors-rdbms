@@ -122,9 +122,11 @@ class MetadataScraper:
             
             external_dataframe = self._get_external_metadata(external_connection_args)
             enriched_dataframe = self._get_merged_dataframe(additional_dataframe, external_dataframe, metadata_definition)
-            
+        
+            print('DEBUG')
+            print(enriched_dataframe)
         enrich_metadata_dict = user_config.get_enrich_metadata_dict()
-
+        
         if enrich_metadata_dict:
             metadata_enricher = self._get_metadata_enricher()(
                 metadata_definition, enrich_metadata_dict)
