@@ -124,7 +124,7 @@ class DatacatalogCli(ABC):
             'database': args.external_postgresql_database,
             'host': args.external_postgresql_host,
             'user': args.external_postgresql_user,
-            'pass': args.external_postgresql_password
+            'password': args.external_postgresql_password
         }
     # End RDBMS connection methods
 
