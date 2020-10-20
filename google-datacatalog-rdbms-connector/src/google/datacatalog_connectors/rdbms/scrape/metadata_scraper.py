@@ -203,7 +203,8 @@ class MetadataScraper:
                           password=external_connection_args.password)
             cur = con.cursor()
             # TODO add it from file
-            query = 'SELECT dc.db_name, stb.source_table_name, stb.enabled FROM public.slave_to_bq stb LEFT JOIN public.database_connection dc ON stb.db_id = dc.db_id;'
+            # TODO add db for the merger
+            query = 'SELECT dc.db_name as database, stb.source_table_name as table_name, stb.enabled as replication FROM public.slave_to_bq stb LEFT JOIN public.database_connection dc ON stb.db_id = dc.db_id;'
             cur.execute(query)
             rows = cur.fetchall()
             dt_frame = self._create_dataframe(rows)
