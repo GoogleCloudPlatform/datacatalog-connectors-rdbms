@@ -97,7 +97,7 @@ class DataCatalogTagFactory:
         if replication:
             if pd.isnull(replication):
                 replication = False
-            tag.fields['replication'].boolean_value = replication
+            tag.fields['replication'].bool_value = replication
 
         table_container_field = self.__metadata_definition[
             'table_container_def']['name']
