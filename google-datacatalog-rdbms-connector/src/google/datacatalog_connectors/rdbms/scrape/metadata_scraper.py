@@ -121,7 +121,7 @@ class MetadataScraper:
                     metadata_definition)
             
             external_dataframe = self._get_external_metadata(external_connection_args)
-            enriched_dataframe = self._get_merged_dataframe(additional_dataframe, external_dataframe, metadata_definition)
+            enriched_dataframe = self._get_merged_dataframe_left(additional_dataframe, external_dataframe, metadata_definition)
         
             print('DEBUG')
             print(enriched_dataframe)
@@ -228,6 +228,16 @@ class MetadataScraper:
             'name']
         dataframe = pd.merge(old_df,
                              new_df,
+                             on=[table_container_mame_col, table_name_col])
+        return dataframe
+
+    def _get_merged_dataframe_left(self, old_df, new_df, metadata_definition):
+        table_name_col = metadata_definition['table_def']['name']
+        table_container_mame_col = metadata_definition['table_container_def'][
+            'name']
+        dataframe = pd.merge(old_df,
+                             new_df,
+                             how='left',
                              on=[table_container_mame_col, table_name_col])
         return dataframe
 
