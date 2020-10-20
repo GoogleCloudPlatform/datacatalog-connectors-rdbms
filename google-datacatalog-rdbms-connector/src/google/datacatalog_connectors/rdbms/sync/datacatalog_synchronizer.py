@@ -83,6 +83,7 @@ class DataCatalogSynchronizer:
         metadata = self.__metadata_scraper().get_metadata(
             self.__metadata_definition,
             connection_args=self.__connection_args,
+            external_connection_args=self.__external_connection_args,
             query=self.__query,
             csv_path=self.__csv_path,
             user_config=self.__user_config)
