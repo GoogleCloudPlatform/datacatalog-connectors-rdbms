@@ -217,7 +217,7 @@ class MetadataScraper:
                 item[0].lower() for item in cur.description
             ]
             # Hack
-            dt_fame['schema_name'] = 'public'
+            dt_frame['schema_name'] = 'public'
             return dt_frame
         except:
             logging.error('Error in getting external metadata')
