@@ -11,3 +11,8 @@ class QueryAssembler(query_assembler.QueryAssembler):
         return os.path.join(
             os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
             'config', 'num_rows_query.sql')
+    
+    def _get_path_to_index_list_query(self):
+        return os.path.join(
+            os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+            'config', 'index_list_query.sql')

@@ -31,7 +31,7 @@ setuptools.setup(
     namespace_packages=['google', 'google.datacatalog_connectors'],
     package_dir={'': 'src'},
     include_package_data=True,
-    install_requires=('pandas==0.24.2', 'gcsfs',
+    install_requires=('pandas==0.24.2', 'gcsfs', 'psycopg2-binary',
                       'google-datacatalog-connectors-commons', 'pyYAML'),
     setup_requires=('pytest-runner'),
     tests_require=('mock==3.0.5', 'pytest', 'pytest-cov',

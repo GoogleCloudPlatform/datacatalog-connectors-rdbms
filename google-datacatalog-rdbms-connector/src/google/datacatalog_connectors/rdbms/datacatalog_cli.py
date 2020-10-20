@@ -39,7 +39,7 @@ class DatacatalogCli(ABC):
         if args.service_account_path:
             os.environ['GOOGLE_APPLICATION_CREDENTIALS'] \
                 = args.service_account_path
-
+            
         self._get_datacatalog_synchronizer()(
             project_id=args.datacatalog_project_id,
             location_id=args.datacatalog_location_id,
@@ -49,6 +49,7 @@ class DatacatalogCli(ABC):
             metadata_definition=self._metadata_definition(),
             metadata_scraper=self._get_metadata_scraper(),
             connection_args=self._get_connection_args(args),
+            external_connection_args=self._get_external_connection_args(args),
             query=self._query(args),
             csv_path=args.raw_metadata_csv,
             enable_monitoring=args.enable_monitoring,
@@ -118,6 +119,13 @@ class DatacatalogCli(ABC):
             raise NotImplementedError(
                 'Implementing this method is required to connect to a RDBMS!')
 
+    def _get_external_connection_args(self, args):
+        return {
+            'database': args.external_postgresql_database,
+            'host': args.external_postgresql_host,
+            'user': args.external_postgresql_user,
+            'pass': args.external_postgresql_pass
+        }
     # End RDBMS connection methods
 
 

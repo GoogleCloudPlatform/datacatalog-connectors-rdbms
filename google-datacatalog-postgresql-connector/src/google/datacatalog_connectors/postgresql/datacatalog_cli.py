@@ -17,6 +17,7 @@
 import argparse
 import os
 import sys
+import pandas as pd
 
 from .scrape import metadata_scraper
 
@@ -88,6 +89,17 @@ class PostgreSQL2DatacatalogCli(datacatalog_cli.DatacatalogCli):
                             help='Your postgresql credentials password')
         parser.add_argument('--postgresql-database',
                             help='Your postgresql database name')
+
+        # parser.add_argument('--external-postgresql-port',
+        #                     help='Your external-postgresql server port')
+        # parser.add_argument('--external-postgresql-user',
+        #                     help='Your external-postgresql credentials user')
+        # parser.add_argument('--external-postgresql-pass',
+        #                     help='Your external-postgresql credentials password')
+        # parser.add_argument('--external-postgresql-database',
+        #                     help='Your external-postgresql database name')
+
+
         parser.add_argument(
             '--raw-metadata-csv',
             help='Your raw metadata as a csv file, '
@@ -105,4 +117,23 @@ class PostgreSQL2DatacatalogCli(datacatalog_cli.DatacatalogCli):
 
 def main():
     argv = sys.argv
-    PostgreSQL2DatacatalogCli().run(argv[1:] if len(argv) > 0 else argv)
+
+    from psycopg2 import connect
+    try:
+        con = connect(database='etl-metadata',
+                      host='127.0.0.1',
+                      port=5432,
+                      user='recharge',
+                      password='rechargeuser')
+        cur = con.cursor()
+        query = 'SELECT dc.db_name, stb.source_table_name FROM public.slave_to_bq stb LEFT JOIN public.database_connection dc ON stb.db_id = dc.db_id;'
+        cur.execute(query)
+        rows = cur.fetchall()
+        if len(rows) == 0:
+            warnings.warn(
+                "Query {} delivered no rows. Skipping it.".format(
+                    query))
+        else:
+            dt_frame = pd.DataFrame(rows)
+            
+    # PostgreSQL2DatacatalogCli().run(argv[1:] if len(argv) > 0 else argv)

@@ -18,6 +18,7 @@
 ENRICH_METADATA_OPTION = 'enrich_metadata'
 REFRESH_OPTION = 'refresh_metadata_tables'
 ROW_COUNT_OPTION = 'sync_row_counts'
+INDEX_LIST_OPTION = 'index_list'
 
 # Metadata config keys
 ASSET_NAME_KEY = 'name'

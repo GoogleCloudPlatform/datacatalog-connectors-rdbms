@@ -1,4 +1,4 @@
-from .config_constants import ROW_COUNT_OPTION
+from .config_constants import ROW_COUNT_OPTION, INDEX_LIST_OPTION
 
 
 class QueryAssembler:
@@ -24,6 +24,8 @@ class QueryAssembler:
         queries = dict()
         if ROW_COUNT_OPTION in optional_metadata:
             queries[ROW_COUNT_OPTION] = self._get_num_rows_query()
+        if INDEX_LIST_OPTION in optional_metadata:
+            queries[INDEX_LIST_OPTION] = self._get_index_list_query()
         return queries
 
     def _get_num_rows_query(self):
@@ -32,7 +34,18 @@ class QueryAssembler:
             query = f.read()
             return query
 
+    def _get_index_list_query(self):
+        path = self._get_path_to_index_list_query()
+        with open(path, 'r') as f:
+            query = f.read()
+            return query
+
     def _get_path_to_num_rows_query(self):
         raise NotImplementedError(
             "Implement to deliver a DB-specific path to the query "
             "for scraping number of rows")
+    
+    def _get_path_to_index_list_query(self):
+        raise NotImplementedError(
+            "Implement to deliver a DB-specific path to the query "
+            "for scraping index list")

@@ -177,6 +177,8 @@ class MetadataScraper:
                     ]
                     merged_dataframe = self._get_merged_dataframe(
                         base_dataframe, new_dataframe, metadata_definition)
+            print('DEBUG PETER')
+            print(merged_dataframe)
             return merged_dataframe
         except:  # noqa:E722
             logging.error('Error connecting to the database '
@@ -185,6 +187,20 @@ class MetadataScraper:
         finally:
             if con:
                 con.close()
+
+    # def _get_external_metadata(self, external_connection_args):
+    #     # import at the method level, because this flow is conditional
+    #     from psycopg2 import connect
+    #     try:
+    #         con = connect(database=external_connection_args.database,
+    #                       host=external_connection_args.host,
+    #                       port=5432,
+    #                       user=external_connection_args.user,
+    #                       password=external_connection_args.pass)
+    #         cur = con.cursor()
+    #         query = 'SELECT dc.db_name, stb.source_table_name FROM public.slave_to_bq stb LEFT JOIN public.database_connection dc ON stb.db_id = dc.db_id;'
+    #         cur.execute(query)
+            
 
     def _get_merged_dataframe(self, old_df, new_df, metadata_definition):
         table_name_col = metadata_definition['table_def']['name']

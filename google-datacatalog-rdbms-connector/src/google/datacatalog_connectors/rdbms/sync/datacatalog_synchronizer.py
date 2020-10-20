@@ -51,6 +51,7 @@ class DataCatalogSynchronizer:
                  metadata_definition,
                  metadata_scraper,
                  connection_args=None,
+                 external_connection_args=None,
                  query=None,
                  csv_path=None,
                  enable_monitoring=None,
@@ -63,6 +64,7 @@ class DataCatalogSynchronizer:
         self.__project_id = project_id
         self.__location_id = location_id
         self.__connection_args = connection_args
+        self.__external_connection_args = external_connection_args
         self.__query = query
         self.__csv_path = csv_path
         self.__user_config = user_config
