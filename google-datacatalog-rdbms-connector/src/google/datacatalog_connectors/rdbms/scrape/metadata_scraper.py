@@ -35,6 +35,8 @@ class MetadataScraper:
                      query=None,
                      csv_path=None,
                      user_config=None):
+        print('DEBUG')
+        print(external_connection_args)
         dataframe = self._get_metadata_as_dataframe(metadata_definition,
                                                     connection_args, external_connection_args, query,
                                                     csv_path, user_config)
@@ -49,6 +51,9 @@ class MetadataScraper:
                                    query=None,
                                    csv_path=None,
                                    user_config=None):
+        print('DEBUG')
+        print(external_connection_args)
+        
         if csv_path:
             logging.info('Scrapping metadata from csv path: "%s"', csv_path)
             dataframe = self._get_metadata_from_csv(csv_path)
@@ -192,7 +197,7 @@ class MetadataScraper:
                 con.close()
 
     def _get_external_metadata(self, external_connection_args):
-        # import at the method level, because this flow is conditional
+        # import at the method level, because this flow is kinda conditional
         con = None
         from psycopg2 import connect
         try:

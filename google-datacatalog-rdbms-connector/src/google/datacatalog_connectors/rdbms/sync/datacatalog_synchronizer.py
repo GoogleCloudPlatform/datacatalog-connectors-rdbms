@@ -79,7 +79,8 @@ class DataCatalogSynchronizer:
         """
         self._before_run()
         logging.info('\n\n==============Scrape metadata===============')
-
+        print('DEBUG')
+        print(self.__external_connection_args)
         metadata = self.__metadata_scraper().get_metadata(
             self.__metadata_definition,
             connection_args=self.__connection_args,
