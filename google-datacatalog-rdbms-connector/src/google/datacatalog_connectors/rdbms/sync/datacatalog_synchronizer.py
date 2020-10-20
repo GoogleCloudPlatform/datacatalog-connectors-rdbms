@@ -95,6 +95,8 @@ class DataCatalogSynchronizer:
         self._log_metadata(metadata)
         logging.info('\n\n==============Prepare metadata===============')
         tag_templates_dict = self.__create_tag_templates()
+        print('DEBUG')
+        print(tag_templates_dict)
         prepared_entries = self.__prepare_datacatalog_entries(
             metadata, tag_templates_dict)
         
