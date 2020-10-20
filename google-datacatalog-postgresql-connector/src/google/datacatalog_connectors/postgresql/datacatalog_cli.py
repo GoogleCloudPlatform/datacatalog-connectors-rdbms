@@ -42,14 +42,6 @@ class PostgreSQL2DatacatalogCli(datacatalog_cli.DatacatalogCli):
             'pass': args.postgresql_pass
         }
     
-    def _get_external_connection_args(self, args):
-        return {
-            'database': args.external_postgresql_database,
-            'host': args.external_postgresql_host,
-            'user': args.external_postgresql_user,
-            'pass': args.external_postgresql_password
-        }
-    
     def _get_entry_group_id(self, args):
         return args.datacatalog_entry_group_id or args.postgresql_database
 
