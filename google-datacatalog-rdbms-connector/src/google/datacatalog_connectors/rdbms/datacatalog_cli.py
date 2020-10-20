@@ -120,12 +120,9 @@ class DatacatalogCli(ABC):
                 'Implementing this method is required to connect to a RDBMS!')
 
     def _get_external_connection_args(self, args):
-        return {
-            'database': args.external_postgresql_database,
-            'host': args.external_postgresql_host,
-            'user': args.external_postgresql_user,
-            'pass': args.external_postgresql_password
-        }
+        if not args.raw_metadata_csv:
+            raise NotImplementedError(
+                'Implementing this method is required to connect to a RDBMS!')
     # End RDBMS connection methods
 
 
