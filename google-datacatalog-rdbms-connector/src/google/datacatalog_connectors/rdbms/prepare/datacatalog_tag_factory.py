@@ -79,11 +79,25 @@ class DataCatalogTagFactory:
         tag.template = tag_template.name
 
         num_rows = table.get('num_rows')
-
+        
         if num_rows:
             if pd.isnull(num_rows):
                 num_rows = 0
             tag.fields['num_rows'].double_value = num_rows
+
+        index_list = table.get('index_list')
+        
+        if index_list:
+            if pd.isnull(index_list):
+                index_list = ''
+            tag.fields['index_list'].string_value = index_list
+
+        replication = table.get('replication')
+        
+        if replication:
+            if pd.isnull(replication):
+                replication = False
+            tag.fields['replication'].boolean_value = replication
 
         table_container_field = self.__metadata_definition[
             'table_container_def']['name']

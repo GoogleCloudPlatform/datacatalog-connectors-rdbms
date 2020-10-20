@@ -118,8 +118,8 @@ class DataCatalogTagTemplateFactory:
         tag_template.fields['index_list'].type.primitive_type = \
             DataCatalogTagTemplateFactory.__STRING_TYPE
         
-        tag_template.fields['bq_replication'].display_name = 'Table replicated to bq'
-        tag_template.fields['bq_replication'].type.primitive_type = \
+        tag_template.fields['replication'].display_name = 'Table replicated to bq'
+        tag_template.fields['replication'].type.primitive_type = \
             DataCatalogTagTemplateFactory.__BOOL_TYPE
 
         return tag_template_id, tag_template

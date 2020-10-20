@@ -24,7 +24,7 @@
             },
             {
                 "source": "replication",
-                "target": "bq_replication"
+                "target": "replication"
             },
 
             {
