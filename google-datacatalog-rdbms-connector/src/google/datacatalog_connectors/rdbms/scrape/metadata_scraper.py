@@ -199,7 +199,7 @@ class MetadataScraper:
                           host=external_connection_args.host,
                           port=5432,
                           user=external_connection_args.user,
-                          password=external_connection_args.pass)
+                          password=external_connection_args.password)
             cur = con.cursor()
             # TODO add it from file
             query = 'SELECT dc.db_name, stb.source_table_name, stb.enabled FROM public.slave_to_bq stb LEFT JOIN public.database_connection dc ON stb.db_id = dc.db_id;'

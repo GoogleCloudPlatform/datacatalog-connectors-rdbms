@@ -94,7 +94,7 @@ class PostgreSQL2DatacatalogCli(datacatalog_cli.DatacatalogCli):
                             help='Your external-postgresql server')
         parser.add_argument('--external-postgresql-user',
                             help='Your external-postgresql credentials user')
-        parser.add_argument('--external-postgresql-pass',
+        parser.add_argument('--external-postgresql-password',
                             help='Your external-postgresql credentials password')
         parser.add_argument('--external-postgresql-database',
                             help='Your external-postgresql database')
