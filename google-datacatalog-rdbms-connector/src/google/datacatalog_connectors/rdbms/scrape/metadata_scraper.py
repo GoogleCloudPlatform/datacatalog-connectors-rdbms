@@ -193,6 +193,7 @@ class MetadataScraper:
 
     def _get_external_metadata(self, external_connection_args):
         # import at the method level, because this flow is conditional
+        con = None
         from psycopg2 import connect
         try:
             con = connect(database=external_connection_args.database,
