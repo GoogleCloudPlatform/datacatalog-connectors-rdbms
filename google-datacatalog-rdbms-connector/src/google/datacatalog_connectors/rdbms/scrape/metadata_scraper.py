@@ -35,8 +35,6 @@ class MetadataScraper:
                      query=None,
                      csv_path=None,
                      user_config=None):
-        print('DEBUG')
-        print(external_connection_args)
         dataframe = self._get_metadata_as_dataframe(metadata_definition,
                                                     connection_args, external_connection_args, query,
                                                     csv_path, user_config)
@@ -51,8 +49,6 @@ class MetadataScraper:
                                    query=None,
                                    csv_path=None,
                                    user_config=None):
-        print('DEBUG')
-        print(external_connection_args)
         
         if csv_path:
             logging.info('Scrapping metadata from csv path: "%s"', csv_path)
@@ -185,8 +181,6 @@ class MetadataScraper:
                     ]
                     merged_dataframe = self._get_merged_dataframe(
                         base_dataframe, new_dataframe, metadata_definition)
-            print('DEBUG PETER')
-            print(merged_dataframe)
             return merged_dataframe
         except:  # noqa:E722
             logging.error('Error connecting to the database '

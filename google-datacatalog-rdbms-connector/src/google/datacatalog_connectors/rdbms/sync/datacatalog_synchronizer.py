@@ -79,8 +79,6 @@ class DataCatalogSynchronizer:
         """
         self._before_run()
         logging.info('\n\n==============Scrape metadata===============')
-        print('DEBUG')
-        print(self.__external_connection_args)
         metadata = self.__metadata_scraper().get_metadata(
             self.__metadata_definition,
             connection_args=self.__connection_args,
@@ -88,7 +86,8 @@ class DataCatalogSynchronizer:
             query=self.__query,
             csv_path=self.__csv_path,
             user_config=self.__user_config)
-
+        print('DEBUG')
+        print(metadata)
         metadata = self._enrich_metadata(metadata)
         
         self.__metadata_definition = self._enrich_metadata_definition()
@@ -96,7 +95,6 @@ class DataCatalogSynchronizer:
         self._log_metadata(metadata)
         logging.info('\n\n==============Prepare metadata===============')
         tag_templates_dict = self.__create_tag_templates()
-        logging.info("DEBUG PETER--------------------------", tag_templates_dict)
         prepared_entries = self.__prepare_datacatalog_entries(
             metadata, tag_templates_dict)
         
@@ -186,7 +184,6 @@ class DataCatalogSynchronizer:
         tag_templates_dict = \
             {schema_tag_template_id: schema_tag_template,
              table_tag_template_id: table_tag_template}
-        logging.info("DEBUG PETER--------------------------", tag_templates_dict)
         return tag_templates_dict
 
     # Begin extension methods
