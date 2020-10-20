@@ -100,11 +100,11 @@ class DataCatalogSynchronizer:
         
         self._log_entries(prepared_entries)
 
-        # logging.info('\n==============Ingest metadata===============')
+        logging.info('\n==============Ingest metadata===============')
 
-        # self.__delete_obsolete_metadata(prepared_entries)
+        self.__delete_obsolete_metadata(prepared_entries)
 
-        # self.__ingest_metadata(prepared_entries, tag_templates_dict)
+        self.__ingest_metadata(prepared_entries, tag_templates_dict)
 
         logging.info('\n============End %s-to-datacatalog============',
                      self.__entry_group_id)
