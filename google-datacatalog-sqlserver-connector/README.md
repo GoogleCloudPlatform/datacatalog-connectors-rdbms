@@ -142,23 +142,30 @@ Along with default metadata, the connector can enrich metadata with user provide
  
  The table below shows what metadata is scraped by default, and what is configurable.
 
-| Metadata                 | Description                                   | Scraped by default | Config option                 |                    
-| ---                      | ---                                           | ---                | ---                           |                       
-| schema_name              | Name of the Schema                            | Y                  | ---                           | 
-| table_name               | Name of a table                               | Y                  | ---                           | 
-| table_type               | Type of a table (BASE, VIEW, etc)             | Y                  | ---                           | 
-| column_name              | Name of a column                              | Y                  | ---                           | 
-| column_type              | Column data type                              | Y                  | ---                           | 
-| column_default_value     | Default value of a column                     | Y                  | ---                           | 
-| column_nullable          | Whether a column is nullable                  | Y                  | ---                           | 
-| column_char_length       | Char length of values in a column             | Y                  | ---                           | 
-| column_numeric_precision | Numeric precision of values in a column       | Y                  | ---                           |
-| prefix                   | Prefix to be added to schema and tables name  | N/A                | enrich_metadata.entry_prefix  | 
+| Metadata                     | Description                                        | Scraped by default | Config option                                |                    
+| ---                          | ---                                                | ---                | ---                                          |                       
+| schema_name                  | Name of the Schema                                 | Y                  | ---                                          | 
+| table_name                   | Name of a table                                    | Y                  | ---                                          | 
+| table_type                   | Type of a table (BASE, VIEW, etc)                  | Y                  | ---                                          | 
+| column_name                  | Name of a column                                   | Y                  | ---                                          | 
+| column_type                  | Column data type                                   | Y                  | ---                                          | 
+| column_default_value         | Default value of a column                          | Y                  | ---                                          | 
+| column_nullable              | Whether a column is nullable                       | Y                  | ---                                          | 
+| column_char_length           | Char length of values in a column                  | Y                  | ---                                          | 
+| column_numeric_precision     | Numeric precision of values in a column            | Y                  | ---                                          |
+| prefix                       | Prefix to be added to schema and tables name       | N/A                | enrich_metadata.entry_prefix                 | 
+| entry_id_pattern_for_prefix  | Entry ID pattern which the prefix will be applied  | N/A                | enrich_metadata.entry_id_pattern_for_prefix  | 
+ 
  
  `prefix` should comply with Data Catalog `entryId`: 
  ```text
 The ID must begin with a letter or underscore, contain only English letters, numbers and underscores, and have at most 64 characters (combined the prefix + the entryId).
 ```   
+<<<<<<< HEAD
+=======
+
+if the `entry_id_pattern_for_prefix` is supplied, the prefix will only be applied to this pattern.
+>>>>>>> upstream/master
  
 Sample configuration file [ingest_cfg.yaml](https://github.com/GoogleCloudPlatform/datacatalog-connectors-rdbms/blob/master/google-datacatalog-sqlserver-connector/ingest_cfg.yaml) in the repository root shows what kind of configuration is expected. 
 

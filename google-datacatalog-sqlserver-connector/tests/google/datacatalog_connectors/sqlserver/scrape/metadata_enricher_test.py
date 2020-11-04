@@ -23,11 +23,10 @@ from google.datacatalog_connectors.sqlserver.scrape import metadata_enricher
 from google.datacatalog_connectors.commons_test import utils
 
 
-class MetadataScraperTestCase(unittest.TestCase):
+class MetadataEnricherTestCase(unittest.TestCase):
     __MODULE_PATH = os.path.dirname(os.path.abspath(__file__))
-    __SCRAPE_PACKAGE = 'google.datacatalog_connectors.rdbms.scrape'
 
-    def test_scrape_schemas_metadata_with_csv_should_return_objects(self):
+    def test_enrich_schemas_metadata_with_csv_should_return_objects(self):
 
         enrich_metadata_dict = {'entry_prefix': 'mycompany'}
 
@@ -49,3 +48,47 @@ class MetadataScraperTestCase(unittest.TestCase):
             enriched_dataframe['schema_name'][0].startswith('mycompany'))
         self.assertTrue(
             enriched_dataframe['table_name'][0].startswith('mycompany'))
+
+    def test_enrich_with_pattern_schemas_metadata_with_csv_should_return_objects(  # noqa: E501
+            self):
+
+        enrich_metadata_dict = {
+            'entry_prefix': 'mycompany',
+            'entry_id_pattern_for_prefix': '^[^a-zA-Z_]+.*$'
+        }
+
+        metadata_definition = \
+            utils.Utils.convert_json_to_object(
+                self.__MODULE_PATH,
+                'metadata_definition.json')
+
+        scraped_dataframe = pd.read_csv(
+            utils.Utils.get_resolved_file_name(
+                self.__MODULE_PATH,
+                'sqlserver_full_dump_invalid_asset_names.csv'))
+
+        enriched_dataframe = metadata_enricher.MetadataEnricher(
+            metadata_definition,
+            enrich_metadata_dict).enrich(scraped_dataframe)
+
+        self.assertEqual(10, len(enriched_dataframe))
+
+        self.assertFalse(
+            enriched_dataframe['schema_name'][6].startswith('mycompany'))
+        self.assertFalse(
+            enriched_dataframe['table_name'][6].startswith('mycompany'))
+
+        self.assertTrue(
+            enriched_dataframe['schema_name'][7].startswith('mycompany'))
+        self.assertTrue(
+            enriched_dataframe['table_name'][7].startswith('mycompany'))
+
+        self.assertFalse(
+            enriched_dataframe['schema_name'][8].startswith('mycompany'))
+        self.assertFalse(
+            enriched_dataframe['table_name'][8].startswith('mycompany'))
+
+        self.assertTrue(
+            enriched_dataframe['schema_name'][9].startswith('mycompany'))
+        self.assertTrue(
+            enriched_dataframe['table_name'][9].startswith('mycompany'))
