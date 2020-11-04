@@ -161,11 +161,8 @@ Along with default metadata, the connector can enrich metadata with user provide
  ```text
 The ID must begin with a letter or underscore, contain only English letters, numbers and underscores, and have at most 64 characters (combined the prefix + the entryId).
 ```   
-<<<<<<< HEAD
-=======
 
 if the `entry_id_pattern_for_prefix` is supplied, the prefix will only be applied to this pattern.
->>>>>>> upstream/master
  
 Sample configuration file [ingest_cfg.yaml](https://github.com/GoogleCloudPlatform/datacatalog-connectors-rdbms/blob/master/google-datacatalog-sqlserver-connector/ingest_cfg.yaml) in the repository root shows what kind of configuration is expected. 
 
