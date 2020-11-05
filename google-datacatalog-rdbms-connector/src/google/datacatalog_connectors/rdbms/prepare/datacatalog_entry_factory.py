@@ -15,7 +15,8 @@
 # limitations under the License.
 
 import pandas as pd
-from google.cloud import datacatalog_v1beta1
+from google.cloud import datacatalog
+from google.protobuf import timestamp_pb2
 from google.datacatalog_connectors.commons.prepare.base_entry_factory import \
     BaseEntryFactory
 
@@ -40,7 +41,7 @@ class DataCatalogEntryFactory(BaseEntryFactory):
         """
 
         entry_id = self._format_id(table_container['name'])
-        entry = datacatalog_v1beta1.types.Entry()
+        entry = datacatalog.Entry()
 
         entry.user_specified_type = self.__metadata_definition[
             'table_container_def']['type']
@@ -53,8 +54,13 @@ class DataCatalogEntryFactory(BaseEntryFactory):
                 table_container.get('create_time'),
                 table_container.get('update_time'))
         if create_time and update_time:
-            entry.source_system_timestamps.create_time.seconds = create_time
-            entry.source_system_timestamps.update_time.seconds = update_time
+            created_timestamp = timestamp_pb2.Timestamp()
+            created_timestamp.FromSeconds(create_time)
+            entry.source_system_timestamps.create_time = created_timestamp
+
+            updated_timestamp = timestamp_pb2.Timestamp()
+            updated_timestamp.FromSeconds(update_time)
+            entry.source_system_timestamps.update_time = updated_timestamp
 
         desc = table_container.get('desc')
         if pd.isna(desc):
@@ -62,7 +68,7 @@ class DataCatalogEntryFactory(BaseEntryFactory):
 
         entry.description = desc
 
-        entry.name = datacatalog_v1beta1.DataCatalogClient.entry_path(
+        entry.name = datacatalog.DataCatalogClient.entry_path(
             self.__project_id, self.__location_id, self.__entry_group_id,
             entry_id)
 
@@ -82,7 +88,7 @@ class DataCatalogEntryFactory(BaseEntryFactory):
         entry_id = self._format_id('{}__{}'.format(table_container_name,
                                                    table['name']))
 
-        entry = datacatalog_v1beta1.types.Entry()
+        entry = datacatalog.Entry()
 
         entry.user_specified_type = self.__metadata_definition['table_def'][
             'type']
@@ -90,7 +96,7 @@ class DataCatalogEntryFactory(BaseEntryFactory):
 
         entry.display_name = self._format_display_name(table['name'])
 
-        entry.name = datacatalog_v1beta1.DataCatalogClient.entry_path(
+        entry.name = datacatalog.DataCatalogClient.entry_path(
             self.__project_id, self.__location_id, self.__entry_group_id,
             entry_id)
 
@@ -108,8 +114,13 @@ class DataCatalogEntryFactory(BaseEntryFactory):
                 table.get('create_time'),
                 table.get('update_time'))
         if create_time and update_time:
-            entry.source_system_timestamps.create_time.seconds = create_time
-            entry.source_system_timestamps.update_time.seconds = update_time
+            created_timestamp = timestamp_pb2.Timestamp()
+            created_timestamp.FromSeconds(create_time)
+            entry.source_system_timestamps.create_time = created_timestamp
+
+            updated_timestamp = timestamp_pb2.Timestamp()
+            updated_timestamp.FromSeconds(update_time)
+            entry.source_system_timestamps.update_time = updated_timestamp
 
         columns = []
         for column in table['columns']:
@@ -117,12 +128,11 @@ class DataCatalogEntryFactory(BaseEntryFactory):
             if pd.isna(desc):
                 desc = ''
             columns.append(
-                datacatalog_v1beta1.types.ColumnSchema(
+                datacatalog.ColumnSchema(
                     column=self._format_id(column['name']),
                     description=desc,
                     type=DataCatalogEntryFactory.__format_entry_column_type(
-                        column['type']),
-                    mode=None))
+                        column['type'])))
         entry.schema.columns.extend(columns)
 
         return entry_id, entry

@@ -20,7 +20,7 @@ import unittest
 from google.datacatalog_connectors.commons_test import utils
 from google.datacatalog_connectors.rdbms.prepare import \
     datacatalog_tag_factory
-from google.cloud import datacatalog_v1beta1
+from google.cloud import datacatalog
 
 
 class DataCatalogTagFactoryTest(unittest.TestCase):
@@ -33,7 +33,7 @@ class DataCatalogTagFactoryTest(unittest.TestCase):
 
         factory = datacatalog_tag_factory.DataCatalogTagFactory(metadata_def)
 
-        tag_template = datacatalog_v1beta1.types.TagTemplate()
+        tag_template = datacatalog.TagTemplate()
         tag_template.name = 'template_name'
 
         schema_dict = {
@@ -58,7 +58,7 @@ class DataCatalogTagFactoryTest(unittest.TestCase):
 
         factory = datacatalog_tag_factory.DataCatalogTagFactory(metadata_def)
 
-        tag_template = datacatalog_v1beta1.types.TagTemplate()
+        tag_template = datacatalog.TagTemplate()
         tag_template.name = 'template_name'
 
         schema_dict = {'tables': [{}, {}]}
@@ -73,7 +73,7 @@ class DataCatalogTagFactoryTest(unittest.TestCase):
 
         factory = datacatalog_tag_factory.DataCatalogTagFactory(metadata_def)
 
-        tag_template = datacatalog_v1beta1.types.TagTemplate()
+        tag_template = datacatalog.TagTemplate()
         tag_template.name = 'template_name'
 
         tables_dict = {
@@ -101,7 +101,7 @@ class DataCatalogTagFactoryTest(unittest.TestCase):
 
         factory = datacatalog_tag_factory.DataCatalogTagFactory(metadata_def)
 
-        tag_template = datacatalog_v1beta1.types.TagTemplate()
+        tag_template = datacatalog.TagTemplate()
         tag_template.name = 'template_name'
 
         tables_dict = {
@@ -133,7 +133,7 @@ class DataCatalogTagFactoryTest(unittest.TestCase):
                 metadata_def
             )
 
-        tag_template = datacatalog_v1beta1.types.TagTemplate()
+        tag_template = datacatalog.TagTemplate()
         tag_template.name = 'template_name'
 
         tables_dict = {
@@ -160,7 +160,7 @@ class DataCatalogTagFactoryTest(unittest.TestCase):
 
         factory = datacatalog_tag_factory.DataCatalogTagFactory(metadata_def)
 
-        tag_template = datacatalog_v1beta1.types.TagTemplate()
+        tag_template = datacatalog.TagTemplate()
         tag_template.name = 'template_name'
 
         tables_dict = {'num_rows': 5}
