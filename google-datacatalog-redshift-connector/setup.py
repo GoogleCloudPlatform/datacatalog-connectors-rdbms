@@ -23,7 +23,7 @@ with open('README.md') as readme_file:
 
 setuptools.setup(
     name='google-datacatalog-redshift-connector',
-    version='0.6.1',
+    version='0.6.2',
     author='Google LLC',
     description='Library for ingesting Redshift metadata into Google Cloud Data Catalog',
     platforms='Posix; MacOS X; Windows',
@@ -36,13 +36,13 @@ setuptools.setup(
         ],
     },
     include_package_data=True,
-    install_requires=('google-datacatalog-postgresql-connector'),
+    install_requires=('google-datacatalog-postgresql-connector>=0.7.1,<0.8.0'),
     setup_requires=(
         'pytest-runner',
     ),
     tests_require=(
         'pytest-cov',
-        'google-datacatalog-connectors-commons-test'
+        'google-datacatalog-connectors-commons-test>=0.5.1,<0.6.0'
     ),
     classifiers=(
         release_status,
