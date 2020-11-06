@@ -90,7 +90,8 @@ class DataCatalogTagFactory(prepare.BaseTagFactory):
         table_container_field = self.__metadata_definition[
             'table_container_def']['name']
 
-        self._set_string_field(tag, table_container_field, table_container_name)
+        self._set_string_field(tag, table_container_field,
+                               table_container_name)
 
         self.__add_database_name_to_tag(tag)
         self.__add_table_size_value_to_tag(table, tag)

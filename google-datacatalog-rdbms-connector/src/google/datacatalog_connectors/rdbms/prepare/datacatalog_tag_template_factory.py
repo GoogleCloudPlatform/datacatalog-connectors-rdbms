@@ -101,7 +101,7 @@ class DataCatalogTagTemplateFactory:
         table_container_name_field = datacatalog.TagTemplateField()
         table_container_name_field.type.primitive_type = self.__STRING_TYPE
         table_container_name_field.display_name = '{} Name'.format(
-                table_container_type.capitalize())
+            table_container_type.capitalize())
         tag_template.fields[table_container_name] = table_container_name_field
 
         self.__add_database_name_to_tag_template(tag_template)
@@ -158,4 +158,3 @@ class DataCatalogTagTemplateFactory:
         update_user_field.display_name = \
             '{} Last Modified User'.format(attribute_type.capitalize())
         tag_template.fields[update_user_key] = update_user_field
-
