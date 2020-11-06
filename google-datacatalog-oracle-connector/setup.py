@@ -23,7 +23,7 @@ with open('README.md') as readme_file:
 
 setuptools.setup(
     name='google-datacatalog-oracle-connector',
-    version='0.6.0',
+    version='0.7.0',
     author='Google LLC',
     description=
     'Library for ingesting Oracle metadata into Google Cloud Data Catalog',
@@ -36,10 +36,10 @@ setuptools.setup(
         ],
     },
     include_package_data=True,
-    install_requires=('cx_Oracle', 'google-datacatalog-rdbms-connector'),
+    install_requires=('cx_Oracle', 'google-datacatalog-rdbms-connector>=0.9.0'),
     setup_requires=('pytest-runner',),
     tests_require=('pytest-cov', 'mock==3.0.5', 'pytest',
-                   'google-datacatalog-connectors-commons-test'),
+                   'google-datacatalog-connectors-commons-test>=0.6.0'),
     classifiers=[
         release_status,
         'Programming Language :: Python :: 3.7',
