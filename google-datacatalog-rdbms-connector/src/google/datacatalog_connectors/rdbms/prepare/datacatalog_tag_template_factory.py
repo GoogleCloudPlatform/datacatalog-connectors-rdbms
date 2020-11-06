@@ -14,15 +14,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from google.cloud import datacatalog_v1beta1
+from google.cloud import datacatalog
 
 
 class DataCatalogTagTemplateFactory:
 
     __DATABASE_TYPE = 'database'
-    __BOOL_TYPE = datacatalog_v1beta1.enums.FieldType.PrimitiveType.BOOL
-    __DOUBLE_TYPE = datacatalog_v1beta1.enums.FieldType.PrimitiveType.DOUBLE
-    __STRING_TYPE = datacatalog_v1beta1.enums.FieldType.PrimitiveType.STRING
+    __BOOL_TYPE = datacatalog.FieldType.PrimitiveType.BOOL
+    __DOUBLE_TYPE = datacatalog.FieldType.PrimitiveType.DOUBLE
+    __STRING_TYPE = datacatalog.FieldType.PrimitiveType.STRING
 
     def __init__(self, project_id, location_id, entry_group_id,
                  metadata_definition):
@@ -38,7 +38,7 @@ class DataCatalogTagTemplateFactory:
          :return: tag_template_id, tag_template
         """
 
-        tag_template = datacatalog_v1beta1.types.TagTemplate()
+        tag_template = datacatalog.TagTemplate()
 
         table_container_type = self.__metadata_definition[
             'table_container_def']['type']
@@ -46,7 +46,7 @@ class DataCatalogTagTemplateFactory:
                                                   table_container_type)
 
         tag_template.name = \
-            datacatalog_v1beta1.DataCatalogClient.tag_template_path(
+            datacatalog.DataCatalogClient.tag_template_path(
                 project=self.__project_id,
                 location=self.__location_id,
                 tag_template=tag_template_id)
@@ -61,10 +61,10 @@ class DataCatalogTagTemplateFactory:
         self.__add_update_user_field_to_template(table_container_type,
                                                  tag_template)
 
-        tag_template.fields[
-            'num_tables'].type.primitive_type = \
-            datacatalog_v1beta1.enums.FieldType.PrimitiveType.DOUBLE.value
-        tag_template.fields['num_tables'].display_name = 'Number of tables'
+        num_tables_field = datacatalog.TagTemplateField()
+        num_tables_field.type.primitive_type = self.__DOUBLE_TYPE
+        num_tables_field.display_name = 'Number of tables'
+        tag_template.fields['num_tables'] = num_tables_field
 
         return tag_template_id, tag_template
 
@@ -73,7 +73,7 @@ class DataCatalogTagTemplateFactory:
          :return: tag_template_id, tag_template
         """
 
-        tag_template = datacatalog_v1beta1.types.TagTemplate()
+        tag_template = datacatalog.TagTemplate()
 
         table_type = self.__metadata_definition['table_def']['type']
 
@@ -81,7 +81,7 @@ class DataCatalogTagTemplateFactory:
                                                   table_type)
 
         tag_template.name = \
-            datacatalog_v1beta1.DataCatalogClient.tag_template_path(
+            datacatalog.DataCatalogClient.tag_template_path(
                 project=self.__project_id,
                 location=self.__location_id,
                 tag_template=tag_template_id)
@@ -98,22 +98,23 @@ class DataCatalogTagTemplateFactory:
         table_container_type = self.__metadata_definition[
             'table_container_def']['type']
 
-        tag_template.fields[
-            table_container_name].type.primitive_type = \
-            DataCatalogTagTemplateFactory.__STRING_TYPE
-        tag_template.fields[
-            table_container_name].display_name = '{} Name'.format(
-                table_container_type.capitalize())
+        table_container_name_field = datacatalog.TagTemplateField()
+        table_container_name_field.type.primitive_type = self.__STRING_TYPE
+        table_container_name_field.display_name = '{} Name'.format(
+            table_container_type.capitalize())
+        tag_template.fields[table_container_name] = table_container_name_field
 
         self.__add_database_name_to_tag_template(tag_template)
 
-        tag_template.fields['num_rows'].display_name = 'Number of rows'
-        tag_template.fields['num_rows'].type.primitive_type = \
-            DataCatalogTagTemplateFactory.__DOUBLE_TYPE
+        num_rows_field = datacatalog.TagTemplateField()
+        num_rows_field.type.primitive_type = self.__DOUBLE_TYPE
+        num_rows_field.display_name = 'Number of rows'
+        tag_template.fields['num_rows'] = num_rows_field
 
-        tag_template.fields['table_size_MB'].display_name = 'Table Size in MB'
-        tag_template.fields['table_size_MB'].type.primitive_type = \
-            DataCatalogTagTemplateFactory.__DOUBLE_TYPE
+        table_size_mb_field = datacatalog.TagTemplateField()
+        table_size_mb_field.type.primitive_type = self.__DOUBLE_TYPE
+        table_size_mb_field.display_name = 'Table Size in MB'
+        tag_template.fields['table_size_MB'] = table_size_mb_field
 
         return tag_template_id, tag_template
 
@@ -123,33 +124,37 @@ class DataCatalogTagTemplateFactory:
 
         if table_container_type != DataCatalogTagTemplateFactory.\
                 __DATABASE_TYPE:
-            tag_template.fields['database_name'].display_name = 'Database name'
-            tag_template.fields['database_name'].type.primitive_type = \
-                DataCatalogTagTemplateFactory.__STRING_TYPE
+            database_name_field = datacatalog.TagTemplateField()
+            database_name_field.type.primitive_type = self.__STRING_TYPE
+            database_name_field.display_name = 'Database name'
+            tag_template.fields['database_name'] = database_name_field
 
     @classmethod
     def __add_creator_field_to_template(cls, attribute_type, tag_template):
         creator_key = '{}_creator'.format(attribute_type)
-        tag_template.fields[
-            creator_key].type.primitive_type = \
-            DataCatalogTagTemplateFactory.__STRING_TYPE
-        tag_template.fields[creator_key].display_name = \
+
+        creator_field = datacatalog.TagTemplateField()
+        creator_field.type.primitive_type = cls.__STRING_TYPE
+        creator_field.display_name = \
             '{} Creator'.format(attribute_type.capitalize())
+        tag_template.fields[creator_key] = creator_field
 
     @classmethod
     def __add_owner_field_to_template(cls, attribute_type, tag_template):
         owner_key = '{}_owner'.format(attribute_type)
-        tag_template.fields[
-            owner_key].type.primitive_type = \
-            DataCatalogTagTemplateFactory.__STRING_TYPE
-        tag_template.fields[owner_key].display_name = \
+
+        owner_field = datacatalog.TagTemplateField()
+        owner_field.type.primitive_type = cls.__STRING_TYPE
+        owner_field.display_name = \
             '{} Owner'.format(attribute_type.capitalize())
+        tag_template.fields[owner_key] = owner_field
 
     @classmethod
     def __add_update_user_field_to_template(cls, attribute_type, tag_template):
         update_user_key = '{}_update_user'.format(attribute_type)
-        tag_template.fields[
-            update_user_key].type.primitive_type = \
-            DataCatalogTagTemplateFactory.__STRING_TYPE
-        tag_template.fields[update_user_key].display_name = \
+
+        update_user_field = datacatalog.TagTemplateField()
+        update_user_field.type.primitive_type = cls.__STRING_TYPE
+        update_user_field.display_name = \
             '{} Last Modified User'.format(attribute_type.capitalize())
+        tag_template.fields[update_user_key] = update_user_field

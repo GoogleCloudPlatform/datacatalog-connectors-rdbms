@@ -323,9 +323,9 @@ class AssembledEntryFactoryTestCase(unittest.TestCase):
                 self.__assert_required(user_defined_table.entry_id,
                                        table_entry)
                 self.assertIsNotNone(
-                    table_entry.source_system_timestamps.create_time.seconds)
+                    table_entry.source_system_timestamps.create_time)
                 self.assertIsNotNone(
-                    table_entry.source_system_timestamps.update_time.seconds)
+                    table_entry.source_system_timestamps.update_time)
                 # Assert specific fields for table
                 self.assertEqual('table', table_entry.user_specified_type)
                 self.assertEqual('oracle', table_entry.user_specified_system)
