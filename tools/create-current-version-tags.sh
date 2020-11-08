@@ -32,7 +32,7 @@ create-current-version-tags::main(){
         if [[ $? -eq 0 ]]
             then
                 echo " tag: ${tag_name} created"
-                git_remote_url="$(git remote get-url origin).git"
+                git_remote_url="$(git remote get-url origin)"
                 git_auth_remote_url="${git_remote_url/github.com/${GITHUB_TOKEN}@github.com}"
                 git push ${git_auth_remote_url} ${tag_name}
                 echo " tag: ${tag_name} pushed!"
