@@ -20,12 +20,12 @@ import unittest
 from google.datacatalog_connectors.commons_test import utils
 from google.datacatalog_connectors.rdbms.prepare import \
     datacatalog_tag_template_factory
-from google.cloud import datacatalog_v1beta1
+from google.cloud import datacatalog
 
 
 class DataCatalogTagTemplateFactoryTest(unittest.TestCase):
-    __DOUBLE_TYPE = datacatalog_v1beta1.enums.FieldType.PrimitiveType.DOUBLE
-    __STRING_TYPE = datacatalog_v1beta1.enums.FieldType.PrimitiveType.STRING
+    __DOUBLE_TYPE = datacatalog.FieldType.PrimitiveType.DOUBLE
+    __STRING_TYPE = datacatalog.FieldType.PrimitiveType.STRING
 
     __MODULE_PATH = os.path.dirname(os.path.abspath(__file__))
     __PROJECT_ID = 'test_project'

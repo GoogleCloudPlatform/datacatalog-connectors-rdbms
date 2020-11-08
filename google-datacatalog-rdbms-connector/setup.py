@@ -23,7 +23,7 @@ with open('README.md') as readme_file:
 
 setuptools.setup(
     name='google-datacatalog-rdbms-connector',
-    version='0.8.2',
+    version='0.9.0',
     author='Google LLC',
     description=
     'Commons library for ingesting RDBMS metadata into Google Cloud Data Catalog',
@@ -31,11 +31,11 @@ setuptools.setup(
     namespace_packages=['google', 'google.datacatalog_connectors'],
     package_dir={'': 'src'},
     include_package_data=True,
-    install_requires=('pandas==0.24.2', 'gcsfs',
-                      'google-datacatalog-connectors-commons>=0.5.2,<0.6.0', 'pyYAML'),
+    install_requires=('pandas>=1.1.4,<1.2.0', 'gcsfs',
+                      'google-datacatalog-connectors-commons>=0.6.0', 'pyYAML'),
     setup_requires=('pytest-runner'),
     tests_require=('mock==3.0.5', 'pytest', 'pytest-cov',
-                   'google-datacatalog-connectors-commons-test>=0.5.1,<0.6.0'),
+                   'google-datacatalog-connectors-commons-test>=0.6.0'),
     classifiers=[
         release_status,
         'Programming Language :: Python :: 3.7',

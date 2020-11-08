@@ -16,10 +16,12 @@
 
 import pandas as pd
 
-from google.cloud import datacatalog_v1beta1
+from google.cloud import datacatalog
+
+from google.datacatalog_connectors.commons import prepare
 
 
-class DataCatalogTagFactory:
+class DataCatalogTagFactory(prepare.BaseTagFactory):
 
     __DATABASE_TYPE = 'database'
 
@@ -37,7 +39,7 @@ class DataCatalogTagFactory:
          :return: tag
         """
 
-        tag = datacatalog_v1beta1.types.Tag()
+        tag = datacatalog.Tag()
 
         tag.template = tag_template.name
 
@@ -48,7 +50,7 @@ class DataCatalogTagFactory:
         if tables:
             num_tables = len(tables)
 
-        tag.fields['num_tables'].double_value = num_tables
+        self._set_double_field(tag, 'num_tables', num_tables)
 
         self.__add_creator_value_to_tag(
             self.__metadata_definition['table_container_def']['type'],
@@ -74,7 +76,7 @@ class DataCatalogTagFactory:
          :return: tag
         """
 
-        tag = datacatalog_v1beta1.types.Tag()
+        tag = datacatalog.Tag()
 
         tag.template = tag_template.name
 
@@ -83,13 +85,13 @@ class DataCatalogTagFactory:
         if num_rows:
             if pd.isnull(num_rows):
                 num_rows = 0
-            tag.fields['num_rows'].double_value = num_rows
+            self._set_double_field(tag, 'num_rows', num_rows)
 
         table_container_field = self.__metadata_definition[
             'table_container_def']['name']
 
-        tag.fields[table_container_field].string_value = \
-            table_container_name
+        self._set_string_field(tag, table_container_field,
+                               table_container_name)
 
         self.__add_database_name_to_tag(tag)
         self.__add_table_size_value_to_tag(table, tag)
@@ -108,8 +110,7 @@ class DataCatalogTagFactory:
         if table_container_type != DataCatalogTagFactory.__DATABASE_TYPE:
             database_name = self.__metadata_definition.get('database_name')
             if database_name:
-                tag.fields['database_name'].string_value = \
-                    database_name
+                self._set_string_field(tag, 'database_name', database_name)
 
     @classmethod
     def __add_table_size_value_to_tag(cls, metadata, tag):
@@ -117,25 +118,25 @@ class DataCatalogTagFactory:
         if table_size:
             if pd.isnull(table_size):
                 table_size = 0
-            tag.fields['table_size_MB'].double_value = table_size
+            cls._set_double_field(tag, 'table_size_MB', table_size)
 
     @classmethod
     def __add_creator_value_to_tag(cls, attribute_type, metadata, tag):
         creator_key = '{}_creator'.format(attribute_type)
         creator = metadata.get('creator')
         if creator:
-            tag.fields[creator_key].string_value = creator
+            cls._set_string_field(tag, creator_key, creator)
 
     @classmethod
     def __add_owner_value_to_tag(cls, attribute_type, metadata, tag):
         owner_key = '{}_owner'.format(attribute_type)
         owner = metadata.get('owner')
         if owner:
-            tag.fields[owner_key].string_value = owner
+            cls._set_string_field(tag, owner_key, owner)
 
     @classmethod
     def __add_update_user_value_to_tag(cls, attribute_type, metadata, tag):
         update_user_key = '{}_update_user'.format(attribute_type)
         update_user = metadata.get('update_user')
         if update_user:
-            tag.fields[update_user_key].string_value = update_user
+            cls._set_string_field(tag, update_user_key, update_user)
