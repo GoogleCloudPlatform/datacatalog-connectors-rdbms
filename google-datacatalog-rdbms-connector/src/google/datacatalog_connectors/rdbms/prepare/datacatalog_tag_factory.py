@@ -82,7 +82,7 @@ class DataCatalogTagFactory(prepare.BaseTagFactory):
 
         num_rows = table.get('num_rows')
 
-        if num_rows:
+        if num_rows is not None:
             if pd.isnull(num_rows):
                 num_rows = 0
             self._set_double_field(tag, 'num_rows', num_rows)
@@ -115,7 +115,7 @@ class DataCatalogTagFactory(prepare.BaseTagFactory):
     @classmethod
     def __add_table_size_value_to_tag(cls, metadata, tag):
         table_size = metadata.get('table_size_MB')
-        if table_size:
+        if table_size is not None:
             if pd.isnull(table_size):
                 table_size = 0
             cls._set_double_field(tag, 'table_size_MB', table_size)

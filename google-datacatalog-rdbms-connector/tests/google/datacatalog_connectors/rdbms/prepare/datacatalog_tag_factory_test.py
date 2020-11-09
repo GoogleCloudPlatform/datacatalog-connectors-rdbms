@@ -123,6 +123,34 @@ class DataCatalogTagFactoryTest(unittest.TestCase):
         self.assertEqual(0, tag.fields['num_rows'].double_value)
         self.assertEqual(0, tag.fields['table_size_MB'].double_value)
 
+    def test_tag_for_table_zero_values_should_set_all_available_fields(  # noqa:E501
+            self):  # noqa:E125
+        metadata_def = utils.Utils.get_metadata_def_obj(self.__MODULE_PATH)
+
+        factory = datacatalog_tag_factory.DataCatalogTagFactory(metadata_def)
+
+        tag_template = datacatalog.TagTemplate()
+        tag_template.name = 'template_name'
+
+        tables_dict = {
+            'creator': 'creator_test',
+            'owner': 'owner_test',
+            'update_user': 'update_user_test',
+            'num_rows': 0,
+            'table_size_MB': 0
+        }
+
+        tag = factory. \
+            make_tag_for_table_metadata(tag_template, tables_dict, 'schema')
+        self.assertEqual('schema', tag.fields['schema_name'].string_value)
+        self.assertEqual('creator_test',
+                         tag.fields['table_creator'].string_value)
+        self.assertEqual('owner_test', tag.fields['table_owner'].string_value)
+        self.assertEqual('update_user_test',
+                         tag.fields['table_update_user'].string_value)
+        self.assertEqual(0, tag.fields['num_rows'].double_value)
+        self.assertEqual(0, tag.fields['table_size_MB'].double_value)
+
     def test_make_tag_for_table_metadata_with_database_should_succeed(
             self):  # noqa:E125
         metadata_def = utils.Utils.get_metadata_def_obj(self.__MODULE_PATH)
