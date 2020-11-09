@@ -37,9 +37,9 @@ setuptools.setup(
         ],
     },
     include_package_data=True,
-    install_requires=('hdbcli', 'google-datacatalog-rdbms-connector'),
+    install_requires=('hdbcli', 'google-datacatalog-rdbms-connector>=0.9.0'),
     setup_requires=('pytest-runner',),
-    tests_require=('pytest-cov', 'google-datacatalog-connectors-commons-test'),
+    tests_require=('pytest-cov', 'google-datacatalog-connectors-commons-test>=0.6.0'),
     classifiers=(
         release_status,
         'Programming Language :: Python :: 3.7',
