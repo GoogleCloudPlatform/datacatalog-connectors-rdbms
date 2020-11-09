@@ -23,7 +23,7 @@ with open('README.md') as readme_file:
 
 setuptools.setup(
     name='google-datacatalog-sqlserver-connector',
-    version='0.7.1',
+    version='0.8.0',
     author='Google LLC',
     description=
     'Library for ingesting SQLServer metadata into Google Cloud Data Catalog',
@@ -37,9 +37,9 @@ setuptools.setup(
         ],
     },
     include_package_data=True,
-    install_requires=('pyodbc', 'google-datacatalog-rdbms-connector'),
+    install_requires=('pyodbc', 'google-datacatalog-rdbms-connector>=0.9.0'),
     setup_requires=('pytest-runner',),
-    tests_require=('pytest-cov', 'google-datacatalog-connectors-commons-test'),
+    tests_require=('pytest-cov', 'google-datacatalog-connectors-commons-test>=0.6.0'),
     classifiers=(
         release_status,
         'Programming Language :: Python :: 3.7',
