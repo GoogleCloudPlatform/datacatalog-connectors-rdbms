@@ -14,25 +14,30 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import unittest
 import os
+import unittest
 
-from google.cloud import datacatalog_v1beta1
+from google.cloud import datacatalog
 
-datacatalog = datacatalog_v1beta1.DataCatalogClient()
+datacatalog_client = datacatalog.DataCatalogClient()
 
 
 class ExecutionResultsTest(unittest.TestCase):
 
-    def test_oracle_entries_should_exist_after_connector_execution(self):
+    def test_entries_should_exist_after_connector_execution(self):
         query = 'system={}'.format(os.environ['RDBSCSV2DC_TYPE'])
 
-        scope = datacatalog_v1beta1.types.SearchCatalogRequest.Scope()
+        scope = datacatalog.SearchCatalogRequest.Scope()
         scope.include_project_ids.append(
             os.environ['RDBSCSV2DC_DATACATALOG_PROJECT_ID'])
 
+        request = datacatalog.SearchCatalogRequest()
+        request.scope = scope
+        request.query = query
+        request.page_size = 1000
+
         search_results = [
-            result for result in datacatalog.search_catalog(
-                scope=scope, query=query, order_by='relevance', page_size=1000)
+            result for result in datacatalog_client.search_catalog(request)
         ]
         self.assertGreater(len(search_results), 0)
+
