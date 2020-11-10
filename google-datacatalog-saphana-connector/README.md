@@ -138,14 +138,18 @@ Along with default metadata, the connector can enrich metadata with user provide
 | Metadata                     | Description                                        | Scraped by default | Config option                                |                    
 | ---                          | ---                                                | ---                | ---                                          |                       
 | schema_name                  | Name of the Schema                                 | Y                  | ---                                          | 
+| schema_owner                 | Owner of the Schema                                | Y                  | ---                                          | 
+| schema_create_time           | Schema creation time                               | Y                  | ---                                          | 
 | table_name                   | Name of a table                                    | Y                  | ---                                          | 
 | table_type                   | Type of a table (BASE, VIEW, etc)                  | Y                  | ---                                          | 
+| has_primary_key              | Whether a Table has a primary key                  | Y                  | ---                                          | 
+| table_description            | Table description                                  | Y                  | ---                                          | 
+| table_create_time            | Table creation time                                | Y                  | ---                                          | 
 | column_name                  | Name of a column                                   | Y                  | ---                                          | 
 | column_type                  | Column data type                                   | Y                  | ---                                          | 
-| column_default_value         | Default value of a column                          | Y                  | ---                                          | 
 | column_nullable              | Whether a column is nullable                       | Y                  | ---                                          | 
-| column_char_length           | Char length of values in a column                  | Y                  | ---                                          | 
-| column_numeric_precision     | Numeric precision of values in a column            | Y                  | ---                                          |
+| column_mask                  | Whether a column has data mask                     | Y                  | ---                                          | 
+| column_mask_expression       | Column mask expression                             | Y                  | ---                                          |
 | prefix                       | Prefix to be added to schema and tables name       | N/A                | enrich_metadata.entry_prefix                 | 
 | entry_id_pattern_for_prefix  | Entry ID pattern which the prefix will be applied  | N/A                | enrich_metadata.entry_id_pattern_for_prefix  | 
  

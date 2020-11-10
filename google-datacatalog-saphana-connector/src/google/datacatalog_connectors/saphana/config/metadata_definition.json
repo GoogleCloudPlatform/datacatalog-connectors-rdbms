@@ -9,10 +9,6 @@
         "target": "owner"
       },
       {
-        "source": "database_desc",
-        "target": "desc"
-      },
-      {
         "source": "schema_create_time",
         "target": "create_time"
       }
