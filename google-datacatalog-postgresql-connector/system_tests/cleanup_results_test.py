@@ -17,22 +17,27 @@
 import os
 import unittest
 
-from google.cloud import datacatalog_v1beta1
+from google.cloud import datacatalog
 
-datacatalog = datacatalog_v1beta1.DataCatalogClient()
+datacatalog_client = datacatalog.DataCatalogClient()
 
 
 class CleanupResultsTest(unittest.TestCase):
 
-    def test_postgresql_entries_should_not_exist_after_cleanup(self):
+    def test_entries_should_not_exist_after_cleanup(self):
         query = 'system=postgresql'
 
-        scope = datacatalog_v1beta1.types.SearchCatalogRequest.Scope()
+        scope = datacatalog.SearchCatalogRequest.Scope()
         scope.include_project_ids.append(
             os.environ['POSTGRESQL2DC_DATACATALOG_PROJECT_ID'])
 
+        request = datacatalog.SearchCatalogRequest()
+        request.scope = scope
+        request.query = query
+        request.page_size = 1000
+
         search_results = [
-            result for result in datacatalog.search_catalog(
-                scope=scope, query=query, order_by='relevance', page_size=1000)
+            result for result in datacatalog_client.search_catalog(request)
         ]
         self.assertEqual(len(search_results), 0)
+
