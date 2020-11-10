@@ -159,4 +159,3 @@ class DataCatalogTagTemplateFactory:
         update_user_field.display_name = \
             '{} Last Modified User'.format(attribute_type.capitalize())
         tag_template.fields[update_user_key] = update_user_field
-
