@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        build-dir: ['./google-datacatalog-rdbms-connector', './google-datacatalog-rdbmscsv-connector', './google-datacatalog-postgresql-connector', './google-datacatalog-greenplum-connector', './google-datacatalog-redshift-connector', './google-datacatalog-sqlserver-connector', './google-datacatalog-mysql-connector', './google-datacatalog-teradata-connector', './google-datacatalog-oracle-connector', './google-datacatalog-vertica-connector']
+        build-dir: ['./google-datacatalog-rdbms-connector', './google-datacatalog-rdbmscsv-connector', './google-datacatalog-postgresql-connector', './google-datacatalog-greenplum-connector', './google-datacatalog-redshift-connector', './google-datacatalog-sqlserver-connector', './google-datacatalog-mysql-connector', './google-datacatalog-teradata-connector', './google-datacatalog-oracle-connector', './google-datacatalog-vertica-connector', './google-datacatalog-saphana-connector']
         python-version: [3.6, 3.7, 3.8]
     defaults:
       run:

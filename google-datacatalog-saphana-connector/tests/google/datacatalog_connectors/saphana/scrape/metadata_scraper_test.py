@@ -44,7 +44,7 @@ class MetadataScraperTestCase(unittest.TestCase):
 
         self.assertEqual(1, len(schemas_metadata))
 
-    @patch('pyodbc.connect')
+    @patch('hdbcli.dbapi.connect')
     @patch('{}.metadata_normalizer.MetadataNormalizer'
            '.to_metadata_dict'.format(__SCRAPE_PACKAGE))
     def test_scrape_schemas_metadata_with_credentials_should_return_objects(
@@ -86,7 +86,7 @@ class MetadataScraperTestCase(unittest.TestCase):
         self.assertEqual(1, len(schemas_metadata))
         self.assertEqual(connect.call_count, 1)
 
-    @patch('pyodbc.connect')
+    @patch('hdbcli.dbapi.connect')
     @patch('{}.metadata_normalizer.MetadataNormalizer'
            '.to_metadata_dict'.format(__SCRAPE_PACKAGE))
     def test_scrape_schemas_metadata_on_exception_should_re_raise(

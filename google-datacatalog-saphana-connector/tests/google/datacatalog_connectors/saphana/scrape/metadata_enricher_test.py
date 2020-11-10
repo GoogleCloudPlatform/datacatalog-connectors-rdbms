@@ -43,7 +43,7 @@ class MetadataEnricherTestCase(unittest.TestCase):
             metadata_definition,
             enrich_metadata_dict).enrich(scraped_dataframe)
 
-        self.assertEqual(7, len(enriched_dataframe))
+        self.assertEqual(30, len(enriched_dataframe))
         self.assertTrue(
             enriched_dataframe['schema_name'][0].startswith('mycompany'))
         self.assertTrue(
@@ -65,30 +65,30 @@ class MetadataEnricherTestCase(unittest.TestCase):
         scraped_dataframe = pd.read_csv(
             utils.Utils.get_resolved_file_name(
                 self.__MODULE_PATH,
-                'sqlserver_full_dump_invalid_asset_names.csv'))
+                'saphana_full_dump_invalid_asset_names.csv'))
 
         enriched_dataframe = metadata_enricher.MetadataEnricher(
             metadata_definition,
             enrich_metadata_dict).enrich(scraped_dataframe)
 
-        self.assertEqual(10, len(enriched_dataframe))
+        self.assertEqual(30, len(enriched_dataframe))
 
-        self.assertFalse(
+        self.assertTrue(
             enriched_dataframe['schema_name'][6].startswith('mycompany'))
-        self.assertFalse(
+        self.assertTrue(
             enriched_dataframe['table_name'][6].startswith('mycompany'))
 
         self.assertTrue(
-            enriched_dataframe['schema_name'][7].startswith('mycompany'))
+            enriched_dataframe['schema_name'][7].startswith('SALES_TUTORIAL'))
         self.assertTrue(
-            enriched_dataframe['table_name'][7].startswith('mycompany'))
+            enriched_dataframe['table_name'][7].startswith('PRODUCT'))
 
-        self.assertFalse(
+        self.assertTrue(
             enriched_dataframe['schema_name'][8].startswith('mycompany'))
-        self.assertFalse(
+        self.assertTrue(
             enriched_dataframe['table_name'][8].startswith('mycompany'))
 
         self.assertTrue(
-            enriched_dataframe['schema_name'][9].startswith('mycompany'))
+            enriched_dataframe['schema_name'][9].startswith('SALES_TUTORIAL'))
         self.assertTrue(
-            enriched_dataframe['table_name'][9].startswith('mycompany'))
+            enriched_dataframe['table_name'][9].startswith('REGION'))

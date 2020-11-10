@@ -47,7 +47,7 @@ class DatacatalogCLITestCase(unittest.TestCase):
 
         parse_args.return_value = mocked_parse_args
 
-        datacatalog_cli.SQLServer2DatacatalogCli().run({})
+        datacatalog_cli.SapHana2DatacatalogCli().run({})
 
         for call_arg in add_argument.call_args_list:
             arg = call_arg[0]
