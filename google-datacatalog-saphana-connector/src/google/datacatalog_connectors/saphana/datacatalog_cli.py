@@ -20,7 +20,7 @@ import sys
 
 from google.datacatalog_connectors.rdbms import\
     datacatalog_cli
-from .scrape import metadata_scraper
+from google.datacatalog_connectors.saphana.scrape import metadata_scraper
 
 
 class SapHana2DatacatalogCli(datacatalog_cli.DatacatalogCli):
@@ -29,7 +29,7 @@ class SapHana2DatacatalogCli(datacatalog_cli.DatacatalogCli):
         return metadata_scraper.MetadataScraper
 
     def _get_host_arg(self, args):
-        return args.sqlserver_host
+        return args.saphana_host
 
     def _get_connection_args(self, args):
         return {
@@ -70,7 +70,7 @@ class SapHana2DatacatalogCli(datacatalog_cli.DatacatalogCli):
             help='Your saphana server host, this is required even'
             ' for the raw_metadata_csv,'
             ' so we are able to map the created entries'
-            ' resource with the sqlserver host',
+            ' resource with the sap hana host',
             required=True)
         parser.add_argument('--saphana-user',
                             help='Your saphana credentials user')
@@ -82,7 +82,7 @@ class SapHana2DatacatalogCli(datacatalog_cli.DatacatalogCli):
             '--raw-metadata-csv',
             help='Your raw metadata as a csv file, '
             'can be either a local os GCS '
-            'path (If supplied ignores the sqlserver server credentials)')
+            'path (If supplied ignores the sap hana server credentials)')
         parser.add_argument('--service-account-path',
                             help='Local Service Account path '
                             '(Can be suplied as '

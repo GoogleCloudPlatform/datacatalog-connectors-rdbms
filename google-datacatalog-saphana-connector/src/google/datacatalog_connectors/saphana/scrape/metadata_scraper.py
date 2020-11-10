@@ -34,7 +34,7 @@ class MetadataScraper(metadata_scraper.MetadataScraper):
         port = connection_args.get('port')
 
         if port is None:
-            port = 30015
+            port = 39015
 
         con = connect(databasename=connection_args['database'],
                       address=connection_args['host'],
