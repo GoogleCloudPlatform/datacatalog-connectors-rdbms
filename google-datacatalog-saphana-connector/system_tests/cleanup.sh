@@ -15,9 +15,9 @@
 # limitations under the License.
 
 echo 'Execute CLEANUP'
-python google-datacatalog-sqlserver-connector/tools/cleanup_datacatalog.py --datacatalog-project-ids $SQLSERVER2DC_DATACATALOG_PROJECT_ID
+python google-datacatalog-saphana-connector/tools/cleanup_datacatalog.py --datacatalog-project-ids $SAPHANA2DC_DATACATALOG_PROJECT_ID
 
 # Sleep 5 seconds to wait for search index
 sleep 5
 echo 'Assert CLEANUP'
-python google-datacatalog-sqlserver-connector/system_tests/cleanup_results_test.py
+python google-datacatalog-saphanar-connector/system_tests/cleanup_results_test.py

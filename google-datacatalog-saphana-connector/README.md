@@ -28,8 +28,7 @@ Library for ingesting SAP Hana Database metadata into Google Cloud Data Catalog.
   * [2.1. Auth credentials](#21-auth-credentials)
     + [2.1.1. Create a service account and grant it below roles](#211-create-a-service-account-and-grant-it-below-roles)
     + [2.1.2. Download a JSON key and save it as](#212-download-a-json-key-and-save-it-as)
-  * [2.2 Set up SQL Server Driver (Optional)](#22-set-up-sql-server-driver--optional)
-  * [2.3. Set environment variables](#23-set-environment-variables)
+  * [2.2. Set environment variables](#22-set-environment-variables)
 - [3. Adapt user configurations](#3-adapt-user-configurations)
 - [4. Run entry point](#4-run-entry-point)
   * [4.1. Run Python entry point](#41-run-python-entry-point)
@@ -121,11 +120,11 @@ export GOOGLE_APPLICATION_CREDENTIALS=data_catalog_credentials_file
 
 export SAPHANA2DC_DATACATALOG_PROJECT_ID=google_cloud_project_id
 export SAPHANA2DC_DATACATALOG_LOCATION_ID=google_cloud_location_id
-export SAPHANA2DC_SAPHANA_SERVER=sqlserver_server
-export SAPHANA2DC_SAPHANA_USERNAME=sqlserver_username
-export SAPHANA2DC_SAPHANA_PASSWORD=sqlserver_password
-export SAPHANA2DC_SAPHANA_DATABASE=sqlserver_database
-export SAPHANA2DC_RAW_METADATA_CSV=sqlserver_raw_csv (If supplied ignores the SAPHANA server credentials)
+export SAPHANA2DC_SAPHANA_SERVER=saphana_server
+export SAPHANA2DC_SAPHANA_USERNAME=saphana_username
+export SAPHANA2DC_SAPHANA_PASSWORD=saphana_password
+export SAPHANA2DC_SAPHANA_DATABASE=saphana_database
+export SAPHANA2DC_RAW_METADATA_CSV=saphana_raw_csv (If supplied ignores the SAPHANA server credentials)
 
 ```
 

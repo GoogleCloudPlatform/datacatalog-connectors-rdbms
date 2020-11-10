@@ -60,7 +60,7 @@ steps:
          'gcr.io/$PROJECT_ID/saphana2datacatalog:$COMMIT_SHA',
          '--datacatalog-project-id=${_SAPHANA2DC_DATACATALOG_PROJECT_ID}',
          '--datacatalog-location-id=${_SAPHANA2DC_DATACATALOG_LOCATION_ID}',
-         '--saphana-host=${_SAPHANA2DC_SQLSERVER_SERVER}',
+         '--saphana-host=${_SAPHANA2DC_SAPHANA_SERVER}',
          '--raw-metadata-csv=${_SAPHANA2DC_RAW_METADATA_CSV}']
 - name: 'docker.io/library/python:3.7'
   id: 'ASSERT_RESULTS'
