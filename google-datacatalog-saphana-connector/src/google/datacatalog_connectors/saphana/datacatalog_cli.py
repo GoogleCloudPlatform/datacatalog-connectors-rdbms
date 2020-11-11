@@ -75,7 +75,7 @@ class SapHana2DatacatalogCli(datacatalog_cli.DatacatalogCli):
         parser.add_argument('--saphana-user',
                             help='Your saphana credentials user')
         parser.add_argument('--saphana-pass',
-                            help='Your saphana credentials password')
+                            help='Your SAP Hana credentials password')
         parser.add_argument('--saphana-database',
                             help='Your saphana database name')
         parser.add_argument(
