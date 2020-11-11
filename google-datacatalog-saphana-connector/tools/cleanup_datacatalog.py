@@ -92,7 +92,7 @@ def __delete_tag_templates(project_id, location_id):
 
 def __parse_args():
     parser = argparse.ArgumentParser(description='Command line to clean up all'
-                                     ' PostgreSQL metadata on Datacatalog')
+                                     ' SAP Hana metadata on Data Catalog')
 
     parser.add_argument(
         '--datacatalog-project-ids',
