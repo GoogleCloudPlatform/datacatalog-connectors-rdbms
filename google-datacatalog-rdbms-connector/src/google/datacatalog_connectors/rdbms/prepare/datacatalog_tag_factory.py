@@ -35,7 +35,7 @@ class DataCatalogTagFactory(prepare.BaseTagFactory):
           fields that aren't support yet by Datacatalog api.
 
          :param tag_template: A datacatalog.TagTemplate
-         :param table_container: dict with metadata from table_container
+         :param table_container: A dict with metadata from the table_container
          :return: tag
         """
 
@@ -71,8 +71,8 @@ class DataCatalogTagFactory(prepare.BaseTagFactory):
           aren't support yet by Datacatalog api.
 
          :param tag_template: A datacatalog.TagTemplate
-         :param table: dict with metadata from table
-         :param table_container_name: table container name
+         :param table: A dict with metadata from the table
+         :param table_container_name: The table container name
          :return: tag
         """
 
@@ -110,7 +110,7 @@ class DataCatalogTagFactory(prepare.BaseTagFactory):
           are not supported by the Data Catalog API yet.
 
          :param tag_template: A datacatalog.TagTemplate
-         :param table: dict with metadata from table
+         :param table: A dict with metadata from the table
          :return: list[tag]
         """
 
@@ -126,10 +126,10 @@ class DataCatalogTagFactory(prepare.BaseTagFactory):
 
             tag.template = tag_template.name
 
-            mask = column.get('mask')
-            if mask is not None:
-                self._set_bool_field(tag, 'mask',
-                                     self.__convert_to_bool_value(mask))
+            masked = column.get('masked')
+            if masked is not None:
+                self._set_bool_field(tag, 'masked',
+                                     self.__convert_to_boolean(masked))
 
             mask_expression = column.get('mask_expression')
             if mask_expression:
@@ -180,5 +180,5 @@ class DataCatalogTagFactory(prepare.BaseTagFactory):
             cls._set_string_field(tag, update_user_key, update_user)
 
     @classmethod
-    def __convert_to_bool_value(cls, value):
+    def __convert_to_boolean(cls, value):
         return value if isinstance(value, bool) else value in cls.__TRUTHS

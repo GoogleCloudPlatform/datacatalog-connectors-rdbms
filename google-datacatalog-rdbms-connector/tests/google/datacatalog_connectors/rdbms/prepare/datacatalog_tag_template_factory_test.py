@@ -24,9 +24,9 @@ from google.cloud import datacatalog
 
 
 class DataCatalogTagTemplateFactoryTest(unittest.TestCase):
+    __BOOL_TYPE = datacatalog.FieldType.PrimitiveType.BOOL
     __DOUBLE_TYPE = datacatalog.FieldType.PrimitiveType.DOUBLE
     __STRING_TYPE = datacatalog.FieldType.PrimitiveType.STRING
-    __BOOL_TYPE = datacatalog.FieldType.PrimitiveType.BOOL
 
     __MODULE_PATH = os.path.dirname(os.path.abspath(__file__))
     __PROJECT_ID = 'test_project'
@@ -149,8 +149,8 @@ class DataCatalogTagTemplateFactoryTest(unittest.TestCase):
                          tag_template.display_name)
 
         self.assertEqual(self.__BOOL_TYPE,
-                         tag_template.fields['mask'].type.primitive_type)
-        self.assertEqual('Mask', tag_template.fields['mask'].display_name)
+                         tag_template.fields['masked'].type.primitive_type)
+        self.assertEqual('Masked', tag_template.fields['masked'].display_name)
 
         self.assertEqual(
             self.__STRING_TYPE,
