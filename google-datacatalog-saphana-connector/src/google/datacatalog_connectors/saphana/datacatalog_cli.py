@@ -53,18 +53,18 @@ class SapHana2DatacatalogCli(datacatalog_cli.DatacatalogCli):
     def _parse_args(self, argv):
         parser = argparse.ArgumentParser(
             description='Command line to sync SAP Hana '
-            'metadata to Datacatalog')
+            'metadata into Google Data Catalog')
 
         parser.add_argument('--datacatalog-project-id',
                             help='Your Google Cloud project ID',
                             required=True)
         parser.add_argument(
             '--datacatalog-location-id',
-            help='Location ID to be used for your Google Cloud Datacatalog',
+            help='Location ID to be used for your Google Data Catalog',
             required=True)
         parser.add_argument('--datacatalog-entry-group-id',
                             help='Entry group ID to be used for your Google '
-                            'Cloud Datacatalog')
+                            'Data Catalog')
         parser.add_argument(
             '--saphana-host',
             help='Your SAP Hana server host, this is required even'

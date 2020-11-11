@@ -54,7 +54,7 @@ dependencies and versions, and indirectly permissions.
 
 With [virtualenv][1], it's possible to install this library without needing system
 install permissions, and without clashing with the installed system
-dependencies. Make sure you use Python 3.6+. This connector is tested in versions 
+dependencies. Make sure you use Python 3.6+. This connector is tested in versions
 3.6, 3.7, 3.8.
 
 
