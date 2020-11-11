@@ -23,7 +23,7 @@ with open('README.md') as readme_file:
 
 setuptools.setup(
     name='google-datacatalog-rdbms-connector',
-    version='0.9.1',
+    version='0.10.0',
     author='Google LLC',
     description=
     'Commons library for ingesting RDBMS metadata into Google Cloud Data Catalog',
