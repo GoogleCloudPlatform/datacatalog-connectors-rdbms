@@ -42,7 +42,9 @@ setuptools.setup(
     tests_require=('pytest-cov', 'google-datacatalog-connectors-commons-test>=0.6.0'),
     classifiers=(
         release_status,
+        'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
+        'Programming Language :: Python :: 3.8',
     ),
     long_description=readme,
     long_description_content_type='text/markdown',
