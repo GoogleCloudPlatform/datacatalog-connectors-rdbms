@@ -1,0 +1,67 @@
+{
+  "table_container_def": {
+    "key": "schemas",
+    "type": "schema",
+    "name": "schema_name",
+    "fields": [
+      {
+        "source": "schema_owner",
+        "target": "owner"
+      },
+      {
+        "source": "schema_create_time",
+        "target": "create_time"
+      }
+    ]
+  },
+  "table_def": {
+    "key": "tables",
+    "type": "table",
+    "name": "table_name",
+    "fields": [
+      {
+        "source": "table_type",
+        "target": "type"
+      },
+      {
+        "source": "has_primary_key",
+        "target": "has_primary_key"
+      },
+      {
+        "source": "table_description",
+        "target": "desc"
+      },
+      {
+        "source": "table_create_time",
+        "target": "create_time"
+      }
+    ]
+  },
+  "column_def": {
+    "key": "columns",
+    "type": "column",
+    "name": "column_name",
+    "fields": [
+      {
+        "source": "column_type",
+        "target": "type"
+      },
+      {
+        "source": "column_nullable",
+        "target": "nullable"
+      },
+      {
+        "source": "column_description",
+        "target": "desc"
+      },
+      {
+        "source": "column_mask",
+        "target": "mask"
+      },
+      {
+        "source": "column_mask_expression",
+        "target": "mask_expression"
+      }
+    ]
+  }
+}
