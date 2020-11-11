@@ -139,8 +139,8 @@ class DataCatalogTagTemplateFactory(prepare.BaseTagTemplateFactory):
         tag_template.display_name = '{} {} - Metadata'.format(
             self.__entry_group_id.capitalize(), column_type.capitalize())
 
-        self._add_primitive_type_field(tag_template, 'masked', self.__BOOL_TYPE,
-                                       'Masked')
+        self._add_primitive_type_field(tag_template, 'masked',
+                                       self.__BOOL_TYPE, 'Masked')
 
         self._add_primitive_type_field(tag_template, 'mask_expression',
                                        self.__STRING_TYPE, 'Mask Expression')
