@@ -2,11 +2,12 @@
 # Using this configuration file, you can turn on or off the scraping of optional pieces of data.
 # and change the behavior of ingested attributes and names.
 
-# Properties used to enrich metadata
-
-# Retrieve number of rows in each table
+# Properties used to scrape metadata
+# Retrieve number of rows and table size
+# in each table
 sync_row_counts: true
 
+# Properties used to enrich metadata
 enrich_metadata:
   # ADD any string here that comply with Data Catalog Entry ID requirements,
   # check the README.md file for the Entry ID requirements.

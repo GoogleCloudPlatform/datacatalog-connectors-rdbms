@@ -153,7 +153,9 @@ Along with default metadata, the connector can enrich metadata with user provide
 | column_mask_expression       | Column mask expression                             | Y                  | ---                                          |
 | prefix                       | Prefix to be added to schema and tables name       | N/A                | enrich_metadata.entry_prefix                 | 
 | entry_id_pattern_for_prefix  | Entry ID pattern which the prefix will be applied  | N/A                | enrich_metadata.entry_id_pattern_for_prefix  | 
- 
+| table_size_mb            | Size of a table, in MB                     | N                  | sync_row_counts         | 
+|table_rows                | Number of rows in a table                  | N                  | sync_row_counts         |
+
  
  `prefix` should comply with Data Catalog `entryId`: 
  ```text
