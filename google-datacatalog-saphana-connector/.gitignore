@@ -14,7 +14,7 @@ dist/
 downloads/
 eggs/
 .eggs/
-# lib/ -- replaced by above line while installing the client library from a zip file is required.
+lib/
 lib/tmp/
 lib64/
 parts/
