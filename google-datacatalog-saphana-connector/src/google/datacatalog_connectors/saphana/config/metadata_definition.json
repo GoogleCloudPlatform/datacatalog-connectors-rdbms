@@ -21,7 +21,7 @@
     "fields": [
       {
         "source": "table_type",
-        "target": "type"
+        "target": "table_type"
       },
       {
         "source": "has_primary_key",

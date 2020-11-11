@@ -110,7 +110,7 @@ class DataCatalogTagTemplateFactoryTest(unittest.TestCase):
 
         self.assertEqual(self.__STRING_TYPE,
                          tag_template.fields['table_type'].type.primitive_type)
-        self.assertEqual('Table type',
+        self.assertEqual('Table Type',
                          tag_template.fields['table_type'].display_name)
 
         self.assertEqual(

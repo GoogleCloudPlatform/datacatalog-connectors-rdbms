@@ -111,7 +111,7 @@ class DataCatalogTagTemplateFactory(prepare.BaseTagTemplateFactory):
                                        self.__DOUBLE_TYPE, 'Table Size in MB')
 
         self._add_primitive_type_field(tag_template, 'table_type',
-                                       self.__STRING_TYPE, 'Table type')
+                                       self.__STRING_TYPE, 'Table Type')
 
         self._add_primitive_type_field(tag_template, 'has_primary_key',
                                        self.__BOOL_TYPE, 'Has primary key')
