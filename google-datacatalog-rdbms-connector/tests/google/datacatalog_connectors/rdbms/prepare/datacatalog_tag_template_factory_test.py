@@ -24,9 +24,9 @@ from google.cloud import datacatalog
 
 
 class DataCatalogTagTemplateFactoryTest(unittest.TestCase):
+    __BOOL_TYPE = datacatalog.FieldType.PrimitiveType.BOOL
     __DOUBLE_TYPE = datacatalog.FieldType.PrimitiveType.DOUBLE
     __STRING_TYPE = datacatalog.FieldType.PrimitiveType.STRING
-    __BOOL_TYPE = datacatalog.FieldType.PrimitiveType.BOOL
 
     __MODULE_PATH = os.path.dirname(os.path.abspath(__file__))
     __PROJECT_ID = 'test_project'
