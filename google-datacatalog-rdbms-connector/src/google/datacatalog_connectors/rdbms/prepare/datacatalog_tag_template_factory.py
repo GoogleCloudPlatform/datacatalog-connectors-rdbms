@@ -102,6 +102,7 @@ class DataCatalogTagTemplateFactory:
         table_container_name_field.type.primitive_type = self.__STRING_TYPE
         table_container_name_field.display_name = '{} Name'.format(
             table_container_type.capitalize())
+
         tag_template.fields[table_container_name] = table_container_name_field
 
         self.__add_database_name_to_tag_template(tag_template)
