@@ -101,7 +101,7 @@ def __parse_args():
         required=True)
     parser.add_argument(
         '--datacatalog-location-id',
-        help='Location id which is the Region that your Datacatalog resides',
+        help='Location id which is the Region where your Data Catalog resides',
         default='us-central1')
     return parser.parse_args()
 

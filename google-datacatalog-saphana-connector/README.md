@@ -198,7 +198,7 @@ docker run --rm --tty -v YOUR-CREDENTIALS_FILES_FOLDER:/data saphana2datacatalog
 
 ## 5 Scripts inside tools
 
-### 5.1. Run clean up
+### 5.1. Data Catalog clean up
 
 ```bash
 # List of projects split by comma. Can be a single value without comma
