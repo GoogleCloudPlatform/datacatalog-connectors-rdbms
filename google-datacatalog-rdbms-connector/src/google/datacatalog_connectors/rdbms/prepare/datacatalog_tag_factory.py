@@ -22,8 +22,8 @@ from google.datacatalog_connectors.commons import prepare
 
 
 class DataCatalogTagFactory(prepare.BaseTagFactory):
-
     __DATABASE_TYPE = 'database'
+    __TRUTHS = {1, '1', 't', 'T', 'true', 'True', 'TRUE'}
 
     def __init__(self, metadata_definition):
         self.__metadata_definition = metadata_definition
@@ -34,8 +34,8 @@ class DataCatalogTagFactory(prepare.BaseTagFactory):
          Create Tags for the Table Container technical
           fields that aren't support yet by Datacatalog api.
 
-         :param tag_template: A datacatalog_v1beta1.types.TagTemplate()
-         :param table_container:
+         :param tag_template: A datacatalog.TagTemplate
+         :param table_container: A dict with metadata from the table_container
          :return: tag
         """
 
@@ -70,9 +70,9 @@ class DataCatalogTagFactory(prepare.BaseTagFactory):
          Create Tags for the Table technical fields that
           aren't support yet by Datacatalog api.
 
-         :param tag_template: A datacatalog_v1beta1.types.TagTemplate()
-         :param table:
-         :param table_container_name:
+         :param tag_template: A datacatalog.TagTemplate
+         :param table: A dict with metadata from the table
+         :param table_container_name: The table container name
          :return: tag
         """
 
@@ -103,6 +103,44 @@ class DataCatalogTagFactory(prepare.BaseTagFactory):
             self.__metadata_definition['table_def']['type'], table, tag)
 
         return tag
+
+    def make_tags_for_columns_metadata(self, tag_template, table):
+        """
+         Create Tags for the Table Columns technical fields that
+          are not supported by the Data Catalog API yet.
+
+         :param tag_template: A datacatalog.TagTemplate
+         :param table: A dict with metadata from the table
+         :return: list[tag]
+        """
+
+        tags = []
+
+        columns = table.get('columns')
+
+        if not columns:
+            return tags
+
+        for column in columns:
+            tag = datacatalog.Tag()
+
+            tag.template = tag_template.name
+
+            masked = column.get('masked')
+            if masked is not None:
+                self._set_bool_field(tag, 'masked',
+                                     self.__convert_to_boolean(masked))
+
+            mask_expression = column.get('mask_expression')
+            if mask_expression:
+                self._set_string_field(tag, 'mask_expression', mask_expression)
+
+            tag.column = column['name']
+
+            if tag.fields and len(tag.fields) > 0:
+                tags.append(tag)
+
+        return tags
 
     def __add_database_name_to_tag(self, tag):
         table_container_type = self.__metadata_definition[
@@ -140,3 +178,7 @@ class DataCatalogTagFactory(prepare.BaseTagFactory):
         update_user = metadata.get('update_user')
         if update_user:
             cls._set_string_field(tag, update_user_key, update_user)
+
+    @classmethod
+    def __convert_to_boolean(cls, value):
+        return value if isinstance(value, bool) else value in cls.__TRUTHS

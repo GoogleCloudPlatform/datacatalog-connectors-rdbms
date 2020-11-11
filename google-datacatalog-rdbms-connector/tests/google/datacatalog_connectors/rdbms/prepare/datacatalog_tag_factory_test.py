@@ -197,3 +197,38 @@ class DataCatalogTagFactoryTest(unittest.TestCase):
             make_tag_for_table_metadata(tag_template, tables_dict, 'schema')
         self.assertEqual('schema', tag.fields['schema_name'].string_value)
         self.assertEqual(5, tag.fields['num_rows'].double_value)
+
+    def test_make_tags_for_columns_metadata_should_set_all_available_fields(
+            self):  # noqa:E125
+        metadata_def = utils.Utils.get_metadata_def_obj(self.__MODULE_PATH)
+
+        factory = datacatalog_tag_factory.DataCatalogTagFactory(metadata_def)
+
+        tag_template = datacatalog.TagTemplate()
+        tag_template.name = 'template_name'
+
+        tables_dict = {
+            'columns': [{
+                'name': 'col_1',
+                'masked': 'TRUE',
+                'mask_expression': 'XXX-XXX-XXX'
+            }, {
+                'name': 'col_2',
+                'masked': 'FALSE'
+            }]
+        }
+
+        tags = factory. \
+            make_tags_for_columns_metadata(tag_template, tables_dict)
+
+        tag_1 = tags[0]
+        tag_2 = tags[1]
+
+        self.assertEqual(True, tag_1.fields['masked'].bool_value)
+        self.assertEqual('XXX-XXX-XXX',
+                         tag_1.fields['mask_expression'].string_value)
+        self.assertEqual('col_1', tag_1.column)
+
+        self.assertEqual(False, tag_2.fields['masked'].bool_value)
+        self.assertIsNone(tag_2.fields.get('mask_expression'))
+        self.assertEqual('col_2', tag_2.column)
