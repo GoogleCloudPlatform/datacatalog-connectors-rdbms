@@ -35,7 +35,7 @@ class DataCatalogTagFactory(prepare.BaseTagFactory):
           fields that aren't support yet by Datacatalog api.
 
          :param tag_template: A datacatalog.TagTemplate
-         :param table_container:
+         :param table_container: dict with metadata from table_container
          :return: tag
         """
 
@@ -71,8 +71,8 @@ class DataCatalogTagFactory(prepare.BaseTagFactory):
           aren't support yet by Datacatalog api.
 
          :param tag_template: A datacatalog.TagTemplate
-         :param table:
-         :param table_container_name:
+         :param table: dict with metadata from table
+         :param table_container_name: table container name
          :return: tag
         """
 
@@ -110,7 +110,7 @@ class DataCatalogTagFactory(prepare.BaseTagFactory):
           are not supported by the Data Catalog API yet.
 
          :param tag_template: A datacatalog.TagTemplate
-         :param table:
+         :param table: dict with metadata from table
          :return: list[tag]
         """
 
