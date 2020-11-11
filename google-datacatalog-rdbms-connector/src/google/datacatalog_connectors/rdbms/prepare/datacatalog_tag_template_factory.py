@@ -114,7 +114,7 @@ class DataCatalogTagTemplateFactory(prepare.BaseTagTemplateFactory):
                                        self.__STRING_TYPE, 'Table Type')
 
         self._add_primitive_type_field(tag_template, 'has_primary_key',
-                                       self.__BOOL_TYPE, 'Has primary key')
+                                       self.__BOOL_TYPE, 'Has Primary Key')
 
         return tag_template_id, tag_template
 

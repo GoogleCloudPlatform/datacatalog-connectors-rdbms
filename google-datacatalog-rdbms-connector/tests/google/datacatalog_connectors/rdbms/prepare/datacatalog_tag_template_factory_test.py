@@ -116,7 +116,7 @@ class DataCatalogTagTemplateFactoryTest(unittest.TestCase):
         self.assertEqual(
             self.__BOOL_TYPE,
             tag_template.fields['has_primary_key'].type.primitive_type)
-        self.assertEqual('Has primary key',
+        self.assertEqual('Has Primary Key',
                          tag_template.fields['has_primary_key'].display_name)
 
         self.assertEqual(
