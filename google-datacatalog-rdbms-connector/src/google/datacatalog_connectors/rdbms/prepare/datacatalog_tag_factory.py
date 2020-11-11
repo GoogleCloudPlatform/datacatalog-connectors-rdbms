@@ -131,7 +131,8 @@ class DataCatalogTagFactory(prepare.BaseTagFactory):
 
                 mask_expression = column.get('mask_expression')
                 if mask_expression:
-                    self._set_string_field(tag, 'mask_expression', mask_expression)
+                    self._set_string_field(tag, 'mask_expression',
+                                           mask_expression)
 
                 tag.column = column['name']
 

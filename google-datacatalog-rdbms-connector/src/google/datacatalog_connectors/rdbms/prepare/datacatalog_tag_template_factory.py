@@ -64,8 +64,7 @@ class DataCatalogTagTemplateFactory(prepare.BaseTagTemplateFactory):
                                                  tag_template)
 
         self._add_primitive_type_field(tag_template, 'num_tables',
-                                       self.__DOUBLE_TYPE,
-                                       'Number of tables')
+                                       self.__DOUBLE_TYPE, 'Number of tables')
 
         return tag_template_id, tag_template
 
@@ -99,28 +98,23 @@ class DataCatalogTagTemplateFactory(prepare.BaseTagTemplateFactory):
         table_container_type = self.__metadata_definition[
             'table_container_def']['type']
 
-        self._add_primitive_type_field(tag_template, table_container_name,
-                                       self.__STRING_TYPE,
-                                       '{} Name'.format(
-                                        table_container_type.capitalize()))
+        self._add_primitive_type_field(
+            tag_template, table_container_name, self.__STRING_TYPE,
+            '{} Name'.format(table_container_type.capitalize()))
 
         self.__add_database_name_to_tag_template(tag_template)
 
         self._add_primitive_type_field(tag_template, 'num_rows',
-                                       self.__DOUBLE_TYPE,
-                                       'Number of rows')
+                                       self.__DOUBLE_TYPE, 'Number of rows')
 
         self._add_primitive_type_field(tag_template, 'table_size_MB',
-                                       self.__DOUBLE_TYPE,
-                                       'Table Size in MB')
+                                       self.__DOUBLE_TYPE, 'Table Size in MB')
 
         self._add_primitive_type_field(tag_template, 'table_type',
-                                       self.__STRING_TYPE,
-                                       'Table type')
+                                       self.__STRING_TYPE, 'Table type')
 
         self._add_primitive_type_field(tag_template, 'has_primary_key',
-                                       self.__BOOL_TYPE,
-                                       'Has primary key')
+                                       self.__BOOL_TYPE, 'Has primary key')
 
         return tag_template_id, tag_template
 
@@ -145,13 +139,11 @@ class DataCatalogTagTemplateFactory(prepare.BaseTagTemplateFactory):
         tag_template.display_name = '{} {} - Metadata'.format(
             self.__entry_group_id.capitalize(), column_type.capitalize())
 
-        self._add_primitive_type_field(tag_template, 'mask',
-                                       self.__BOOL_TYPE,
+        self._add_primitive_type_field(tag_template, 'mask', self.__BOOL_TYPE,
                                        'Mask')
 
         self._add_primitive_type_field(tag_template, 'mask_expression',
-                                       self.__STRING_TYPE,
-                                       'Mask Expression')
+                                       self.__STRING_TYPE, 'Mask Expression')
 
         return tag_template_id, tag_template
 
@@ -162,33 +154,28 @@ class DataCatalogTagTemplateFactory(prepare.BaseTagTemplateFactory):
         if table_container_type != DataCatalogTagTemplateFactory.\
                 __DATABASE_TYPE:
             self._add_primitive_type_field(tag_template, 'database_name',
-                                           self.__STRING_TYPE,
-                                           'Database name')
+                                           self.__STRING_TYPE, 'Database name')
 
     @classmethod
     def __add_creator_field_to_template(cls, attribute_type, tag_template):
         creator_key = '{}_creator'.format(attribute_type)
 
-        cls._add_primitive_type_field(tag_template, creator_key,
-                                      cls.__STRING_TYPE,
-                                      '{} Creator'.format(
-                                           attribute_type.capitalize()))
+        cls._add_primitive_type_field(
+            tag_template, creator_key, cls.__STRING_TYPE,
+            '{} Creator'.format(attribute_type.capitalize()))
 
     @classmethod
     def __add_owner_field_to_template(cls, attribute_type, tag_template):
         owner_key = '{}_owner'.format(attribute_type)
 
-        cls._add_primitive_type_field(tag_template, owner_key,
-                                      cls.__STRING_TYPE,
-                                      '{} Owner'.format(
-                                          attribute_type.capitalize()))
+        cls._add_primitive_type_field(
+            tag_template, owner_key, cls.__STRING_TYPE,
+            '{} Owner'.format(attribute_type.capitalize()))
 
     @classmethod
     def __add_update_user_field_to_template(cls, attribute_type, tag_template):
         update_user_key = '{}_update_user'.format(attribute_type)
 
-        cls._add_primitive_type_field(tag_template, update_user_key,
-                                      cls.__STRING_TYPE,
-                                      '{} Last Modified User'.format(
-                                          attribute_type.capitalize()))
-
+        cls._add_primitive_type_field(
+            tag_template, update_user_key, cls.__STRING_TYPE,
+            '{} Last Modified User'.format(attribute_type.capitalize()))

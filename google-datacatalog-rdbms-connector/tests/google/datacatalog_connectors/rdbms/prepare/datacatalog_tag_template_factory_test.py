@@ -108,9 +108,8 @@ class DataCatalogTagTemplateFactoryTest(unittest.TestCase):
         self.assertEqual('Table Creator',
                          tag_template.fields['table_creator'].display_name)
 
-        self.assertEqual(
-            self.__STRING_TYPE,
-            tag_template.fields['table_type'].type.primitive_type)
+        self.assertEqual(self.__STRING_TYPE,
+                         tag_template.fields['table_type'].type.primitive_type)
         self.assertEqual('Table type',
                          tag_template.fields['table_type'].display_name)
 
@@ -149,11 +148,9 @@ class DataCatalogTagTemplateFactoryTest(unittest.TestCase):
         self.assertEqual('My_entry_group Column - Metadata',
                          tag_template.display_name)
 
-        self.assertEqual(
-            self.__BOOL_TYPE,
-            tag_template.fields['mask'].type.primitive_type)
-        self.assertEqual('Mask',
-                         tag_template.fields['mask'].display_name)
+        self.assertEqual(self.__BOOL_TYPE,
+                         tag_template.fields['mask'].type.primitive_type)
+        self.assertEqual('Mask', tag_template.fields['mask'].display_name)
 
         self.assertEqual(
             self.__STRING_TYPE,

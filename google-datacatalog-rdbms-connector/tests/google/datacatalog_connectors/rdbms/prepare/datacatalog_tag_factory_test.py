@@ -208,17 +208,14 @@ class DataCatalogTagFactoryTest(unittest.TestCase):
         tag_template.name = 'template_name'
 
         tables_dict = {
-            'columns': [
-                {
-                    'name': 'col_1',
-                    'mask': 'TRUE',
-                    'mask_expression': 'XXX-XXX-XXX'
-                },
-                {
-                    'name': 'col_2',
-                    'mask': 'FALSE'
-                }
-            ]
+            'columns': [{
+                'name': 'col_1',
+                'mask': 'TRUE',
+                'mask_expression': 'XXX-XXX-XXX'
+            }, {
+                'name': 'col_2',
+                'mask': 'FALSE'
+            }]
         }
 
         tags = factory. \
@@ -228,7 +225,8 @@ class DataCatalogTagFactoryTest(unittest.TestCase):
         tag_2 = tags[1]
 
         self.assertEqual(True, tag_1.fields['mask'].bool_value)
-        self.assertEqual('XXX-XXX-XXX', tag_1.fields['mask_expression'].string_value)
+        self.assertEqual('XXX-XXX-XXX',
+                         tag_1.fields['mask_expression'].string_value)
         self.assertEqual('col_1', tag_1.column)
 
         self.assertEqual(False, tag_2.fields['mask'].bool_value)

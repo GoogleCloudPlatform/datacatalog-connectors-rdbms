@@ -95,8 +95,9 @@ class AssembledEntryFactory:
                     column_tag_template_id]
 
                 tags.extend(
-                    self.__datacatalog_tag_factory.make_tags_for_columns_metadata(
-                        column_tag_template, table_dict))
+                    self.__datacatalog_tag_factory.
+                    make_tags_for_columns_metadata(column_tag_template,
+                                                   table_dict))
 
             entries.append(prepare.AssembledEntryData(entry_id, entry, tags))
         return entries
