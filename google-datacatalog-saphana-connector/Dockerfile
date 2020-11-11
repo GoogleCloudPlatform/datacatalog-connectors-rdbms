@@ -1,5 +1,5 @@
 # docker build -t saphana2datacatalog .
-FROM python:3.7
+FROM python:3.6
 
 # Set the GOOGLE_APPLICATION_CREDENTIALS environment variable.
 # At run time, /data must be binded to a volume containing a valid Service Account credentials file
