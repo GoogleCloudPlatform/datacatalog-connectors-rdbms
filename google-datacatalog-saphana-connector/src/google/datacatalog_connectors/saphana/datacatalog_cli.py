@@ -60,7 +60,7 @@ class SapHana2DatacatalogCli(datacatalog_cli.DatacatalogCli):
                             required=True)
         parser.add_argument(
             '--datacatalog-location-id',
-            help='Location ID to be used for your Google Cloud Datacatalog',
+            help='Location ID to be used for your Google Data Catalog',
             required=True)
         parser.add_argument('--datacatalog-entry-group-id',
                             help='Entry group ID to be used for your Google '
