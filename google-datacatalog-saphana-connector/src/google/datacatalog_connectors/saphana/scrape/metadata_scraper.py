@@ -48,4 +48,3 @@ class MetadataScraper(metadata_scraper.MetadataScraper):
 
     def _get_query_assembler(self):
         return query_assembler.QueryAssembler()
-
