@@ -118,26 +118,28 @@ class DataCatalogTagFactory(prepare.BaseTagFactory):
 
         columns = table.get('columns')
 
-        if columns:
-            for column in columns:
-                tag = datacatalog.Tag()
+        if not columns:
+            return tags
 
-                tag.template = tag_template.name
+        for column in columns:
+            tag = datacatalog.Tag()
 
-                mask = column.get('mask')
-                if mask is not None:
-                    self._set_bool_field(tag, 'mask',
-                                         self.__convert_to_bool_value(mask))
+            tag.template = tag_template.name
 
-                mask_expression = column.get('mask_expression')
-                if mask_expression:
-                    self._set_string_field(tag, 'mask_expression',
-                                           mask_expression)
+            mask = column.get('mask')
+            if mask is not None:
+                self._set_bool_field(tag, 'mask',
+                                     self.__convert_to_bool_value(mask))
 
-                tag.column = column['name']
+            mask_expression = column.get('mask_expression')
+            if mask_expression:
+                self._set_string_field(tag, 'mask_expression',
+                                       mask_expression)
 
-                if tag.fields and len(tag.fields) > 0:
-                    tags.append(tag)
+            tag.column = column['name']
+
+            if tag.fields and len(tag.fields) > 0:
+                tags.append(tag)
 
         return tags
 
