@@ -142,7 +142,7 @@ Along with default metadata, the connector can enrich metadata with user provide
 | schema_owner                 | Owner of the Schema                                | Y                  | ---                                          | 
 | schema_create_time           | Schema creation time                               | Y                  | ---                                          | 
 | table_name                   | Name of a table                                    | Y                  | ---                                          | 
-| table_type                   | Type of the table (ROW  or COLUMN oriented)        | Y                  | ---                                          | 
+| table_type                   | Type of the table (ROW or COLUMN oriented)         | Y                  | ---                                          | 
 | has_primary_key              | Whether a Table has a primary key                  | Y                  | ---                                          | 
 | table_description            | Table description                                  | Y                  | ---                                          | 
 | table_create_time            | Table creation time                                | Y                  | ---                                          | 
