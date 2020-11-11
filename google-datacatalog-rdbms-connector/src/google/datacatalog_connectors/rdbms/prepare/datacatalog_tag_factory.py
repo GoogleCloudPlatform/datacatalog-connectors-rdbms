@@ -107,7 +107,7 @@ class DataCatalogTagFactory(prepare.BaseTagFactory):
     def make_tags_for_columns_metadata(self, tag_template, table):
         """
          Create Tags for the Table Columns technical fields that
-          aren't support yet by Datacatalog api.
+          are not supported by the Data Catalog API yet.
 
          :param tag_template: A datacatalog.TagTemplate()
          :param table:
