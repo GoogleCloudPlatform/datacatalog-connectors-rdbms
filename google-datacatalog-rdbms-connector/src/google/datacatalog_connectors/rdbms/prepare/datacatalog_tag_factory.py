@@ -34,7 +34,7 @@ class DataCatalogTagFactory(prepare.BaseTagFactory):
          Create Tags for the Table Container technical
           fields that aren't support yet by Datacatalog api.
 
-         :param tag_template: A datacatalog.TagTemplate()
+         :param tag_template: A datacatalog.TagTemplate
          :param table_container:
          :return: tag
         """
