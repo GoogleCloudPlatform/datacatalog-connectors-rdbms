@@ -89,6 +89,19 @@ def __delete_tag_templates(project_id, location_id):
     except exceptions.GoogleAPICallError as e:
         logging.warning('Exception deleting Tag Template: %s', str(e))
 
+    tag_template_id = 'saphana_column_metadata'
+
+    try:
+        __datacatalog.delete_tag_template(
+            name=datacatalog.DataCatalogClient.tag_template_path(
+                project=project_id,
+                location=location_id,
+                tag_template=tag_template_id),
+            force=True)
+        logging.info('--> Tag Template deleted: %s', tag_template_id)
+    except exceptions.GoogleAPICallError as e:
+        logging.warning('Exception deleting Tag Template: %s', str(e))
+
 
 def __parse_args():
     parser = argparse.ArgumentParser(description='Command line to clean up all'

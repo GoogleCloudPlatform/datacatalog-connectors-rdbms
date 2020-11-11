@@ -59,7 +59,8 @@ class AssembledEntryFactoryTestCase(unittest.TestCase):
 
         tag_templates_dict = {
             'oracle_schema_metadata': {},
-            'oracle_table_metadata': {}
+            'oracle_table_metadata': {},
+            'oracle_column_metadata': {}
         }
 
         self.__assembled_entry_factory_with_template = \
@@ -114,8 +115,10 @@ class AssembledEntryFactoryTestCase(unittest.TestCase):
                 'DataCatalogTagFactory.make_tag_for_table_container_metadata')
     @mock.patch('{}.datacatalog_tag_factory.'.format(__PREPARE_PACKAGE) +
                 'DataCatalogTagFactory.make_tag_for_table_metadata')
+    @mock.patch('{}.datacatalog_tag_factory.'.format(__PREPARE_PACKAGE) +
+                'DataCatalogTagFactory.make_tags_for_columns_metadata')
     def test_with_tag_templates_should_be_converted_to_dc_entries_with_tags(  # noqa
-            self, make_tag_for_table_metadata,
+            self, make_tags_for_columns_metadata, make_tag_for_table_metadata,
             make_tag_for_table_container_metadata, entry_path):
         entry_path.return_value = \
             AssembledEntryFactoryTestCase.__MOCKED_ENTRY_PATH
@@ -155,6 +158,7 @@ class AssembledEntryFactoryTestCase(unittest.TestCase):
         for table in tables:
             self.assertEqual(1, len(table.tags))
         self.assertEqual(14, make_tag_for_table_metadata.call_count)
+        self.assertEqual(14, make_tags_for_columns_metadata.call_count)
         self.assertEqual(4, make_tag_for_table_container_metadata.call_count)
 
     def test_should_be_converted_to_dc_entries_verify_all_fields(  # noqa

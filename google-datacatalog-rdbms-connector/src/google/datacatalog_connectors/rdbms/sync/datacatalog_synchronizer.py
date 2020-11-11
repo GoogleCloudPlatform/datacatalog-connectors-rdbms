@@ -178,9 +178,13 @@ class DataCatalogSynchronizer:
         table_tag_template_id, table_tag_template = \
             tag_template_factory.make_tag_template_for_table_metadata()
 
+        column_tag_template_id, column_tag_template = \
+            tag_template_factory.make_tag_template_for_column_metadata()
+
         tag_templates_dict = \
             {schema_tag_template_id: schema_tag_template,
-             table_tag_template_id: table_tag_template}
+             table_tag_template_id: table_tag_template,
+             column_tag_template_id: column_tag_template}
 
         return tag_templates_dict
 

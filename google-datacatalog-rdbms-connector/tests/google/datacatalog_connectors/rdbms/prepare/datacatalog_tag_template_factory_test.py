@@ -26,6 +26,7 @@ from google.cloud import datacatalog
 class DataCatalogTagTemplateFactoryTest(unittest.TestCase):
     __DOUBLE_TYPE = datacatalog.FieldType.PrimitiveType.DOUBLE
     __STRING_TYPE = datacatalog.FieldType.PrimitiveType.STRING
+    __BOOL_TYPE = datacatalog.FieldType.PrimitiveType.BOOL
 
     __MODULE_PATH = os.path.dirname(os.path.abspath(__file__))
     __PROJECT_ID = 'test_project'
@@ -109,6 +110,18 @@ class DataCatalogTagTemplateFactoryTest(unittest.TestCase):
 
         self.assertEqual(
             self.__STRING_TYPE,
+            tag_template.fields['table_type'].type.primitive_type)
+        self.assertEqual('Table type',
+                         tag_template.fields['table_type'].display_name)
+
+        self.assertEqual(
+            self.__BOOL_TYPE,
+            tag_template.fields['has_primary_key'].type.primitive_type)
+        self.assertEqual('Has primary key',
+                         tag_template.fields['has_primary_key'].display_name)
+
+        self.assertEqual(
+            self.__STRING_TYPE,
             tag_template.fields['table_owner'].type.primitive_type)
         self.assertEqual('Table Owner',
                          tag_template.fields['table_owner'].display_name)
@@ -118,3 +131,32 @@ class DataCatalogTagTemplateFactoryTest(unittest.TestCase):
             tag_template.fields['table_update_user'].type.primitive_type)
         self.assertEqual('Table Last Modified User',
                          tag_template.fields['table_update_user'].display_name)
+
+    def test_make_tag_template_for_column_metadata(self):
+        metadata_def = utils.Utils.get_metadata_def_obj(self.__MODULE_PATH)
+
+        factory = datacatalog_tag_template_factory. \
+            DataCatalogTagTemplateFactory(
+                self.__PROJECT_ID,
+                self.__LOCATION_ID,
+                self.__ENTRY_GROUP_ID,
+                metadata_def
+            )
+        tag_template_id, tag_template = \
+            factory.make_tag_template_for_column_metadata()
+
+        self.assertEqual('my_entry_group_column_metadata', tag_template_id)
+        self.assertEqual('My_entry_group Column - Metadata',
+                         tag_template.display_name)
+
+        self.assertEqual(
+            self.__BOOL_TYPE,
+            tag_template.fields['mask'].type.primitive_type)
+        self.assertEqual('Mask',
+                         tag_template.fields['mask'].display_name)
+
+        self.assertEqual(
+            self.__STRING_TYPE,
+            tag_template.fields['mask_expression'].type.primitive_type)
+        self.assertEqual('Mask Expression',
+                         tag_template.fields['mask_expression'].display_name)
