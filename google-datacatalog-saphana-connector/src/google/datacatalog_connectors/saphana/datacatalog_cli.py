@@ -52,7 +52,7 @@ class SapHana2DatacatalogCli(datacatalog_cli.DatacatalogCli):
 
     def _parse_args(self, argv):
         parser = argparse.ArgumentParser(
-            description='Command line to sync saphana '
+            description='Command line to sync SAP Hana '
             'metadata to Datacatalog')
 
         parser.add_argument('--datacatalog-project-id',
@@ -67,22 +67,22 @@ class SapHana2DatacatalogCli(datacatalog_cli.DatacatalogCli):
                             'Cloud Datacatalog')
         parser.add_argument(
             '--saphana-host',
-            help='Your saphana server host, this is required even'
+            help='Your SAP Hana server host, this is required even'
             ' for the raw_metadata_csv,'
             ' so we are able to map the created entries'
-            ' resource with the sap hana host',
+            ' resource with the SAP Hana host',
             required=True)
         parser.add_argument('--saphana-user',
-                            help='Your saphana credentials user')
+                            help='Your SAP Hana credentials user')
         parser.add_argument('--saphana-pass',
-                            help='Your saphana credentials password')
+                            help='Your SAP Hana credentials password')
         parser.add_argument('--saphana-database',
-                            help='Your saphana database name')
+                            help='Your SAP Hana database name')
         parser.add_argument(
             '--raw-metadata-csv',
             help='Your raw metadata as a csv file, '
             'can be either a local os GCS '
-            'path (If supplied ignores the sap hana server credentials)')
+            'path (If supplied ignores the SAP Hana server credentials)')
         parser.add_argument('--service-account-path',
                             help='Local Service Account path '
                             '(Can be suplied as '
