@@ -149,8 +149,8 @@ class DataCatalogTagTemplateFactoryTest(unittest.TestCase):
                          tag_template.display_name)
 
         self.assertEqual(self.__BOOL_TYPE,
-                         tag_template.fields['mask'].type.primitive_type)
-        self.assertEqual('Mask', tag_template.fields['mask'].display_name)
+                         tag_template.fields['masked'].type.primitive_type)
+        self.assertEqual('Masked', tag_template.fields['masked'].display_name)
 
         self.assertEqual(
             self.__STRING_TYPE,
