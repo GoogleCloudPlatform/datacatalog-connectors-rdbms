@@ -54,14 +54,14 @@ dependencies and versions, and indirectly permissions.
 
 With [virtualenv][1], it's possible to install this library without needing system
 install permissions, and without clashing with the installed system
-dependencies. Make sure you use Python 3.6+.
+dependencies. Make sure you use Python 3.6+. This connector is tested in versions 3.6, 3.7, 3.8.
 
 
 ### 1.1. Mac/Linux
 
 ```shell script
 pip3 install virtualenv
-virtualenv --python python3.6 <your-env>
+virtualenv --python python3.7 <your-env>
 source <your-env>/bin/activate
 <your-env>/bin/pip install google-datacatalog-saphana-connector
 ```
@@ -70,7 +70,7 @@ source <your-env>/bin/activate
 
 ```bash
 pip3 install virtualenv
-virtualenv --python python3.6 <your-env>
+virtualenv --python python3.7 <your-env>
 <your-env>\Scripts\activate
 <your-env>\Scripts\pip.exe install google-datacatalog-saphana-connector
 ```
@@ -88,7 +88,7 @@ cd datacatalog-connectors-rdbms/google-datacatalog-saphana-connector
 
 ```bash
 pip3 install virtualenv
-virtualenv --python python3.6 <your-env>
+virtualenv --python python3.7 <your-env>
 source <your-env>/bin/activate
 ```
 
