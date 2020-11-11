@@ -4,6 +4,9 @@
 
 # Properties used to enrich metadata
 
+# Retrieve number of rows in each table
+sync_row_counts: true
+
 enrich_metadata:
   # ADD any string here that comply with Data Catalog Entry ID requirements,
   # check the README.md file for the Entry ID requirements.
