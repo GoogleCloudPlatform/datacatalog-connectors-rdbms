@@ -56,7 +56,7 @@
       },
       {
         "source": "column_mask",
-        "target": "mask"
+        "target": "masked"
       },
       {
         "source": "column_mask_expression",
