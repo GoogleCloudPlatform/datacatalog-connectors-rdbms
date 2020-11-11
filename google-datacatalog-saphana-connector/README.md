@@ -59,7 +59,7 @@ dependencies. Make sure you use Python 3.6+.
 
 ### 1.1. Mac/Linux
 
-```bash
+```shell script
 pip3 install virtualenv
 virtualenv --python python3.6 <your-env>
 source <your-env>/bin/activate
