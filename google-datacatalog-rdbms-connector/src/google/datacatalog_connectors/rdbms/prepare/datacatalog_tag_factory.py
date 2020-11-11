@@ -109,7 +109,7 @@ class DataCatalogTagFactory(prepare.BaseTagFactory):
          Create Tags for the Table Columns technical fields that
           are not supported by the Data Catalog API yet.
 
-         :param tag_template: A datacatalog.TagTemplate()
+         :param tag_template: A datacatalog.TagTemplate
          :param table:
          :return: list[tag]
         """
