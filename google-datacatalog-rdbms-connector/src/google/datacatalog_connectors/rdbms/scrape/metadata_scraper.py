@@ -124,7 +124,7 @@ class MetadataScraper:
         if enrich_metadata_dict:
             metadata_enricher = self._get_metadata_enricher()(
                 metadata_definition, enrich_metadata_dict)
-            enriched_dataframe = metadata_enricher.enrich(base_dataframe)
+            enriched_dataframe = metadata_enricher.enrich(enriched_dataframe)
 
         return enriched_dataframe
 

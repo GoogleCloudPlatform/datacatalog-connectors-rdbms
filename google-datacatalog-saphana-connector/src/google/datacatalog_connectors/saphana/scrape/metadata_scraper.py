@@ -18,7 +18,7 @@ from google.datacatalog_connectors.rdbms.scrape import \
     metadata_scraper
 
 from google.datacatalog_connectors.saphana.scrape import \
-    metadata_enricher
+    metadata_enricher, query_assembler
 
 
 class MetadataScraper(metadata_scraper.MetadataScraper):
@@ -45,3 +45,6 @@ class MetadataScraper(metadata_scraper.MetadataScraper):
 
     def _get_metadata_enricher(self):
         return metadata_enricher.MetadataEnricher
+
+    def _get_query_assembler(self):
+        return query_assembler.QueryAssembler()
