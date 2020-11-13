@@ -21,7 +21,7 @@
     "fields": [
       {
         "source": "table_type",
-        "target": "type"
+        "target": "table_type"
       },
       {
         "source": "has_primary_key",
@@ -34,6 +34,14 @@
       {
         "source": "table_create_time",
         "target": "create_time"
+      },
+      {
+        "source": "table_rows",
+        "target": "num_rows"
+      },
+      {
+          "source": "table_size_mb",
+          "target": "table_size_MB"
       }
     ]
   },

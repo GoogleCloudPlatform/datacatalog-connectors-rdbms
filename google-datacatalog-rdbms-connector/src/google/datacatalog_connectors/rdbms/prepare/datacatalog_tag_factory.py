@@ -95,6 +95,8 @@ class DataCatalogTagFactory(prepare.BaseTagFactory):
 
         self.__add_database_name_to_tag(tag)
         self.__add_table_size_value_to_tag(table, tag)
+        self.__add_table_type_value_to_tag(table, tag)
+        self.__add_table_has_primary_key_to_tag(table, tag)
         self.__add_creator_value_to_tag(
             self.__metadata_definition['table_def']['type'], table, tag)
         self.__add_owner_value_to_tag(
@@ -157,6 +159,19 @@ class DataCatalogTagFactory(prepare.BaseTagFactory):
             if pd.isnull(table_size):
                 table_size = 0
             cls._set_double_field(tag, 'table_size_MB', table_size)
+
+    @classmethod
+    def __add_table_type_value_to_tag(cls, metadata, tag):
+        table_type = metadata.get('table_type')
+        if table_type:
+            cls._set_string_field(tag, 'table_type', table_type)
+
+    @classmethod
+    def __add_table_has_primary_key_to_tag(cls, metadata, tag):
+        has_primary_key = metadata.get('has_primary_key')
+        if has_primary_key is not None:
+            cls._set_bool_field(tag, 'has_primary_key',
+                                cls.__convert_to_boolean(has_primary_key))
 
     @classmethod
     def __add_creator_value_to_tag(cls, attribute_type, metadata, tag):

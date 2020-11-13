@@ -81,7 +81,9 @@ class DataCatalogTagFactoryTest(unittest.TestCase):
             'owner': 'owner_test',
             'update_user': 'update_user_test',
             'num_rows': 5,
-            'table_size_MB': 2.0
+            'table_size_MB': 2.0,
+            'table_type': 'ROW',
+            'has_primary_key': 'TRUE'
         }
 
         tag = factory. \
@@ -94,6 +96,8 @@ class DataCatalogTagFactoryTest(unittest.TestCase):
                          tag.fields['table_update_user'].string_value)
         self.assertEqual(5, tag.fields['num_rows'].double_value)
         self.assertEqual(2.0, tag.fields['table_size_MB'].double_value)
+        self.assertEqual('ROW', tag.fields['table_type'].string_value)
+        self.assertEqual(True, tag.fields['has_primary_key'].bool_value)
 
     def test_tag_for_table_nan_values_should_set_all_available_fields(  # noqa:E501
             self):  # noqa:E125
