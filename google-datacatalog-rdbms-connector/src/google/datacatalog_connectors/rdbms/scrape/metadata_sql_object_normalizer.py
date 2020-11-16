@@ -14,7 +14,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-
 from google.datacatalog_connectors.rdbms.scrape import MetadataNormalizer
 
 
@@ -64,8 +63,7 @@ class MetadataSQLObjectNormalizer(MetadataNormalizer):
         cls._remove_nan_rows(metadata)
 
         return MetadataSQLObjectNormalizer.__normalize_sql_objects(
-                    metadata,
-                    metadata_definition)
+            metadata, metadata_definition)
 
     @classmethod
     def __normalize_sql_objects(cls, metadata, metadata_definition):
@@ -126,5 +124,3 @@ class MetadataSQLObjectNormalizer(MetadataNormalizer):
     @classmethod
     def __is_timestamp_field(cls, target):
         return 'timestamp' == target['type']
-
-

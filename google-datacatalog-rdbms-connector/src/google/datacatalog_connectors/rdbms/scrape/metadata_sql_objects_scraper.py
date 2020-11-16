@@ -29,24 +29,20 @@ import pandas as pd
 
 class MetadataSQLObjectsScraper(MetadataScraper):
 
-    def scrape_sql_objects_metadata(self,
-                                    user_config,
-                                    connection_args):
+    def scrape_sql_objects_metadata(self, user_config, connection_args):
         metadata = None
         if user_config.sql_objects_config:
             query_assembler = self._get_query_assembler()
-            sql_objects_config = user_config.sql_objects_config(user_config.sql_objects_config)
-            optional_queries = query_assembler.get_optional_queries(
-                optional_metadata)
+            sql_objects_config = user_config.sql_objects_config()
+            sql_objects_queries = query_assembler.get_sql_objects_queries(
+                sql_objects_config)
             logging.info(
                 'Scraping metadata according to configuration file: {}'.format(
-                    optional_metadata))
+                    sql_objects_queries))
             metadata = \
                 self._get_optional_metadata_from_rdbms_connection(
-                    connection_args, optional_queries,
+                    connection_args, sql_objects_queries,
                     metadata_definition)
-
-
 
         return metadata
 
@@ -107,4 +103,3 @@ class MetadataSQLObjectsScraper(MetadataScraper):
     def _get_query_assembler(self):
         raise NotImplementedError('Implementing this method is required '
                                   'to run multiple optional queries')
-

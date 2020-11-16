@@ -26,7 +26,8 @@ class MetadataSQLObjectNormalizerTestCase(unittest.TestCase):
     __MODULE_PATH = os.path.dirname(os.path.abspath(__file__))
     __SCRAPE_PACKAGE = 'google.datacatalog_connectors.rdbms.scrape'
 
-    def test_normalize_function_sql_object_metadata_with_csv_should_return_objects(self):
+    def test_normalize_function_sql_object_metadata_with_csv_should_return_objects(
+            self):
         metadata = utils.Utils.retrieve_dataframe_from_file(
             self.__MODULE_PATH, 'rdbms_sql_objects_dump.csv')
 
@@ -51,7 +52,8 @@ class MetadataSQLObjectNormalizerTestCase(unittest.TestCase):
         self.assertEqual('tag', function_2_dict['schema_name']['model'])
         self.assertEqual('string', function_2_dict['schema_name']['type'])
 
-    def test_normalize_stored_procedure_sql_object_metadata_with_csv_should_return_objects(self):
+    def test_normalize_stored_procedure_sql_object_metadata_with_csv_should_return_objects(
+            self):
         metadata = utils.Utils.retrieve_dataframe_from_file(
             self.__MODULE_PATH, 'rdbms_sql_objects_dump.csv')
 
@@ -67,7 +69,11 @@ class MetadataSQLObjectNormalizerTestCase(unittest.TestCase):
 
         stored_procedure_1_dict = metadata_dict['items'][0]
 
-        self.assertEqual('STORED_PROCEDURE_CREDIT_MASK', stored_procedure_1_dict['name'])
-        self.assertEqual('SYSTEM', stored_procedure_1_dict['schema_name']['value'])
-        self.assertEqual('tag', stored_procedure_1_dict['schema_name']['model'])
-        self.assertEqual('string', stored_procedure_1_dict['schema_name']['type'])
+        self.assertEqual('STORED_PROCEDURE_CREDIT_MASK',
+                         stored_procedure_1_dict['name'])
+        self.assertEqual('SYSTEM',
+                         stored_procedure_1_dict['schema_name']['value'])
+        self.assertEqual('tag',
+                         stored_procedure_1_dict['schema_name']['model'])
+        self.assertEqual('string',
+                         stored_procedure_1_dict['schema_name']['type'])

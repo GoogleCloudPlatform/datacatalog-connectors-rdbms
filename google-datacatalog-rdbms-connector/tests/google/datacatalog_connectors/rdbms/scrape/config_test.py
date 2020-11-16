@@ -57,20 +57,26 @@ class ConfigTestCase(unittest.TestCase):
             config_constants.SQL_OBJECTS_KEY: [{
                 config_constants.SQL_OBJECT_ITEM_NAME: 'functions',
                 config_constants.SQL_OBJECT_ITEM_ENABLED_FLAG: True
-            },
-                {
-                    config_constants.SQL_OBJECT_ITEM_NAME: 'stored_procedures',
-                    config_constants.SQL_OBJECT_ITEM_ENABLED_FLAG: False
-                }]}
+            }, {
+                config_constants.SQL_OBJECT_ITEM_NAME: 'stored_procedures',
+                config_constants.SQL_OBJECT_ITEM_ENABLED_FLAG: False
+            }]
+        }
 
         test_config_path = utils.Utils.get_resolved_file_name(
             self.__MODULE_PATH, 'sql_objects_ingest_cfg.yaml')
         user_config = config.Config(test_config_path)
 
         self.assertEqual(1, len(user_config.sql_objects_config))
-        self.assertEqual('functions',
-                         user_config.sql_objects_config[0][config_constants.SQL_OBJECT_ITEM_NAME])
-        self.assertEqual('query_functions_sql_object.json',
-                         user_config.sql_objects_config[0][
-                             config_constants.SQL_OBJECT_ITEM_QUERY_FILENAME_KEY])
+        self.assertEqual(
+            'functions', user_config.sql_objects_config[0][
+                config_constants.SQL_OBJECT_ITEM_NAME])
+        self.assertEqual(
+            'query_functions_sql_object.json',
+            user_config.sql_objects_config[0][
+                config_constants.SQL_OBJECT_ITEM_QUERY_FILENAME_KEY])
 
+        self.assertEqual(
+            'metadata_def_functions_sql_object.json',
+            user_config.sql_objects_config[0][
+                config_constants.SQL_OBJECT_ITEM_METADATA_DEF_FILENAME_KEY])

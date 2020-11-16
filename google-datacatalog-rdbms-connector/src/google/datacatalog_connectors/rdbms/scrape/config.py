@@ -35,7 +35,8 @@ class Config:
 
     def _determine_scraping_steps(self):
         if self._conf_content.get(config_constants.REFRESH_OPTION) is not None:
-            self.refresh_metadata_tables = self._conf_content[config_constants.REFRESH_OPTION]
+            self.refresh_metadata_tables = self._conf_content[
+                config_constants.REFRESH_OPTION]
         options = self.get_chosen_metadata_options()
 
         self.sql_objects_config = self.get_sql_objects_config()
@@ -52,8 +53,8 @@ class Config:
             #  key in the user def config
             option
             for option, choice in self._conf_content.items()
-            if choice and
-            (option != config_constants.REFRESH_OPTION and option != config_constants.ENRICH_METADATA_OPTION)
+            if choice and (option != config_constants.REFRESH_OPTION and
+                           option != config_constants.ENRICH_METADATA_OPTION)
         ]
         return options
 
@@ -64,14 +65,25 @@ class Config:
 
         if sql_objects:
             for sql_object in sql_objects:
-                if sql_object.get(config_constants.SQL_OBJECT_ITEM_ENABLED_FLAG) is True:
-                    item_name = sql_object[config_constants.SQL_OBJECT_ITEM_NAME]
+                if sql_object.get(
+                        config_constants.SQL_OBJECT_ITEM_ENABLED_FLAG) is True:
+                    item_name = sql_object[
+                        config_constants.SQL_OBJECT_ITEM_NAME]
                     parsed_config.append({
-                        config_constants.SQL_OBJECT_ITEM_NAME: item_name,
-                        config_constants.SQL_OBJECT_ITEM_QUERY_FILENAME_KEY: '{}_{}_{}'.format(
-                            config_constants.SQL_OBJECT_ITEM_QUERY_FILENAME_PREFIX, item_name,
-                            config_constants.SQL_OBJECT_ITEM_QUERY_FILENAME_SUFFIX
-                        )
+                        config_constants.SQL_OBJECT_ITEM_NAME:
+                            item_name,
+                        config_constants.SQL_OBJECT_ITEM_QUERY_FILENAME_KEY:
+                            '{}_{}_{}'.format(
+                                config_constants.
+                                SQL_OBJECT_ITEM_QUERY_FILENAME_PREFIX,
+                                item_name, config_constants.
+                                SQL_OBJECT_ITEM_QUERY_FILENAME_SUFFIX),
+                        config_constants.SQL_OBJECT_ITEM_METADATA_DEF_FILENAME_KEY:
+                            '{}_{}_{}'.format(
+                                config_constants.
+                                SQL_OBJECT_ITEM_METADATA_DEF_FILENAME_PREFIX,
+                                item_name, config_constants.
+                                SQL_OBJECT_ITEM_METADATA_DEF_FILENAME_SUFFIX)
                     })
 
             return parsed_config
@@ -85,4 +97,5 @@ class Config:
         return None
 
     def get_enrich_metadata_dict(self):
-        return self.get_content_dict_attribute(config_constants.ENRICH_METADATA_OPTION)
+        return self.get_content_dict_attribute(
+            config_constants.ENRICH_METADATA_OPTION)
