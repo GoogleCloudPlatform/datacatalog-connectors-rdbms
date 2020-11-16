@@ -27,7 +27,7 @@ class MetadataNormalizerTestCase(unittest.TestCase):
     __MODULE_PATH = os.path.dirname(os.path.abspath(__file__))
     __SCRAPE_PACKAGE = 'google.datacatalog_connectors.rdbms.scrape'
 
-    def test_scrape_databases_metadata_with_csv_should_return_objects(self):
+    def test_normalize_databases_metadata_with_csv_should_return_objects(self):
         metadata = utils.Utils.retrieve_dataframe_from_file(
             self.__MODULE_PATH, 'rdbms_full_dump.csv')
 

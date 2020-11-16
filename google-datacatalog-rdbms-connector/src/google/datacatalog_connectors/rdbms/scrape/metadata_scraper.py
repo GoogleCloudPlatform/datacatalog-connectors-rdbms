@@ -18,7 +18,8 @@ import logging
 import warnings
 import time
 
-from .metadata_normalizer import MetadataNormalizer
+from google.datacatalog_connectors.rdbms.scrape.metadata_normalizer \
+    import MetadataNormalizer
 
 import pandas as pd
 
@@ -50,7 +51,7 @@ class MetadataScraper:
         if csv_path:
             logging.info('Scrapping metadata from csv path: "%s"', csv_path)
             dataframe = self._get_metadata_from_csv(csv_path)
-        elif connection_args and len(connection_args.keys()) > 0:
+        elif self._is_metadata_from_connection(connection_args):
             logging.info('Scrapping basic metadata from connection_args')
             dataframe = self._get_base_metadata_from_rdbms_connection(
                 connection_args, query)
@@ -194,6 +195,10 @@ class MetadataScraper:
                              new_df,
                              on=[table_container_mame_col, table_name_col])
         return dataframe
+
+    @classmethod
+    def _is_metadata_from_connection(cls, connection_args):
+        return connection_args and len(connection_args.keys()) > 0
 
     # To connect to the RDBMS, it's required to override this method.
     # If you are ingesting from a CSV file, this method is not used.

@@ -16,8 +16,7 @@
 
 import yaml
 
-from .config_constants import ENRICH_METADATA_OPTION
-from .config_constants import REFRESH_OPTION
+from google.datacatalog_connectors.rdbms.scrape import config_constants
 
 
 class Config:
@@ -35,9 +34,11 @@ class Config:
         return conf or dict()
 
     def _determine_scraping_steps(self):
-        if self._conf_content.get(REFRESH_OPTION) is not None:
-            self.refresh_metadata_tables = self._conf_content[REFRESH_OPTION]
+        if self._conf_content.get(config_constants.REFRESH_OPTION) is not None:
+            self.refresh_metadata_tables = self._conf_content[config_constants.REFRESH_OPTION]
         options = self.get_chosen_metadata_options()
+
+        self.sql_objects_config = self.get_sql_objects_config()
 
         if len(options):
             self.scrape_optional_metadata = True
@@ -52,9 +53,28 @@ class Config:
             option
             for option, choice in self._conf_content.items()
             if choice and
-            (option != REFRESH_OPTION and option != ENRICH_METADATA_OPTION)
+            (option != config_constants.REFRESH_OPTION and option != config_constants.ENRICH_METADATA_OPTION)
         ]
         return options
+
+    def get_sql_objects_config(self):
+        parsed_config = []
+
+        sql_objects = self._conf_content.get(config_constants.SQL_OBJECTS_KEY)
+
+        if sql_objects:
+            for sql_object in sql_objects:
+                if sql_object.get(config_constants.SQL_OBJECT_ITEM_ENABLED_FLAG) is True:
+                    item_name = sql_object[config_constants.SQL_OBJECT_ITEM_NAME]
+                    parsed_config.append({
+                        config_constants.SQL_OBJECT_ITEM_NAME: item_name,
+                        config_constants.SQL_OBJECT_ITEM_QUERY_FILENAME_KEY: '{}_{}_{}'.format(
+                            config_constants.SQL_OBJECT_ITEM_QUERY_FILENAME_PREFIX, item_name,
+                            config_constants.SQL_OBJECT_ITEM_QUERY_FILENAME_SUFFIX
+                        )
+                    })
+
+            return parsed_config
 
     def get_content_dict_attribute(self, attribute_name):
         content_attribute = self._conf_content.get(attribute_name)
@@ -65,4 +85,4 @@ class Config:
         return None
 
     def get_enrich_metadata_dict(self):
-        return self.get_content_dict_attribute(ENRICH_METADATA_OPTION)
+        return self.get_content_dict_attribute(config_constants.ENRICH_METADATA_OPTION)
