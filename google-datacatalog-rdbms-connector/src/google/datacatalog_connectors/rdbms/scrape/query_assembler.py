@@ -56,19 +56,6 @@ class QueryAssembler:
             "Implement to specify the query dir used by the connector")
 
     @classmethod
-    def get_sql_objects_queries(cls, sql_objects_config):
-        queries = {}
-        for sql_object_config in sql_objects_config:
-            query_filename = sql_object_config[
-                config_constants.SQL_OBJECT_ITEM_QUERY_KEY]
-
-            query = cls._get_query('{}/{}'.format(
-                cls._get_connector_query_dir_path, query_filename))
-            queries[query_filename] = query
-
-        return queries
-
-    @classmethod
     def _get_query(cls, query_path):
         with open(query_path, 'r') as f:
             query = f.read()

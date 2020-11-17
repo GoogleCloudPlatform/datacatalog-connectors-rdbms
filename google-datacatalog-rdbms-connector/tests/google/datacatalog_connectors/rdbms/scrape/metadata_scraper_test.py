@@ -70,7 +70,7 @@ class MetadataScraperTestCase(unittest.TestCase):
                 'get_exact_table_names_from_dataframe')
     @mock.patch('{}.'.format(__SCRAPE_PACKAGE) +
                 'metadata_scraper.MetadataNormalizer.' + 'to_metadata_dict')
-    def test_scrape_metadata_with_user_config_should_return_objects(
+    def test_scrape_metadata_with_config_should_return_objects(
             self, to_metadata_dict,
             get_exact_table_names_from_dataframe):  # noqa
         metadata = \
@@ -88,8 +88,8 @@ class MetadataScraperTestCase(unittest.TestCase):
         config_path = os.path.join(os.path.dirname(os.path.abspath(__file__)),
                                    '../test_data/ingest_cfg.yaml')
 
-        user_config = config.Config(config_path, utils.Utils.get_test_config_path(
-            self.__MODULE_PATH))
+        loaded_config = config.Config(
+            config_path, utils.Utils.get_test_config_path(self.__MODULE_PATH))
 
         metada_def = utils.Utils.get_metadata_def_obj(self.__MODULE_PATH)
 
@@ -98,7 +98,7 @@ class MetadataScraperTestCase(unittest.TestCase):
                                                     'host': 'localhost',
                                                     'port': 1234
                                                 },
-                                                user_config=user_config)
+                                                config=loaded_config)
 
         self.assertEqual(1, len(schemas_metadata))
 
@@ -107,7 +107,7 @@ class MetadataScraperTestCase(unittest.TestCase):
                 'get_exact_table_names_from_dataframe')
     @mock.patch('{}.'.format(__SCRAPE_PACKAGE) +
                 'metadata_scraper.MetadataNormalizer.' + 'to_metadata_dict')
-    def test_scrape_metadata_with_enrich_metadata_user_config_should_return_objects(  # noqa:E501
+    def test_scrape_metadata_with_enrich_metadata_config_should_return_objects(  # noqa:E501
             self, to_metadata_dict,
             get_exact_table_names_from_dataframe):  # noqa
         metadata = \
@@ -126,8 +126,8 @@ class MetadataScraperTestCase(unittest.TestCase):
             os.path.dirname(os.path.abspath(__file__)),
             '../test_data/enrich_metadata_ingest_cfg.yaml')
 
-        user_config = config.Config(config_path, utils.Utils.get_test_config_path(
-            self.__MODULE_PATH))
+        loaded_config = config.Config(
+            config_path, utils.Utils.get_test_config_path(self.__MODULE_PATH))
 
         metada_def = utils.Utils.get_metadata_def_obj(self.__MODULE_PATH)
 
@@ -136,7 +136,7 @@ class MetadataScraperTestCase(unittest.TestCase):
                                                     'host': 'localhost',
                                                     'port': 1234
                                                 },
-                                                user_config=user_config)
+                                                config=loaded_config)
 
         self.assertEqual(1, len(schemas_metadata))
 
@@ -152,7 +152,7 @@ class MetadataScraperTestCase(unittest.TestCase):
                 'get_exact_table_names_from_dataframe')
     @mock.patch('{}.'.format(__SCRAPE_PACKAGE) +
                 'metadata_scraper.MetadataNormalizer.' + 'to_metadata_dict')
-    def test_scrape_metadata_with_csv_and_user_config_should_return_objects(
+    def test_scrape_metadata_with_csv_and_config_should_return_objects(
             self, to_metadata_dict,
             get_exact_table_names_from_dataframe):  # noqa
 
@@ -171,8 +171,8 @@ class MetadataScraperTestCase(unittest.TestCase):
             os.path.dirname(os.path.abspath(__file__)),
             '../test_data/enrich_metadata_ingest_cfg.yaml')
 
-        user_config = config.Config(config_path, utils.Utils.get_test_config_path(
-            self.__MODULE_PATH))
+        loaded_config = config.Config(
+            config_path, utils.Utils.get_test_config_path(self.__MODULE_PATH))
 
         metada_def = utils.Utils.get_metadata_def_obj(self.__MODULE_PATH)
 
@@ -180,7 +180,7 @@ class MetadataScraperTestCase(unittest.TestCase):
             metada_def,
             csv_path=utils.Utils.get_resolved_file_name(
                 self.__MODULE_PATH, 'rdbms_full_dump.csv'),
-            user_config=user_config)
+            config=loaded_config)
 
         self.assertEqual(1, len(schemas_metadata))
 
@@ -196,7 +196,7 @@ class MetadataScraperTestCase(unittest.TestCase):
                 'get_exact_table_names_from_dataframe')
     @mock.patch('{}.'.format(__SCRAPE_PACKAGE) +
                 'metadata_scraper.MetadataNormalizer.' + 'to_metadata_dict')
-    def test_scrape_metadata_with_enrich_metadata_user_config_and_no_enricher_should_raise_error(  # noqa:E501
+    def test_scrape_metadata_with_enrich_metadata_config_and_no_enricher_should_raise_error(  # noqa:E501
             self, to_metadata_dict, _):  # noqa
         metadata = \
             utils.Utils.convert_json_to_object(self.__MODULE_PATH,
@@ -208,8 +208,8 @@ class MetadataScraperTestCase(unittest.TestCase):
             os.path.dirname(os.path.abspath(__file__)),
             '../test_data/enrich_metadata_ingest_cfg.yaml')
 
-        user_config = config.Config(config_path, utils.Utils.get_test_config_path(
-            self.__MODULE_PATH))
+        loaded_config = config.Config(
+            config_path, utils.Utils.get_test_config_path(self.__MODULE_PATH))
 
         metada_def = utils.Utils.get_metadata_def_obj(self.__MODULE_PATH)
 
@@ -222,7 +222,7 @@ class MetadataScraperTestCase(unittest.TestCase):
                               'host': 'localhost',
                               'port': 1234
                           },
-                          user_config=user_config)
+                          config=loaded_config)
 
     @mock.patch('{}.'.format(__SCRAPE_PACKAGE) +
                 'metadata_scraper.MetadataNormalizer.' + 'to_metadata_dict')
@@ -267,7 +267,7 @@ class MetadataScraperTestCase(unittest.TestCase):
                                                     'host': 'localhost',
                                                     'port': 1234
                                                 },
-                                                user_config=None)
+                                                config=None)
 
         self.assertEqual(1, len(schemas_metadata))
         self.assertEqual(0, get_refresh_metadata_queries.call_count)
@@ -289,7 +289,7 @@ class MetadataScraperTestCase(unittest.TestCase):
                                                     'host': 'localhost',
                                                     'port': 1234
                                                 },
-                                                user_config=None)
+                                                config=None)
 
         self.assertEqual(1, len(schemas_metadata))
         self.assertEqual(0, get_optional_queries.call_count)
@@ -303,8 +303,9 @@ class MetadataScraperTestCase(unittest.TestCase):
             self, get_refresh_metadata_queries, to_metadata_dict):
         path_to_empty_config = utils.Utils.get_resolved_file_name(
             self.__MODULE_PATH, 'empty_ingest_cfg.yaml')
-        empty_config = config.Config(path_to_empty_config, utils.Utils.get_test_config_path(
-            self.__MODULE_PATH))
+        empty_config = config.Config(
+            path_to_empty_config,
+            utils.Utils.get_test_config_path(self.__MODULE_PATH))
 
         scraper = test_utils.FakeScraper()
         metadata = \
@@ -317,7 +318,7 @@ class MetadataScraperTestCase(unittest.TestCase):
                                                     'host': 'localhost',
                                                     'port': 1234
                                                 },
-                                                user_config=empty_config)
+                                                config=empty_config)
         self.assertEqual(1, len(schemas_metadata))
         self.assertEqual(0, get_refresh_metadata_queries.call_count)
 
@@ -329,8 +330,9 @@ class MetadataScraperTestCase(unittest.TestCase):
             self, get_optional_queries, to_metadata_dict):
         path_to_empty_config = utils.Utils.get_resolved_file_name(
             self.__MODULE_PATH, 'empty_ingest_cfg.yaml')
-        empty_config = config.Config(path_to_empty_config, utils.Utils.get_test_config_path(
-            self.__MODULE_PATH))
+        empty_config = config.Config(
+            path_to_empty_config,
+            utils.Utils.get_test_config_path(self.__MODULE_PATH))
 
         scraper = test_utils.FakeScraper()
         metadata = \
@@ -343,6 +345,6 @@ class MetadataScraperTestCase(unittest.TestCase):
                                                     'host': 'localhost',
                                                     'port': 1234
                                                 },
-                                                user_config=empty_config)
+                                                config=empty_config)
         self.assertEqual(1, len(schemas_metadata))
         self.assertEqual(0, get_optional_queries.call_count)

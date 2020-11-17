@@ -62,9 +62,10 @@ class Config:
                             config_constants.SQL_OBJECT_ITEM_NAME]
 
                         query_path = '{}_{}_{}'.format(
-                            config_constants.SQL_OBJECT_ITEM_QUERY_FILENAME_PREFIX,
-                            item_name,
-                            config_constants.SQL_OBJECT_ITEM_QUERY_FILENAME_SUFFIX)
+                            config_constants.
+                            SQL_OBJECT_ITEM_QUERY_FILENAME_PREFIX, item_name,
+                            config_constants.
+                            SQL_OBJECT_ITEM_QUERY_FILENAME_SUFFIX)
 
                         query_full_path = os.path.join(
                             self._connector_config_path, query_path)

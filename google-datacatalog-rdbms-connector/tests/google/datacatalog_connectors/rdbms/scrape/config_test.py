@@ -31,16 +31,16 @@ class ConfigTestCase(unittest.TestCase):
             config_constants.REFRESH_OPTION: True,
             config_constants.ROW_COUNT_OPTION: True
         }
-        test_config_path = utils.Utils.get_resolved_file_name(
+        user_config_path = utils.Utils.get_resolved_file_name(
             self.__MODULE_PATH, 'ingest_cfg.yaml')
 
         connector_config_path = utils.Utils.get_test_config_path(
             self.__MODULE_PATH)
 
-        user_config = config.Config(test_config_path, connector_config_path)
+        loaded_config = config.Config(user_config_path, connector_config_path)
 
         self.assertEqual([config_constants.ROW_COUNT_OPTION],
-                         user_config.get_chosen_metadata_options())
+                         loaded_config.get_chosen_metadata_options())
 
     @mock.patch('yaml.load')
     def test_config_should_not_deliver_options_not_chosen_by_user(
@@ -49,14 +49,14 @@ class ConfigTestCase(unittest.TestCase):
             config_constants.REFRESH_OPTION: True,
             config_constants.ROW_COUNT_OPTION: False
         }
-        test_config_path = utils.Utils.get_resolved_file_name(
+        user_config_path = utils.Utils.get_resolved_file_name(
             self.__MODULE_PATH, 'ingest_cfg.yaml')
         connector_config_path = utils.Utils.get_test_config_path(
             self.__MODULE_PATH)
 
-        user_config = config.Config(test_config_path, connector_config_path)
+        loaded_config = config.Config(user_config_path, connector_config_path)
 
-        self.assertEqual([], user_config.get_chosen_metadata_options())
+        self.assertEqual([], loaded_config.get_chosen_metadata_options())
 
     @mock.patch('yaml.load')
     def test_config_no_files_should_not_retrieve_sql_objects(self, yaml_load):
@@ -70,14 +70,14 @@ class ConfigTestCase(unittest.TestCase):
             }]
         }
 
-        test_config_path = utils.Utils.get_resolved_file_name(
+        user_config_path = utils.Utils.get_resolved_file_name(
             self.__MODULE_PATH, 'sql_objects_ingest_cfg.yaml')
         connector_config_path = utils.Utils.get_test_config_path(
             self.__MODULE_PATH)
 
-        user_config = config.Config(test_config_path, connector_config_path)
+        loaded_config = config.Config(user_config_path, connector_config_path)
 
-        self.assertEqual(0, len(user_config.sql_objects_config))
+        self.assertEqual(0, len(loaded_config.sql_objects_config))
 
     @mock.patch('yaml.load')
     def test_config_should_retrieve_sql_objects(self, yaml_load):
@@ -91,20 +91,19 @@ class ConfigTestCase(unittest.TestCase):
             }]
         }
 
-        test_config_path = utils.Utils.get_resolved_file_name(
+        user_config_path = utils.Utils.get_resolved_file_name(
             self.__MODULE_PATH, 'sql_objects_ingest_cfg.yaml')
         connector_config_path = utils.Utils.get_test_config_path(
             self.__MODULE_PATH)
 
-        user_config = config.Config(test_config_path, connector_config_path)
+        loaded_config = config.Config(user_config_path, connector_config_path)
 
-        self.assertEqual(1, len(user_config.sql_objects_config))
+        self.assertEqual(1, len(loaded_config.sql_objects_config))
         self.assertEqual(
-            'functions', user_config.sql_objects_config[0][
+            'functions', loaded_config.sql_objects_config[0][
                 config_constants.SQL_OBJECT_ITEM_NAME])
-        self.assertIsNotNone(user_config.sql_objects_config[0][
-                config_constants.SQL_OBJECT_ITEM_QUERY_KEY])
+        self.assertIsNotNone(loaded_config.sql_objects_config[0][
+            config_constants.SQL_OBJECT_ITEM_QUERY_KEY])
 
-        self.assertIsNotNone(
-            user_config.sql_objects_config[0][
-                config_constants.SQL_OBJECT_ITEM_METADATA_DEF_KEY])
+        self.assertIsNotNone(loaded_config.sql_objects_config[0][
+            config_constants.SQL_OBJECT_ITEM_METADATA_DEF_KEY])

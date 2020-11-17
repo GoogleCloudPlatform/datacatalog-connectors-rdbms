@@ -51,7 +51,7 @@ class DataCatalogSynchronizer:
                  query=None,
                  csv_path=None,
                  enable_monitoring=None,
-                 user_config=None):
+                 config=None):
         self.__entry_group_id = entry_group_id
         self.__metadata_definition = metadata_definition
         self.__metadata_scraper = metadata_scraper
@@ -61,7 +61,7 @@ class DataCatalogSynchronizer:
         self.__connection_args = connection_args
         self.__query = query
         self.__csv_path = csv_path
-        self.__user_config = user_config
+        self.__config = config
         self.__task_id = uuid.uuid4().hex[:8]
         self.__metrics_processor = metrics_processor.MetricsProcessor(
             project_id, location_id, entry_group_id, enable_monitoring,
@@ -80,7 +80,7 @@ class DataCatalogSynchronizer:
             connection_args=self.__connection_args,
             query=self.__query,
             csv_path=self.__csv_path,
-            user_config=self.__user_config)
+            config=self.__config)
 
         metadata = self._enrich_metadata(metadata)
 

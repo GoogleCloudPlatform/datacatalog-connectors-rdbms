@@ -1,0 +1,69 @@
+#!/usr/bin/python
+#
+# Copyright 2020 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import os
+import unittest
+
+import mock
+from google.datacatalog_connectors.commons_test import utils
+from google.datacatalog_connectors.rdbms.scrape import metadata_sql_objects_scraper, config
+
+class MetadataSQLObjectsScraperTestCase(unittest.TestCase):
+    __MODULE_PATH = os.path.dirname(os.path.abspath(__file__))
+    __SCRAPE_PACKAGE = 'google.datacatalog_connectors.rdbms.scrape'
+
+    @mock.patch('{}.'.format(__SCRAPE_PACKAGE) +
+                'metadata_sql_object_normalizer.MetadataSQLObjectNormalizer.to_metadata_dict')
+    def test_scrape_no_sql_objects_should_not_return_metadata(
+            self, to_metadata_dict):  # noqa
+        metadata = \
+            utils.Utils.convert_json_to_object(self.__MODULE_PATH,
+                                               'metadata.json')
+
+        to_metadata_dict.return_value = metadata
+
+        main_scraper = mock.MagicMock()
+        scraper = metadata_sql_objects_scraper.MetadataSQLObjectsScraper(main_scraper)
+
+        metadata = scraper.scrape(None,
+                                  connection_args={
+                                      'host': 'localhost',
+                                      'port': 1234
+                                  })
+
+        self.assertEqual(0, len(metadata))
+
+    @mock.patch('{}.'.format(__SCRAPE_PACKAGE) +
+                'metadata_sql_object_normalizer.MetadataSQLObjectNormalizer.to_metadata_dict')
+    def test_scrape_should_return_metadata(
+            self, to_metadata_dict):  # noqa
+        sql_objects_config = \
+            utils.Utils.convert_json_to_object(self.__MODULE_PATH,
+                                               'sql_objects_config.json')
+        main_scraper = mock.MagicMock()
+        scraper = metadata_sql_objects_scraper.MetadataSQLObjectsScraper(main_scraper)
+
+        loaded_config = mock.MagicMock(config.Config)
+
+        loaded_config.sql_objects_config = sql_objects_config
+
+        metadata = scraper.scrape(loaded_config,
+            connection_args={
+                'host': 'localhost',
+                'port': 1234
+            })
+
+        self.assertEqual(0, len(metadata))

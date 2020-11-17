@@ -34,20 +34,20 @@ class MetadataScraper:
                      connection_args=None,
                      query=None,
                      csv_path=None,
-                     user_config=None):
-        dataframe = self._get_metadata_as_dataframe(metadata_definition,
-                                                    connection_args, query,
-                                                    csv_path, user_config)
+                     config=None):
+        dataframe = self.get_metadata_as_dataframe(metadata_definition,
+                                                   connection_args, query,
+                                                   csv_path, config)
 
         return MetadataNormalizer.to_metadata_dict(dataframe,
                                                    metadata_definition)
 
-    def _get_metadata_as_dataframe(self,
-                                   metadata_definition,
-                                   connection_args=None,
-                                   query=None,
-                                   csv_path=None,
-                                   user_config=None):
+    def get_metadata_as_dataframe(self,
+                                  metadata_definition,
+                                  connection_args=None,
+                                  query=None,
+                                  csv_path=None,
+                                  config=None):
         if csv_path:
             logging.info('Scrapping metadata from csv path: "%s"', csv_path)
             dataframe = self._get_metadata_from_csv(csv_path)
@@ -58,11 +58,11 @@ class MetadataScraper:
         else:
             raise Exception('Must supply either connection_args or csv_path')
 
-        if user_config:
+        if config:
             logging.info('Scrapping additional metadata from connection_args,'
                          'if configured')
-            dataframe = self._enrich_metadata_based_on_user_config(
-                user_config, dataframe, connection_args, metadata_definition)
+            dataframe = self._enrich_metadata_based_on_config(
+                config, dataframe, connection_args, metadata_definition)
 
         return dataframe
 
@@ -91,12 +91,12 @@ class MetadataScraper:
     def _create_dataframe(self, rows):
         return pd.DataFrame(rows)
 
-    def _enrich_metadata_based_on_user_config(self, user_config,
-                                              base_dataframe, connection_args,
-                                              metadata_definition):
+    def _enrich_metadata_based_on_config(self, config,
+                                         base_dataframe, connection_args,
+                                         metadata_definition):
         enriched_dataframe = base_dataframe
 
-        if user_config.refresh_metadata_tables:
+        if config.refresh_metadata_tables:
             query_assembler = self._get_query_assembler()
             exact_table_names = MetadataNormalizer.\
                 get_exact_table_names_from_dataframe(
@@ -107,9 +107,9 @@ class MetadataScraper:
             self._refresh_metadata_from_rdbms_connection(
                 connection_args, refresh_queries)
 
-        if user_config.scrape_optional_metadata:
+        if config.scrape_optional_metadata:
             query_assembler = self._get_query_assembler()
-            optional_metadata = user_config.get_chosen_metadata_options()
+            optional_metadata = config.get_chosen_metadata_options()
             optional_queries = query_assembler.get_optional_queries(
                 optional_metadata)
             logging.info(
@@ -120,7 +120,7 @@ class MetadataScraper:
                     connection_args, optional_queries, base_dataframe,
                     metadata_definition)
 
-        enrich_metadata_dict = user_config.get_enrich_metadata_dict()
+        enrich_metadata_dict = config.get_enrich_metadata_dict()
 
         if enrich_metadata_dict:
             metadata_enricher = self._get_metadata_enricher()(

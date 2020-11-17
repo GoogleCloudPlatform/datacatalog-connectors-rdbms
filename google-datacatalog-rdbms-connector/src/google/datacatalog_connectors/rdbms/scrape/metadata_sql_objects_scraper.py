@@ -15,98 +15,50 @@
 # limitations under the License.
 
 import logging
-import warnings
-import time
 
 from google.datacatalog_connectors.rdbms.scrape. \
-    metadata_sql_objects_normalizer import MetadataSQLObjectsNormalizer
-
-from google.datacatalog_connectors.rdbms.scrape. \
-    metadata_scraper import MetadataScraper
+    metadata_sql_object_normalizer import MetadataSQLObjectNormalizer
 
 from google.datacatalog_connectors.rdbms.scrape \
     import config_constants
 
-import pandas as pd
 
+class MetadataSQLObjectsScraper:
 
-class MetadataSQLObjectsScraper(MetadataScraper):
+    def __init__(self, main_scraper):
+        self.main_scraper = main_scraper
 
-    def scrape_sql_objects_metadata(self, user_config, connection_args):
-        metadata = None
-        if user_config.sql_objects_config:
-            query_assembler = self._get_query_assembler()
-            sql_objects_config = user_config.sql_objects_config()
-            sql_objects_queries = query_assembler.get_sql_objects_queries(
-                sql_objects_config)
-            logging.info(
-                'Scraping metadata according to configuration file: {}'.format(
-                    sql_objects_queries))
+    def scrape(self, config, connection_args):
+        sql_objects = {}
+        if config and config.sql_objects_config:
+            sql_objects_config = config.sql_objects_config
 
-            for sql_object_config in user_config.sql_objects_config:
-                sql_object_config[
+            for sql_object_config in sql_objects_config:
+                name = sql_object_config[config_constants.SQL_OBJECT_ITEM_NAME]
+                metadata_def = sql_object_config[
                     config_constants.SQL_OBJECT_ITEM_METADATA_DEF_KEY]
+                query = sql_object_config[
+                    config_constants.SQL_OBJECT_ITEM_QUERY_KEY]
 
-                metadata = \
-                    self.__get__metadata_from_rdbms_connection(
-                        connection_args, sql_objects_queries,
-                        metadata_definition)
-
-        return metadata
-
-    def __get__metadata_from_rdbms_connection(self, connection_args,
-                                              optional_queries, base_dataframe,
-                                              metadata_definition):
-        con = None
-        merged_dataframe = base_dataframe
-        try:
-            con = self._create_rdbms_connection(connection_args)
-            cur = con.cursor()
-            for option, query in optional_queries.items():
                 logging.info(
-                    "Executing query to process configuration option {}".
-                    format(option))
-                cur.execute(query)
-                rows = cur.fetchall()
-                if len(rows) == 0:
-                    warnings.warn(
-                        "Query {} delivered no rows. Skipping it.".format(
-                            query))
-                else:
-                    new_dataframe = self._create_dataframe(rows)
-                    new_dataframe.columns = [
-                        item[0].lower() for item in cur.description
-                    ]
-                    merged_dataframe = self._get_merged_dataframe(
-                        base_dataframe, new_dataframe, metadata_definition)
-            return merged_dataframe
-        except:  # noqa:E722
-            logging.error('Error connecting to the database '
-                          'to extract optional metadata.')
-            raise
-        finally:
-            if con:
-                con.close()
+                    'Scraping metadata for sql objects: {}'.format(name))
 
-    def _get_merged_dataframe(self, old_df, new_df, metadata_definition):
-        table_name_col = metadata_definition['table_def']['name']
-        table_container_mame_col = metadata_definition['table_container_def'][
-            'name']
-        dataframe = pd.merge(old_df,
-                             new_df,
-                             on=[table_container_mame_col, table_name_col])
-        return dataframe
+                dataframe = self.main_scraper.get_metadata_as_dataframe(
+                    metadata_def, connection_args, query)
 
-    # To connect to the RDBMS, it's required to override this method.
-    # If you are ingesting from a CSV file, this method is not used.
-    def _create_rdbms_connection(self, connection_args):
-        raise NotImplementedError(
-            'Implementing this method is required to connect to a RDBMS!')
+                try:
+                    sql_object_items = sql_objects.get(name)
 
-    @classmethod
-    def _get_metadata_from_csv(cls, csv_path):
-        return pd.read_csv(csv_path)
+                    if not sql_object_items:
+                        sql_object_items = []
+                        sql_objects[name] = sql_object_items
 
-    def _get_query_assembler(self):
-        raise NotImplementedError('Implementing this method is required '
-                                  'to run multiple optional queries')
+                    sql_object_items.append(
+                        MetadataSQLObjectNormalizer.to_metadata_dict(
+                            dataframe, metadata_def))
+                except:
+                    logging.exception(
+                        'Failed to scrape sql object, ignoring: {}'.format(
+                            name))
+
+        return sql_objects

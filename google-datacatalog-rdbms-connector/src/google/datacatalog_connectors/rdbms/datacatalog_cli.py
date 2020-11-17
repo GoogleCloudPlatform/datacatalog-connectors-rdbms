@@ -52,7 +52,7 @@ class DatacatalogCli(ABC):
             query=self._query(args),
             csv_path=args.raw_metadata_csv,
             enable_monitoring=args.enable_monitoring,
-            user_config=self._get_user_config()).run()
+            config=self._get_config()).run()
 
     def _metadata_definition(self):
         path = self._get_metadata_definition_path()
@@ -74,7 +74,7 @@ class DatacatalogCli(ABC):
                 data = f.read()
                 return data
 
-    def _get_user_config(self):
+    def _get_config(self):
         path = self._get_user_config_path()
         connector_config_path = self._get_connector_config_path()
         if path:
