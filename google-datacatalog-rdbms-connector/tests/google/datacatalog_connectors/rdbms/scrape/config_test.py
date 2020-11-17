@@ -33,7 +33,11 @@ class ConfigTestCase(unittest.TestCase):
         }
         test_config_path = utils.Utils.get_resolved_file_name(
             self.__MODULE_PATH, 'ingest_cfg.yaml')
-        user_config = config.Config(test_config_path)
+
+        connector_config_path = utils.Utils.get_test_config_path(
+            self.__MODULE_PATH)
+
+        user_config = config.Config(test_config_path, connector_config_path)
 
         self.assertEqual([config_constants.ROW_COUNT_OPTION],
                          user_config.get_chosen_metadata_options())
@@ -47,9 +51,33 @@ class ConfigTestCase(unittest.TestCase):
         }
         test_config_path = utils.Utils.get_resolved_file_name(
             self.__MODULE_PATH, 'ingest_cfg.yaml')
-        user_config = config.Config(test_config_path)
+        connector_config_path = utils.Utils.get_test_config_path(
+            self.__MODULE_PATH)
+
+        user_config = config.Config(test_config_path, connector_config_path)
 
         self.assertEqual([], user_config.get_chosen_metadata_options())
+
+    @mock.patch('yaml.load')
+    def test_config_no_files_should_not_retrieve_sql_objects(self, yaml_load):
+        yaml_load.return_value = {
+            config_constants.SQL_OBJECTS_KEY: [{
+                config_constants.SQL_OBJECT_ITEM_NAME: 'functions_xpto',
+                config_constants.SQL_OBJECT_ITEM_ENABLED_FLAG: True
+            }, {
+                config_constants.SQL_OBJECT_ITEM_NAME: 'stored_procedures',
+                config_constants.SQL_OBJECT_ITEM_ENABLED_FLAG: False
+            }]
+        }
+
+        test_config_path = utils.Utils.get_resolved_file_name(
+            self.__MODULE_PATH, 'sql_objects_ingest_cfg.yaml')
+        connector_config_path = utils.Utils.get_test_config_path(
+            self.__MODULE_PATH)
+
+        user_config = config.Config(test_config_path, connector_config_path)
+
+        self.assertEqual(0, len(user_config.sql_objects_config))
 
     @mock.patch('yaml.load')
     def test_config_should_retrieve_sql_objects(self, yaml_load):
@@ -65,18 +93,18 @@ class ConfigTestCase(unittest.TestCase):
 
         test_config_path = utils.Utils.get_resolved_file_name(
             self.__MODULE_PATH, 'sql_objects_ingest_cfg.yaml')
-        user_config = config.Config(test_config_path)
+        connector_config_path = utils.Utils.get_test_config_path(
+            self.__MODULE_PATH)
+
+        user_config = config.Config(test_config_path, connector_config_path)
 
         self.assertEqual(1, len(user_config.sql_objects_config))
         self.assertEqual(
             'functions', user_config.sql_objects_config[0][
                 config_constants.SQL_OBJECT_ITEM_NAME])
-        self.assertEqual(
-            'query_functions_sql_object.json',
-            user_config.sql_objects_config[0][
-                config_constants.SQL_OBJECT_ITEM_QUERY_FILENAME_KEY])
+        self.assertIsNotNone(user_config.sql_objects_config[0][
+                config_constants.SQL_OBJECT_ITEM_QUERY_KEY])
 
-        self.assertEqual(
-            'metadata_def_functions_sql_object.json',
+        self.assertIsNotNone(
             user_config.sql_objects_config[0][
-                config_constants.SQL_OBJECT_ITEM_METADATA_DEF_FILENAME_KEY])
+                config_constants.SQL_OBJECT_ITEM_METADATA_DEF_KEY])

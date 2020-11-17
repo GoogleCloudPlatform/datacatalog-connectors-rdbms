@@ -24,6 +24,9 @@ from google.datacatalog_connectors.rdbms.scrape. \
 from google.datacatalog_connectors.rdbms.scrape. \
     metadata_scraper import MetadataScraper
 
+from google.datacatalog_connectors.rdbms.scrape \
+    import config_constants
+
 import pandas as pd
 
 
@@ -39,17 +42,21 @@ class MetadataSQLObjectsScraper(MetadataScraper):
             logging.info(
                 'Scraping metadata according to configuration file: {}'.format(
                     sql_objects_queries))
-            metadata = \
-                self._get_optional_metadata_from_rdbms_connection(
-                    connection_args, sql_objects_queries,
-                    metadata_definition)
+
+            for sql_object_config in user_config.sql_objects_config:
+                sql_object_config[
+                    config_constants.SQL_OBJECT_ITEM_METADATA_DEF_KEY]
+
+                metadata = \
+                    self.__get__metadata_from_rdbms_connection(
+                        connection_args, sql_objects_queries,
+                        metadata_definition)
 
         return metadata
 
-    def _get_optional_metadata_from_rdbms_connection(self, connection_args,
-                                                     optional_queries,
-                                                     base_dataframe,
-                                                     metadata_definition):
+    def __get__metadata_from_rdbms_connection(self, connection_args,
+                                              optional_queries, base_dataframe,
+                                              metadata_definition):
         con = None
         merged_dataframe = base_dataframe
         try:

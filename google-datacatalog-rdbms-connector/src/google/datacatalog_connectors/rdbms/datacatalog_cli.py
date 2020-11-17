@@ -76,10 +76,16 @@ class DatacatalogCli(ABC):
 
     def _get_user_config(self):
         path = self._get_user_config_path()
+        connector_config_path = self._get_connector_config_path()
         if path:
-            user_config = config.Config(path)
+            user_config = config.Config(path, connector_config_path)
             return user_config
         return None
+
+    # If it's not implemented by the connector returns
+    # the execution dir as fallback.
+    def _get_connector_config_path(self):
+        return os.getcwd()
 
     @abstractmethod
     def _get_metadata_definition_path(self):

@@ -87,7 +87,9 @@ class MetadataScraperTestCase(unittest.TestCase):
 
         config_path = os.path.join(os.path.dirname(os.path.abspath(__file__)),
                                    '../test_data/ingest_cfg.yaml')
-        user_config = config.Config(config_path)
+
+        user_config = config.Config(config_path, utils.Utils.get_test_config_path(
+            self.__MODULE_PATH))
 
         metada_def = utils.Utils.get_metadata_def_obj(self.__MODULE_PATH)
 
@@ -123,7 +125,9 @@ class MetadataScraperTestCase(unittest.TestCase):
         config_path = os.path.join(
             os.path.dirname(os.path.abspath(__file__)),
             '../test_data/enrich_metadata_ingest_cfg.yaml')
-        user_config = config.Config(config_path)
+
+        user_config = config.Config(config_path, utils.Utils.get_test_config_path(
+            self.__MODULE_PATH))
 
         metada_def = utils.Utils.get_metadata_def_obj(self.__MODULE_PATH)
 
@@ -166,7 +170,9 @@ class MetadataScraperTestCase(unittest.TestCase):
         config_path = os.path.join(
             os.path.dirname(os.path.abspath(__file__)),
             '../test_data/enrich_metadata_ingest_cfg.yaml')
-        user_config = config.Config(config_path)
+
+        user_config = config.Config(config_path, utils.Utils.get_test_config_path(
+            self.__MODULE_PATH))
 
         metada_def = utils.Utils.get_metadata_def_obj(self.__MODULE_PATH)
 
@@ -201,7 +207,9 @@ class MetadataScraperTestCase(unittest.TestCase):
         config_path = os.path.join(
             os.path.dirname(os.path.abspath(__file__)),
             '../test_data/enrich_metadata_ingest_cfg.yaml')
-        user_config = config.Config(config_path)
+
+        user_config = config.Config(config_path, utils.Utils.get_test_config_path(
+            self.__MODULE_PATH))
 
         metada_def = utils.Utils.get_metadata_def_obj(self.__MODULE_PATH)
 
@@ -295,7 +303,8 @@ class MetadataScraperTestCase(unittest.TestCase):
             self, get_refresh_metadata_queries, to_metadata_dict):
         path_to_empty_config = utils.Utils.get_resolved_file_name(
             self.__MODULE_PATH, 'empty_ingest_cfg.yaml')
-        empty_config = config.Config(path_to_empty_config)
+        empty_config = config.Config(path_to_empty_config, utils.Utils.get_test_config_path(
+            self.__MODULE_PATH))
 
         scraper = test_utils.FakeScraper()
         metadata = \
@@ -320,7 +329,8 @@ class MetadataScraperTestCase(unittest.TestCase):
             self, get_optional_queries, to_metadata_dict):
         path_to_empty_config = utils.Utils.get_resolved_file_name(
             self.__MODULE_PATH, 'empty_ingest_cfg.yaml')
-        empty_config = config.Config(path_to_empty_config)
+        empty_config = config.Config(path_to_empty_config, utils.Utils.get_test_config_path(
+            self.__MODULE_PATH))
 
         scraper = test_utils.FakeScraper()
         metadata = \
