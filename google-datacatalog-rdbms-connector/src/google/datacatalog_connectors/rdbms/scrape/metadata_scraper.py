@@ -91,9 +91,8 @@ class MetadataScraper:
     def _create_dataframe(self, rows):
         return pd.DataFrame(rows)
 
-    def _enrich_metadata_based_on_config(self, config,
-                                         base_dataframe, connection_args,
-                                         metadata_definition):
+    def _enrich_metadata_based_on_config(self, config, base_dataframe,
+                                         connection_args, metadata_definition):
         enriched_dataframe = base_dataframe
 
         if config.refresh_metadata_tables:

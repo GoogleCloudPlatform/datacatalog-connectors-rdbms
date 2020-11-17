@@ -21,12 +21,15 @@ import mock
 from google.datacatalog_connectors.commons_test import utils
 from google.datacatalog_connectors.rdbms.scrape import metadata_sql_objects_scraper, config
 
+
 class MetadataSQLObjectsScraperTestCase(unittest.TestCase):
     __MODULE_PATH = os.path.dirname(os.path.abspath(__file__))
     __SCRAPE_PACKAGE = 'google.datacatalog_connectors.rdbms.scrape'
 
-    @mock.patch('{}.'.format(__SCRAPE_PACKAGE) +
-                'metadata_sql_object_normalizer.MetadataSQLObjectNormalizer.to_metadata_dict')
+    @mock.patch(
+        '{}.'.format(__SCRAPE_PACKAGE) +
+        'metadata_sql_object_normalizer.MetadataSQLObjectNormalizer.to_metadata_dict'
+    )
     def test_scrape_no_sql_objects_should_not_return_metadata(
             self, to_metadata_dict):  # noqa
         metadata = \
@@ -36,7 +39,8 @@ class MetadataSQLObjectsScraperTestCase(unittest.TestCase):
         to_metadata_dict.return_value = metadata
 
         main_scraper = mock.MagicMock()
-        scraper = metadata_sql_objects_scraper.MetadataSQLObjectsScraper(main_scraper)
+        scraper = metadata_sql_objects_scraper.MetadataSQLObjectsScraper(
+            main_scraper)
 
         metadata = scraper.scrape(None,
                                   connection_args={
@@ -46,24 +50,39 @@ class MetadataSQLObjectsScraperTestCase(unittest.TestCase):
 
         self.assertEqual(0, len(metadata))
 
-    @mock.patch('{}.'.format(__SCRAPE_PACKAGE) +
-                'metadata_sql_object_normalizer.MetadataSQLObjectNormalizer.to_metadata_dict')
-    def test_scrape_should_return_metadata(
-            self, to_metadata_dict):  # noqa
+    @mock.patch(
+        '{}.'.format(__SCRAPE_PACKAGE) +
+        'metadata_sql_object_normalizer.MetadataSQLObjectNormalizer.to_metadata_dict'
+    )
+    def test_scrape_should_return_metadata(self, to_metadata_dict):  # noqa
         sql_objects_config = \
             utils.Utils.convert_json_to_object(self.__MODULE_PATH,
                                                'sql_objects_config.json')
         main_scraper = mock.MagicMock()
-        scraper = metadata_sql_objects_scraper.MetadataSQLObjectsScraper(main_scraper)
+
+        main_scraper.get_metadata_as_dataframe.return_value = \
+            utils.Utils.retrieve_dataframe_from_file(self.__MODULE_PATH,
+                                                     'rdbms_sql_objects_dump.csv')
+
+        normalized_metadata = \
+            utils.Utils.convert_json_to_object(self.__MODULE_PATH,
+                                               'normalized_sql_objects.json')
+
+        to_metadata_dict.return_value = normalized_metadata
+
+        scraper = metadata_sql_objects_scraper.MetadataSQLObjectsScraper(
+            main_scraper)
 
         loaded_config = mock.MagicMock(config.Config)
 
         loaded_config.sql_objects_config = sql_objects_config
 
-        metadata = scraper.scrape(loaded_config,
-            connection_args={
-                'host': 'localhost',
-                'port': 1234
-            })
+        returned_metadata = scraper.scrape(loaded_config,
+                                           connection_args={
+                                               'host': 'localhost',
+                                               'port': 1234
+                                           })
 
-        self.assertEqual(0, len(metadata))
+        self.assertEqual(1, len(returned_metadata))
+        self.assertDictEqual(normalized_metadata,
+                             returned_metadata['functions'])

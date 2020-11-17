@@ -15,6 +15,7 @@
 # limitations under the License.
 
 import logging
+import json
 import os
 import yaml
 
@@ -26,8 +27,7 @@ class Config:
     def __init__(self, user_config_path, connector_config_path):
         self._user_config_path = user_config_path
         self._connector_config_path = connector_config_path
-        self._conf_content = self.__read_user_defined_config_file(
-            self._user_config_path)
+        self._conf_content = self.__read_yaml_file(self._user_config_path)
         self.refresh_metadata_tables = False
         self.scrape_optional_metadata = False
         self.__determine_scraping_steps()
@@ -85,10 +85,10 @@ class Config:
                                 config_constants.SQL_OBJECT_ITEM_NAME:
                                     item_name,
                                 config_constants.SQL_OBJECT_ITEM_QUERY_KEY:
-                                    self.__read_connector_config_file(
-                                        query_full_path),
+                                    self.__read_sql_query_file(query_full_path
+                                                              ),
                                 config_constants.SQL_OBJECT_ITEM_METADATA_DEF_KEY:
-                                    self.__read_connector_config_file(
+                                    self.__read_json_file(
                                         metadata_def_full_path)
                             })
                             logging.info(
@@ -128,16 +128,21 @@ class Config:
             self.scrape_optional_metadata = True
 
     @classmethod
-    def __read_user_defined_config_file(cls, path):
+    def __read_yaml_file(cls, path):
         with open(path, 'r') as f:
             conf = yaml.load(f, Loader=yaml.FullLoader)
         return conf or dict()
 
     @classmethod
-    def __read_connector_config_file(cls, path):
+    def __read_sql_query_file(cls, path):
         with open(path, 'r') as f:
             data = f.read()
             return data
+
+    @classmethod
+    def __read_json_file(cls, path):
+        with open(path, 'r') as f:
+            return json.load(f)
 
     @classmethod
     def __connector_has_config_files_for_sql_objects(cls, query_full_path,

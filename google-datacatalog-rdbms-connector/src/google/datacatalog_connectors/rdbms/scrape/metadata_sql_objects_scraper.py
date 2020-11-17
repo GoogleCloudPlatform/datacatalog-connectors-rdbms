@@ -47,15 +47,9 @@ class MetadataSQLObjectsScraper:
                     metadata_def, connection_args, query)
 
                 try:
-                    sql_object_items = sql_objects.get(name)
-
-                    if not sql_object_items:
-                        sql_object_items = []
-                        sql_objects[name] = sql_object_items
-
-                    sql_object_items.append(
-                        MetadataSQLObjectNormalizer.to_metadata_dict(
-                            dataframe, metadata_def))
+                    sql_objects[
+                        name] = MetadataSQLObjectNormalizer.to_metadata_dict(
+                            dataframe, metadata_def)
                 except:
                     logging.exception(
                         'Failed to scrape sql object, ignoring: {}'.format(
