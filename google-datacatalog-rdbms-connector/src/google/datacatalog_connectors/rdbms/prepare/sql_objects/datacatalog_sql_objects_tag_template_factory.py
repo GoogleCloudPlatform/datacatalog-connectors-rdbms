@@ -14,6 +14,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import logging
+
 from google.cloud import datacatalog
 
 from google.datacatalog_connectors.commons import prepare
@@ -26,17 +28,25 @@ class DataCatalogSQLObjectsTagTemplateFactory(prepare.BaseTagTemplateFactory):
     __DOUBLE_TYPE = datacatalog.FieldType.PrimitiveType.DOUBLE
     __STRING_TYPE = datacatalog.FieldType.PrimitiveType.STRING
 
-    def __init__(self, project_id, location_id, entry_group_id,
-                 metadata_definition):
+    def __init__(self,
+                 project_id,
+                 location_id,
+                 entry_group_id,
+                 sql_objects_metadata,
+                 sql_objects_config):
         self.__project_id = project_id
         self.__location_id = location_id
         self.__entry_group_id = entry_group_id
-        self.__metadata_definition = metadata_definition
+        self.__sql_objects_metadata = sql_objects_metadata
+        self.__sql_objects_config = sql_objects_config
 
     def make_tag_template_for_sql_objects_metadata(self):
         """Create a Tag Template with technical fields for Table metadata.
          :return: tag_template_id, tag_template
         """
+        if self.__sql_objects_metadata:
+            for key, value in self.__sql_objects_metadata.items():
+                logging.info('\nCreating template for: %s...', key)
 
         tag_template = datacatalog.TagTemplate()
 

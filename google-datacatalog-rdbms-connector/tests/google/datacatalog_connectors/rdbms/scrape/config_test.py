@@ -100,10 +100,10 @@ class ConfigTestCase(unittest.TestCase):
 
         self.assertEqual(1, len(loaded_config.sql_objects_config))
         self.assertEqual(
-            'functions', loaded_config.sql_objects_config[0][
+            'functions', loaded_config.sql_objects_config['functions'][
                 config_constants.SQL_OBJECT_ITEM_NAME])
-        self.assertIsNotNone(loaded_config.sql_objects_config[0][
+        self.assertIsNotNone(loaded_config.sql_objects_config['functions'][
             config_constants.SQL_OBJECT_ITEM_QUERY_KEY])
 
-        self.assertIsNotNone(loaded_config.sql_objects_config[0][
+        self.assertIsNotNone(loaded_config.sql_objects_config['functions'][
             config_constants.SQL_OBJECT_ITEM_METADATA_DEF_KEY])

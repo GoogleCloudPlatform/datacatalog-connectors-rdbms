@@ -33,7 +33,7 @@ class MetadataSQLObjectsScraper:
         if connection_args and config and config.sql_objects_config:
             sql_objects_config = config.sql_objects_config
 
-            for sql_object_config in sql_objects_config:
+            for key, sql_object_config in sql_objects_config.items():
                 name = sql_object_config[config_constants.SQL_OBJECT_ITEM_NAME]
                 metadata_def = sql_object_config[
                     config_constants.SQL_OBJECT_ITEM_METADATA_DEF_KEY]
@@ -41,7 +41,7 @@ class MetadataSQLObjectsScraper:
                     config_constants.SQL_OBJECT_ITEM_QUERY_KEY]
 
                 logging.info(
-                    'Scraping metadata for sql objects: {}'.format(name))
+                    'Scraping metadata for sql objects: {}'.format(key))
 
                 dataframe = self.main_scraper.get_metadata_as_dataframe(
                     metadata_def, connection_args, query)
@@ -52,6 +52,6 @@ class MetadataSQLObjectsScraper:
                 except:
                     logging.exception(
                         'Failed to scrape sql object, ignoring: {}'.format(
-                            name))
+                            key))
 
         return sql_objects

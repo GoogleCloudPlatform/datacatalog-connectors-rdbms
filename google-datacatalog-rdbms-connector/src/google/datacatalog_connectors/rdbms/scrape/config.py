@@ -47,7 +47,7 @@ class Config:
         return options
 
     def get_sql_objects_config(self):
-        parsed_config = []
+        parsed_config = {}
 
         sql_objects = self._conf_content.get(config_constants.SQL_OBJECTS_KEY)
 
@@ -81,7 +81,7 @@ class Config:
 
                         if self.__connector_has_config_files_for_sql_objects(
                                 query_full_path, metadata_def_full_path):
-                            parsed_config.append({
+                            parsed_config[item_name] = {
                                 config_constants.SQL_OBJECT_ITEM_NAME:
                                     item_name,
                                 config_constants.SQL_OBJECT_ITEM_QUERY_KEY:
@@ -90,7 +90,7 @@ class Config:
                                 config_constants.SQL_OBJECT_ITEM_METADATA_DEF_KEY:
                                     self.__read_json_file(
                                         metadata_def_full_path)
-                            })
+                            }
                             logging.info(
                                 'SQL Object: %s processed, metadata def: %s'
                                 ' and query: %s', item_name,

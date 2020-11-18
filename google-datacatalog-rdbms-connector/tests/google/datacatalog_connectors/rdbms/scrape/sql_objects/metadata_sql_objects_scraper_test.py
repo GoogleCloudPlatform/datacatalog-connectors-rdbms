@@ -83,6 +83,6 @@ class MetadataSQLObjectsScraperTestCase(unittest.TestCase):
                                                'port': 1234
                                            })
 
-        self.assertEqual(1, len(returned_metadata))
+        self.assertEqual(2, len(returned_metadata))
         self.assertDictEqual(normalized_metadata,
                              returned_metadata['functions'])
