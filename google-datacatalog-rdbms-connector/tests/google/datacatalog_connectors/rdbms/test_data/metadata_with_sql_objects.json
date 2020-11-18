@@ -838,20 +838,20 @@
         {
           "name": "CREDIT_MASK",
           "schema_name": "SYSTEM",
-          "input_parameter_count": null,
-          "return_value_count": null,
+          "input_parameter_count": 1,
+          "return_value_count": 1,
           "definition": "CREATE FUNCTION credit_mask(input varchar(19)) RETURNS output VARCHAR(19) LANGUAGE SQLSCRIPT \\nAS\\nBEGIN\\noutput = LEFT(:input,4) || '-XXXX-XXXX-' || RIGHT(:input,4);\\nEND",
-          "is_valid": null,
+          "is_valid": true,
           "owner_name": "SYSTEM",
           "create_time": "2020-11-10T16:53:52"
         },
         {
           "name": "CREDIT_MASK_2",
           "schema_name": "SYSTEM",
-          "input_parameter_count": null,
-          "return_value_count": null,
+          "input_parameter_count": 1,
+          "return_value_count": 1,
           "definition": "CREATE FUNCTION credit_mask_2(input varchar(19)) RETURNS output VARCHAR(19) LANGUAGE SQLSCRIPT \\nAS\\nBEGIN\\noutput = LEFT(:input,4) || '-XXXX-XXXX-' || RIGHT(:input,4);\\nEND",
-          "is_valid": null,
+          "is_valid": false,
           "owner_name": "SYSTEM",
           "create_time": "2020-11-10T16:53:52"
         }
@@ -864,7 +864,7 @@
           "name": "CREDIT_MASK",
           "schema_name": "SYSTEM",
           "input_parameter_count": null,
-          "return_value_count": null,
+          "return_value_count": 1,
           "definition": "CREATE FUNCTION credit_mask(input varchar(19)) RETURNS output VARCHAR(19) LANGUAGE SQLSCRIPT \\nAS\\nBEGIN\\noutput = LEFT(:input,4) || '-XXXX-XXXX-' || RIGHT(:input,4);\\nEND",
           "is_valid": null,
           "owner_name": "SYSTEM",
@@ -873,10 +873,10 @@
         {
           "name": "CREDIT_MASK_2",
           "schema_name": "SYSTEM",
-          "input_parameter_count": null,
+          "input_parameter_count": 0,
           "return_value_count": null,
           "definition": "CREATE FUNCTION credit_mask_2(input varchar(19)) RETURNS output VARCHAR(19) LANGUAGE SQLSCRIPT \\nAS\\nBEGIN\\noutput = LEFT(:input,4) || '-XXXX-XXXX-' || RIGHT(:input,4);\\nEND",
-          "is_valid": null,
+          "is_valid": true,
           "owner_name": "SYSTEM",
           "create_time": "2020-11-10T16:53:52"
         }

@@ -66,5 +66,4 @@ class MetadataSQLObjectNormalizerTestCase(unittest.TestCase):
 
         self.assertEqual('STORED_PROCEDURE_CREDIT_MASK',
                          stored_procedure_1_dict['name'])
-        self.assertEqual('SYSTEM',
-                         stored_procedure_1_dict['schema_name'])
+        self.assertEqual('SYSTEM', stored_procedure_1_dict['schema_name'])

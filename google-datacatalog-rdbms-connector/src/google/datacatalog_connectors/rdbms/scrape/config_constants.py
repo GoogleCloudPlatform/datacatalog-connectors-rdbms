@@ -32,6 +32,8 @@ METADATA_ENRICH_ENTRY_ID_PATTERN_FOR_PREFIX = 'entry_id_pattern_for_prefix'
 SQL_OBJECTS_KEY = 'sql_objects'
 SQL_OBJECT_ITEM_NAME = 'name'
 
+SQL_OBJECT_TYPE = 'type'
+SQL_OBJECT_NAME = 'name'
 SQL_OBJECT_ITEM_QUERY_KEY = 'query'
 SQL_OBJECT_ITEM_QUERY_FILENAME_PREFIX = 'query'
 SQL_OBJECT_ITEM_QUERY_FILENAME_SUFFIX = 'sql_object.sql'
@@ -42,9 +44,27 @@ SQL_OBJECT_ITEM_METADATA_DEF_FILENAME_SUFFIX = 'sql_object.json'
 
 SQL_OBJECT_ITEM_ENABLED_FLAG = 'enabled'
 
-# Metadata keys for sql objects
-SQL_OBJECT_TYPE = 'type'
-SQL_OBJECT_ITEMS = 'items'
-SQL_OBJECT_ITEM_MODEL = 'model'
-SQL_OBJECT_ITEM_TYPE = 'type'
-SQL_OBJECT_ITEM_VALUE = 'value'
+# Metadata scrape sql objects items
+SQL_OBJECT_ITEMS_KEY = 'items'
+
+# Metadata scrape sql objects model types
+SQL_OBJECT_TAG_MODEL = 'tag'
+SQL_OBJECT_ENTRY_MODEL = 'entry'
+
+# Metadata scrape sql objects field types
+SQL_OBJECT_DOUBLE_FIELD = 'double'
+SQL_OBJECT_STRING_FIELD = 'string'
+SQL_OBJECT_BOOLEAN_FIELD = 'bool'
+SQL_OBJECT_TIMESTAMP_FIELD = 'timestamp'
+
+# Metadata scrape sql objects fields
+SQL_OBJECT_FIELDS = 'fields'
+SQL_OBJECT_FIELD_TARGET = 'target'
+SQL_OBJECT_FIELD_TARGET_NAME = 'field_name'
+SQL_OBJECT_FIELD_TARGET_MODEL = 'model'
+SQL_OBJECT_FIELD_TARGET_TYPE = 'type'
+
+# Metadata scrape sql objects entry pre defined field
+SQL_OBJECT_ENTRY_CREATE_TIME = 'create_time'
+SQL_OBJECT_ENTRY_UPDATE_TIME = 'update_time'
+SQL_OBJECT_ENTRY_DESCRIPTION = 'description'

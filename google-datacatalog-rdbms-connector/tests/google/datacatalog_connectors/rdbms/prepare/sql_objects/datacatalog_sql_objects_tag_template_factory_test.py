@@ -34,7 +34,8 @@ class DataCatalogSQLObjectsTagTemplateFactoryTest(unittest.TestCase):
     __LOCATION_ID = 'test_location'
     __ENTRY_GROUP_ID = 'my_entry_group'
 
-    def test_make_tag_template_for_sql_objects(self):
+    def test_make_tag_template_for_sql_objects_should_set_all_available_fields(
+            self):
         metadata = \
             utils.Utils.convert_json_to_object(self.__MODULE_PATH,
                                                'metadata_with_sql_objects.json')['sql_objects']
@@ -47,53 +48,110 @@ class DataCatalogSQLObjectsTagTemplateFactoryTest(unittest.TestCase):
                 self.__PROJECT_ID,
                 self.__LOCATION_ID,
                 self.__ENTRY_GROUP_ID,
-                metadata,
                 sql_objects_config
             )
 
-        tag_template_id, tag_template = \
-            factory.make_tag_template_for_sql_objects_metadata()
+        tag_templates_dict = \
+            factory.make_tag_templates_for_sql_objects_metadata(metadata)
 
-        self.assertEqual('my_entry_group_table_metadata', tag_template_id)
-        self.assertEqual('My_entry_group Table - Metadata',
-                         tag_template.display_name)
+        function_template = tag_templates_dict[
+            'my_entry_group_function_metadata']
+
+        self.assertEqual('My Entry Group Function - Metadata',
+                         function_template.display_name)
+
+        self.assertEqual(
+            'projects/test_project/locations/test_location/'
+            'tagTemplates/my_entry_group_function_metadata',
+            function_template.name)
 
         self.assertEqual(
             self.__STRING_TYPE,
-            tag_template.fields['schema_name'].type.primitive_type)
+            function_template.fields['owner_name'].type.primitive_type)
+        self.assertEqual('Owner Name',
+                         function_template.fields['owner_name'].display_name)
+
+        self.assertEqual(
+            self.__STRING_TYPE,
+            function_template.fields['schema_name'].type.primitive_type)
         self.assertEqual('Schema Name',
-                         tag_template.fields['schema_name'].display_name)
+                         function_template.fields['schema_name'].display_name)
 
-        self.assertEqual(self.__DOUBLE_TYPE,
-                         tag_template.fields['num_rows'].type.primitive_type)
-        self.assertEqual('Number of rows',
-                         tag_template.fields['num_rows'].display_name)
+        self.assertEqual(
+            self.__DOUBLE_TYPE, function_template.
+            fields['input_parameter_count'].type.primitive_type)
+        self.assertEqual(
+            'Input Parameter Count',
+            function_template.fields['input_parameter_count'].display_name)
 
         self.assertEqual(
             self.__STRING_TYPE,
-            tag_template.fields['table_creator'].type.primitive_type)
-        self.assertEqual('Table Creator',
-                         tag_template.fields['table_creator'].display_name)
-
-        self.assertEqual(self.__STRING_TYPE,
-                         tag_template.fields['table_type'].type.primitive_type)
-        self.assertEqual('Table Type',
-                         tag_template.fields['table_type'].display_name)
+            function_template.fields['definition'].type.primitive_type)
+        self.assertEqual('Definition',
+                         function_template.fields['definition'].display_name)
 
         self.assertEqual(
             self.__BOOL_TYPE,
-            tag_template.fields['has_primary_key'].type.primitive_type)
-        self.assertEqual('Has Primary Key',
-                         tag_template.fields['has_primary_key'].display_name)
+            function_template.fields['is_valid'].type.primitive_type)
+        self.assertEqual('Is Valid',
+                         function_template.fields['is_valid'].display_name)
+
+        self.assertEqual(
+            self.__DOUBLE_TYPE,
+            function_template.fields['return_value_count'].type.primitive_type)
+        self.assertEqual(
+            'Return Value Count',
+            function_template.fields['return_value_count'].display_name)
+
+        stored_procedure_template = tag_templates_dict[
+            'my_entry_group_stored_procedure_metadata']
+
+        self.assertEqual('My Entry Group Stored Procedure - Metadata',
+                         stored_procedure_template.display_name)
+
+        self.assertEqual(
+            'projects/test_project/locations/test_location/'
+            'tagTemplates/my_entry_group_stored_procedure_metadata',
+            stored_procedure_template.name)
 
         self.assertEqual(
             self.__STRING_TYPE,
-            tag_template.fields['table_owner'].type.primitive_type)
-        self.assertEqual('Table Owner',
-                         tag_template.fields['table_owner'].display_name)
+            stored_procedure_template.fields['owner_name'].type.primitive_type)
+        self.assertEqual(
+            'Owner Name',
+            stored_procedure_template.fields['owner_name'].display_name)
+
+        self.assertEqual(
+            self.__STRING_TYPE, stored_procedure_template.
+            fields['schema_name'].type.primitive_type)
+        self.assertEqual(
+            'Schema Name',
+            stored_procedure_template.fields['schema_name'].display_name)
+
+        self.assertEqual(
+            self.__DOUBLE_TYPE, stored_procedure_template.
+            fields['input_parameter_count'].type.primitive_type)
+        self.assertEqual(
+            'Input Parameter Count', stored_procedure_template.
+            fields['input_parameter_count'].display_name)
 
         self.assertEqual(
             self.__STRING_TYPE,
-            tag_template.fields['table_update_user'].type.primitive_type)
-        self.assertEqual('Table Last Modified User',
-                         tag_template.fields['table_update_user'].display_name)
+            stored_procedure_template.fields['definition'].type.primitive_type)
+        self.assertEqual(
+            'Definition',
+            stored_procedure_template.fields['definition'].display_name)
+
+        self.assertEqual(
+            self.__BOOL_TYPE,
+            stored_procedure_template.fields['is_valid'].type.primitive_type)
+        self.assertEqual(
+            'Is Valid',
+            stored_procedure_template.fields['is_valid'].display_name)
+
+        self.assertEqual(
+            self.__DOUBLE_TYPE, stored_procedure_template.
+            fields['return_value_count'].type.primitive_type)
+        self.assertEqual(
+            'Return Value Count', stored_procedure_template.
+            fields['return_value_count'].display_name)
