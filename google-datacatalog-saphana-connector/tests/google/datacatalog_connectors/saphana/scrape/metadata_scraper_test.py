@@ -40,7 +40,7 @@ class MetadataScraperTestCase(unittest.TestCase):
         to_metadata_dict.return_value = metadata
 
         scraper = metadata_scraper.MetadataScraper()
-        schemas_metadata = scraper.get_metadata({}, csv_path='csv')
+        schemas_metadata = scraper.scrape({}, csv_path='csv')
 
         self.assertEqual(1, len(schemas_metadata))
 
@@ -75,8 +75,8 @@ class MetadataScraperTestCase(unittest.TestCase):
         to_metadata_dict.return_value = metadata
 
         scraper = metadata_scraper.MetadataScraper()
-        schemas_metadata = scraper.get_metadata({},
-                                                connection_args={
+        schemas_metadata = scraper.scrape({},
+                                          connection_args={
                                                     'database': 'db',
                                                     'host': 'mysql_host',
                                                     'user': 'dbc',
@@ -95,7 +95,7 @@ class MetadataScraperTestCase(unittest.TestCase):
 
         scraper = metadata_scraper.MetadataScraper()
         self.assertRaises(Exception,
-                          scraper.get_metadata, {},
+                          scraper.scrape, {},
                           connection_args={
                               'database': 'db',
                               'host': 'mysql_host',

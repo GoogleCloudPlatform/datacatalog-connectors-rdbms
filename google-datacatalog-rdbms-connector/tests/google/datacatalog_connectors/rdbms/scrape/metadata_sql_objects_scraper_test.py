@@ -28,15 +28,14 @@ class MetadataSQLObjectsScraperTestCase(unittest.TestCase):
 
     @mock.patch(
         '{}.'.format(__SCRAPE_PACKAGE) +
-        'metadata_sql_object_normalizer.MetadataSQLObjectNormalizer.to_metadata_dict'
-    )
+        'metadata_sql_object_normalizer.MetadataSQLObjectNormalizer.normalize')
     def test_scrape_no_sql_objects_should_not_return_metadata(
-            self, to_metadata_dict):  # noqa
+            self, normalize):  # noqa
         metadata = \
             utils.Utils.convert_json_to_object(self.__MODULE_PATH,
                                                'metadata.json')
 
-        to_metadata_dict.return_value = metadata
+        normalize.return_value = metadata
 
         main_scraper = mock.MagicMock()
         scraper = metadata_sql_objects_scraper.MetadataSQLObjectsScraper(
@@ -52,9 +51,8 @@ class MetadataSQLObjectsScraperTestCase(unittest.TestCase):
 
     @mock.patch(
         '{}.'.format(__SCRAPE_PACKAGE) +
-        'metadata_sql_object_normalizer.MetadataSQLObjectNormalizer.to_metadata_dict'
-    )
-    def test_scrape_should_return_metadata(self, to_metadata_dict):  # noqa
+        'metadata_sql_object_normalizer.MetadataSQLObjectNormalizer.normalize')
+    def test_scrape_should_return_metadata(self, normalize):  # noqa
         sql_objects_config = \
             utils.Utils.convert_json_to_object(self.__MODULE_PATH,
                                                'sql_objects_config.json')
@@ -68,7 +66,7 @@ class MetadataSQLObjectsScraperTestCase(unittest.TestCase):
             utils.Utils.convert_json_to_object(self.__MODULE_PATH,
                                                'normalized_sql_objects.json')
 
-        to_metadata_dict.return_value = normalized_metadata
+        normalize.return_value = normalized_metadata
 
         scraper = metadata_sql_objects_scraper.MetadataSQLObjectsScraper(
             main_scraper)

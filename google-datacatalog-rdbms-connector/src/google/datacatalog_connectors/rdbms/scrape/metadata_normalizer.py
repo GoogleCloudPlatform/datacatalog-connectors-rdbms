@@ -24,7 +24,7 @@ class MetadataNormalizer:
         pass
 
     @classmethod
-    def to_metadata_dict(cls, metadata, metadata_definition):
+    def normalize(cls, metadata, metadata_definition):
         """
          Receives a Pandas dataframe and normalizes it by creating a dictionary
          with Table Container(Database/Schema) -> Tables -> Columns hierarchy.

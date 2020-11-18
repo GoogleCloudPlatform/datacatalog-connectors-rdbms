@@ -75,7 +75,7 @@ class DataCatalogSynchronizer:
 
         logging.info('\n\n==============Scrape metadata===============')
 
-        metadata = self.__metadata_scraper().get_metadata(
+        metadata = self.__metadata_scraper().scrape(
             self.__metadata_definition,
             connection_args=self.__connection_args,
             query=self.__query,

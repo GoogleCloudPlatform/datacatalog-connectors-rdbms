@@ -51,7 +51,7 @@ class DatacatalogSynchronizerTestCase(unittest.TestCase):
     __RAW_METADATA_CSV = 'csv'
 
     @mock.patch('google.datacatalog_connectors.rdbms.'
-                'scrape.metadata_scraper.MetadataScraper.get_metadata')
+                'scrape.metadata_scraper.MetadataScraper.scrape')
     @mock.patch(
         'google.datacatalog_connectors.rdbms.'
         'prepare.assembled_entry_factory.'

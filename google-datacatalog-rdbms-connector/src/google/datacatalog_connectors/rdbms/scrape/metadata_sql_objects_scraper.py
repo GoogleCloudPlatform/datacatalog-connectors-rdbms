@@ -30,7 +30,7 @@ class MetadataSQLObjectsScraper:
 
     def scrape(self, config, connection_args):
         sql_objects = {}
-        if config and config.sql_objects_config:
+        if connection_args and config and config.sql_objects_config:
             sql_objects_config = config.sql_objects_config
 
             for sql_object_config in sql_objects_config:
@@ -47,9 +47,8 @@ class MetadataSQLObjectsScraper:
                     metadata_def, connection_args, query)
 
                 try:
-                    sql_objects[
-                        name] = MetadataSQLObjectNormalizer.to_metadata_dict(
-                            dataframe, metadata_def)
+                    sql_objects[name] = MetadataSQLObjectNormalizer.normalize(
+                        dataframe, metadata_def)
                 except:
                     logging.exception(
                         'Failed to scrape sql object, ignoring: {}'.format(

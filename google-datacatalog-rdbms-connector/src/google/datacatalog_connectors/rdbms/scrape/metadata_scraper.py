@@ -21,26 +21,40 @@ import time
 from google.datacatalog_connectors.rdbms.scrape.metadata_normalizer \
     import MetadataNormalizer
 
+from google.datacatalog_connectors.rdbms.scrape.metadata_sql_objects_scraper \
+    import MetadataSQLObjectsScraper
+
+from google.datacatalog_connectors.rdbms.scrape import config_constants
+
 import pandas as pd
 
 
 class MetadataScraper:
 
     def __init__(self):
-        pass
+        self.__sql_objects_scraper = MetadataSQLObjectsScraper(self)
 
-    def get_metadata(self,
-                     metadata_definition,
-                     connection_args=None,
-                     query=None,
-                     csv_path=None,
-                     config=None):
+    def scrape(self,
+               metadata_definition,
+               connection_args=None,
+               query=None,
+               csv_path=None,
+               config=None):
         dataframe = self.get_metadata_as_dataframe(metadata_definition,
                                                    connection_args, query,
                                                    csv_path, config)
 
-        return MetadataNormalizer.to_metadata_dict(dataframe,
-                                                   metadata_definition)
+        base_metadata = MetadataNormalizer.normalize(dataframe,
+                                                     metadata_definition)
+
+        sql_objects_metadata = self.__sql_objects_scraper.scrape(
+            config, connection_args)
+
+        if sql_objects_metadata:
+            base_metadata[
+                config_constants.SQL_OBJECTS_KEY] = sql_objects_metadata
+
+        return base_metadata
 
     def get_metadata_as_dataframe(self,
                                   metadata_definition,

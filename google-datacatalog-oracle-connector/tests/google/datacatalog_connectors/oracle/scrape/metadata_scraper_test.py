@@ -39,7 +39,7 @@ class MetadataScraperTestCase(unittest.TestCase):
         to_metadata_dict.return_value = metadata
 
         scraper = metadata_scraper.MetadataScraper()
-        schemas_metadata = scraper.get_metadata(
+        schemas_metadata = scraper.scrape(
             {},
             csv_path=utils.Utils.get_resolved_file_name(
                 self.__MODULE_PATH, 'oracle_full_dump.csv'))
@@ -77,8 +77,8 @@ class MetadataScraperTestCase(unittest.TestCase):
         to_metadata_dict.return_value = metadata
 
         scraper = metadata_scraper.MetadataScraper()
-        schemas_metadata = scraper.get_metadata({},
-                                                connection_args={
+        schemas_metadata = scraper.scrape({},
+                                          connection_args={
                                                     'db_service': 'db',
                                                     'port': 1234,
                                                     'host': 'mysql_host',
@@ -98,7 +98,7 @@ class MetadataScraperTestCase(unittest.TestCase):
 
         scraper = metadata_scraper.MetadataScraper()
         self.assertRaises(Exception,
-                          scraper.get_metadata, {},
+                          scraper.scrape, {},
                           connection_args={
                               'db_service': 'db',
                               'port': 1234,

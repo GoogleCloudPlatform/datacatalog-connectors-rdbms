@@ -36,7 +36,7 @@ class MetadataNormalizerTestCase(unittest.TestCase):
 
         metadata_dict = \
             metadata_normalizer.MetadataNormalizer. \
-            to_metadata_dict(
+            normalize(
                 metadata,
                 utils.Utils.get_metadata_def_obj(self.__MODULE_PATH))
 

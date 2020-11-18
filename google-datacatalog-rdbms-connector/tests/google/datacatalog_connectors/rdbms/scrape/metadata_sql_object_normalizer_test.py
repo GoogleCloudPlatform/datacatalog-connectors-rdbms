@@ -33,7 +33,7 @@ class MetadataSQLObjectNormalizerTestCase(unittest.TestCase):
 
         metadata_dict = \
             metadata_sql_object_normalizer.MetadataSQLObjectNormalizer. \
-            to_metadata_dict(
+            normalize(
                 metadata,
                 utils.Utils.get_metadata_def_obj(self.__MODULE_PATH,
                                                  'metadata_definition_functions_sql_object.json'))
@@ -59,7 +59,7 @@ class MetadataSQLObjectNormalizerTestCase(unittest.TestCase):
 
         metadata_dict = \
             metadata_sql_object_normalizer.MetadataSQLObjectNormalizer. \
-            to_metadata_dict(
+            normalize(
                 metadata,
                 utils.Utils.get_metadata_def_obj(
                     self.__MODULE_PATH,
