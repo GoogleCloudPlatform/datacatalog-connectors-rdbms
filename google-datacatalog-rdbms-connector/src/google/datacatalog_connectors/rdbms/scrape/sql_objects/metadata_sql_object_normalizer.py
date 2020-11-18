@@ -90,37 +90,31 @@ class MetadataSQLObjectNormalizer(MetadataNormalizer):
         normalized_dict = {'name': name}
 
         normalized_dict.update(
-            cls.__normalize_fields(fields, sql_objects_metadata))
+            cls._normalize_fields(fields, sql_objects_metadata))
 
         return normalized_dict
 
     @classmethod
-    def __normalize_fields(cls, fields, metadata):
+    def _normalize_fields(cls, fields, metadata):
         fields_dict = {}
         for field in fields:
             source = field['source']
             target = field['target']
 
             target_name = target['field_name']
-            target_model = target['model']
-            target_type = target['type']
 
             # could be that optional information ('source')
             # is not present in scraped metadata
             if source in metadata:
                 value = cls._extract_value_from_first_row(metadata, source)
 
-                if cls.__is_timestamp_field(target):
+                if cls._is_timestamp_field(target):
                     value = cls._normalize_timestamp_field(value)
 
-                fields_dict[target_name] = {
-                    'value': value,
-                    'model': target_model,
-                    'type': target_type
-                }
+                fields_dict[target_name] = value
 
         return fields_dict
 
     @classmethod
-    def __is_timestamp_field(cls, target):
+    def _is_timestamp_field(cls, target):
         return 'timestamp' == target['type']

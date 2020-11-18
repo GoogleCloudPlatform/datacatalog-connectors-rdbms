@@ -41,3 +41,10 @@ SQL_OBJECT_ITEM_METADATA_DEF_FILENAME_PREFIX = 'metadata_definition'
 SQL_OBJECT_ITEM_METADATA_DEF_FILENAME_SUFFIX = 'sql_object.json'
 
 SQL_OBJECT_ITEM_ENABLED_FLAG = 'enabled'
+
+# Metadata keys for sql objects
+SQL_OBJECT_TYPE = 'type'
+SQL_OBJECT_ITEMS = 'items'
+SQL_OBJECT_ITEM_MODEL = 'model'
+SQL_OBJECT_ITEM_TYPE = 'type'
+SQL_OBJECT_ITEM_VALUE = 'value'

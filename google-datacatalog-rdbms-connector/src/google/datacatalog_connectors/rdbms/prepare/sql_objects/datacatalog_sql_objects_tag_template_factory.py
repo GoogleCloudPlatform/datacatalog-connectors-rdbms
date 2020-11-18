@@ -20,6 +20,8 @@ from google.cloud import datacatalog
 
 from google.datacatalog_connectors.commons import prepare
 
+from google.datacatalog_connectors.rdbms.scrape import config_constants
+
 
 class DataCatalogSQLObjectsTagTemplateFactory(prepare.BaseTagTemplateFactory):
 
@@ -44,25 +46,35 @@ class DataCatalogSQLObjectsTagTemplateFactory(prepare.BaseTagTemplateFactory):
         """Create a Tag Template with technical fields for Table metadata.
          :return: tag_template_id, tag_template
         """
+        tag_templates_dict = {}
         if self.__sql_objects_metadata:
-            for key, value in self.__sql_objects_metadata.items():
-                logging.info('\nCreating template for: %s...', key)
+            for sql_object_name, _ in self.__sql_objects_metadata.items():
+                logging.info('\nCreating template for: %s...', sql_object_name)
+                metadata_def = self.__sql_objects_config[key]
+                sql_object_type = metadata_def[config_constants.SQL_OBJECT_TYPE]
 
-        tag_template = datacatalog.TagTemplate()
+                tag_template = datacatalog.TagTemplate()
 
-        table_type = self.__metadata_definition['table_def']['type']
+                tag_template_id = '{}_{}_metadata'.format(self.__entry_group_id,
+                                                          sql_object_type)
 
-        tag_template_id = '{}_{}_metadata'.format(self.__entry_group_id,
-                                                  table_type)
+                tag_template.display_name = '{} {} - Metadata'.format(
+                    self.__entry_group_id.capitalize(), sql_object_type.capitalize())
 
-        tag_template.name = \
-            datacatalog.DataCatalogClient.tag_template_path(
-                project=self.__project_id,
-                location=self.__location_id,
-                tag_template=tag_template_id)
+                tag_template.name = \
+                    datacatalog.DataCatalogClient.tag_template_path(
+                        project=self.__project_id,
+                        location=self.__location_id,
+                        tag_template=tag_template_id)
 
-        tag_template.display_name = '{} {} - Metadata'.format(
-            self.__entry_group_id.capitalize(), table_type.capitalize())
+                sql_object_items = metadata_def[config_constants.SQL_OBJECT_ITEMS]
+
+                for sql_object_item in sql_object_items:
+                    for item_name, item_dict in sql_object_item.item():
+                        item_dict[config_constants.SQL_OBJECT_ITEM_TYPE]
+                        item_dict[config_constants.SQL_OBJECT_ITEM_MODEL]
+                        item_dict[config_constants.SQL_OBJECT_ITEM_VALUE]
+
 
         self.__add_creator_field_to_template(table_type, tag_template)
         self.__add_owner_field_to_template(table_type, tag_template)

@@ -1,1 +1,54 @@
-{"sql_objects": {"functions": {"type": "function", "items": [{"name": "CREDIT_MASK", "schema_name": {"value": "SYSTEM", "model": "tag", "type": "string"}, "input_parameter_count": {"value": null, "model": "tag", "type": "double"}, "return_value_count": {"value": null, "model": "tag", "type": "double"}, "definition": {"value": "CREATE FUNCTION credit_mask(input varchar(19)) RETURNS output VARCHAR(19) LANGUAGE SQLSCRIPT \\nAS\\nBEGIN\\noutput = LEFT(:input,4) || '-XXXX-XXXX-' || RIGHT(:input,4);\\nEND", "model": "tag", "type": "string"}, "is_valid": {"value": null, "model": "tag", "type": "bool"}, "owner_name": {"value": "SYSTEM", "model": "tag", "type": "string"}, "create_time": {"value": "2020-11-10T16:53:52", "model": "entry", "type": "timestamp"}}, {"name": "CREDIT_MASK_2", "schema_name": {"value": "SYSTEM", "model": "tag", "type": "string"}, "input_parameter_count": {"value": null, "model": "tag", "type": "double"}, "return_value_count": {"value": null, "model": "tag", "type": "double"}, "definition": {"value": "CREATE FUNCTION credit_mask_2(input varchar(19)) RETURNS output VARCHAR(19) LANGUAGE SQLSCRIPT \\nAS\\nBEGIN\\noutput = LEFT(:input,4) || '-XXXX-XXXX-' || RIGHT(:input,4);\\nEND", "model": "tag", "type": "string"}, "is_valid": {"value": null, "model": "tag", "type": "bool"}, "owner_name": {"value": "SYSTEM", "model": "tag", "type": "string"}, "create_time": {"value": "2020-11-10T16:53:52", "model": "entry", "type": "timestamp"}}]}, "stored_procedures": {"type": "stored_procedure", "items": [{"name": "STORED_PROCEDURE_CREDIT_MASK", "schema_name": {"value": "SYSTEM", "model": "tag", "type": "string"}, "input_parameter_count": {"value": null, "model": "tag", "type": "double"}, "return_value_count": {"value": null, "model": "tag", "type": "double"}, "definition": {"value": "CREATE STORED_PROCEDURE credit_mask_2(input varchar(19)) RETURNS output VARCHAR(19) LANGUAGE SQLSCRIPT \\nAS\\nBEGIN\\noutput = LEFT(:input,4) || '-XXXX-XXXX-' || RIGHT(:input,4);\\nEND", "model": "tag", "type": "string"}, "is_valid": {"value": null, "model": "tag", "type": "bool"}, "owner_name": {"value": "SYSTEM", "model": "tag", "type": "string"}, "create_time": {"value": "2020-11-10T16:53:52", "model": "entry", "type": "timestamp"}}]}}}
+{
+    "sql_objects": {
+        "functions": {
+            "type": "function",
+            "items": [
+                {
+                    "name": "CREDIT_MASK",
+                    "schema_name":  "SYSTEM",
+                    "input_parameter_count": null,
+                    "return_value_count": null,
+                    "definition": "CREATE FUNCTION credit_mask(input varchar(19)) RETURNS output VARCHAR(19) LANGUAGE SQLSCRIPT \\nAS\\nBEGIN\\noutput = LEFT(:input,4) || '-XXXX-XXXX-' || RIGHT(:input,4);\\nEND",
+                    "is_valid": null,
+                    "owner_name": "SYSTEM",
+                    "create_time": "2020-11-10T16:53:52"
+                },
+                {
+                    "name": "CREDIT_MASK_2",
+                    "schema_name": "SYSTEM",
+                    "input_parameter_count": null,
+                    "return_value_count": null,
+                    "definition": "CREATE FUNCTION credit_mask_2(input varchar(19)) RETURNS output VARCHAR(19) LANGUAGE SQLSCRIPT \\nAS\\nBEGIN\\noutput = LEFT(:input,4) || '-XXXX-XXXX-' || RIGHT(:input,4);\\nEND",
+                    "is_valid": null,
+                    "owner_name": "SYSTEM",
+                    "create_time": "2020-11-10T16:53:52"
+                }
+            ]
+        },
+        "stored_procedures": {
+            "type": "stored_procedure",
+             "items": [
+                {
+                    "name": "CREDIT_MASK",
+                    "schema_name":  "SYSTEM",
+                    "input_parameter_count": null,
+                    "return_value_count": null,
+                    "definition": "CREATE FUNCTION credit_mask(input varchar(19)) RETURNS output VARCHAR(19) LANGUAGE SQLSCRIPT \\nAS\\nBEGIN\\noutput = LEFT(:input,4) || '-XXXX-XXXX-' || RIGHT(:input,4);\\nEND",
+                    "is_valid": null,
+                    "owner_name": "SYSTEM",
+                    "create_time": "2020-11-10T16:53:52"
+                },
+                {
+                    "name": "CREDIT_MASK_2",
+                    "schema_name": "SYSTEM",
+                    "input_parameter_count": null,
+                    "return_value_count": null,
+                    "definition": "CREATE FUNCTION credit_mask_2(input varchar(19)) RETURNS output VARCHAR(19) LANGUAGE SQLSCRIPT \\nAS\\nBEGIN\\noutput = LEFT(:input,4) || '-XXXX-XXXX-' || RIGHT(:input,4);\\nEND",
+                    "is_valid": null,
+                    "owner_name": "SYSTEM",
+                    "create_time": "2020-11-10T16:53:52"
+                }
+            ]
+        }
+    }
+}

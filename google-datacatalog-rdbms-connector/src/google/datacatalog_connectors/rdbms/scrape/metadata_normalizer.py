@@ -154,7 +154,7 @@ class MetadataNormalizer:
         normalized_dict = {'name': name}
 
         normalized_dict.update(
-            cls.__normalize_fields(fields, table_container_metadata))
+            cls._normalize_fields(fields, table_container_metadata))
 
         table_def = metadata_definition['table_def']
 
@@ -177,7 +177,7 @@ class MetadataNormalizer:
 
         normalized_dict = {'name': name}
 
-        normalized_dict.update(cls.__normalize_fields(fields, table_metadata))
+        normalized_dict.update(cls._normalize_fields(fields, table_metadata))
 
         column_def = metadata_definition['column_def']
 
@@ -196,12 +196,12 @@ class MetadataNormalizer:
 
         normalized_dict = {'name': name}
 
-        normalized_dict.update(cls.__normalize_fields(fields, column_metadata))
+        normalized_dict.update(cls._normalize_fields(fields, column_metadata))
 
         return normalized_dict
 
     @classmethod
-    def __normalize_fields(cls, fields, metadata):
+    def _normalize_fields(cls, fields, metadata):
         fields_dict = {}
         for field in fields:
             source = field['source']
@@ -212,14 +212,14 @@ class MetadataNormalizer:
             if source in metadata:
                 value = cls._extract_value_from_first_row(metadata, source)
 
-                if cls.__is_date_field(target):
+                if cls._is_timestamp_field(target):
                     value = cls._normalize_timestamp_field(value)
 
                 fields_dict[target] = value
         return fields_dict
 
     @classmethod
-    def __is_date_field(cls, target):
+    def _is_timestamp_field(cls, target):
         # [TODO] Improve logic to identify timestamp fields
         # currently using a naming convention
         if '_date' in target or '_time' in target:
