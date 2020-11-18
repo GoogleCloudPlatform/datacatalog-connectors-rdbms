@@ -18,13 +18,12 @@ import os
 import unittest
 
 from google.datacatalog_connectors.commons_test import utils
-from google.datacatalog_connectors.rdbms.scrape \
+from google.datacatalog_connectors.rdbms.scrape.sql_objects \
     import metadata_sql_object_normalizer
 
 
 class MetadataSQLObjectNormalizerTestCase(unittest.TestCase):
-    __MODULE_PATH = os.path.dirname(os.path.abspath(__file__))
-    __SCRAPE_PACKAGE = 'google.datacatalog_connectors.rdbms.scrape'
+    __MODULE_PATH = '{}/..'.format(os.path.dirname(os.path.abspath(__file__)))
 
     def test_normalize_function_sql_object_metadata_with_csv_should_return_objects(
             self):

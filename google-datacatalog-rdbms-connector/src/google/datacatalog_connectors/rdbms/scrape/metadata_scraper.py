@@ -21,7 +21,7 @@ import time
 from google.datacatalog_connectors.rdbms.scrape.metadata_normalizer \
     import MetadataNormalizer
 
-from google.datacatalog_connectors.rdbms.scrape.metadata_sql_objects_scraper \
+from google.datacatalog_connectors.rdbms.scrape.sql_objects \
     import MetadataSQLObjectsScraper
 
 from google.datacatalog_connectors.rdbms.scrape import config_constants

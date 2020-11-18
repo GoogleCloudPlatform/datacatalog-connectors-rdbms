@@ -107,7 +107,7 @@ class MetadataScraperTestCase(unittest.TestCase):
     @mock.patch('{}.'.format(__SCRAPE_PACKAGE) +
                 'metadata_scraper.MetadataNormalizer.normalize')
     @mock.patch(
-        '{}.'.format(__SCRAPE_PACKAGE) +
+        '{}.sql_objects.'.format(__SCRAPE_PACKAGE) +
         'metadata_sql_objects_scraper.MetadataSQLObjectNormalizer.normalize')
     def test_scrape_metadata_with_sql_objects_config_should_return_objects(
             self, sql_objects_normalize, base_normalize,
@@ -159,7 +159,7 @@ class MetadataScraperTestCase(unittest.TestCase):
     @mock.patch('{}.'.format(__SCRAPE_PACKAGE) +
                 'metadata_scraper.MetadataNormalizer.normalize')
     @mock.patch(
-        '{}.'.format(__SCRAPE_PACKAGE) +
+        '{}.sql_objects.'.format(__SCRAPE_PACKAGE) +
         'metadata_sql_objects_scraper.MetadataSQLObjectNormalizer.normalize')
     def test_scrape_metadata_with_multiple_sql_objects_config_should_return_objects(
             self, sql_objects_normalize, base_normalize,

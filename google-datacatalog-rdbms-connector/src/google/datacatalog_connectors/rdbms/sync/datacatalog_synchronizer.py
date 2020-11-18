@@ -90,7 +90,8 @@ class DataCatalogSynchronizer:
 
         logging.info('\n\n==============Prepare metadata===============')
 
-        tag_templates_dict = self.__create_tag_templates()
+        tag_templates_dict = self.__create_tag_templates(metadata,
+                                                         self.__config)
 
         prepared_entries = self.__prepare_datacatalog_entries(
             metadata, tag_templates_dict)
@@ -166,7 +167,7 @@ class DataCatalogSynchronizer:
     def __create_tag_factory(self):
         return self._get_tag_factory()(self.__metadata_definition)
 
-    def __create_tag_templates(self):
+    def __create_tag_templates(self, metadata, config):
         tag_template_factory = self._get_tag_template_factory()(
             self.__project_id, self.__location_id, self.__entry_group_id,
             self.__metadata_definition)

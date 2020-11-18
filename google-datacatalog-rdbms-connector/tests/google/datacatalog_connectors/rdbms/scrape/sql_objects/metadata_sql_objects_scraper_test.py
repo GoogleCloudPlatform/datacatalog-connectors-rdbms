@@ -19,15 +19,17 @@ import unittest
 
 import mock
 from google.datacatalog_connectors.commons_test import utils
-from google.datacatalog_connectors.rdbms.scrape import metadata_sql_objects_scraper, config
+from google.datacatalog_connectors.rdbms.scrape import config
+from google.datacatalog_connectors.rdbms.scrape.sql_objects import \
+    metadata_sql_objects_scraper
 
 
 class MetadataSQLObjectsScraperTestCase(unittest.TestCase):
-    __MODULE_PATH = os.path.dirname(os.path.abspath(__file__))
+    __MODULE_PATH = '{}/..'.format(os.path.dirname(os.path.abspath(__file__)))
     __SCRAPE_PACKAGE = 'google.datacatalog_connectors.rdbms.scrape'
 
     @mock.patch(
-        '{}.'.format(__SCRAPE_PACKAGE) +
+        '{}.sql_objects.'.format(__SCRAPE_PACKAGE) +
         'metadata_sql_object_normalizer.MetadataSQLObjectNormalizer.normalize')
     def test_scrape_no_sql_objects_should_not_return_metadata(
             self, normalize):  # noqa
@@ -50,7 +52,7 @@ class MetadataSQLObjectsScraperTestCase(unittest.TestCase):
         self.assertEqual(0, len(metadata))
 
     @mock.patch(
-        '{}.'.format(__SCRAPE_PACKAGE) +
+        '{}.sql_objects.'.format(__SCRAPE_PACKAGE) +
         'metadata_sql_object_normalizer.MetadataSQLObjectNormalizer.normalize')
     def test_scrape_should_return_metadata(self, normalize):  # noqa
         sql_objects_config = \

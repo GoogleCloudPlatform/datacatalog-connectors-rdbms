@@ -16,8 +16,7 @@
 
 from .metadata_enricher import MetadataEnricher
 from .metadata_normalizer import MetadataNormalizer
-from .metadata_sql_object_normalizer import MetadataSQLObjectNormalizer
 from .metadata_scraper import MetadataScraper
 
 __all__ = ('MetadataEnricher', 'MetadataNormalizer',
-           'MetadataSQLObjectNormalizer', 'MetadataScraper')
+           'MetadataScraper')

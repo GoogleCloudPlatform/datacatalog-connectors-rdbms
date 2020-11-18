@@ -16,8 +16,8 @@
 
 import logging
 
-from google.datacatalog_connectors.rdbms.scrape. \
-    metadata_sql_object_normalizer import MetadataSQLObjectNormalizer
+from google.datacatalog_connectors.rdbms.scrape.sql_objects \
+    import MetadataSQLObjectNormalizer
 
 from google.datacatalog_connectors.rdbms.scrape \
     import config_constants
