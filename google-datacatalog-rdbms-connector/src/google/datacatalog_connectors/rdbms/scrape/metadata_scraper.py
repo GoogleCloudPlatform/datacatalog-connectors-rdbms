@@ -76,7 +76,8 @@ class MetadataScraper:
             logging.info('Scrapping additional metadata from connection_args,'
                          'if configured')
             dataframe = self._enrich_metadata_based_on_config(
-                config, dataframe, connection_args, metadata_definition)
+                config, dataframe, connection_args, metadata_definition,
+                csv_path)
 
         return dataframe
 
@@ -106,32 +107,36 @@ class MetadataScraper:
         return pd.DataFrame(rows)
 
     def _enrich_metadata_based_on_config(self, config, base_dataframe,
-                                         connection_args, metadata_definition):
+                                         connection_args, metadata_definition,
+                                         csv_path):
         enriched_dataframe = base_dataframe
 
-        if config.refresh_metadata_tables:
-            query_assembler = self._get_query_assembler()
-            exact_table_names = MetadataNormalizer.\
-                get_exact_table_names_from_dataframe(
-                    base_dataframe, metadata_definition)
-            refresh_queries = query_assembler.get_refresh_metadata_queries(
-                exact_table_names)
-            logging.info('Refreshing metadata')
-            self._refresh_metadata_from_rdbms_connection(
-                connection_args, refresh_queries)
+        # If the execution comes from CSV source,
+        # ignore the additional queries.
+        if not csv_path:
+            if config.refresh_metadata_tables:
+                query_assembler = self._get_query_assembler()
+                exact_table_names = MetadataNormalizer.\
+                    get_exact_table_names_from_dataframe(
+                        base_dataframe, metadata_definition)
+                refresh_queries = query_assembler.get_refresh_metadata_queries(
+                    exact_table_names)
+                logging.info('Refreshing metadata')
+                self._refresh_metadata_from_rdbms_connection(
+                    connection_args, refresh_queries)
 
-        if config.scrape_optional_metadata:
-            query_assembler = self._get_query_assembler()
-            optional_metadata = config.get_chosen_metadata_options()
-            optional_queries = query_assembler.get_optional_queries(
-                optional_metadata)
-            logging.info(
-                'Scraping metadata according to configuration file: {}'.format(
-                    optional_metadata))
-            enriched_dataframe = \
-                self._get_optional_metadata_from_rdbms_connection(
-                    connection_args, optional_queries, base_dataframe,
-                    metadata_definition)
+            if config.scrape_optional_metadata:
+                query_assembler = self._get_query_assembler()
+                optional_metadata = config.get_chosen_metadata_options()
+                optional_queries = query_assembler.get_optional_queries(
+                    optional_metadata)
+                logging.info(
+                    'Scraping metadata according to configuration file: {}'.
+                    format(optional_metadata))
+                enriched_dataframe = \
+                    self._get_optional_metadata_from_rdbms_connection(
+                        connection_args, optional_queries, base_dataframe,
+                        metadata_definition)
 
         enrich_metadata_dict = config.get_enrich_metadata_dict()
 
