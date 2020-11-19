@@ -31,9 +31,9 @@ class DataCatalogSQLObjectsTagFactory(prepare.BaseTagFactory):
                                  tag_template):
         sql_object_config = self.__sql_objects_config[sql_object_key]
 
-        return self.__make_tag_for_sql_object_metadata(sql_object_config,
-                                                       sql_object_item,
-                                                       tag_template)
+        return [self.__make_tag_for_sql_object_metadata(sql_object_config,
+                                                        sql_object_item,
+                                                        tag_template)]
 
     def __make_tag_for_sql_object_metadata(self, sql_object_config,
                                            sql_object_item, tag_template):

@@ -66,7 +66,7 @@ class MetadataScraper:
             logging.info('Scrapping metadata from csv path: "%s"', csv_path)
             dataframe = self._get_metadata_from_csv(csv_path)
         elif self._is_metadata_from_connection(connection_args):
-            logging.info('Scrapping basic metadata from connection_args')
+            logging.info('Scrapping metadata from connection_args')
             dataframe = self._get_base_metadata_from_rdbms_connection(
                 connection_args, query)
         else:

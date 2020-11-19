@@ -50,6 +50,10 @@ class SapHana2DatacatalogCli(datacatalog_cli.DatacatalogCli):
         return os.path.join(os.path.dirname(os.path.abspath(__file__)),
                             'config/metadata_query.sql')
 
+    def _get_connector_config_path(self):
+        return os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                            'config')
+
     def _parse_args(self, argv):
         parser = argparse.ArgumentParser(
             description='Command line to sync SAP Hana '
