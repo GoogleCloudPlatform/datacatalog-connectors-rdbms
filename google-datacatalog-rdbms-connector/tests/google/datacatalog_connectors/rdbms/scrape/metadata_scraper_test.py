@@ -161,7 +161,7 @@ class MetadataScraperTestCase(unittest.TestCase):
     @mock.patch(
         '{}.sql_objects.'.format(__SCRAPE_PACKAGE) +
         'metadata_sql_objects_scraper.MetadataSQLObjectNormalizer.normalize')
-    def test_scrape_metadata_with_multiple_sql_objects_config_should_return_objects(
+    def test_scrape_metadata_with_multiple_sql_objects_config_should_return_objects(  # noqa: E501
             self, sql_objects_normalize, base_normalize,
             get_exact_table_names_from_dataframe):  # noqa
         base_metadata = \
@@ -175,8 +175,9 @@ class MetadataScraperTestCase(unittest.TestCase):
                                                'normalized_sql_objects.json')
 
         stored_procedure_metadata = \
-            utils.Utils.convert_json_to_object(self.__MODULE_PATH,
-                                               'normalized_sql_objects_stored_procedure.json')
+            utils.Utils.convert_json_to_object(
+                self.__MODULE_PATH,
+                'normalized_sql_objects_stored_procedure.json')
 
         sql_objects_normalize.side_effect = [
             functions_metadata, stored_procedure_metadata

@@ -34,7 +34,8 @@ class Config:
 
     def get_chosen_metadata_options(self):
         '''
-        From the config contents, retrieve options that user has marked as true
+        From the config contents,
+        retrieve options that user has marked as true
         '''
         options = [
             # TODO put the scrape_options in a parent
@@ -55,8 +56,8 @@ class Config:
             for sql_object in sql_objects:
                 if sql_object.get(
                         config_constants.SQL_OBJECT_ITEM_ENABLED_FLAG) is True:
-                    # test to avoid breaking changes, older versions of connector
-                    # will skip this.
+                    # test to avoid breaking changes,
+                    # older versions of connector will skip this.
                     if self._connector_config_path:
                         item_name = sql_object[
                             config_constants.SQL_OBJECT_ITEM_NAME]
@@ -81,16 +82,30 @@ class Config:
 
                         if self.__connector_has_config_files_for_sql_objects(
                                 query_full_path, metadata_def_full_path):
+
+                            sql_object_item_key =\
+                                config_constants.SQL_OBJECT_ITEM_NAME
+
+                            sql_object_query_key =\
+                                config_constants.SQL_OBJECT_ITEM_QUERY_KEY
+
+                            sql_object_metadata_def_key =\
+                                config_constants.\
+                                SQL_OBJECT_ITEM_METADATA_DEF_KEY
+
+                            query_value = self.\
+                                __read_sql_query_file(query_full_path)
+
                             parsed_config[item_name] = {
-                                config_constants.SQL_OBJECT_ITEM_NAME:
+                                sql_object_item_key:
                                     item_name,
-                                config_constants.SQL_OBJECT_ITEM_QUERY_KEY:
-                                    self.__read_sql_query_file(query_full_path
-                                                              ),
-                                config_constants.SQL_OBJECT_ITEM_METADATA_DEF_KEY:
+                                sql_object_query_key:
+                                    query_value,
+                                sql_object_metadata_def_key:
                                     self.__read_json_file(
                                         metadata_def_full_path)
                             }
+
                             logging.info(
                                 'SQL Object: %s processed, metadata def: %s'
                                 ' and query: %s', item_name,

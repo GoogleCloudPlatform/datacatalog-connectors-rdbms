@@ -28,9 +28,9 @@ class MetadataSQLObjectsScraperTestCase(unittest.TestCase):
     __MODULE_PATH = '{}/..'.format(os.path.dirname(os.path.abspath(__file__)))
     __SCRAPE_PACKAGE = 'google.datacatalog_connectors.rdbms.scrape'
 
-    @mock.patch(
-        '{}.sql_objects.'.format(__SCRAPE_PACKAGE) +
-        'metadata_sql_object_normalizer.MetadataSQLObjectNormalizer.normalize')
+    @mock.patch('{}.sql_objects.'.format(__SCRAPE_PACKAGE) +
+                'metadata_sql_object_normalizer.MetadataSQLObjectNormalizer.'
+                'normalize')
     def test_scrape_no_sql_objects_should_not_return_metadata(
             self, normalize):  # noqa
         metadata = \
@@ -51,9 +51,9 @@ class MetadataSQLObjectsScraperTestCase(unittest.TestCase):
 
         self.assertEqual(0, len(metadata))
 
-    @mock.patch(
-        '{}.sql_objects.'.format(__SCRAPE_PACKAGE) +
-        'metadata_sql_object_normalizer.MetadataSQLObjectNormalizer.normalize')
+    @mock.patch('{}.sql_objects.'.format(__SCRAPE_PACKAGE) +
+                'metadata_sql_object_normalizer.MetadataSQLObjectNormalizer.'
+                'normalize')
     def test_scrape_should_return_metadata(self, normalize):  # noqa
         sql_objects_config = \
             utils.Utils.convert_json_to_object(self.__MODULE_PATH,
@@ -61,8 +61,9 @@ class MetadataSQLObjectsScraperTestCase(unittest.TestCase):
         main_scraper = mock.MagicMock()
 
         main_scraper.get_metadata_as_dataframe.return_value = \
-            utils.Utils.retrieve_dataframe_from_file(self.__MODULE_PATH,
-                                                     'rdbms_sql_objects_dump.csv')
+            utils.Utils.retrieve_dataframe_from_file(
+                self.__MODULE_PATH,
+                'rdbms_sql_objects_dump.csv')
 
         normalized_metadata = \
             utils.Utils.convert_json_to_object(self.__MODULE_PATH,

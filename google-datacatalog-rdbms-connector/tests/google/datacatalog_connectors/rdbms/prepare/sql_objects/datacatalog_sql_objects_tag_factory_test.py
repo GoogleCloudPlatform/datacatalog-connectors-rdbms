@@ -33,8 +33,9 @@ class DataCatalogSQLObjectsTagFactoryTestCase(unittest.TestCase):
     def test_tag_for_function_sql_object_should_set_all_available_fields(  # noqa:E501
             self):  # noqa:E125
         metadata = \
-            utils.Utils.convert_json_to_object(self.__MODULE_PATH,
-                                               'metadata_with_sql_objects.json')['sql_objects']
+            utils.Utils.convert_json_to_object(
+                self.__MODULE_PATH,
+                'metadata_with_sql_objects.json')['sql_objects']
         sql_objects_config = \
             utils.Utils.convert_json_to_object(self.__MODULE_PATH,
                                                'sql_objects_config.json')
@@ -49,11 +50,13 @@ class DataCatalogSQLObjectsTagFactoryTestCase(unittest.TestCase):
             config_constants.SQL_OBJECT_ITEMS_KEY][0]
 
         tag = factory. \
-            make_tags_for_sql_object(sql_object_key, sql_object_item, tag_template)
+            make_tags_for_sql_object(
+                sql_object_key, sql_object_item, tag_template)
 
         self.assertEqual(tag_template.name, tag.template)
         self.assertEqual(
-            'CREATE FUNCTION credit_mask(input varchar(19)) RETURNS output VARCHAR(19)'
+            'CREATE FUNCTION credit_mask(input varchar(19))'
+            ' RETURNS output VARCHAR(19)'
             ' LANGUAGE SQLSCRIPT \\nAS\\nBEGIN\\noutput = LEFT(:input,4) ||'
             ' \'-XXXX-XXXX-\' || RIGHT(:input,4);\\nEND',
             tag.fields['definition'].string_value)
@@ -66,8 +69,9 @@ class DataCatalogSQLObjectsTagFactoryTestCase(unittest.TestCase):
     def test_tag_for_stored_procedure_sql_object_should_set_all_available_fields(  # noqa:E501
             self):  # noqa:E125
         metadata = \
-            utils.Utils.convert_json_to_object(self.__MODULE_PATH,
-                                               'metadata_with_sql_objects.json')['sql_objects']
+            utils.Utils.convert_json_to_object(
+                self.__MODULE_PATH,
+                'metadata_with_sql_objects.json')['sql_objects']
         sql_objects_config = \
             utils.Utils.convert_json_to_object(self.__MODULE_PATH,
                                                'sql_objects_config.json')
@@ -82,11 +86,13 @@ class DataCatalogSQLObjectsTagFactoryTestCase(unittest.TestCase):
             config_constants.SQL_OBJECT_ITEMS_KEY][0]
 
         tag = factory. \
-            make_tags_for_sql_object(sql_object_key, sql_object_item, tag_template)
+            make_tags_for_sql_object(sql_object_key,
+                                     sql_object_item, tag_template)
 
         self.assertEqual(tag_template.name, tag.template)
         self.assertEqual(
-            'CREATE FUNCTION credit_mask(input varchar(19)) RETURNS output VARCHAR(19)'
+            'CREATE FUNCTION credit_mask(input varchar(19))'
+            ' RETURNS output VARCHAR(19)'
             ' LANGUAGE SQLSCRIPT \\nAS\\nBEGIN\\noutput = LEFT(:input,4) ||'
             ' \'-XXXX-XXXX-\' || RIGHT(:input,4);\\nEND',
             tag.fields['definition'].string_value)

@@ -49,7 +49,7 @@ class MetadataSQLObjectsScraper:
                 try:
                     sql_objects[name] = MetadataSQLObjectNormalizer.normalize(
                         dataframe, metadata_def)
-                except:
+                except:  # noqa:E722
                     logging.exception(
                         'Failed to scrape sql object, ignoring: {}'.format(
                             key))

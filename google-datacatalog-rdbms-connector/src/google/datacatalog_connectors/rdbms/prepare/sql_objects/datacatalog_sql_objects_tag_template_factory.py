@@ -48,7 +48,8 @@ class DataCatalogSQLObjectsTagTemplateFactory(prepare.BaseTagTemplateFactory):
         if sql_objects_metadata:
             for sql_object_key, _ in sql_objects_metadata.items():
                 tag_template_id, tag_template = \
-                    self.__make_tag_template_for_sql_object_metadata(sql_object_key)
+                    self.__make_tag_template_for_sql_object_metadata(
+                        sql_object_key)
                 tag_templates_dict[tag_template_id] = tag_template
 
         return tag_templates_dict
@@ -91,13 +92,17 @@ class DataCatalogSQLObjectsTagTemplateFactory(prepare.BaseTagTemplateFactory):
             sql_object_target_type = sql_object_target[
                 config_constants.SQL_OBJECT_FIELD_TARGET_TYPE]
 
-            if config_constants.SQL_OBJECT_DOUBLE_FIELD == sql_object_target_type:
+            if config_constants.SQL_OBJECT_DOUBLE_FIELD ==\
+                    sql_object_target_type:
                 field_type = self.__DOUBLE_TYPE
-            elif config_constants.SQL_OBJECT_STRING_FIELD == sql_object_target_type:
+            elif config_constants.SQL_OBJECT_STRING_FIELD ==\
+                    sql_object_target_type:
                 field_type = self.__STRING_TYPE
-            elif config_constants.SQL_OBJECT_TIMESTAMP_FIELD == sql_object_target_type:
+            elif config_constants.SQL_OBJECT_TIMESTAMP_FIELD ==\
+                    sql_object_target_type:
                 field_type = self.__TIMESTAMP_TYPE
-            elif config_constants.SQL_OBJECT_BOOLEAN_FIELD == sql_object_target_type:
+            elif config_constants.SQL_OBJECT_BOOLEAN_FIELD ==\
+                    sql_object_target_type:
                 field_type = self.__BOOL_TYPE
             else:
                 raise Exception('Unrecognised field type: {}'.format(

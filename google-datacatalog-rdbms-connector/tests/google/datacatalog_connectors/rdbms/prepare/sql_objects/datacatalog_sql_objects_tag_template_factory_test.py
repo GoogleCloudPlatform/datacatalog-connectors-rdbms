@@ -37,8 +37,9 @@ class DataCatalogSQLObjectsTagTemplateFactoryTestCase(unittest.TestCase):
     def test_make_tag_template_for_sql_objects_should_set_all_available_fields(
             self):
         metadata = \
-            utils.Utils.convert_json_to_object(self.__MODULE_PATH,
-                                               'metadata_with_sql_objects.json')['sql_objects']
+            utils.Utils.convert_json_to_object(
+                self.__MODULE_PATH,
+                'metadata_with_sql_objects.json')['sql_objects']
         sql_objects_config = \
             utils.Utils.convert_json_to_object(self.__MODULE_PATH,
                                                'sql_objects_config.json')

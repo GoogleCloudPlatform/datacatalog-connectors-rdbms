@@ -71,15 +71,19 @@ class DataCatalogSQLObjectsTagFactory(prepare.BaseTagFactory):
 
             value = sql_object_item[sql_object_target_name]
 
-            if config_constants.SQL_OBJECT_DOUBLE_FIELD == sql_object_target_type:
+            if config_constants.SQL_OBJECT_DOUBLE_FIELD ==\
+                    sql_object_target_type:
                 if value is None:
                     value = 0
                 self._set_double_field(tag, sql_object_target_name, value)
-            elif config_constants.SQL_OBJECT_STRING_FIELD == sql_object_target_type:
+            elif config_constants.SQL_OBJECT_STRING_FIELD ==\
+                    sql_object_target_type:
                 self._set_string_field(tag, sql_object_target_name, value)
-            elif config_constants.SQL_OBJECT_TIMESTAMP_FIELD == sql_object_target_type:
+            elif config_constants.SQL_OBJECT_TIMESTAMP_FIELD ==\
+                    sql_object_target_type:
                 self._set_timestamp_field(tag, sql_object_target_name, value)
-            elif config_constants.SQL_OBJECT_BOOLEAN_FIELD == sql_object_target_type:
+            elif config_constants.SQL_OBJECT_BOOLEAN_FIELD ==\
+                    sql_object_target_type:
                 self._set_bool_field(tag, sql_object_target_name,
                                      self.__convert_to_boolean(value))
             else:

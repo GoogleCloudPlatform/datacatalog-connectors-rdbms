@@ -25,7 +25,7 @@ from google.datacatalog_connectors.rdbms.scrape.sql_objects \
 class MetadataSQLObjectNormalizerTestCase(unittest.TestCase):
     __MODULE_PATH = '{}/..'.format(os.path.dirname(os.path.abspath(__file__)))
 
-    def test_normalize_function_sql_object_metadata_with_csv_should_return_objects(
+    def test_normalize_function_sql_object_metadata_with_csv_should_return_objects(  # noqa: E501
             self):
         metadata = utils.Utils.retrieve_dataframe_from_file(
             self.__MODULE_PATH, 'rdbms_sql_objects_dump.csv')
@@ -34,8 +34,9 @@ class MetadataSQLObjectNormalizerTestCase(unittest.TestCase):
             metadata_sql_object_normalizer.MetadataSQLObjectNormalizer. \
             normalize(
                 metadata,
-                utils.Utils.get_metadata_def_obj(self.__MODULE_PATH,
-                                                 'metadata_definition_functions_sql_object.json'))
+                utils.Utils.get_metadata_def_obj(
+                    self.__MODULE_PATH,
+                    'metadata_definition_functions_sql_object.json'))
 
         self.assertEqual('function', metadata_dict['type'])
 
@@ -47,7 +48,7 @@ class MetadataSQLObjectNormalizerTestCase(unittest.TestCase):
         self.assertEqual('CREDIT_MASK_2', function_2_dict['name'])
         self.assertEqual('SYSTEM', function_2_dict['schema_name'])
 
-    def test_normalize_stored_procedure_sql_object_metadata_with_csv_should_return_objects(
+    def test_normalize_stored_procedure_sql_object_metadata_with_csv_should_return_objects(  # noqa: E501
             self):
         metadata = utils.Utils.retrieve_dataframe_from_file(
             self.__MODULE_PATH, 'rdbms_sql_objects_dump.csv')

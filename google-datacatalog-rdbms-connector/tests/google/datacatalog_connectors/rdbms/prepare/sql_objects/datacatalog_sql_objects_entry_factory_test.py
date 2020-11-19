@@ -35,8 +35,9 @@ class DataCatalogSQLObjectsEntryFactoryTestCase(unittest.TestCase):
     def test_make_entry_for_function_sql_object_should_set_all_available_fields(  # noqa:E501
             self):  # noqa:E125
         metadata = \
-            utils.Utils.convert_json_to_object(self.__MODULE_PATH,
-                                               'metadata_with_sql_objects.json')['sql_objects']
+            utils.Utils.convert_json_to_object(
+                self.__MODULE_PATH,
+                'metadata_with_sql_objects.json')['sql_objects']
         sql_objects_config = \
             utils.Utils.convert_json_to_object(self.__MODULE_PATH,
                                                'sql_objects_config.json')
@@ -45,7 +46,8 @@ class DataCatalogSQLObjectsEntryFactoryTestCase(unittest.TestCase):
             DataCatalogSQLObjectsEntryFactory(
                 DataCatalogSQLObjectsEntryFactoryTestCase.__PROJECT_ID,
                 DataCatalogSQLObjectsEntryFactoryTestCase.__LOCATION_ID,
-                DataCatalogSQLObjectsEntryFactoryTestCase.__METADATA_SERVER_HOST,
+                DataCatalogSQLObjectsEntryFactoryTestCase.
+                __METADATA_SERVER_HOST,
                 DataCatalogSQLObjectsEntryFactoryTestCase.__ENTRY_GROUP_ID,
                 sql_objects_config)
 
@@ -55,7 +57,8 @@ class DataCatalogSQLObjectsEntryFactoryTestCase(unittest.TestCase):
             config_constants.SQL_OBJECT_ITEMS_KEY][0]
 
         entry_id, entry = factory. \
-            make_entry_for_sql_object(sql_object_key, sql_object_type, sql_object_item)
+            make_entry_for_sql_object(
+                sql_object_key, sql_object_type, sql_object_item)
 
         self.assertEqual('CREDIT_MASK', entry_id)
         self.assertEqual('CREDIT_MASK', entry.display_name)
@@ -74,8 +77,9 @@ class DataCatalogSQLObjectsEntryFactoryTestCase(unittest.TestCase):
     def test_make_entry_for_stored_procedure_sql_object_should_set_all_available_fields(  # noqa:E501
             self):  # noqa:E125
         metadata = \
-            utils.Utils.convert_json_to_object(self.__MODULE_PATH,
-                                               'metadata_with_sql_objects.json')['sql_objects']
+            utils.Utils.convert_json_to_object(
+                self.__MODULE_PATH,
+                'metadata_with_sql_objects.json')['sql_objects']
         sql_objects_config = \
             utils.Utils.convert_json_to_object(self.__MODULE_PATH,
                                                'sql_objects_config.json')
@@ -84,7 +88,8 @@ class DataCatalogSQLObjectsEntryFactoryTestCase(unittest.TestCase):
             DataCatalogSQLObjectsEntryFactory(
                 DataCatalogSQLObjectsEntryFactoryTestCase.__PROJECT_ID,
                 DataCatalogSQLObjectsEntryFactoryTestCase.__LOCATION_ID,
-                DataCatalogSQLObjectsEntryFactoryTestCase.__METADATA_SERVER_HOST,
+                DataCatalogSQLObjectsEntryFactoryTestCase.
+                __METADATA_SERVER_HOST,
                 DataCatalogSQLObjectsEntryFactoryTestCase.__ENTRY_GROUP_ID,
                 sql_objects_config)
 
@@ -94,7 +99,8 @@ class DataCatalogSQLObjectsEntryFactoryTestCase(unittest.TestCase):
             config_constants.SQL_OBJECT_ITEMS_KEY][0]
 
         entry_id, entry = factory. \
-            make_entry_for_sql_object(sql_object_key, sql_object_type, sql_object_item)
+            make_entry_for_sql_object(
+                sql_object_key, sql_object_type, sql_object_item)
 
         self.assertEqual('CREDIT_MASK', entry_id)
         self.assertEqual('CREDIT_MASK', entry.display_name)

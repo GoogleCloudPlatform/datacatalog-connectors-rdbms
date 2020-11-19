@@ -18,8 +18,9 @@ from google.datacatalog_connectors.commons import prepare
 
 from google.datacatalog_connectors.rdbms.scrape import config_constants
 
-from google.datacatalog_connectors.rdbms.prepare.sql_objects \
-    import datacatalog_sql_objects_entry_factory, datacatalog_sql_objects_tag_factory
+from google.datacatalog_connectors.rdbms.prepare.sql_objects\
+    import datacatalog_sql_objects_entry_factory,\
+    datacatalog_sql_objects_tag_factory
 
 
 class AssembledSQLObjectsEntryFactory:
@@ -29,7 +30,8 @@ class AssembledSQLObjectsEntryFactory:
         self.__entry_group_id = entry_group_id
         self.__sql_objects_config = sql_objects_config
         self.__tag_templates_dict = tag_templates_dict
-        self.__datacatalog_entry_factory = datacatalog_sql_objects_entry_factory.\
+        self.__datacatalog_entry_factory = \
+            datacatalog_sql_objects_entry_factory.\
             DataCatalogSQLObjectsEntryFactory(
                 project_id,
                 location_id,
@@ -42,23 +44,25 @@ class AssembledSQLObjectsEntryFactory:
     def make_entries(self, sql_objects_metadata):
         assembled_entries = []
         if sql_objects_metadata:
-            for sql_object_key, sql_object_metadata in sql_objects_metadata.items(
-            ):
+            for sql_object_key, sql_object_metadata in\
+                    sql_objects_metadata.items():
                 sql_object_type = sql_object_metadata[
                     config_constants.SQL_OBJECT_TYPE]
                 sql_object_items = sql_object_metadata[
                     config_constants.SQL_OBJECT_ITEMS_KEY]
                 for sql_object_item in sql_object_items:
-                    entry_id, entry = self.__datacatalog_entry_factory.make_entry_for_sql_object(
-                        sql_object_key, sql_object_type, sql_object_item)
+                    entry_id, entry = self.__datacatalog_entry_factory.\
+                        make_entry_for_sql_object(
+                            sql_object_key, sql_object_type, sql_object_item)
 
                     tag_template_id = '{}_{}_metadata'.format(
                         self.__entry_group_id, sql_object_type)
 
                     tag_template = self.__tag_templates_dict[tag_template_id]
 
-                    tags = self.__datacatalog_tag_factory.make_tags_for_sql_object(
-                        sql_object_key, sql_object_item, tag_template)
+                    tags = self.__datacatalog_tag_factory.\
+                        make_tags_for_sql_object(
+                            sql_object_key, sql_object_item, tag_template)
 
                     assembled_entries.append(
                         prepare.AssembledEntryData(entry_id, entry, tags))
