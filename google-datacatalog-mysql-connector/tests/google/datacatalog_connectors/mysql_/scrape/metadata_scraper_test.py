@@ -74,11 +74,11 @@ class MetadataScraperTestCase(unittest.TestCase):
         scraper = metadata_scraper.MetadataScraper()
         databases_metadata = scraper.scrape({},
                                             connection_args={
-                                                      'database': 'db',
-                                                      'host': 'mysql_host',
-                                                      'user': 'dbc',
-                                                      'pass': 'dbc'
-                                                  })
+                                                'database': 'db',
+                                                'host': 'mysql_host',
+                                                'user': 'dbc',
+                                                'pass': 'dbc'
+                                            })
 
         self.assertEqual(1, len(databases_metadata))
         self.assertEqual(connect.call_count, 1)

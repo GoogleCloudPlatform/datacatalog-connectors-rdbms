@@ -51,7 +51,7 @@ class DataCatalogSQLObjectsTagFactoryTestCase(unittest.TestCase):
 
         tag = factory. \
             make_tags_for_sql_object(
-                sql_object_key, sql_object_item, tag_template)
+                sql_object_key, sql_object_item, tag_template)[0]
 
         self.assertEqual(tag_template.name, tag.template)
         self.assertEqual(
@@ -87,7 +87,7 @@ class DataCatalogSQLObjectsTagFactoryTestCase(unittest.TestCase):
 
         tag = factory. \
             make_tags_for_sql_object(sql_object_key,
-                                     sql_object_item, tag_template)
+                                     sql_object_item, tag_template)[0]
 
         self.assertEqual(tag_template.name, tag.template)
         self.assertEqual(
