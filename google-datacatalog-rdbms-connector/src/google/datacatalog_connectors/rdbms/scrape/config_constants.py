@@ -28,6 +28,9 @@ TABLE_DEF_KEY = 'table_def'
 METADATA_ENRICH_ENTRY_PREFIX = 'entry_prefix'
 METADATA_ENRICH_ENTRY_ID_PATTERN_FOR_PREFIX = 'entry_id_pattern_for_prefix'
 
+# Metadata scrape base entries
+BASE_ENTRIES_KEY = 'base_entries'
+
 # Metadata scrape sql objects
 SQL_OBJECTS_KEY = 'sql_objects'
 SQL_OBJECT_ITEM_NAME = 'name'

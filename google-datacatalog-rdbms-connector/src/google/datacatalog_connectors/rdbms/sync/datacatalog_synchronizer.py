@@ -17,13 +17,18 @@
 import logging
 import uuid
 
-from google.datacatalog_connectors.commons.cleanup \
+from google.datacatalog_connectors.commons.cleanup\
     import datacatalog_metadata_cleaner
-from google.datacatalog_connectors.commons.ingest \
+from google.datacatalog_connectors.commons.ingest\
     import datacatalog_metadata_ingestor
-from google.datacatalog_connectors.commons.monitoring \
+from google.datacatalog_connectors.commons.monitoring\
     import metrics_processor
+
 from google.datacatalog_connectors.rdbms import prepare
+from google.datacatalog_connectors.rdbms.prepare import\
+    sql_objects as prepare_sql_objects
+
+from google.datacatalog_connectors.rdbms.scrape import config_constants
 
 
 class DataCatalogSynchronizer:
@@ -90,7 +95,7 @@ class DataCatalogSynchronizer:
 
         logging.info('\n\n==============Prepare metadata===============')
 
-        tag_templates_dict = self.__create_tag_templates()
+        tag_templates_dict = self.__create_tag_templates(metadata)
 
         prepared_entries = self.__prepare_datacatalog_entries(
             metadata, tag_templates_dict)
@@ -110,20 +115,48 @@ class DataCatalogSynchronizer:
         return self.__task_id
 
     def __prepare_datacatalog_entries(self, metadata, tag_templates_dict):
-        entry_factory = self.__create_assembled_entry_factory(
+        base_entry_factory = self.__create_assembled_entry_factory(
             tag_templates_dict)
-        prepared_entries = entry_factory. \
-            make_entries_from_table_container_metadata(
+        base_entries = base_entry_factory. \
+            make_entries(
                 metadata)
+
+        prepared_entries = {config_constants.BASE_ENTRIES_KEY: base_entries}
+
+        if self.__is_sql_objects_sync():
+            sql_objects_entry_factory = prepare_sql_objects.\
+                AssembledSQLObjectsEntryFactory(
+                    self.__project_id,
+                    self.__location_id,
+                    self.__rbms_host,
+                    self.__entry_group_id,
+                    self.__config.sql_objects_config,
+                    tag_templates_dict)
+
+            sql_object_entries = {
+                config_constants.SQL_OBJECTS_KEY:
+                    sql_objects_entry_factory.make_entries(
+                        metadata.get(config_constants.SQL_OBJECTS_KEY))
+            }
+
+            prepared_entries.update(sql_object_entries)
+
         return prepared_entries
 
     def __delete_obsolete_metadata(self, prepared_entries):
         # Since we can't rely on search returning the ingested entries,
         # we clean up the obsolete entries before ingesting.
         assembled_entries_data = []
-        for table_container_entry, table_related_entries in prepared_entries:
+        base_entries = prepared_entries.get(config_constants.BASE_ENTRIES_KEY)
+
+        for table_container_entry, table_related_entries in base_entries:
             assembled_entries_data.append(table_container_entry)
             assembled_entries_data.extend(table_related_entries)
+
+        if self.__is_sql_objects_sync():
+            sql_objects_entries = prepared_entries.get(
+                config_constants.SQL_OBJECTS_KEY)
+            assembled_entries_data.extend(sql_objects_entries)
 
         cleaner = datacatalog_metadata_cleaner.DataCatalogMetadataCleaner(
             self.__project_id, self.__location_id, self.__entry_group_id)
@@ -135,12 +168,29 @@ class DataCatalogSynchronizer:
         ingestor = datacatalog_metadata_ingestor.DataCatalogMetadataIngestor(
             self.__project_id, self.__location_id, self.__entry_group_id)
 
+        self.__ingest_base_entries_metadata(
+            ingestor, prepared_entries.get(config_constants.BASE_ENTRIES_KEY),
+            tag_templates_dict)
+
+        if self.__is_sql_objects_sync():
+            self.__ingest_sql_objects_entries_metadata(
+                ingestor,
+                prepared_entries.get(config_constants.SQL_OBJECTS_KEY),
+                tag_templates_dict)
+
+    @classmethod
+    def __ingest_base_entries_metadata(cls, ingestor, prepared_entries,
+                                       tag_templates_dict):
         for table_container_entry, table_related_entries in prepared_entries:
-            assembled_entries_data = []
-            assembled_entries_data.append(table_container_entry)
+            assembled_entries_data = [table_container_entry]
             assembled_entries_data.extend(table_related_entries)
             ingestor.ingest_metadata(assembled_entries_data,
                                      tag_templates_dict)
+
+    @classmethod
+    def __ingest_sql_objects_entries_metadata(cls, ingestor, prepared_entries,
+                                              tag_templates_dict):
+        ingestor.ingest_metadata(prepared_entries, tag_templates_dict)
 
     def __add_database_name_from_connection_args(self):
 
@@ -166,7 +216,7 @@ class DataCatalogSynchronizer:
     def __create_tag_factory(self):
         return self._get_tag_factory()(self.__metadata_definition)
 
-    def __create_tag_templates(self):
+    def __create_tag_templates(self, metadata):
         tag_template_factory = self._get_tag_template_factory()(
             self.__project_id, self.__location_id, self.__entry_group_id,
             self.__metadata_definition)
@@ -186,7 +236,23 @@ class DataCatalogSynchronizer:
              table_tag_template_id: table_tag_template,
              column_tag_template_id: column_tag_template}
 
+        if self.__is_sql_objects_sync():
+            sql_objects_tag_template_factory = \
+                prepare_sql_objects.DataCatalogSQLObjectsTagTemplateFactory(
+                    self.__project_id,
+                    self.__location_id,
+                    self.__entry_group_id,
+                    self.__config.sql_objects_config)
+
+            tag_templates_dict.update(
+                sql_objects_tag_template_factory.\
+                make_tag_templates_for_sql_objects_metadata(
+                    metadata.get(config_constants.SQL_OBJECTS_KEY)))
+
         return tag_templates_dict
+
+    def __is_sql_objects_sync(self):
+        return self.__config and self.__config.sql_objects_config
 
     # Begin extension methods
     def _before_run(self):
@@ -205,8 +271,19 @@ class DataCatalogSynchronizer:
         return self.__metadata_definition
 
     def _log_entries(self, prepared_entries):
-        entries_len = sum([len(tables) for (_, tables) in prepared_entries],
-                          len(prepared_entries))
+        base_entries = prepared_entries.get(config_constants.BASE_ENTRIES_KEY)
+
+        base_entries_len = sum([len(tables) for (_, tables) in base_entries],
+                               len(base_entries))
+
+        entries_len = base_entries_len
+
+        if self.__is_sql_objects_sync():
+            sql_object_entries_len = len(
+                prepared_entries.get(config_constants.SQL_OBJECTS_KEY))
+
+            entries_len = entries_len + sql_object_entries_len
+
         self.__metrics_processor.process_entries_length_metric(entries_len)
 
     def _log_metadata(self, metadata):

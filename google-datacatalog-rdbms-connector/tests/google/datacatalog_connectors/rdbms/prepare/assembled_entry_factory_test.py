@@ -84,7 +84,7 @@ class AssembledEntryFactoryTestCase(unittest.TestCase):
 
         prepared_entries = \
             entry_factory. \
-            make_entries_from_table_container_metadata(
+            make_entries(
                 schemas_metadata)
 
         schemas = schemas_metadata['schemas']
@@ -131,7 +131,7 @@ class AssembledEntryFactoryTestCase(unittest.TestCase):
 
         prepared_entries = \
             entry_factory. \
-            make_entries_from_table_container_metadata(
+            make_entries(
                 schema_metadata)
 
         schemas = schema_metadata['schemas']
@@ -172,7 +172,7 @@ class AssembledEntryFactoryTestCase(unittest.TestCase):
 
         prepared_entries = \
             entry_factory. \
-            make_entries_from_table_container_metadata(
+            make_entries(
                 schema_metadata)
 
         tables = prepared_entries[0][1]
@@ -231,7 +231,7 @@ class AssembledEntryFactoryTestCase(unittest.TestCase):
 
         prepared_entries = \
             entry_factory. \
-            make_entries_from_table_container_metadata(
+            make_entries(
                 schema_metadata)
 
         tables = prepared_entries[0][1]
@@ -284,7 +284,7 @@ class AssembledEntryFactoryTestCase(unittest.TestCase):
 
         prepared_entries = \
             entry_factory. \
-            make_entries_from_table_container_metadata(
+            make_entries(
                 schema_metadata)
 
         schemas = schema_metadata['schemas']
