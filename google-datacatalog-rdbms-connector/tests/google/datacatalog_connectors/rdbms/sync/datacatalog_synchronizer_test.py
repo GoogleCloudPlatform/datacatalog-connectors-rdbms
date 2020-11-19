@@ -129,7 +129,7 @@ class DatacatalogSynchronizerTestCase(unittest.TestCase):
     @mock.patch('google.datacatalog_connectors.commons.monitoring.'
                 'metrics_processor.MetricsProcessor.'
                 'process_entries_length_metric')
-    def test_synchronize_metadata_with_sql_config_should_not_raise_error(  # noqa: E125
+    def test_synchronize_metadata_with_sql_config_should_not_raise_error(  # noqa: E501
             self, process_entries_length_metric,
             process_metadata_payload_bytes_metric, process_elapsed_time_metric,
             delete_obsolete_metadata, ingest_metadata, make_base_entries,

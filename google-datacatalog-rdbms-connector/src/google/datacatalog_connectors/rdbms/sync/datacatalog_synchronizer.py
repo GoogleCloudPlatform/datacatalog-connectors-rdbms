@@ -245,7 +245,7 @@ class DataCatalogSynchronizer:
                     self.__config.sql_objects_config)
 
             tag_templates_dict.update(
-                sql_objects_tag_template_factory.\
+                sql_objects_tag_template_factory.
                 make_tag_templates_for_sql_objects_metadata(
                     metadata.get(config_constants.SQL_OBJECTS_KEY)))
 
