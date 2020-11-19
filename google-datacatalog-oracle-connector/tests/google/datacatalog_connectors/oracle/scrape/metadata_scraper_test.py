@@ -28,15 +28,15 @@ class MetadataScraperTestCase(unittest.TestCase):
 
     @mock.patch('{}.'
                 'metadata_scraper.MetadataNormalizer.'
-                'to_metadata_dict'.format(__SCRAPE_PACKAGE))
+                'normalize'.format(__SCRAPE_PACKAGE))
     def test_scrape_schemas_metadata_with_csv_should_return_objects(
-            self, to_metadata_dict):  # noqa:E125
+            self, normalize):  # noqa:E125
 
         metadata = \
             utils.Utils.convert_json_to_object(
                 self.__MODULE_PATH,
                 'metadata.json')
-        to_metadata_dict.return_value = metadata
+        normalize.return_value = metadata
 
         scraper = metadata_scraper.MetadataScraper()
         schemas_metadata = scraper.scrape(
@@ -49,9 +49,9 @@ class MetadataScraperTestCase(unittest.TestCase):
     @mock.patch('cx_Oracle.connect')
     @mock.patch('{}.'
                 'metadata_scraper.MetadataNormalizer.'
-                'to_metadata_dict'.format(__SCRAPE_PACKAGE))
+                'normalize'.format(__SCRAPE_PACKAGE))
     def test_scrape_schemas_metadata_with_credentials_should_return_objects(
-            self, to_metadata_dict, connect):  # noqa:E125
+            self, normalize, connect):  # noqa:E125
 
         metadata = \
             utils.Utils.convert_json_to_object(
@@ -74,7 +74,7 @@ class MetadataScraperTestCase(unittest.TestCase):
             utils.Utils.convert_json_to_object(
                 self.__MODULE_PATH,
                 'description.json')
-        to_metadata_dict.return_value = metadata
+        normalize.return_value = metadata
 
         scraper = metadata_scraper.MetadataScraper()
         schemas_metadata = scraper.scrape({},
@@ -90,9 +90,9 @@ class MetadataScraperTestCase(unittest.TestCase):
 
     @mock.patch('cx_Oracle.connect')
     @mock.patch('{}.metadata_scraper.'
-                'MetadataNormalizer.to_metadata_dict'.format(__SCRAPE_PACKAGE))
+                'MetadataNormalizer.normalize'.format(__SCRAPE_PACKAGE))
     def test_scrape_schemas_metadata_on_exception_should_re_raise(
-            self, to_metadata_dict, connect):  # noqa:E125
+            self, normalize, connect):  # noqa:E125
 
         connect.side_effect = Exception('Error when connecting to Server')
 
@@ -107,4 +107,4 @@ class MetadataScraperTestCase(unittest.TestCase):
                               'pass': 'dbc'
                           })
         self.assertEqual(connect.call_count, 1)
-        self.assertEqual(to_metadata_dict.call_count, 0)
+        self.assertEqual(normalize.call_count, 0)

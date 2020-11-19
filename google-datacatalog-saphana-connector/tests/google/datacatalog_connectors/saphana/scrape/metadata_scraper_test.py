@@ -28,16 +28,16 @@ class MetadataScraperTestCase(unittest.TestCase):
 
     @patch('pandas.read_csv')
     @patch('{}.metadata_normalizer.MetadataNormalizer'
-           '.to_metadata_dict'.format(__SCRAPE_PACKAGE))
+           '.normalize'.format(__SCRAPE_PACKAGE))
     def test_scrape_schemas_metadata_with_csv_should_return_objects(
-            self, to_metadata_dict, read_csv):  # noqa
+            self, normalize, read_csv):  # noqa
 
         metadata = \
             utils.Utils.convert_json_to_object(
                 self.__MODULE_PATH,
                 'metadata.json')
         read_csv.return_value = metadata
-        to_metadata_dict.return_value = metadata
+        normalize.return_value = metadata
 
         scraper = metadata_scraper.MetadataScraper()
         schemas_metadata = scraper.scrape({}, csv_path='csv')
@@ -46,9 +46,9 @@ class MetadataScraperTestCase(unittest.TestCase):
 
     @patch('hdbcli.dbapi.connect')
     @patch('{}.metadata_normalizer.MetadataNormalizer'
-           '.to_metadata_dict'.format(__SCRAPE_PACKAGE))
+           '.normalize'.format(__SCRAPE_PACKAGE))
     def test_scrape_schemas_metadata_with_credentials_should_return_objects(
-            self, to_metadata_dict, connect):  # noqa
+            self, normalize, connect):  # noqa
 
         metadata = \
             utils.Utils.convert_json_to_object(
@@ -72,7 +72,7 @@ class MetadataScraperTestCase(unittest.TestCase):
                 self.__MODULE_PATH,
                 'description.json')
 
-        to_metadata_dict.return_value = metadata
+        normalize.return_value = metadata
 
         scraper = metadata_scraper.MetadataScraper()
         schemas_metadata = scraper.scrape({},
@@ -88,9 +88,9 @@ class MetadataScraperTestCase(unittest.TestCase):
 
     @patch('hdbcli.dbapi.connect')
     @patch('{}.metadata_normalizer.MetadataNormalizer'
-           '.to_metadata_dict'.format(__SCRAPE_PACKAGE))
+           '.normalize'.format(__SCRAPE_PACKAGE))
     def test_scrape_schemas_metadata_on_exception_should_re_raise(
-            self, to_metadata_dict, connect):  # noqa
+            self, normalize, connect):  # noqa
         connect.side_effect = Exception('Error when connecting to Server')
 
         scraper = metadata_scraper.MetadataScraper()
@@ -104,4 +104,4 @@ class MetadataScraperTestCase(unittest.TestCase):
                           })
 
         self.assertEqual(connect.call_count, 1)
-        self.assertEqual(to_metadata_dict.call_count, 0)
+        self.assertEqual(normalize.call_count, 0)
