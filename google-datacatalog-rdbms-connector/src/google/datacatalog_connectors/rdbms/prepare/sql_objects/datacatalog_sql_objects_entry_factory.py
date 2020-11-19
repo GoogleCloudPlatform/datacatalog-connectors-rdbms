@@ -40,7 +40,7 @@ class DataCatalogSQLObjectsEntryFactory(BaseEntryFactory):
         metadata_def = sql_object_config[
             config_constants.SQL_OBJECT_ITEM_METADATA_DEF_KEY]
 
-        name = metadata_def[config_constants.SQL_OBJECT_ITEM_NAME]
+        name = sql_object_item[config_constants.SQL_OBJECT_ITEM_NAME]
 
         entry_id = self._format_id(name)
         entry = datacatalog.Entry()
@@ -72,7 +72,8 @@ class DataCatalogSQLObjectsEntryFactory(BaseEntryFactory):
     def __filter_entry_model_fields(cls, sql_object_fields):
         sql_object_fields = [
             field for field in sql_object_fields
-            if field[config_constants.SQL_OBJECT_FIELD_TARGET_MODEL] ==
+            if field[config_constants.SQL_OBJECT_FIELD_TARGET][
+                config_constants.SQL_OBJECT_FIELD_TARGET_MODEL] ==
             config_constants.SQL_OBJECT_ENTRY_MODEL
         ]
         return sql_object_fields
@@ -80,23 +81,22 @@ class DataCatalogSQLObjectsEntryFactory(BaseEntryFactory):
     @classmethod
     def __set_entry_system_timestamps(cls, entry, sql_object_fields,
                                       sql_object_item):
-        created_time_name = next([
-            field for field in sql_object_fields
-            if field[config_constants.SQL_OBJECT_FIELD_TARGET_NAME] ==
-            config_constants.SQL_OBJECT_ENTRY_CREATE_TIME
-        ], None)
-        if created_time_name:
-            created_time = sql_object_item.get(created_time_name)
 
-            update_time_name = next([
-                field for field in sql_object_fields
-                if field[config_constants.SQL_OBJECT_FIELD_TARGET_NAME] ==
-                config_constants.SQL_OBJECT_ENTRY_UPDATE_TIME
-            ], None)
+        created_time_field = cls.__find_sql_object_field(
+            sql_object_fields, config_constants.SQL_OBJECT_ENTRY_CREATE_TIME)
+
+        if created_time_field:
+            created_time = cls.__get_sql_object_field_value(
+                sql_object_item, created_time_field)
+
+            update_time_field = cls.__find_sql_object_field(
+                sql_object_fields,
+                config_constants.SQL_OBJECT_ENTRY_UPDATE_TIME)
 
             update_time = None
-            if update_time_name:
-                update_time = sql_object_item.get(update_time_name)
+            if update_time_field:
+                update_time = cls.__get_sql_object_field_value(
+                    sql_object_item, update_time_field)
 
             create_time, update_time = \
                 cls.__convert_source_system_timestamp_fields(
@@ -115,13 +115,13 @@ class DataCatalogSQLObjectsEntryFactory(BaseEntryFactory):
     @classmethod
     def __set_entry_description(cls, entry, sql_object_fields,
                                 sql_object_item):
-        description_name = next([
-            field for field in sql_object_fields
-            if field[config_constants.SQL_OBJECT_FIELD_TARGET_NAME] ==
-            config_constants.SQL_OBJECT_ENTRY_DESCRIPTION
-        ], None)
-        if description_name:
-            description = sql_object_item.get(description_name)
+        description_field = cls.__find_sql_object_field(
+            sql_object_fields, config_constants.SQL_OBJECT_ENTRY_DESCRIPTION)
+
+        if description_field:
+            description = sql_object_item.get(
+                description_field[config_constants.SQL_OBJECT_FIELD_TARGET][
+                    config_constants.SQL_OBJECT_FIELD_TARGET_NAME])
 
             if pd.isna(description):
                 description = ''
@@ -129,16 +129,36 @@ class DataCatalogSQLObjectsEntryFactory(BaseEntryFactory):
             entry.description = description
 
     @classmethod
-    def __convert_date_value_to_epoch(cls, date_value):
-        if pd.notnull(date_value):
-            return int(date_value.timestamp())
+    def __find_sql_object_field(cls, sql_object_fields, field_name):
+        field = next(
+            iter([
+                field for field in sql_object_fields
+                if field[config_constants.SQL_OBJECT_FIELD_TARGET]
+                [config_constants.SQL_OBJECT_FIELD_TARGET_NAME] == field_name
+            ]), None)
+        return field
+
+    @classmethod
+    def __get_sql_object_field_value(cls, sql_object_item, field):
+        field_value = sql_object_item.get(
+            field[config_constants.SQL_OBJECT_FIELD_TARGET][
+                config_constants.SQL_OBJECT_FIELD_TARGET_NAME])
+        return field_value
+
+    @classmethod
+    def __convert_timestamp_value_to_epoch(cls, timestamp_value):
+        # In case it is not a valid timestamp field, we ignore it.
+        if pd.notnull(timestamp_value) and isinstance(timestamp_value,
+                                                      pd.Timestamp):
+            return int(timestamp_value.timestamp())
 
     @classmethod
     def __convert_source_system_timestamp_fields(cls, raw_create_time,
                                                  raw_update_time):
-        create_time = cls.__convert_date_value_to_epoch(raw_create_time)
+        create_time = cls.__convert_timestamp_value_to_epoch(raw_create_time)
         if not pd.isnull(raw_update_time):
-            update_time = cls.__convert_date_value_to_epoch(raw_update_time)
+            update_time = cls.__convert_timestamp_value_to_epoch(
+                raw_update_time)
         else:
             update_time = create_time
         return create_time, update_time

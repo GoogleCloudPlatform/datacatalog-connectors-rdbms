@@ -26,7 +26,7 @@ from google.datacatalog_connectors.rdbms.scrape import config_constants
 from google.cloud import datacatalog
 
 
-class DataCatalogSQLObjectsTagFactoryTest(unittest.TestCase):
+class DataCatalogSQLObjectsTagFactoryTestCase(unittest.TestCase):
 
     __MODULE_PATH = '{}/..'.format(os.path.dirname(os.path.abspath(__file__)))
 
@@ -52,20 +52,16 @@ class DataCatalogSQLObjectsTagFactoryTest(unittest.TestCase):
             make_tags_for_sql_object(sql_object_key, sql_object_item, tag_template)
 
         self.assertEqual(tag_template.name, tag.template)
-        self.assertEqual('CREATE FUNCTION credit_mask(input varchar(19)) RETURNS output VARCHAR(19)'
-                         ' LANGUAGE SQLSCRIPT \\nAS\\nBEGIN\\noutput = LEFT(:input,4) ||'
-                         ' \'-XXXX-XXXX-\' || RIGHT(:input,4);\\nEND',
-                         tag.fields['definition'].string_value)
-        self.assertEqual(1.0,
-                         tag.fields['input_parameter_count'].double_value)
-        self.assertEqual(True,
-                         tag.fields['is_valid'].bool_value)
-        self.assertEqual('SYSTEM',
-                         tag.fields['owner_name'].string_value)
-        self.assertEqual(1.0,
-                         tag.fields['return_value_count'].double_value)
-        self.assertEqual('SYSTEM',
-                         tag.fields['schema_name'].string_value)
+        self.assertEqual(
+            'CREATE FUNCTION credit_mask(input varchar(19)) RETURNS output VARCHAR(19)'
+            ' LANGUAGE SQLSCRIPT \\nAS\\nBEGIN\\noutput = LEFT(:input,4) ||'
+            ' \'-XXXX-XXXX-\' || RIGHT(:input,4);\\nEND',
+            tag.fields['definition'].string_value)
+        self.assertEqual(1.0, tag.fields['input_parameter_count'].double_value)
+        self.assertEqual(True, tag.fields['is_valid'].bool_value)
+        self.assertEqual('SYSTEM', tag.fields['owner_name'].string_value)
+        self.assertEqual(1.0, tag.fields['return_value_count'].double_value)
+        self.assertEqual('SYSTEM', tag.fields['schema_name'].string_value)
 
     def test_tag_for_stored_procedure_sql_object_should_set_all_available_fields(  # noqa:E501
             self):  # noqa:E125
@@ -89,18 +85,13 @@ class DataCatalogSQLObjectsTagFactoryTest(unittest.TestCase):
             make_tags_for_sql_object(sql_object_key, sql_object_item, tag_template)
 
         self.assertEqual(tag_template.name, tag.template)
-        self.assertEqual('CREATE FUNCTION credit_mask(input varchar(19)) RETURNS output VARCHAR(19)'
-                         ' LANGUAGE SQLSCRIPT \\nAS\\nBEGIN\\noutput = LEFT(:input,4) ||'
-                         ' \'-XXXX-XXXX-\' || RIGHT(:input,4);\\nEND',
-                         tag.fields['definition'].string_value)
-        self.assertEqual(0.0,
-                         tag.fields['input_parameter_count'].double_value)
-        self.assertEqual(False,
-                         tag.fields['is_valid'].bool_value)
-        self.assertEqual('SYSTEM',
-                         tag.fields['owner_name'].string_value)
-        self.assertEqual(1.0,
-                         tag.fields['return_value_count'].double_value)
-        self.assertEqual('SYSTEM',
-                         tag.fields['schema_name'].string_value)
-
+        self.assertEqual(
+            'CREATE FUNCTION credit_mask(input varchar(19)) RETURNS output VARCHAR(19)'
+            ' LANGUAGE SQLSCRIPT \\nAS\\nBEGIN\\noutput = LEFT(:input,4) ||'
+            ' \'-XXXX-XXXX-\' || RIGHT(:input,4);\\nEND',
+            tag.fields['definition'].string_value)
+        self.assertEqual(0.0, tag.fields['input_parameter_count'].double_value)
+        self.assertEqual(False, tag.fields['is_valid'].bool_value)
+        self.assertEqual('SYSTEM', tag.fields['owner_name'].string_value)
+        self.assertEqual(1.0, tag.fields['return_value_count'].double_value)
+        self.assertEqual('SYSTEM', tag.fields['schema_name'].string_value)

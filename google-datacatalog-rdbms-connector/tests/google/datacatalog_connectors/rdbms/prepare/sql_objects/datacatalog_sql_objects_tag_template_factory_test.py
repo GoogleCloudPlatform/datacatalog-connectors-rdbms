@@ -23,7 +23,7 @@ from google.datacatalog_connectors.rdbms.prepare.sql_objects import \
 from google.cloud import datacatalog
 
 
-class DataCatalogSQLObjectsTagTemplateFactoryTest(unittest.TestCase):
+class DataCatalogSQLObjectsTagTemplateFactoryTestCase(unittest.TestCase):
     __MODULE_PATH = '{}/..'.format(os.path.dirname(os.path.abspath(__file__)))
 
     __BOOL_TYPE = datacatalog.FieldType.PrimitiveType.BOOL

@@ -843,7 +843,7 @@
           "definition": "CREATE FUNCTION credit_mask(input varchar(19)) RETURNS output VARCHAR(19) LANGUAGE SQLSCRIPT \\nAS\\nBEGIN\\noutput = LEFT(:input,4) || '-XXXX-XXXX-' || RIGHT(:input,4);\\nEND",
           "is_valid": true,
           "owner_name": "SYSTEM",
-          "create_time": "2020-11-10T16:53:52"
+          "create_time": "2020-11-10 16:53:52"
         },
         {
           "name": "CREDIT_MASK_2",
@@ -853,7 +853,7 @@
           "definition": "CREATE FUNCTION credit_mask_2(input varchar(19)) RETURNS output VARCHAR(19) LANGUAGE SQLSCRIPT \\nAS\\nBEGIN\\noutput = LEFT(:input,4) || '-XXXX-XXXX-' || RIGHT(:input,4);\\nEND",
           "is_valid": false,
           "owner_name": "SYSTEM",
-          "create_time": "2020-11-10T16:53:52"
+          "create_time": "2020-11-10 16:53:52"
         }
       ]
     },
@@ -868,7 +868,7 @@
           "definition": "CREATE FUNCTION credit_mask(input varchar(19)) RETURNS output VARCHAR(19) LANGUAGE SQLSCRIPT \\nAS\\nBEGIN\\noutput = LEFT(:input,4) || '-XXXX-XXXX-' || RIGHT(:input,4);\\nEND",
           "is_valid": null,
           "owner_name": "SYSTEM",
-          "create_time": "2020-11-10T16:53:52"
+          "create_time": "2020-11-10 16:53:52"
         },
         {
           "name": "CREDIT_MASK_2",
@@ -878,7 +878,7 @@
           "definition": "CREATE FUNCTION credit_mask_2(input varchar(19)) RETURNS output VARCHAR(19) LANGUAGE SQLSCRIPT \\nAS\\nBEGIN\\noutput = LEFT(:input,4) || '-XXXX-XXXX-' || RIGHT(:input,4);\\nEND",
           "is_valid": true,
           "owner_name": "SYSTEM",
-          "create_time": "2020-11-10T16:53:52"
+          "create_time": "2020-11-10 16:53:52"
         }
       ]
     }
