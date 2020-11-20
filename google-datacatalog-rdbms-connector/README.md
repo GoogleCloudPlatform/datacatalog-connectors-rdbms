@@ -33,6 +33,7 @@ Common resources for Data Catalog RDBMS connectors.
   * [3.4. Run the unit tests](#34-run-the-unit-tests)
 - [4. Setting up the RDBMS on a new connector](#4-setting-up-the-rdbms-on-a-new-connector)
   * [4.1 Add support for optional queries](#41-add-support-for-optional-queries)
+  * [4.2 Add support for SQL Objects](#42-add-support-for-sql-objects)
 
 <!-- tocstop -->
 
@@ -188,6 +189,61 @@ and `_get_path_to_num_rows_query`.
 
 You can see working examples of implementing optional queries in the connectors code for PostgreSQL and MySQL. 
 Please also refer to these samples to see how user configuration file `ingest_cfg.yaml` should look like.
+
+### 4.2 Add support for SQL Objects
+You can use the SQL Objects mechanism to ingest SQL objects like Functions, Stored Procedures,
+Views, Materialized Views... from the SQL connector. This mechanism uses naming convention to locate
+a SQL query and a metadata definition file.
+
+You can see working examples of implementing SQL Objects in the test sources. 
+To enable it you need 3 configurations:
+1. [ingest_cfg.yaml](tests/google/datacatalog_connectors/rdbms/test_data/sql_objects_ingest_cfg.yaml)
+    ```yaml
+    sql_objects:
+      - name: 'functions'
+        enabled: True
+      - name: 'stored_procedures'
+        enabled: True
+    ```
+    
+    You can specify a list of sql objects with a flag to enable/disable it, it will be only considered
+    if the `enabled` flag is set to `True`.
+    
+    The `ingest_cfg.yaml` file must be located at the connection execution directory.
+
+1.  [query_functions_sql_object.sql](tests/google/datacatalog_connectors/rdbms/test_data/query_functions_sql_object.sql)  
+    Implement a query file that matches the sql object name, with the following pattern:
+    `query_{name}_sql_object.sql` this file must be located at the connector 
+    [config](../google-datacatalog-saphana-connector/src/google/datacatalog_connectors/saphana/config) directory.
+
+1.  [metadata_definition_functions_sql_object.json](tests/google/datacatalog_connectors/rdbms/test_data/metadata_definition_functions_sql_object.json)  
+    Implement a metadata definition file that matches the sql object name, with the following pattern:
+    `metadata_definition_{name}_sql_object.sql` this file must be located at the connector 
+    [config](../google-datacatalog-saphana-connector/src/google/datacatalog_connectors/saphana/config) directory.
+    
+    These are the available attributes for `metadata_definition` file:
+    
+    | Field  | Description                          |                     
+    | ---    | ---                                  |                    
+    | key    | Key used to lookup the config files  |
+    | type   | SQL Object type                      | 
+    | name   | Name of the SQL Object               |
+    | fields | Fields definition scraped from query |
+    
+    The `fields` attributes needs to implement the `source` and `target` definitions:
+    
+    | Field                      | Description                                                   |                     
+    | ---                        | ---                                                           |                    
+    | fields.source              | Name of the field scraped by the query                        |
+    | fields.target              | Object with target field attributes                           | 
+    | fields.target.field_name   | Name of the field when translated to Data Catalog attributes  |
+    | fields.target.model        | Type of Data Catalog model, can be (tag or entry)             |
+    | fields.target.type         | Type of the field to be translated to Data Catalog attributes |
+
+    
+If any of those 3 configurations is not implemented, the SQL Object will be skipped and
+won't be ingested.
+
 
 
 [1]: https://virtualenv.pypa.io/en/latest/
