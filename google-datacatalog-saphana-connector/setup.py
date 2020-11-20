@@ -23,7 +23,7 @@ with open('README.md') as readme_file:
 
 setuptools.setup(
     name='google-datacatalog-saphana-connector',
-    version='0.1.0',
+    version='0.1.1',
     author='Google LLC',
     description=
     'Library for ingesting Sap Hana Database metadata into Google Cloud Data Catalog',
@@ -37,9 +37,9 @@ setuptools.setup(
         ],
     },
     include_package_data=True,
-    install_requires=('hdbcli', 'google-datacatalog-rdbms-connector>=0.9.0'),
+    install_requires=('hdbcli', 'google-datacatalog-rdbms-connector>=0.10.0<0.11.0'),
     setup_requires=('pytest-runner',),
-    tests_require=('pytest-cov', 'google-datacatalog-connectors-commons-test>=0.6.0'),
+    tests_require=('pytest-cov', 'google-datacatalog-connectors-commons-test>=0.7.0<0.8.0'),
     classifiers=(
         release_status,
         'Programming Language :: Python :: 3.6',
