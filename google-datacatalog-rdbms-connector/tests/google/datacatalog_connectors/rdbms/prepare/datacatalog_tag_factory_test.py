@@ -226,13 +226,11 @@ class DataCatalogTagFactoryTest(unittest.TestCase):
             make_tags_for_columns_metadata(tag_template, tables_dict)
 
         tag_1 = tags[0]
-        tag_2 = tags[1]
 
         self.assertEqual(True, tag_1.fields['masked'].bool_value)
         self.assertEqual('XXX-XXX-XXX',
                          tag_1.fields['mask_expression'].string_value)
         self.assertEqual('col_1', tag_1.column)
 
-        self.assertEqual(False, tag_2.fields['masked'].bool_value)
-        self.assertIsNone(tag_2.fields.get('mask_expression'))
-        self.assertEqual('col_2', tag_2.column)
+        # Only 1 tag should be created.
+        self.assertEqual(1, len(tags))
