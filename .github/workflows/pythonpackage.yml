@@ -30,9 +30,9 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install flake8 yapf
+        pip install ../google-datacatalog-rdbms-connector
         pip install .
         # Update the commons RDBMS library with the local version
-        pip install --upgrade ../google-datacatalog-rdbms-connector
     - name: Formatting rules with yapf
       run: |
         # stop the build if formatting is different from yapf
