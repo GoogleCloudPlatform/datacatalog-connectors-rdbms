@@ -23,7 +23,7 @@ with open('README.md') as readme_file:
 
 setuptools.setup(
     name='google-datacatalog-rdbmscsv-connector',
-    version='0.7.0',
+    version='0.7.1',
     author='Google LLC',
     description='Library for ingesting RDBMS CSV metadata into Google Cloud Data Catalog',
     packages=setuptools.find_packages(where='./src'),
@@ -35,7 +35,7 @@ setuptools.setup(
         ],
     },
     include_package_data=True,
-    install_requires=('google-datacatalog-rdbms-connector>=0.9.0'),
+    install_requires=('google-datacatalog-rdbms-connector>=0.10.0<0.11.0'),
     setup_requires=('pytest-runner'),
     tests_require=('pytest-cov', 'mock==3.0.5', 'pytest',
                    'google-datacatalog-connectors-commons-test>=0.6.0'),
