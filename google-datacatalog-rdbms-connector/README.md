@@ -221,7 +221,7 @@ To enable it you need 3 configurations:
     `metadata_definition_{name}_sql_object.sql` this file must be located at the connector 
     [config](../google-datacatalog-saphana-connector/src/google/datacatalog_connectors/saphana/config) directory.
     
-    These are the available attributes for `metadata_definition` file:
+    These are the required attributes for `metadata_definition` file:
     
     | Field  | Description                          |                     
     | ---    | ---                                  |                    
