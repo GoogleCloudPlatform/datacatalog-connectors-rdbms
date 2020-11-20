@@ -31,6 +31,7 @@ jobs:
         python -m pip install --upgrade pip
         pip install flake8 yapf
         pip install ../google-datacatalog-rdbms-connector
+        pip install ../google-datacatalog-postgresql-connector
         pip install .
         # Update the commons RDBMS library with the local version
     - name: Formatting rules with yapf
