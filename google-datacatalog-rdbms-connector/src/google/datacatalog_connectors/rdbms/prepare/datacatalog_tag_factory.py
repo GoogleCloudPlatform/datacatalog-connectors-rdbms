@@ -129,7 +129,11 @@ class DataCatalogTagFactory(prepare.BaseTagFactory):
             tag.template = tag_template.name
 
             masked = column.get('masked')
-            if masked is not None:
+
+            # Only create the masked tag field if
+            # the boolean value is True, to avoid
+            # creating tags for every column
+            if masked:
                 self._set_bool_field(tag, 'masked',
                                      self.__convert_to_boolean(masked))
 
