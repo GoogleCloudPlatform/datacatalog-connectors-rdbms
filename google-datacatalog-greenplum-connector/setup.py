@@ -23,7 +23,7 @@ with open('README.md') as readme_file:
 
 setuptools.setup(
     name='google-datacatalog-greenplum-connector',
-    version='0.7.0',
+    version='0.7.1',
     author='Google LLC',
     description='Library for ingesting Greenplum metadata into Google Cloud Data Catalog',
     platforms='Posix; MacOS X; Windows',
@@ -36,13 +36,13 @@ setuptools.setup(
         ],
     },
     include_package_data=True,
-    install_requires=('google-datacatalog-postgresql-connector>=0.8.0'),
+    install_requires=('google-datacatalog-postgresql-connector>=0.8.0<0.9.0'),
     setup_requires=(
         'pytest-runner',
     ),
     tests_require=(
         'pytest-cov',
-        'google-datacatalog-connectors-commons-test>=0.6.0'
+        'google-datacatalog-connectors-commons-test>=0.8.0<0.9.0'
     ),
     classifiers=(
         release_status,
