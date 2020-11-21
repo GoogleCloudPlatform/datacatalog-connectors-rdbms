@@ -23,6 +23,11 @@ ROW_COUNT_OPTION = 'sync_row_counts'
 ASSET_NAME_KEY = 'name'
 TABLE_CONTAINER_DEF_KEY = 'table_container_def'
 TABLE_DEF_KEY = 'table_def'
+COLUMN_DEF_KEY = 'column_def'
+
+# Base Metadata fields
+TABLE_TYPE_KEY = 'type'
+VIEW_TYPE_VALUE = 'view'
 
 # Metadata enrich attributes keys
 METADATA_ENRICH_ENTRY_PREFIX = 'entry_prefix'

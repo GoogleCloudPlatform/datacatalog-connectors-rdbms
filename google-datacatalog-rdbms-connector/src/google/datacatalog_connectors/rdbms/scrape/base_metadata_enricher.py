@@ -20,7 +20,7 @@ from google.datacatalog_connectors.rdbms.scrape import \
 import re
 
 
-class MetadataEnricher(metadata_enricher.MetadataEnricher):
+class BaseMetadataEnricher(metadata_enricher.MetadataEnricher):
 
     def enrich(self, scraped_dataframe):
         asset_prefix = self._enrich_metadata_dict.get(
@@ -34,11 +34,21 @@ class MetadataEnricher(metadata_enricher.MetadataEnricher):
                 config_constants.TABLE_DEF_KEY][
                     config_constants.ASSET_NAME_KEY]
 
+            column_name = self._metadata_definition[
+                config_constants.COLUMN_DEF_KEY][
+                    config_constants.ASSET_NAME_KEY]
+
             asset_pattern_for_prefix = self._enrich_metadata_dict.get(
                 config_constants.METADATA_ENRICH_ENTRY_ID_PATTERN_FOR_PREFIX)
 
             scraped_dataframe[table_name] = \
                 scraped_dataframe[table_name].apply(
+                    self.__apply_prefix,
+                    args=(asset_prefix,
+                          asset_pattern_for_prefix))
+
+            scraped_dataframe[column_name] = \
+                scraped_dataframe[column_name].apply(
                     self.__apply_prefix,
                     args=(asset_prefix,
                           asset_pattern_for_prefix))

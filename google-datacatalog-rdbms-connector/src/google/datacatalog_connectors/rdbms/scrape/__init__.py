@@ -15,7 +15,9 @@
 # limitations under the License.
 
 from .metadata_enricher import MetadataEnricher
+from .base_metadata_enricher import BaseMetadataEnricher
 from .metadata_normalizer import MetadataNormalizer
 from .metadata_scraper import MetadataScraper
 
-__all__ = ('MetadataEnricher', 'MetadataNormalizer', 'MetadataScraper')
+__all__ = ('BaseMetadataEnricher', 'MetadataEnricher',
+           'MetadataNormalizer', 'MetadataScraper')

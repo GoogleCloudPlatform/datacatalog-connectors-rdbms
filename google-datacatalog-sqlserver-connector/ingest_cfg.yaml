@@ -4,10 +4,19 @@
 
 # Properties used to enrich metadata
 
+# Config to enable ingestion of sql objects.
+sql_objects:
+  - name: 'functions'
+    enabled: True
+  - name: 'stored_procedures'
+    enabled: True
+  - name: 'triggers'
+    enabled: True
+
 enrich_metadata:
   # ADD any string here that comply with Data Catalog Entry ID requirements,
   # check the README.md file for the Entry ID requirements.
-  entry_prefix: ''
+  entry_prefix: '_'
   # ADD the REGEX pattern that will be used to apply the entry prefix.
   # this sample applies the prefix to entry ids that do not start with letters
   # or underscore.

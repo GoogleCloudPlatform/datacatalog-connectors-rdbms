@@ -1,0 +1,31 @@
+{
+  "key": "triggers",
+  "type": "trigger",
+  "name": "trigger_name",
+  "fields": [
+    {
+      "source": "table_or_view_name",
+      "target": {
+        "field_name": "table_or_view_name",
+        "model": "tag",
+        "type": "string"
+      }
+    },
+    {
+      "source": "is_disabled",
+      "target": {
+        "field_name": "is_disabled",
+        "model": "tag",
+        "type": "bool"
+      }
+    },
+    {
+      "source": "definition",
+      "target": {
+        "field_name": "definition",
+        "model": "tag",
+        "type": "string"
+      }
+    }
+  ]
+}

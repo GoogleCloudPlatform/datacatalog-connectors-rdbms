@@ -19,11 +19,11 @@ import unittest
 
 import pandas as pd
 
-from google.datacatalog_connectors.sqlserver.scrape import metadata_enricher
+from google.datacatalog_connectors.rdbms.scrape import base_metadata_enricher
 from google.datacatalog_connectors.commons_test import utils
 
 
-class MetadataEnricherTestCase(unittest.TestCase):
+class BaseMetadataEnricherTestCase(unittest.TestCase):
     __MODULE_PATH = os.path.dirname(os.path.abspath(__file__))
 
     def test_enrich_schemas_metadata_with_csv_should_return_objects(self):
@@ -39,7 +39,7 @@ class MetadataEnricherTestCase(unittest.TestCase):
             utils.Utils.get_resolved_file_name(self.__MODULE_PATH,
                                                'sqlserver_full_dump.csv'))
 
-        enriched_dataframe = metadata_enricher.MetadataEnricher(
+        enriched_dataframe = base_metadata_enricher.BaseMetadataEnricher(
             metadata_definition,
             enrich_metadata_dict).enrich(scraped_dataframe)
 
@@ -67,7 +67,7 @@ class MetadataEnricherTestCase(unittest.TestCase):
                 self.__MODULE_PATH,
                 'sqlserver_full_dump_invalid_asset_names.csv'))
 
-        enriched_dataframe = metadata_enricher.MetadataEnricher(
+        enriched_dataframe = base_metadata_enricher.BaseMetadataEnricher(
             metadata_definition,
             enrich_metadata_dict).enrich(scraped_dataframe)
 
@@ -82,6 +82,8 @@ class MetadataEnricherTestCase(unittest.TestCase):
             enriched_dataframe['schema_name'][7].startswith('mycompany'))
         self.assertTrue(
             enriched_dataframe['table_name'][7].startswith('mycompany'))
+        self.assertTrue(
+            enriched_dataframe['column_name'][7].startswith('mycompany'))
 
         self.assertFalse(
             enriched_dataframe['schema_name'][8].startswith('mycompany'))
@@ -92,3 +94,5 @@ class MetadataEnricherTestCase(unittest.TestCase):
             enriched_dataframe['schema_name'][9].startswith('mycompany'))
         self.assertTrue(
             enriched_dataframe['table_name'][9].startswith('mycompany'))
+        self.assertFalse(
+            enriched_dataframe['column_name'][9].startswith('mycompany'))
