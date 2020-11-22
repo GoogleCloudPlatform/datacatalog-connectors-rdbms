@@ -19,10 +19,10 @@ import unittest
 
 from google.datacatalog_connectors.commons_test import utils
 from google.datacatalog_connectors.rdbms.scrape.sql_objects \
-    import metadata_sql_object_normalizer
+    import sql_objects_metadata_normalizer
 
 
-class MetadataSQLObjectNormalizerTestCase(unittest.TestCase):
+class SQLObjectsMetadataNormalizerTestCase(unittest.TestCase):
     __MODULE_PATH = '{}/..'.format(os.path.dirname(os.path.abspath(__file__)))
 
     def test_normalize_function_sql_object_metadata_with_csv_should_return_objects(  # noqa: E501
@@ -31,7 +31,7 @@ class MetadataSQLObjectNormalizerTestCase(unittest.TestCase):
             self.__MODULE_PATH, 'rdbms_sql_objects_dump.csv')
 
         metadata_dict = \
-            metadata_sql_object_normalizer.MetadataSQLObjectNormalizer. \
+            sql_objects_metadata_normalizer.SQLObjectsMetadataNormalizer. \
             normalize(
                 metadata,
                 utils.Utils.get_metadata_def_obj(
@@ -54,7 +54,7 @@ class MetadataSQLObjectNormalizerTestCase(unittest.TestCase):
             self.__MODULE_PATH, 'rdbms_sql_objects_dump.csv')
 
         metadata_dict = \
-            metadata_sql_object_normalizer.MetadataSQLObjectNormalizer. \
+            sql_objects_metadata_normalizer.SQLObjectsMetadataNormalizer. \
             normalize(
                 metadata,
                 utils.Utils.get_metadata_def_obj(

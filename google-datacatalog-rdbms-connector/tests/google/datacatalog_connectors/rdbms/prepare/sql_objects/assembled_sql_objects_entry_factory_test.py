@@ -25,8 +25,6 @@ from google.datacatalog_connectors.commons_test import utils
 from google.datacatalog_connectors.rdbms.prepare.sql_objects import \
         assembled_sql_objects_entry_factory
 
-_PREPARE_PACKAGE = 'google.datacatalog_connectors.rdbms.prepare'
-
 
 class AssembledSQLObjectsEntryFactoryTestCase(unittest.TestCase):
     __MODULE_PATH = '{}/..'.format(os.path.dirname(os.path.abspath(__file__)))

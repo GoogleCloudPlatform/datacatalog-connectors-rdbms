@@ -14,6 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import mock
 import os
 import unittest
 
@@ -23,8 +24,6 @@ from google.datacatalog_connectors.rdbms.sync import \
     datacatalog_synchronizer
 from google.datacatalog_connectors.rdbms.scrape import \
     config
-
-import mock
 
 
 @mock.patch('google.datacatalog_connectors.rdbms.scrape.metadata_scraper.'

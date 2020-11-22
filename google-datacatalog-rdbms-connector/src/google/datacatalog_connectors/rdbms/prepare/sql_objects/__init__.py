@@ -14,10 +14,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from .assembled_sql_objects_entry_factory import \
+from google.datacatalog_connectors.rdbms.prepare.sql_objects\
+    .assembled_sql_objects_entry_factory import\
     AssembledSQLObjectsEntryFactory
 
-from .datacatalog_sql_objects_tag_template_factory import \
+
+from google.datacatalog_connectors.rdbms.prepare.sql_objects\
+    .datacatalog_sql_objects_tag_template_factory import\
     DataCatalogSQLObjectsTagTemplateFactory
 
 __all__ = ('AssembledSQLObjectsEntryFactory',

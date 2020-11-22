@@ -15,7 +15,7 @@
 # limitations under the License.
 
 from google.datacatalog_connectors.rdbms.scrape import \
-    config_constants, metadata_enricher
+    constants, metadata_enricher
 
 import re
 
@@ -24,18 +24,18 @@ class MetadataEnricher(metadata_enricher.MetadataEnricher):
 
     def enrich(self, scraped_dataframe):
         asset_prefix = self._enrich_metadata_dict.get(
-            config_constants.METADATA_ENRICH_ENTRY_PREFIX)
+            constants.METADATA_ENRICH_ENTRY_PREFIX)
 
         if asset_prefix:
             table_container_name = self._metadata_definition[
-                config_constants.TABLE_CONTAINER_DEF_KEY][
-                    config_constants.ASSET_NAME_KEY]
+                constants.TABLE_CONTAINER_DEF_KEY][
+                    constants.ASSET_NAME_KEY]
             table_name = self._metadata_definition[
-                config_constants.TABLE_DEF_KEY][
-                    config_constants.ASSET_NAME_KEY]
+                constants.TABLE_DEF_KEY][
+                    constants.ASSET_NAME_KEY]
 
             asset_pattern_for_prefix = self._enrich_metadata_dict.get(
-                config_constants.METADATA_ENRICH_ENTRY_ID_PATTERN_FOR_PREFIX)
+                constants.METADATA_ENRICH_ENTRY_ID_PATTERN_FOR_PREFIX)
 
             scraped_dataframe[table_name] = \
                 scraped_dataframe[table_name].apply(

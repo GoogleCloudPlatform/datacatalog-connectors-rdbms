@@ -17,13 +17,13 @@
 import logging
 
 from google.datacatalog_connectors.rdbms.scrape.sql_objects \
-    import MetadataSQLObjectNormalizer
+    import SQLObjectsMetadataNormalizer
 
 from google.datacatalog_connectors.rdbms.scrape \
-    import config_constants
+    import constants
 
 
-class MetadataSQLObjectsScraper:
+class SQLObjectsMetadataScraper:
 
     def __init__(self, main_scraper):
         self.main_scraper = main_scraper
@@ -34,11 +34,11 @@ class MetadataSQLObjectsScraper:
             sql_objects_config = config.sql_objects_config
 
             for key, sql_object_config in sql_objects_config.items():
-                name = sql_object_config[config_constants.SQL_OBJECT_ITEM_NAME]
+                name = sql_object_config[constants.SQL_OBJECT_ITEM_NAME]
                 metadata_def = sql_object_config[
-                    config_constants.SQL_OBJECT_ITEM_METADATA_DEF_KEY]
+                    constants.SQL_OBJECT_ITEM_METADATA_DEF_KEY]
                 query = sql_object_config[
-                    config_constants.SQL_OBJECT_ITEM_QUERY_KEY]
+                    constants.SQL_OBJECT_ITEM_QUERY_KEY]
 
                 logging.info(
                     'Scraping metadata for sql objects: {}'.format(key))
@@ -47,7 +47,7 @@ class MetadataSQLObjectsScraper:
                     metadata_def, connection_args, query)
 
                 try:
-                    sql_objects[name] = MetadataSQLObjectNormalizer.normalize(
+                    sql_objects[name] = SQLObjectsMetadataNormalizer.normalize(
                         dataframe, metadata_def)
                 except:  # noqa:E722
                     logging.exception(

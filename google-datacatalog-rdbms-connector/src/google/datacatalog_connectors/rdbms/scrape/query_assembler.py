@@ -14,7 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from google.datacatalog_connectors.rdbms.scrape import config_constants
+from google.datacatalog_connectors.rdbms.scrape import constants
 
 
 class QueryAssembler:
@@ -38,8 +38,8 @@ class QueryAssembler:
         Extend this method to add more optional queries
         """
         queries = {}
-        if config_constants.ROW_COUNT_OPTION in optional_metadata:
-            queries[config_constants.
+        if constants.ROW_COUNT_OPTION in optional_metadata:
+            queries[constants.
                     ROW_COUNT_OPTION] = self._get_num_rows_query()
         return queries
 
