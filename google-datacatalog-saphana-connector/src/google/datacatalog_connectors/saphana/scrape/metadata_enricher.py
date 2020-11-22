@@ -28,11 +28,9 @@ class MetadataEnricher(metadata_enricher.MetadataEnricher):
 
         if asset_prefix:
             table_container_name = self._metadata_definition[
-                constants.TABLE_CONTAINER_DEF_KEY][
-                    constants.ASSET_NAME_KEY]
-            table_name = self._metadata_definition[
-                constants.TABLE_DEF_KEY][
-                    constants.ASSET_NAME_KEY]
+                constants.TABLE_CONTAINER_DEF_KEY][constants.ASSET_NAME_KEY]
+            table_name = self._metadata_definition[constants.TABLE_DEF_KEY][
+                constants.ASSET_NAME_KEY]
 
             asset_pattern_for_prefix = self._enrich_metadata_dict.get(
                 constants.METADATA_ENRICH_ENTRY_ID_PATTERN_FOR_PREFIX)
