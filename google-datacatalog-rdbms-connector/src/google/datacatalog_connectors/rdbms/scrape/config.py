@@ -19,7 +19,7 @@ import json
 import os
 import yaml
 
-from google.datacatalog_connectors.rdbms.scrape import config_constants
+from google.datacatalog_connectors.rdbms.scrape import constants
 
 
 class Config:
@@ -34,17 +34,16 @@ class Config:
 
     def get_chosen_metadata_options(self):
         '''
-        From the config contents,
-        retrieve options that user has marked as true
+        Retrieve options the user has marked as true from the config contents.
         '''
         options = [
             # TODO put the scrape_options in a parent
             #  key in the user def config
             option
             for option, choice in self._conf_content.items()
-            if choice and (option != config_constants.REFRESH_OPTION and
-                           option != config_constants.ENRICH_METADATA_OPTION and
-                           option != config_constants.SQL_OBJECTS_KEY
+            if choice and (option != constants.REFRESH_OPTION and
+                           option != constants.ENRICH_METADATA_OPTION and
+                           option != constants.SQL_OBJECTS_KEY
                            )
         ]
         return options
@@ -52,77 +51,74 @@ class Config:
     def get_sql_objects_config(self):
         parsed_config = {}
 
-        sql_objects = self._conf_content.get(config_constants.SQL_OBJECTS_KEY)
+        sql_objects = self._conf_content.get(constants.SQL_OBJECTS_KEY)
 
-        if sql_objects:
-            for sql_object in sql_objects:
-                if sql_object.get(
-                        config_constants.SQL_OBJECT_ITEM_ENABLED_FLAG) is True:
-                    # test to avoid breaking changes,
-                    # older versions of connector will skip this.
-                    if self._connector_config_path:
-                        item_name = sql_object[
-                            config_constants.SQL_OBJECT_ITEM_NAME]
-
-                        query_path = '{}_{}_{}'.format(
-                            config_constants.
-                            SQL_OBJECT_ITEM_QUERY_FILENAME_PREFIX, item_name,
-                            config_constants.
-                            SQL_OBJECT_ITEM_QUERY_FILENAME_SUFFIX)
-
-                        query_full_path = os.path.join(
-                            self._connector_config_path, query_path)
-
-                        metadata_def_path = '{}_{}_{}'.format(
-                            config_constants.
-                            SQL_OBJECT_ITEM_METADATA_DEF_FILENAME_PREFIX,
-                            item_name, config_constants.
-                            SQL_OBJECT_ITEM_METADATA_DEF_FILENAME_SUFFIX)
-
-                        metadata_def_full_path = os.path.join(
-                            self._connector_config_path, metadata_def_path)
-
-                        if self.__connector_has_config_files_for_sql_objects(
-                                query_full_path, metadata_def_full_path):
-
-                            sql_object_item_key =\
-                                config_constants.SQL_OBJECT_ITEM_NAME
-
-                            sql_object_query_key =\
-                                config_constants.SQL_OBJECT_ITEM_QUERY_KEY
-
-                            sql_object_metadata_def_key =\
-                                config_constants.\
-                                SQL_OBJECT_ITEM_METADATA_DEF_KEY
-
-                            query_value = self.\
-                                __read_sql_query_file(query_full_path)
-
-                            parsed_config[item_name] = {
-                                sql_object_item_key:
-                                    item_name,
-                                sql_object_query_key:
-                                    query_value,
-                                sql_object_metadata_def_key:
-                                    self.__read_json_file(
-                                        metadata_def_full_path)
-                            }
-
-                            logging.info(
-                                'SQL Object: %s processed, metadata def: %s'
-                                ' and query: %s', item_name,
-                                metadata_def_full_path, query_full_path)
-                        else:
-                            logging.warning(
-                                'SQL Object: %s ignored, metadata def: %s'
-                                ' or query: %s dont exist', item_name,
-                                metadata_def_full_path, query_full_path)
-
+        if not sql_objects:
             return parsed_config
+
+        for sql_object in sql_objects:
+            if sql_object.get(constants.SQL_OBJECT_ITEM_ENABLED_FLAG) is True:
+                # test to avoid breaking changes,
+                # older versions of connector will skip this.
+                if self._connector_config_path:
+                    item_name = sql_object[constants.SQL_OBJECT_ITEM_NAME]
+
+                    query_path = '{}_{}_{}'.format(
+                        constants.SQL_OBJECT_ITEM_QUERY_FILENAME_PREFIX,
+                        item_name,
+                        constants.SQL_OBJECT_ITEM_QUERY_FILENAME_SUFFIX)
+
+                    query_full_path = os.path.join(self._connector_config_path,
+                                                   query_path)
+
+                    metadata_def_path = '{}_{}_{}'.format(
+                        constants.SQL_OBJECT_ITEM_METADATA_DEF_FILENAME_PREFIX,
+                        item_name,
+                        constants.SQL_OBJECT_ITEM_METADATA_DEF_FILENAME_SUFFIX)
+
+                    metadata_def_full_path = os.path.join(
+                        self._connector_config_path, metadata_def_path)
+
+                    if self.__connector_has_config_files_for_sql_objects(
+                            query_full_path, metadata_def_full_path):
+
+                        sql_object_item_key =\
+                            constants.SQL_OBJECT_ITEM_NAME
+
+                        sql_object_query_key =\
+                            constants.SQL_OBJECT_ITEM_QUERY_KEY
+
+                        sql_object_metadata_def_key =\
+                            constants.\
+                            SQL_OBJECT_ITEM_METADATA_DEF_KEY
+
+                        query_value = self.\
+                            __read_sql_query_file(query_full_path)
+
+                        parsed_config[item_name] = {
+                            sql_object_item_key:
+                                item_name,
+                            sql_object_query_key:
+                                query_value,
+                            sql_object_metadata_def_key:
+                                self.__read_json_file(metadata_def_full_path)
+                        }
+
+                        logging.info(
+                            'SQL Object: %s processed, metadata def: %s'
+                            ' and query: %s', item_name,
+                            metadata_def_full_path, query_full_path)
+                    else:
+                        logging.warning(
+                            'SQL Object: %s ignored, metadata def: %s'
+                            ' or query: %s dont exist', item_name,
+                            metadata_def_full_path, query_full_path)
+
+        return parsed_config
 
     def get_enrich_metadata_dict(self):
         return self.__get_content_dict_attribute(
-            config_constants.ENRICH_METADATA_OPTION)
+            constants.ENRICH_METADATA_OPTION)
 
     def __get_content_dict_attribute(self, attribute_name):
         content_attribute = self._conf_content.get(attribute_name)
@@ -133,9 +129,9 @@ class Config:
         return None
 
     def __determine_scraping_steps(self):
-        if self._conf_content.get(config_constants.REFRESH_OPTION) is not None:
+        if self._conf_content.get(constants.REFRESH_OPTION) is not None:
             self.refresh_metadata_tables = self._conf_content[
-                config_constants.REFRESH_OPTION]
+                constants.REFRESH_OPTION]
 
         options = self.get_chosen_metadata_options()
 

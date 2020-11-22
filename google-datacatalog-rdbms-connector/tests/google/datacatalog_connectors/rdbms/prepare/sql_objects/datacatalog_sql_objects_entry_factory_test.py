@@ -21,7 +21,7 @@ from google.datacatalog_connectors.commons_test import utils
 from google.datacatalog_connectors.rdbms.prepare.sql_objects import \
     datacatalog_sql_objects_entry_factory
 
-from google.datacatalog_connectors.rdbms.scrape import config_constants
+from google.datacatalog_connectors.rdbms.scrape import constants
 
 
 class DataCatalogSQLObjectsEntryFactoryTestCase(unittest.TestCase):
@@ -54,7 +54,7 @@ class DataCatalogSQLObjectsEntryFactoryTestCase(unittest.TestCase):
         sql_object_key = 'functions'
         sql_object_type = 'function'
         sql_object_item = metadata[sql_object_key][
-            config_constants.SQL_OBJECT_ITEMS_KEY][0]
+            constants.SQL_OBJECT_ITEMS_KEY][0]
 
         entry_id, entry = factory. \
             make_entry_for_sql_object(
@@ -96,7 +96,7 @@ class DataCatalogSQLObjectsEntryFactoryTestCase(unittest.TestCase):
         sql_object_key = 'stored_procedures'
         sql_object_type = 'stored_procedure'
         sql_object_item = metadata[sql_object_key][
-            config_constants.SQL_OBJECT_ITEMS_KEY][0]
+            constants.SQL_OBJECT_ITEMS_KEY][0]
 
         entry_id, entry = factory. \
             make_entry_for_sql_object(

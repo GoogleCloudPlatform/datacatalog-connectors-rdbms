@@ -22,9 +22,9 @@ from google.datacatalog_connectors.rdbms.scrape.metadata_normalizer \
     import MetadataNormalizer
 
 from google.datacatalog_connectors.rdbms.scrape.sql_objects \
-    import MetadataSQLObjectsScraper
+    import SQLObjectsMetadataScraper
 
-from google.datacatalog_connectors.rdbms.scrape import config_constants
+from google.datacatalog_connectors.rdbms.scrape import constants
 
 import pandas as pd
 
@@ -32,7 +32,7 @@ import pandas as pd
 class MetadataScraper:
 
     def __init__(self):
-        self.__sql_objects_scraper = MetadataSQLObjectsScraper(self)
+        self.__sql_objects_scraper = SQLObjectsMetadataScraper(self)
 
     def scrape(self,
                metadata_definition,
@@ -51,8 +51,7 @@ class MetadataScraper:
             config, connection_args)
 
         if sql_objects_metadata:
-            base_metadata[
-                config_constants.SQL_OBJECTS_KEY] = sql_objects_metadata
+            base_metadata[constants.SQL_OBJECTS_KEY] = sql_objects_metadata
 
         return base_metadata
 

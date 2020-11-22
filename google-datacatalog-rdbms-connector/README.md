@@ -33,6 +33,7 @@ Common resources for Data Catalog RDBMS connectors.
   * [3.4. Run the unit tests](#34-run-the-unit-tests)
 - [4. Setting up the RDBMS on a new connector](#4-setting-up-the-rdbms-on-a-new-connector)
   * [4.1 Add support for optional queries](#41-add-support-for-optional-queries)
+  * [4.2 Add support for SQL Objects](#42-add-support-for-sql-objects)
 
 <!-- tocstop -->
 
@@ -188,6 +189,72 @@ and `_get_path_to_num_rows_query`.
 
 You can see working examples of implementing optional queries in the connectors code for PostgreSQL and MySQL. 
 Please also refer to these samples to see how user configuration file `ingest_cfg.yaml` should look like.
+
+### 4.2 Add support for SQL Objects
+You can use the SQL Objects mechanism from the SQL connector to ingest SQL objects such as Functions,
+Stored Procedures, Views, Materialized Views, and so on. This mechanism uses naming convention to locate
+a SQL query and a metadata definition file.
+
+You can see working examples of implementing SQL Objects in the test sources. 
+To enable it you need 3 configuration files:
+1. `ingest_cfg.yaml`
+    ```yaml
+    sql_objects:
+      - name: 'functions'
+        enabled: True
+      - name: 'stored_procedures'
+        enabled: True
+    ```
+
+    The `ingest_cfg.yaml` file must be located at the connection execution directory. You can find a sample in the [SAP HANA connector](../google-datacatalog-saphanaconnector/src/google/datacatalog_connectors/saphana/ingest_cfg.yaml).
+    
+    You can specify a list of sql objects with a flag to enable/disable it,
+    it will be only considered if the `enabled` flag is set to `True`.
+    
+    The `query` and `metadata_definition` files use the 
+    `sql_objects.name` value to be located, in the sample above,
+     for the `function` SQL Object two files are expected: 
+     `query_functions_sql_object.sql` and 
+    `metadata_definition_functions_sql_object.sql`.
+    
+    And the `stored_procedures` SQL Objects expects:
+    `query_stored_procedures_sql_object.sql` and 
+    `metadata_definition_stored_procedures_sql_object.sql`.
+    
+
+
+1.  [query_functions_sql_object.sql](tests/google/datacatalog_connectors/rdbms/test_data/query_functions_sql_object.sql)  
+    Implement a query file that matches the sql object name, with the following pattern:
+    `query_{name}_sql_object.sql` this file must be located at the connector 
+    `config` directory. You can find a sample in the [SAP HANA connector](../google-datacatalog-saphanaconnector/src/google/datacatalog_connectors/saphana/config).
+
+1.  [metadata_definition_functions_sql_object.json](tests/google/datacatalog_connectors/rdbms/test_data/metadata_definition_functions_sql_object.json)  
+    Implement a metadata definition file that matches the sql object name, with the following pattern:
+    `metadata_definition_{sql_objects.name}_sql_object.sql` this file must be located at the connector 
+    `config` directory. You can find a sample in the [SAP HANA connector](../google-datacatalog-saphanaconnector/src/google/datacatalog_connectors/saphana/config).
+    
+    These are the required attributes for `metadata_definition` file:
+    
+    | Field  | Description                          |                     
+    | ---    | ---                                  |                    
+    | key    | Key used to lookup the config files  |
+    | type   | SQL Object type                      | 
+    | name   | Name of the SQL Object               |
+    | fields | Fields definition scraped from query |
+    
+    The `fields` attributes needs to implement the `source` and `target` definitions:
+    
+    | Field                      | Description                                                   |                     
+    | ---                        | ---                                                           |                    
+    | fields.source              | Name of the field scraped by the query                        |
+    | fields.target              | Object with target field attributes                           | 
+    | fields.target.field_name   | Name of the field when translated to Data Catalog attributes  |
+    | fields.target.model        | Type of Data Catalog model, can be (tag or entry)             |
+    | fields.target.type         | Type of the field to be translated to Data Catalog attributes |
+
+    
+**The SQL Object will be skipped if any of the 3 configuration files are missing. **
+
 
 
 [1]: https://virtualenv.pypa.io/en/latest/

@@ -14,12 +14,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import mock
 import os
 import unittest
 
-import mock
 from google.datacatalog_connectors.commons_test import utils
-from google.datacatalog_connectors.rdbms.scrape import config, config_constants
+from google.datacatalog_connectors.rdbms.scrape import config, constants
 
 
 class ConfigTestCase(unittest.TestCase):
@@ -28,8 +28,8 @@ class ConfigTestCase(unittest.TestCase):
     @mock.patch('yaml.load')
     def test_config_should_deliver_options_chosen_by_user(self, yaml_load):
         yaml_load.return_value = {
-            config_constants.REFRESH_OPTION: True,
-            config_constants.ROW_COUNT_OPTION: True
+            constants.REFRESH_OPTION: True,
+            constants.ROW_COUNT_OPTION: True
         }
         user_config_path = utils.Utils.get_resolved_file_name(
             self.__MODULE_PATH, 'ingest_cfg.yaml')
@@ -39,15 +39,15 @@ class ConfigTestCase(unittest.TestCase):
 
         loaded_config = config.Config(user_config_path, connector_config_path)
 
-        self.assertEqual([config_constants.ROW_COUNT_OPTION],
+        self.assertEqual([constants.ROW_COUNT_OPTION],
                          loaded_config.get_chosen_metadata_options())
 
     @mock.patch('yaml.load')
     def test_config_should_not_deliver_options_not_chosen_by_user(
             self, yaml_load):
         yaml_load.return_value = {
-            config_constants.REFRESH_OPTION: True,
-            config_constants.ROW_COUNT_OPTION: False
+            constants.REFRESH_OPTION: True,
+            constants.ROW_COUNT_OPTION: False
         }
         user_config_path = utils.Utils.get_resolved_file_name(
             self.__MODULE_PATH, 'ingest_cfg.yaml')
@@ -61,12 +61,12 @@ class ConfigTestCase(unittest.TestCase):
     @mock.patch('yaml.load')
     def test_config_no_files_should_not_retrieve_sql_objects(self, yaml_load):
         yaml_load.return_value = {
-            config_constants.SQL_OBJECTS_KEY: [{
-                config_constants.SQL_OBJECT_ITEM_NAME: 'functions_xpto',
-                config_constants.SQL_OBJECT_ITEM_ENABLED_FLAG: True
+            constants.SQL_OBJECTS_KEY: [{
+                constants.SQL_OBJECT_ITEM_NAME: 'functions_xpto',
+                constants.SQL_OBJECT_ITEM_ENABLED_FLAG: True
             }, {
-                config_constants.SQL_OBJECT_ITEM_NAME: 'stored_procedures',
-                config_constants.SQL_OBJECT_ITEM_ENABLED_FLAG: False
+                constants.SQL_OBJECT_ITEM_NAME: 'stored_procedures',
+                constants.SQL_OBJECT_ITEM_ENABLED_FLAG: False
             }]
         }
 
@@ -82,12 +82,12 @@ class ConfigTestCase(unittest.TestCase):
     @mock.patch('yaml.load')
     def test_config_should_retrieve_sql_objects(self, yaml_load):
         yaml_load.return_value = {
-            config_constants.SQL_OBJECTS_KEY: [{
-                config_constants.SQL_OBJECT_ITEM_NAME: 'functions',
-                config_constants.SQL_OBJECT_ITEM_ENABLED_FLAG: True
+            constants.SQL_OBJECTS_KEY: [{
+                constants.SQL_OBJECT_ITEM_NAME: 'functions',
+                constants.SQL_OBJECT_ITEM_ENABLED_FLAG: True
             }, {
-                config_constants.SQL_OBJECT_ITEM_NAME: 'stored_procedures',
-                config_constants.SQL_OBJECT_ITEM_ENABLED_FLAG: False
+                constants.SQL_OBJECT_ITEM_NAME: 'stored_procedures',
+                constants.SQL_OBJECT_ITEM_ENABLED_FLAG: False
             }]
         }
 
@@ -101,9 +101,9 @@ class ConfigTestCase(unittest.TestCase):
         self.assertEqual(1, len(loaded_config.sql_objects_config))
         self.assertEqual(
             'functions', loaded_config.sql_objects_config['functions'][
-                config_constants.SQL_OBJECT_ITEM_NAME])
+                constants.SQL_OBJECT_ITEM_NAME])
         self.assertIsNotNone(loaded_config.sql_objects_config['functions'][
-            config_constants.SQL_OBJECT_ITEM_QUERY_KEY])
+            constants.SQL_OBJECT_ITEM_QUERY_KEY])
 
         self.assertIsNotNone(loaded_config.sql_objects_config['functions'][
-            config_constants.SQL_OBJECT_ITEM_METADATA_DEF_KEY])
+            constants.SQL_OBJECT_ITEM_METADATA_DEF_KEY])
