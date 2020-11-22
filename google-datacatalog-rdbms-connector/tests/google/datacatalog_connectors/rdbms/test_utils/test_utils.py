@@ -77,8 +77,7 @@ class FakeMetadataEnricher(metadata_enricher.MetadataEnricher):
 
     def enrich(self, scraped_dataframe):
         table_container_name = self._metadata_definition[
-            constants.TABLE_CONTAINER_DEF_KEY][
-                constants.ASSET_NAME_KEY]
+            constants.TABLE_CONTAINER_DEF_KEY][constants.ASSET_NAME_KEY]
         table_name = self._metadata_definition[constants.TABLE_DEF_KEY][
             constants.ASSET_NAME_KEY]
 

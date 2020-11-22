@@ -39,8 +39,7 @@ class QueryAssembler:
         """
         queries = {}
         if constants.ROW_COUNT_OPTION in optional_metadata:
-            queries[constants.
-                    ROW_COUNT_OPTION] = self._get_num_rows_query()
+            queries[constants.ROW_COUNT_OPTION] = self._get_num_rows_query()
         return queries
 
     def _get_num_rows_query(self):

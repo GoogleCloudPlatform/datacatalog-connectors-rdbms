@@ -90,8 +90,7 @@ class DataCatalogSQLObjectsEntryFactory(BaseEntryFactory):
                 sql_object_item, created_time_field)
 
             update_time_field = cls.__find_sql_object_field(
-                sql_object_fields,
-                constants.SQL_OBJECT_ENTRY_UPDATE_TIME)
+                sql_object_fields, constants.SQL_OBJECT_ENTRY_UPDATE_TIME)
 
             update_time = None
             if update_time_field:
@@ -133,15 +132,14 @@ class DataCatalogSQLObjectsEntryFactory(BaseEntryFactory):
         return next(
             iter([
                 field for field in sql_object_fields
-                if field[constants.SQL_OBJECT_FIELD_TARGET]
-                [constants.SQL_OBJECT_FIELD_TARGET_NAME] == field_name
+                if field[constants.SQL_OBJECT_FIELD_TARGET][
+                    constants.SQL_OBJECT_FIELD_TARGET_NAME] == field_name
             ]), None)
 
     @classmethod
     def __get_sql_object_field_value(cls, sql_object_item, field):
-        return sql_object_item.get(
-            field[constants.SQL_OBJECT_FIELD_TARGET][
-                constants.SQL_OBJECT_FIELD_TARGET_NAME])
+        return sql_object_item.get(field[constants.SQL_OBJECT_FIELD_TARGET][
+            constants.SQL_OBJECT_FIELD_TARGET_NAME])
 
     @classmethod
     def __convert_timestamp_value_to_epoch(cls, timestamp_value):

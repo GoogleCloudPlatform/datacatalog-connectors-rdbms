@@ -55,28 +55,24 @@ class Config:
             return parsed_config
 
         for sql_object in sql_objects:
-            if sql_object.get(
-                    constants.SQL_OBJECT_ITEM_ENABLED_FLAG) is True:
+            if sql_object.get(constants.SQL_OBJECT_ITEM_ENABLED_FLAG) is True:
                 # test to avoid breaking changes,
                 # older versions of connector will skip this.
                 if self._connector_config_path:
-                    item_name = sql_object[
-                        constants.SQL_OBJECT_ITEM_NAME]
+                    item_name = sql_object[constants.SQL_OBJECT_ITEM_NAME]
 
                     query_path = '{}_{}_{}'.format(
-                        constants.
-                        SQL_OBJECT_ITEM_QUERY_FILENAME_PREFIX, item_name,
-                        constants.
-                        SQL_OBJECT_ITEM_QUERY_FILENAME_SUFFIX)
+                        constants.SQL_OBJECT_ITEM_QUERY_FILENAME_PREFIX,
+                        item_name,
+                        constants.SQL_OBJECT_ITEM_QUERY_FILENAME_SUFFIX)
 
-                    query_full_path = os.path.join(
-                        self._connector_config_path, query_path)
+                    query_full_path = os.path.join(self._connector_config_path,
+                                                   query_path)
 
                     metadata_def_path = '{}_{}_{}'.format(
-                        constants.
-                        SQL_OBJECT_ITEM_METADATA_DEF_FILENAME_PREFIX,
-                        item_name, constants.
-                        SQL_OBJECT_ITEM_METADATA_DEF_FILENAME_SUFFIX)
+                        constants.SQL_OBJECT_ITEM_METADATA_DEF_FILENAME_PREFIX,
+                        item_name,
+                        constants.SQL_OBJECT_ITEM_METADATA_DEF_FILENAME_SUFFIX)
 
                     metadata_def_full_path = os.path.join(
                         self._connector_config_path, metadata_def_path)
@@ -103,8 +99,7 @@ class Config:
                             sql_object_query_key:
                                 query_value,
                             sql_object_metadata_def_key:
-                                self.__read_json_file(
-                                    metadata_def_full_path)
+                                self.__read_json_file(metadata_def_full_path)
                         }
 
                         logging.info(

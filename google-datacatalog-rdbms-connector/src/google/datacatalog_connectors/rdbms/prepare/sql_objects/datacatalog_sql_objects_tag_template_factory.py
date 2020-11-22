@@ -80,8 +80,7 @@ class DataCatalogSQLObjectsTagTemplateFactory(prepare.BaseTagTemplateFactory):
         return tag_template_id, tag_template
 
     def ___add_field_for_sql_object_field(self, sql_object_item, tag_template):
-        sql_object_target = sql_object_item[
-            constants.SQL_OBJECT_FIELD_TARGET]
+        sql_object_target = sql_object_item[constants.SQL_OBJECT_FIELD_TARGET]
 
         sql_object_target_model = sql_object_target[
             constants.SQL_OBJECT_FIELD_TARGET_MODEL]

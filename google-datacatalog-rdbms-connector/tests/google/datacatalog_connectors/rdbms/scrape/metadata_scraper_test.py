@@ -108,7 +108,8 @@ class MetadataScraperTestCase(unittest.TestCase):
                 'metadata_scraper.MetadataNormalizer.normalize')
     @mock.patch(
         '{}.sql_objects.'.format(__SCRAPE_PACKAGE) +
-        'sql_objects_metadata_normalizer.SQLObjectsMetadataNormalizer.normalize')
+        'sql_objects_metadata_normalizer.SQLObjectsMetadataNormalizer.normalize'
+    )
     def test_scrape_metadata_with_sql_objects_config_should_return_objects(
             self, sql_objects_normalize, base_normalize,
             get_exact_table_names_from_dataframe):  # noqa
@@ -160,7 +161,8 @@ class MetadataScraperTestCase(unittest.TestCase):
                 'metadata_scraper.MetadataNormalizer.normalize')
     @mock.patch(
         '{}.sql_objects.'.format(__SCRAPE_PACKAGE) +
-        'sql_objects_metadata_normalizer.SQLObjectsMetadataNormalizer.normalize')
+        'sql_objects_metadata_normalizer.SQLObjectsMetadataNormalizer.normalize'
+    )
     def test_scrape_metadata_with_multiple_sql_objects_config_should_return_objects(  # noqa: E501
             self, sql_objects_normalize, base_normalize,
             get_exact_table_names_from_dataframe):  # noqa

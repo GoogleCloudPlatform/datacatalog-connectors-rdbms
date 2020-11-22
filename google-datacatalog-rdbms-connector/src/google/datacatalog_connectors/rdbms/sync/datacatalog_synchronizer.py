@@ -174,8 +174,7 @@ class DataCatalogSynchronizer:
 
         if self.__is_sql_objects_sync():
             self.__ingest_sql_objects_entries_metadata(
-                ingestor,
-                prepared_entries.get(constants.SQL_OBJECTS_KEY),
+                ingestor, prepared_entries.get(constants.SQL_OBJECTS_KEY),
                 tag_templates_dict)
 
     @classmethod

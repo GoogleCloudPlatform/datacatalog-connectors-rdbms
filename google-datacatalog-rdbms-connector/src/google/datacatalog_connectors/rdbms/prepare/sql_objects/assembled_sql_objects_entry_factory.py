@@ -48,8 +48,7 @@ class AssembledSQLObjectsEntryFactory:
 
         for sql_object_key, sql_object_metadata in\
                 sql_objects_metadata.items():
-            sql_object_type = sql_object_metadata[
-                constants.SQL_OBJECT_TYPE]
+            sql_object_type = sql_object_metadata[constants.SQL_OBJECT_TYPE]
             sql_object_items = sql_object_metadata[
                 constants.SQL_OBJECT_ITEMS_KEY]
             for sql_object_item in sql_object_items:

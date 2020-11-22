@@ -37,8 +37,7 @@ class SQLObjectsMetadataScraper:
                 name = sql_object_config[constants.SQL_OBJECT_ITEM_NAME]
                 metadata_def = sql_object_config[
                     constants.SQL_OBJECT_ITEM_METADATA_DEF_KEY]
-                query = sql_object_config[
-                    constants.SQL_OBJECT_ITEM_QUERY_KEY]
+                query = sql_object_config[constants.SQL_OBJECT_ITEM_QUERY_KEY]
 
                 logging.info(
                     'Scraping metadata for sql objects: {}'.format(key))

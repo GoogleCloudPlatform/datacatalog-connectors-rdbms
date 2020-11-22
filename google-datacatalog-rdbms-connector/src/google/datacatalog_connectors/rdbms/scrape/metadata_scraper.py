@@ -51,8 +51,7 @@ class MetadataScraper:
             config, connection_args)
 
         if sql_objects_metadata:
-            base_metadata[
-                constants.SQL_OBJECTS_KEY] = sql_objects_metadata
+            base_metadata[constants.SQL_OBJECTS_KEY] = sql_objects_metadata
 
         return base_metadata
 
