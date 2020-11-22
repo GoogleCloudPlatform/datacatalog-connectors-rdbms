@@ -196,7 +196,7 @@ Views, Materialized Views... from the SQL connector. This mechanism uses naming 
 a SQL query and a metadata definition file.
 
 You can see working examples of implementing SQL Objects in the test sources. 
-To enable it you need 3 configurations:
+To enable it you need 3 configuration files:
 1. [ingest_cfg.yaml](tests/google/datacatalog_connectors/rdbms/test_data/sql_objects_ingest_cfg.yaml)
     ```yaml
     sql_objects:
