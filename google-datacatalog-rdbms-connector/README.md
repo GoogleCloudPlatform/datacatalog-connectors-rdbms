@@ -191,13 +191,13 @@ You can see working examples of implementing optional queries in the connectors 
 Please also refer to these samples to see how user configuration file `ingest_cfg.yaml` should look like.
 
 ### 4.2 Add support for SQL Objects
-You can use the SQL Objects mechanism to ingest SQL objects like Functions, Stored Procedures,
-Views, Materialized Views... from the SQL connector. This mechanism uses naming convention to locate
+You can use the SQL Objects mechanism from the SQL connector to ingest SQL objects such as Functions,
+Stored Procedures, Views, Materialized Views, and so on. This mechanism uses naming convention to locate
 a SQL query and a metadata definition file.
 
 You can see working examples of implementing SQL Objects in the test sources. 
 To enable it you need 3 configuration files:
-1. [ingest_cfg.yaml](tests/google/datacatalog_connectors/rdbms/test_data/sql_objects_ingest_cfg.yaml)
+1. `ingest_cfg.yaml`
     ```yaml
     sql_objects:
       - name: 'functions'
@@ -205,11 +205,23 @@ To enable it you need 3 configuration files:
       - name: 'stored_procedures'
         enabled: True
     ```
+
+    The `ingest_cfg.yaml` file must be located at the connection execution directory. You can find a sample in the [SAP HANA connector](../google-datacatalog-saphanaconnector/src/google/datacatalog_connectors/saphana/ingest_cfg.yaml).
     
-    You can specify a list of sql objects with a flag to enable/disable it, it will be only considered
-    if the `enabled` flag is set to `True`.
+    You can specify a list of sql objects with a flag to enable/disable it,
+    it will be only considered if the `enabled` flag is set to `True`.
     
-    The `ingest_cfg.yaml` file must be located at the connection execution directory.
+    The `query` and `metadata_definition` files use the 
+    `sql_objects.name` value to be located, in the sample above,
+     for the `function` SQL Object two files are expected: 
+     `query_functions_sql_object.sql` and 
+    `metadata_definition_functions_sql_object.sql`.
+    
+    And the `stored_procedures` SQL Objects expects:
+    `query_stored_procedures_sql_object.sql` and 
+    `metadata_definition_stored_procedures_sql_object.sql`.
+    
+
 
 1.  [query_functions_sql_object.sql](tests/google/datacatalog_connectors/rdbms/test_data/query_functions_sql_object.sql)  
     Implement a query file that matches the sql object name, with the following pattern:
@@ -218,8 +230,8 @@ To enable it you need 3 configuration files:
 
 1.  [metadata_definition_functions_sql_object.json](tests/google/datacatalog_connectors/rdbms/test_data/metadata_definition_functions_sql_object.json)  
     Implement a metadata definition file that matches the sql object name, with the following pattern:
-    `metadata_definition_{name}_sql_object.sql` this file must be located at the connector 
-    [config](../google-datacatalog-saphana-connector/src/google/datacatalog_connectors/saphana/config) directory.
+    `metadata_definition_{sql_objects.name}_sql_object.sql` this file must be located at the connector 
+    `config` directory. You can find a sample in the [SAP HANA connector](../google-datacatalog-saphanaconnector/src/google/datacatalog_connectors/saphana/config).
     
     These are the required attributes for `metadata_definition` file:
     
