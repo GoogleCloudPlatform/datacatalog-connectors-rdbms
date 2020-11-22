@@ -214,7 +214,7 @@ To enable it you need 3 configuration files:
 1.  [query_functions_sql_object.sql](tests/google/datacatalog_connectors/rdbms/test_data/query_functions_sql_object.sql)  
     Implement a query file that matches the sql object name, with the following pattern:
     `query_{name}_sql_object.sql` this file must be located at the connector 
-    [config](../google-datacatalog-saphana-connector/src/google/datacatalog_connectors/saphana/config) directory.
+    `config` directory. You can find a sample in the [SAP HANA connector](../google-datacatalog-saphanaconnector/src/google/datacatalog_connectors/saphana/config).
 
 1.  [metadata_definition_functions_sql_object.json](tests/google/datacatalog_connectors/rdbms/test_data/metadata_definition_functions_sql_object.json)  
     Implement a metadata definition file that matches the sql object name, with the following pattern:
