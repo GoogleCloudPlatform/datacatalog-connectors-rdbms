@@ -38,9 +38,9 @@ class AssembledSQLObjectsEntryFactoryTestCase(unittest.TestCase):
     __PREPARE_PACKAGE = 'google.datacatalog_connectors.rdbms.prepare'
 
     @mock.patch('{}.sql_objects.datacatalog_sql_objects_tag_factory'
-                '.DataCatalogSQLObjectsTagFactory'.format(_PREPARE_PACKAGE))
+                '.DataCatalogSQLObjectsTagFactory'.format(__PREPARE_PACKAGE))
     @mock.patch('{}.sql_objects.datacatalog_sql_objects_entry_factory'
-                '.DataCatalogSQLObjectsEntryFactory'.format(_PREPARE_PACKAGE))
+                '.DataCatalogSQLObjectsEntryFactory'.format(__PREPARE_PACKAGE))
     def setUp(self, mock_entry_factory, mock_tag_factory):
         metadata = \
             utils.Utils.convert_json_to_object(
