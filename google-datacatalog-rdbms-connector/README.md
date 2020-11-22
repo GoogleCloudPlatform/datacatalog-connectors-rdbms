@@ -254,7 +254,6 @@ To enable it you need 3 configuration files:
 
     
 **The SQL Object will be skipped if any of the 3 configuration files are missing. **
-won't be ingested.
 
 
 
