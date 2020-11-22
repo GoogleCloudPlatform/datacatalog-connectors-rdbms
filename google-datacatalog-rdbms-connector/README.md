@@ -253,7 +253,7 @@ To enable it you need 3 configuration files:
     | fields.target.type         | Type of the field to be translated to Data Catalog attributes |
 
     
-If any of those 3 configurations is not implemented, the SQL Object will be skipped and
+**The SQL Object will be skipped if any of the 3 configuration files are missing. **
 won't be ingested.
 
 
