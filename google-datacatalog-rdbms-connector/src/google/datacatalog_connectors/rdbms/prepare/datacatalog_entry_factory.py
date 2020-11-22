@@ -20,7 +20,7 @@ from google.protobuf import timestamp_pb2
 from google.datacatalog_connectors.commons.prepare.base_entry_factory import \
     BaseEntryFactory
 
-from google.datacatalog_connectors.rdbms.scrape import config_constants
+from google.datacatalog_connectors.rdbms.scrape import constants
 
 
 class DataCatalogEntryFactory(BaseEntryFactory):
@@ -95,9 +95,9 @@ class DataCatalogEntryFactory(BaseEntryFactory):
         # some RDBMS' store views and tables definitions in the same
         # system table, and the name is not user friendly, so we only
         # keep it if it's a VIEW type.
-        table_type = table.get(config_constants.TABLE_TYPE_KEY)
+        table_type = table.get(constants.TABLE_TYPE_KEY)
         if table_type and table_type.lower() == \
-                config_constants.VIEW_TYPE_VALUE:
+                constants.VIEW_TYPE_VALUE:
 
             table_type = table_type.lower()
         else:
