@@ -17,7 +17,7 @@
 from google.datacatalog_connectors.rdbms.scrape import MetadataNormalizer
 
 
-class MetadataSQLObjectNormalizer(MetadataNormalizer):
+class SQLObjectsMetadataNormalizer(MetadataNormalizer):
 
     @classmethod
     def normalize(cls, metadata, metadata_definition):
@@ -62,7 +62,7 @@ class MetadataSQLObjectNormalizer(MetadataNormalizer):
 
         cls._remove_nan_rows(metadata)
 
-        return MetadataSQLObjectNormalizer.__normalize_sql_objects(
+        return SQLObjectsMetadataNormalizer.__normalize_sql_objects(
             metadata, metadata_definition)
 
     @classmethod

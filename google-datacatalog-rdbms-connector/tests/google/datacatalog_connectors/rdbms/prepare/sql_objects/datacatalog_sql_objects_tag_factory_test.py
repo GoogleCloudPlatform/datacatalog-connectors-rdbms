@@ -17,17 +17,16 @@
 import os
 import unittest
 
+from google.cloud import datacatalog
+
 from google.datacatalog_connectors.commons_test import utils
 from google.datacatalog_connectors.rdbms.prepare.sql_objects import \
     datacatalog_sql_objects_tag_factory
 
-from google.datacatalog_connectors.rdbms.scrape import config_constants
-
-from google.cloud import datacatalog
+from google.datacatalog_connectors.rdbms.scrape import constants
 
 
 class DataCatalogSQLObjectsTagFactoryTestCase(unittest.TestCase):
-
     __MODULE_PATH = '{}/..'.format(os.path.dirname(os.path.abspath(__file__)))
 
     def test_tag_for_function_sql_object_should_set_all_available_fields(  # noqa:E501
@@ -47,7 +46,7 @@ class DataCatalogSQLObjectsTagFactoryTestCase(unittest.TestCase):
 
         sql_object_key = 'functions'
         sql_object_item = metadata[sql_object_key][
-            config_constants.SQL_OBJECT_ITEMS_KEY][0]
+            constants.SQL_OBJECT_ITEMS_KEY][0]
 
         tag = factory. \
             make_tags_for_sql_object(
@@ -83,7 +82,7 @@ class DataCatalogSQLObjectsTagFactoryTestCase(unittest.TestCase):
 
         sql_object_key = 'stored_procedures'
         sql_object_item = metadata[sql_object_key][
-            config_constants.SQL_OBJECT_ITEMS_KEY][0]
+            constants.SQL_OBJECT_ITEMS_KEY][0]
 
         tag = factory. \
             make_tags_for_sql_object(sql_object_key,

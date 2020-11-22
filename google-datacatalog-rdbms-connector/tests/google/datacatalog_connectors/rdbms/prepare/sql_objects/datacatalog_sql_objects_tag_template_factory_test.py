@@ -17,10 +17,11 @@
 import os
 import unittest
 
+from google.cloud import datacatalog
+
 from google.datacatalog_connectors.commons_test import utils
 from google.datacatalog_connectors.rdbms.prepare.sql_objects import \
     datacatalog_sql_objects_tag_template_factory
-from google.cloud import datacatalog
 
 
 class DataCatalogSQLObjectsTagTemplateFactoryTestCase(unittest.TestCase):

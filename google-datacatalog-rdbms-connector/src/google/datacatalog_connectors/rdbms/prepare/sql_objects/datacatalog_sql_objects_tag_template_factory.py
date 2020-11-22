@@ -21,7 +21,7 @@ from google.cloud import datacatalog
 
 from google.datacatalog_connectors.commons import prepare
 
-from google.datacatalog_connectors.rdbms.scrape import config_constants
+from google.datacatalog_connectors.rdbms.scrape import constants
 
 
 class DataCatalogSQLObjectsTagTemplateFactory(prepare.BaseTagTemplateFactory):
@@ -58,8 +58,8 @@ class DataCatalogSQLObjectsTagTemplateFactory(prepare.BaseTagTemplateFactory):
         logging.info('\nCreating template for: %s...', sql_object_key)
         sql_object_config = self.__sql_objects_config[sql_object_key]
         metadata_def = sql_object_config[
-            config_constants.SQL_OBJECT_ITEM_METADATA_DEF_KEY]
-        sql_object_type = metadata_def[config_constants.SQL_OBJECT_TYPE]
+            constants.SQL_OBJECT_ITEM_METADATA_DEF_KEY]
+        sql_object_type = metadata_def[constants.SQL_OBJECT_TYPE]
         tag_template = datacatalog.TagTemplate()
         tag_template_id = '{}_{}_metadata'.format(self.__entry_group_id,
                                                   sql_object_type)
@@ -71,7 +71,7 @@ class DataCatalogSQLObjectsTagTemplateFactory(prepare.BaseTagTemplateFactory):
                 project=self.__project_id,
                 location=self.__location_id,
                 tag_template=tag_template_id)
-        sql_object_fields = metadata_def[config_constants.SQL_OBJECT_FIELDS]
+        sql_object_fields = metadata_def[constants.SQL_OBJECT_FIELDS]
 
         for sql_object_field in sql_object_fields:
             self.___add_field_for_sql_object_field(sql_object_field,
@@ -80,28 +80,27 @@ class DataCatalogSQLObjectsTagTemplateFactory(prepare.BaseTagTemplateFactory):
         return tag_template_id, tag_template
 
     def ___add_field_for_sql_object_field(self, sql_object_item, tag_template):
-        sql_object_target = sql_object_item[
-            config_constants.SQL_OBJECT_FIELD_TARGET]
+        sql_object_target = sql_object_item[constants.SQL_OBJECT_FIELD_TARGET]
 
         sql_object_target_model = sql_object_target[
-            config_constants.SQL_OBJECT_FIELD_TARGET_MODEL]
+            constants.SQL_OBJECT_FIELD_TARGET_MODEL]
 
         # We only create template fields for tag models.
-        if config_constants.SQL_OBJECT_TAG_MODEL == sql_object_target_model:
+        if constants.SQL_OBJECT_TAG_MODEL == sql_object_target_model:
 
             sql_object_target_type = sql_object_target[
-                config_constants.SQL_OBJECT_FIELD_TARGET_TYPE]
+                constants.SQL_OBJECT_FIELD_TARGET_TYPE]
 
-            if config_constants.SQL_OBJECT_DOUBLE_FIELD ==\
+            if constants.SQL_OBJECT_DOUBLE_FIELD ==\
                     sql_object_target_type:
                 field_type = self.__DOUBLE_TYPE
-            elif config_constants.SQL_OBJECT_STRING_FIELD ==\
+            elif constants.SQL_OBJECT_STRING_FIELD ==\
                     sql_object_target_type:
                 field_type = self.__STRING_TYPE
-            elif config_constants.SQL_OBJECT_TIMESTAMP_FIELD ==\
+            elif constants.SQL_OBJECT_TIMESTAMP_FIELD ==\
                     sql_object_target_type:
                 field_type = self.__TIMESTAMP_TYPE
-            elif config_constants.SQL_OBJECT_BOOLEAN_FIELD ==\
+            elif constants.SQL_OBJECT_BOOLEAN_FIELD ==\
                     sql_object_target_type:
                 field_type = self.__BOOL_TYPE
             else:
@@ -109,7 +108,7 @@ class DataCatalogSQLObjectsTagTemplateFactory(prepare.BaseTagTemplateFactory):
                     sql_object_target_type))
 
             sql_object_target_name = sql_object_target[
-                config_constants.SQL_OBJECT_FIELD_TARGET_NAME]
+                constants.SQL_OBJECT_FIELD_TARGET_NAME]
 
             self._add_primitive_type_field(
                 tag_template, sql_object_target_name, field_type,

@@ -18,7 +18,7 @@ from google.cloud import datacatalog
 
 from google.datacatalog_connectors.commons import prepare
 
-from google.datacatalog_connectors.rdbms.scrape import config_constants
+from google.datacatalog_connectors.rdbms.scrape import constants
 
 
 class DataCatalogSQLObjectsTagFactory(prepare.BaseTagFactory):
@@ -44,9 +44,9 @@ class DataCatalogSQLObjectsTagFactory(prepare.BaseTagFactory):
         tag.template = tag_template.name
 
         metadata_def = sql_object_config[
-            config_constants.SQL_OBJECT_ITEM_METADATA_DEF_KEY]
+            constants.SQL_OBJECT_ITEM_METADATA_DEF_KEY]
 
-        sql_object_fields = metadata_def[config_constants.SQL_OBJECT_FIELDS]
+        sql_object_fields = metadata_def[constants.SQL_OBJECT_FIELDS]
 
         for sql_object_field in sql_object_fields:
             self.___add_field_for_sql_object_field(sql_object_field,
@@ -56,35 +56,34 @@ class DataCatalogSQLObjectsTagFactory(prepare.BaseTagFactory):
 
     def ___add_field_for_sql_object_field(self, sql_object_field,
                                           sql_object_item, tag):
-        sql_object_target = sql_object_field[
-            config_constants.SQL_OBJECT_FIELD_TARGET]
+        sql_object_target = sql_object_field[constants.SQL_OBJECT_FIELD_TARGET]
 
         sql_object_target_model = sql_object_target[
-            config_constants.SQL_OBJECT_FIELD_TARGET_MODEL]
+            constants.SQL_OBJECT_FIELD_TARGET_MODEL]
 
         # We only create template fields for tag models.
-        if config_constants.SQL_OBJECT_TAG_MODEL == sql_object_target_model:
+        if constants.SQL_OBJECT_TAG_MODEL == sql_object_target_model:
 
             sql_object_target_type = sql_object_target[
-                config_constants.SQL_OBJECT_FIELD_TARGET_TYPE]
+                constants.SQL_OBJECT_FIELD_TARGET_TYPE]
 
             sql_object_target_name = sql_object_target[
-                config_constants.SQL_OBJECT_FIELD_TARGET_NAME]
+                constants.SQL_OBJECT_FIELD_TARGET_NAME]
 
             value = sql_object_item[sql_object_target_name]
 
-            if config_constants.SQL_OBJECT_DOUBLE_FIELD ==\
+            if constants.SQL_OBJECT_DOUBLE_FIELD ==\
                     sql_object_target_type:
                 if value is None:
                     value = 0
                 self._set_double_field(tag, sql_object_target_name, value)
-            elif config_constants.SQL_OBJECT_STRING_FIELD ==\
+            elif constants.SQL_OBJECT_STRING_FIELD ==\
                     sql_object_target_type:
                 self._set_string_field(tag, sql_object_target_name, value)
-            elif config_constants.SQL_OBJECT_TIMESTAMP_FIELD ==\
+            elif constants.SQL_OBJECT_TIMESTAMP_FIELD ==\
                     sql_object_target_type:
                 self._set_timestamp_field(tag, sql_object_target_name, value)
-            elif config_constants.SQL_OBJECT_BOOLEAN_FIELD ==\
+            elif constants.SQL_OBJECT_BOOLEAN_FIELD ==\
                     sql_object_target_type:
                 self._set_bool_field(tag, sql_object_target_name,
                                      self.__convert_to_boolean(value))

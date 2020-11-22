@@ -14,23 +14,23 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import mock
 import os
 import unittest
 
-import mock
 from google.datacatalog_connectors.commons_test import utils
 from google.datacatalog_connectors.rdbms.scrape import config
 from google.datacatalog_connectors.rdbms.scrape.sql_objects import \
-    metadata_sql_objects_scraper
+    sql_objects_metadata_scraper
 
 
-class MetadataSQLObjectsScraperTestCase(unittest.TestCase):
+class SQLObjectsMetadataScraperTestCase(unittest.TestCase):
     __MODULE_PATH = '{}/..'.format(os.path.dirname(os.path.abspath(__file__)))
     __SCRAPE_PACKAGE = 'google.datacatalog_connectors.rdbms.scrape'
 
     @mock.patch('{}.sql_objects.'.format(__SCRAPE_PACKAGE) +
-                'metadata_sql_object_normalizer.MetadataSQLObjectNormalizer.'
-                'normalize')
+                'sql_objects_metadata_normalizer.'
+                'SQLObjectsMetadataNormalizer.normalize')
     def test_scrape_no_sql_objects_should_not_return_metadata(
             self, normalize):  # noqa
         metadata = \
@@ -40,7 +40,7 @@ class MetadataSQLObjectsScraperTestCase(unittest.TestCase):
         normalize.return_value = metadata
 
         main_scraper = mock.MagicMock()
-        scraper = metadata_sql_objects_scraper.MetadataSQLObjectsScraper(
+        scraper = sql_objects_metadata_scraper.SQLObjectsMetadataScraper(
             main_scraper)
 
         metadata = scraper.scrape(None,
@@ -52,8 +52,8 @@ class MetadataSQLObjectsScraperTestCase(unittest.TestCase):
         self.assertEqual(0, len(metadata))
 
     @mock.patch('{}.sql_objects.'.format(__SCRAPE_PACKAGE) +
-                'metadata_sql_object_normalizer.MetadataSQLObjectNormalizer.'
-                'normalize')
+                'sql_objects_metadata_normalizer.'
+                'SQLObjectsMetadataNormalizer.normalize')
     def test_scrape_should_return_metadata(self, normalize):  # noqa
         sql_objects_config = \
             utils.Utils.convert_json_to_object(self.__MODULE_PATH,
@@ -71,7 +71,7 @@ class MetadataSQLObjectsScraperTestCase(unittest.TestCase):
 
         normalize.return_value = normalized_metadata
 
-        scraper = metadata_sql_objects_scraper.MetadataSQLObjectsScraper(
+        scraper = sql_objects_metadata_scraper.SQLObjectsMetadataScraper(
             main_scraper)
 
         loaded_config = mock.MagicMock(config.Config)
