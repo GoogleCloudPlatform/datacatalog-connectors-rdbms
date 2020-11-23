@@ -24,7 +24,7 @@ environment, network and execution.
 ### Data Catalog API calls drilldown
 
 | Data Catalog API Method                                            | Calls |
-| ---                                                                | ---   | 
+| ---                                                                | --:   | 
 | **google.cloud.datacatalog.v1.DataCatalog.CreateEntry#200**        | 1025  | 
 | **google.cloud.datacatalog.v1.DataCatalog.CreateEntryGroup#200**   | 1     |
 | **google.cloud.datacatalog.v1.DataCatalog.CreateEntryGroup#409**   | 3     |  
