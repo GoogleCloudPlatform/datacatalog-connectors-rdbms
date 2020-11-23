@@ -17,8 +17,8 @@
 from google.datacatalog_connectors.rdbms.scrape import \
     metadata_scraper
 
-from google.datacatalog_connectors.sqlserver.scrape import \
-    metadata_enricher
+from google.datacatalog_connectors.rdbms.scrape import \
+    base_metadata_enricher
 
 import pandas as pd
 
@@ -48,4 +48,4 @@ class MetadataScraper(metadata_scraper.MetadataScraper):
                    host, database, user, password)
 
     def _get_metadata_enricher(self):
-        return metadata_enricher.MetadataEnricher
+        return base_metadata_enricher.BaseMetadataEnricher

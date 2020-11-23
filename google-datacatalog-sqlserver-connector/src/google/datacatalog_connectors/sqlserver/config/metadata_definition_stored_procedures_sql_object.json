@@ -1,0 +1,55 @@
+{
+  "key": "stored_procedures",
+  "type": "stored_procedure",
+  "name": "stored_procedure_name",
+  "fields": [
+    {
+      "source": "database_name",
+      "target": {
+        "field_name": "database_name",
+        "model": "tag",
+        "type": "string"
+      }
+    },
+    {
+      "source": "schema_name",
+      "target": {
+        "field_name": "schema_name",
+        "model": "tag",
+        "type": "string"
+      }
+    },
+    {
+      "source": "sql_data_access",
+      "target": {
+        "field_name": "sql_data_access",
+        "model": "tag",
+        "type": "string"
+      }
+    },
+    {
+      "source": "definition",
+      "target": {
+        "field_name": "definition",
+        "model": "tag",
+        "type": "string"
+      }
+    },
+    {
+      "source": "create_time",
+      "target": {
+        "field_name": "create_time",
+        "model": "entry",
+        "type": "timestamp"
+      }
+    },
+    {
+      "source": "update_time",
+      "target": {
+        "field_name": "update_time",
+        "model": "entry",
+        "type": "timestamp"
+      }
+    }
+  ]
+}
