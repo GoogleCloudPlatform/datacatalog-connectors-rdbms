@@ -6,6 +6,3 @@ sqlserver,users,BASE TABLE,uid,,NO,integer,,32
 sqlserver,messages,BASE TABLE,message,,YES,character varying,,
 sqlserver,users,BASE TABLE,name,,YES,character varying,,
 sqlserver,messages,BASE TABLE,ptime,,YES,date,,
-123sqlserver,123messages,BASE TABLE,ptime,,YES,date,,
-sqlserver,messages,BASE TABLE,ptime,,YES,date,,
-567sqlserver,567messages,BASE TABLE,ptime,,YES,date,,

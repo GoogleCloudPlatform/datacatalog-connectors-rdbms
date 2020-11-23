@@ -20,6 +20,8 @@ from google.protobuf import timestamp_pb2
 from google.datacatalog_connectors.commons.prepare.base_entry_factory import \
     BaseEntryFactory
 
+from google.datacatalog_connectors.rdbms.scrape import constants
+
 
 class DataCatalogEntryFactory(BaseEntryFactory):
     NO_VALUE_SPECIFIED = 'UNDEFINED'
@@ -90,8 +92,19 @@ class DataCatalogEntryFactory(BaseEntryFactory):
 
         entry = datacatalog.Entry()
 
-        entry.user_specified_type = self.__metadata_definition['table_def'][
-            'type']
+        # some RDBMS' store views and tables definitions in the same
+        # system table, and the name is not user friendly, so we only
+        # keep it if it's a VIEW type.
+        table_type = table.get(constants.TABLE_TYPE_KEY)
+        if table_type and table_type.lower() == \
+                constants.VIEW_TYPE_VALUE:
+
+            table_type = table_type.lower()
+        else:
+            table_type = self.__metadata_definition['table_def']['type']
+
+        entry.user_specified_type = table_type
+
         entry.user_specified_system = self.__entry_group_id
 
         entry.display_name = self._format_display_name(table['name'])

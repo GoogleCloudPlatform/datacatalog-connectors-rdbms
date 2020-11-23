@@ -19,11 +19,11 @@ import unittest
 
 import pandas as pd
 
-from google.datacatalog_connectors.saphana.scrape import metadata_enricher
+from google.datacatalog_connectors.rdbms.scrape import base_metadata_enricher
 from google.datacatalog_connectors.commons_test import utils
 
 
-class MetadataEnricherTestCase(unittest.TestCase):
+class BaseMetadataEnricherTestCase(unittest.TestCase):
     __MODULE_PATH = os.path.dirname(os.path.abspath(__file__))
 
     def test_enrich_schemas_metadata_with_csv_should_return_objects(self):
@@ -37,13 +37,13 @@ class MetadataEnricherTestCase(unittest.TestCase):
 
         scraped_dataframe = pd.read_csv(
             utils.Utils.get_resolved_file_name(self.__MODULE_PATH,
-                                               'saphana_full_dump.csv'))
+                                               'sqlserver_full_dump.csv'))
 
-        enriched_dataframe = metadata_enricher.MetadataEnricher(
+        enriched_dataframe = base_metadata_enricher.BaseMetadataEnricher(
             metadata_definition,
             enrich_metadata_dict).enrich(scraped_dataframe)
 
-        self.assertEqual(30, len(enriched_dataframe))
+        self.assertEqual(7, len(enriched_dataframe))
         self.assertTrue(
             enriched_dataframe['schema_name'][0].startswith('mycompany'))
         self.assertTrue(
@@ -65,30 +65,34 @@ class MetadataEnricherTestCase(unittest.TestCase):
         scraped_dataframe = pd.read_csv(
             utils.Utils.get_resolved_file_name(
                 self.__MODULE_PATH,
-                'saphana_full_dump_invalid_asset_names.csv'))
+                'sqlserver_full_dump_invalid_asset_names.csv'))
 
-        enriched_dataframe = metadata_enricher.MetadataEnricher(
+        enriched_dataframe = base_metadata_enricher.BaseMetadataEnricher(
             metadata_definition,
             enrich_metadata_dict).enrich(scraped_dataframe)
 
-        self.assertEqual(30, len(enriched_dataframe))
+        self.assertEqual(10, len(enriched_dataframe))
 
-        self.assertTrue(
+        self.assertFalse(
             enriched_dataframe['schema_name'][6].startswith('mycompany'))
-        self.assertTrue(
+        self.assertFalse(
             enriched_dataframe['table_name'][6].startswith('mycompany'))
 
         self.assertTrue(
-            enriched_dataframe['schema_name'][7].startswith('SALES_TUTORIAL'))
+            enriched_dataframe['schema_name'][7].startswith('mycompany'))
         self.assertTrue(
-            enriched_dataframe['table_name'][7].startswith('PRODUCT'))
+            enriched_dataframe['table_name'][7].startswith('mycompany'))
+        self.assertTrue(
+            enriched_dataframe['column_name'][7].startswith('mycompany'))
 
-        self.assertTrue(
+        self.assertFalse(
             enriched_dataframe['schema_name'][8].startswith('mycompany'))
-        self.assertTrue(
+        self.assertFalse(
             enriched_dataframe['table_name'][8].startswith('mycompany'))
 
         self.assertTrue(
-            enriched_dataframe['schema_name'][9].startswith('SALES_TUTORIAL'))
+            enriched_dataframe['schema_name'][9].startswith('mycompany'))
         self.assertTrue(
-            enriched_dataframe['table_name'][9].startswith('REGION'))
+            enriched_dataframe['table_name'][9].startswith('mycompany'))
+        self.assertFalse(
+            enriched_dataframe['column_name'][9].startswith('mycompany'))
