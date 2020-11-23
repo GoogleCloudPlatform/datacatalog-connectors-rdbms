@@ -7,6 +7,11 @@
 # in each table
 sync_row_counts: true
 
+# Config to enable ingestion of sql objects.
+sql_objects:
+  - name: 'functions'
+    enabled: True
+
 # Properties used to enrich metadata
 enrich_metadata:
   # ADD any string here that comply with Data Catalog Entry ID requirements,
