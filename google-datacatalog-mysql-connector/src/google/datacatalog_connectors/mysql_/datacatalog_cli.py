@@ -66,6 +66,9 @@ class MySQL2DatacatalogCli(datacatalog_cli.DatacatalogCli):
         parser.add_argument('--datacatalog-entry-group-id',
                             help='Entry group ID to be used for your Google '
                             'Cloud Datacatalog')
+        parser.add_argument('--datacatalog-entry-resource-url-prefix',
+                            help='Entry resource URL prefix'
+                            'Cloud Datacatalog')
         parser.add_argument(
             '--mysql-host',
             help='Your mysql server host, this is required even'
