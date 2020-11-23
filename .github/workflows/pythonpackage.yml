@@ -30,9 +30,12 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install flake8 yapf
-        pip install .
         # Update the commons RDBMS library with the local version
-        pip install --upgrade ../google-datacatalog-rdbms-connector
+        pip install ../google-datacatalog-rdbms-connector
+        # Update the commons PostgreSQL library with the local version
+        # because the Greenplum and Redshift connectors depend on it.
+        pip install ../google-datacatalog-postgresql-connector
+        pip install .
     - name: Formatting rules with yapf
       run: |
         # stop the build if formatting is different from yapf

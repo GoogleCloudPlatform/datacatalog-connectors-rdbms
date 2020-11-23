@@ -33,7 +33,7 @@ class AssembledEntryFactory:
         self.__metadata_definition = metadata_definition
         self.__tag_templates_dict = tag_templates_dict
 
-    def make_entries_from_table_container_metadata(self, metadata):
+    def make_entries(self, metadata):
         assembled_entries = []
         table_container_def = self.__metadata_definition['table_container_def']
         table_containers = metadata[table_container_def['key']]

@@ -14,16 +14,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# User defined config keys
-ENRICH_METADATA_OPTION = 'enrich_metadata'
-REFRESH_OPTION = 'refresh_metadata_tables'
-ROW_COUNT_OPTION = 'sync_row_counts'
+from google.datacatalog_connectors.rdbms.scrape.sql_objects\
+    .sql_objects_metadata_normalizer import\
+    SQLObjectsMetadataNormalizer
 
-# Metadata config keys
-ASSET_NAME_KEY = 'name'
-TABLE_CONTAINER_DEF_KEY = 'table_container_def'
-TABLE_DEF_KEY = 'table_def'
+from google.datacatalog_connectors.rdbms.scrape.sql_objects\
+    .sql_objects_metadata_scraper import\
+    SQLObjectsMetadataScraper
 
-# Metadata enrich attributes keys
-METADATA_ENRICH_ENTRY_PREFIX = 'entry_prefix'
-METADATA_ENRICH_ENTRY_ID_PATTERN_FOR_PREFIX = 'entry_id_pattern_for_prefix'
+__all__ = ('SQLObjectsMetadataNormalizer', 'SQLObjectsMetadataScraper')

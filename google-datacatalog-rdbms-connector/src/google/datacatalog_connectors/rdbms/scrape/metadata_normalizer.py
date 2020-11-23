@@ -24,7 +24,7 @@ class MetadataNormalizer:
         pass
 
     @classmethod
-    def to_metadata_dict(cls, metadata, metadata_definition):
+    def normalize(cls, metadata, metadata_definition):
         """
          Receives a Pandas dataframe and normalizes it by creating a dictionary
          with Table Container(Database/Schema) -> Tables -> Columns hierarchy.
@@ -76,13 +76,13 @@ class MetadataNormalizer:
          :return: a normalized dict object
         """
 
-        cls.__remove_nan_rows(metadata)
+        cls._remove_nan_rows(metadata)
 
         table_container_def = metadata_definition['table_container_def']
 
         return {
             table_container_def['key']:
-                cls.__normalize_objects(
+                cls._normalize_objects(
                     metadata=metadata,
                     key_column_name=table_container_def['name'],
                     normalizer_method=cls.__normalize_table_container,
@@ -90,14 +90,14 @@ class MetadataNormalizer:
         }
 
     @classmethod
-    def __remove_nan_rows(cls, metadata):
+    def _remove_nan_rows(cls, metadata):
         # Remove nan fields
         pd.options.mode.chained_assignment = None
         metadata.dropna(axis=0, how='all', inplace=True)
 
     @classmethod
-    def __normalize_objects(cls, metadata, key_column_name, normalizer_method,
-                            metadata_definition):
+    def _normalize_objects(cls, metadata, key_column_name, normalizer_method,
+                           metadata_definition):
         """
          Generic method to normalize a Pandas dataframe
          into an array dictionary objects.
@@ -120,13 +120,29 @@ class MetadataNormalizer:
         for key_value in key_values:
             # We use an array with: [key_value] to make sure the dataframe loc
             # always returns a dataframe, and not a Series
-            metadata_subset = metadata.loc[[key_value]]
-            metadata.drop(key_value, inplace=True)
-            array.append(
-                normalizer_method(key_value.strip(), metadata_subset,
-                                  metadata_definition))
+            if pd.notnull(key_value):
+                metadata_subset = metadata.loc[[key_value]]
+                metadata.drop(key_value, inplace=True)
+                array.append(
+                    normalizer_method(key_value.strip(), metadata_subset,
+                                      metadata_definition))
 
         return array
+
+    @classmethod
+    def _extract_value_from_first_row(cls, df, column_name):
+        value = df.iloc[0][column_name]
+
+        if pd.isna(value):
+            return value
+
+        if isinstance(value, six.string_types):
+            return value.strip()
+        return value
+
+    @classmethod
+    def _normalize_timestamp_field(cls, timestamp_field):
+        return pd.Timestamp(timestamp_field)
 
     @classmethod
     def __normalize_table_container(cls, name, table_container_metadata,
@@ -138,12 +154,12 @@ class MetadataNormalizer:
         normalized_dict = {'name': name}
 
         normalized_dict.update(
-            cls.__normalize_fields(fields, table_container_metadata))
+            cls._normalize_fields(fields, table_container_metadata))
 
         table_def = metadata_definition['table_def']
 
         normalized_dict[table_def['key']] = \
-            cls.__normalize_objects(
+            cls._normalize_objects(
              metadata=table_container_metadata.loc[
                       :, table_def['name']:],
              key_column_name=table_def['name'],
@@ -161,11 +177,11 @@ class MetadataNormalizer:
 
         normalized_dict = {'name': name}
 
-        normalized_dict.update(cls.__normalize_fields(fields, table_metadata))
+        normalized_dict.update(cls._normalize_fields(fields, table_metadata))
 
         column_def = metadata_definition['column_def']
 
-        normalized_dict[column_def['key']] = cls.__normalize_objects(
+        normalized_dict[column_def['key']] = cls._normalize_objects(
             metadata=table_metadata.loc[:, column_def['name']:],
             key_column_name=column_def['name'],
             normalizer_method=cls.__normalize_column,
@@ -180,12 +196,12 @@ class MetadataNormalizer:
 
         normalized_dict = {'name': name}
 
-        normalized_dict.update(cls.__normalize_fields(fields, column_metadata))
+        normalized_dict.update(cls._normalize_fields(fields, column_metadata))
 
         return normalized_dict
 
     @classmethod
-    def __normalize_fields(cls, fields, metadata):
+    def _normalize_fields(cls, fields, metadata):
         fields_dict = {}
         for field in fields:
             source = field['source']
@@ -194,31 +210,16 @@ class MetadataNormalizer:
             # could be that optional information ('source')
             # is not present in scraped metadata
             if source in metadata:
-                value = cls.__extract_value_from_first_row(metadata, source)
+                value = cls._extract_value_from_first_row(metadata, source)
 
-                if cls.__is_date_field(target):
-                    value = cls.__normalize_timestamp_field(value)
+                if cls._is_timestamp_field(target):
+                    value = cls._normalize_timestamp_field(value)
 
                 fields_dict[target] = value
         return fields_dict
 
     @classmethod
-    def __extract_value_from_first_row(cls, df, column_name):
-        value = df.iloc[0][column_name]
-
-        if pd.isna(value):
-            return value
-
-        if isinstance(value, six.string_types):
-            return value.strip()
-        return value
-
-    @classmethod
-    def __normalize_timestamp_field(cls, timestamp_field):
-        return pd.Timestamp(timestamp_field)
-
-    @classmethod
-    def __is_date_field(cls, target):
+    def _is_timestamp_field(cls, target):
         # [TODO] Improve logic to identify timestamp fields
         # currently using a naming convention
         if '_date' in target or '_time' in target:

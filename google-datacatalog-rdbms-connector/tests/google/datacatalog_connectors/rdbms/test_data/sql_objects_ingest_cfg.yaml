@@ -1,0 +1,5 @@
+sql_objects:
+  - name: 'functions'
+    enabled: True
+  - name: 'stored_procedures'
+    enabled: True

@@ -31,7 +31,6 @@
                 "source": "table_rows",
                 "target": "num_rows"
             },
-
             {
                 "source": "table_size",
                 "target": "table_size_MB"

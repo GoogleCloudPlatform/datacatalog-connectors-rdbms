@@ -28,27 +28,27 @@ class MetadataScraperTestCase(unittest.TestCase):
 
     @patch('pandas.read_csv')
     @patch('{}.metadata_normalizer.MetadataNormalizer'
-           '.to_metadata_dict'.format(__SCRAPE_PACKAGE))
+           '.normalize'.format(__SCRAPE_PACKAGE))
     def test_scrape_schemas_metadata_with_csv_should_return_objects(
-            self, to_metadata_dict, read_csv):  # noqa
+            self, normalize, read_csv):  # noqa
 
         metadata = \
             utils.Utils.convert_json_to_object(
                 self.__MODULE_PATH,
                 'metadata.json')
         read_csv.return_value = metadata
-        to_metadata_dict.return_value = metadata
+        normalize.return_value = metadata
 
         scraper = metadata_scraper.MetadataScraper()
-        schemas_metadata = scraper.get_metadata({}, csv_path='csv')
+        schemas_metadata = scraper.scrape({}, csv_path='csv')
 
         self.assertEqual(1, len(schemas_metadata))
 
     @patch('pyodbc.connect')
     @patch('{}.metadata_normalizer.MetadataNormalizer'
-           '.to_metadata_dict'.format(__SCRAPE_PACKAGE))
+           '.normalize'.format(__SCRAPE_PACKAGE))
     def test_scrape_schemas_metadata_with_credentials_should_return_objects(
-            self, to_metadata_dict, connect):  # noqa
+            self, normalize, connect):  # noqa
 
         metadata = \
             utils.Utils.convert_json_to_object(
@@ -72,30 +72,30 @@ class MetadataScraperTestCase(unittest.TestCase):
                 self.__MODULE_PATH,
                 'description.json')
 
-        to_metadata_dict.return_value = metadata
+        normalize.return_value = metadata
 
         scraper = metadata_scraper.MetadataScraper()
-        schemas_metadata = scraper.get_metadata({},
-                                                connection_args={
-                                                    'database': 'db',
-                                                    'host': 'mysql_host',
-                                                    'user': 'dbc',
-                                                    'pass': 'dbc'
-                                                })
+        schemas_metadata = scraper.scrape({},
+                                          connection_args={
+                                              'database': 'db',
+                                              'host': 'mysql_host',
+                                              'user': 'dbc',
+                                              'pass': 'dbc'
+                                          })
 
         self.assertEqual(1, len(schemas_metadata))
         self.assertEqual(connect.call_count, 1)
 
     @patch('pyodbc.connect')
     @patch('{}.metadata_normalizer.MetadataNormalizer'
-           '.to_metadata_dict'.format(__SCRAPE_PACKAGE))
+           '.normalize'.format(__SCRAPE_PACKAGE))
     def test_scrape_schemas_metadata_on_exception_should_re_raise(
-            self, to_metadata_dict, connect):  # noqa
+            self, normalize, connect):  # noqa
         connect.side_effect = Exception('Error when connecting to Server')
 
         scraper = metadata_scraper.MetadataScraper()
         self.assertRaises(Exception,
-                          scraper.get_metadata, {},
+                          scraper.scrape, {},
                           connection_args={
                               'database': 'db',
                               'host': 'mysql_host',
@@ -104,4 +104,4 @@ class MetadataScraperTestCase(unittest.TestCase):
                           })
 
         self.assertEqual(connect.call_count, 1)
-        self.assertEqual(to_metadata_dict.call_count, 0)
+        self.assertEqual(normalize.call_count, 0)
