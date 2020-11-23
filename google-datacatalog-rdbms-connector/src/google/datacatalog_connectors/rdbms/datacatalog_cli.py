@@ -45,7 +45,8 @@ class DatacatalogCli(ABC):
             project_id=args.datacatalog_project_id,
             location_id=args.datacatalog_location_id,
             entry_group_id=self._get_entry_group_id(args),
-            rbms_host=self._get_host_arg(args),
+            entry_resource_url_prefix=self._get_entry_resource_url_prefix(
+                args),
             metadata_definition=self._metadata_definition(),
             metadata_scraper=self._get_metadata_scraper(),
             connection_args=self._get_connection_args(args),
@@ -102,6 +103,9 @@ class DatacatalogCli(ABC):
     @abstractmethod
     def _parse_args(self, argv):
         pass
+
+    def _get_entry_resource_url_prefix(self, args):
+        return args.entry_resource_url_prefix or self._get_host_arg(args)
 
     def _get_user_config_path(self):
         user_config_path = os.path.join(os.getcwd(), 'ingest_cfg.yaml')

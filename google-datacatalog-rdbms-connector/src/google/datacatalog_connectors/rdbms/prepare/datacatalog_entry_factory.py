@@ -27,11 +27,11 @@ class DataCatalogEntryFactory(BaseEntryFactory):
     NO_VALUE_SPECIFIED = 'UNDEFINED'
     EMPTY_TOKEN = '?'
 
-    def __init__(self, project_id, location_id, metadata_host_server,
+    def __init__(self, project_id, location_id, entry_resource_url_prefix,
                  entry_group_id, metadata_definition):
         self.__project_id = project_id
         self.__location_id = location_id
-        self.__metadata_host_server = metadata_host_server
+        self.__entry_resource_url_prefix = entry_resource_url_prefix
         self.__entry_group_id = entry_group_id
         self.__metadata_definition = metadata_definition
 
@@ -74,8 +74,8 @@ class DataCatalogEntryFactory(BaseEntryFactory):
             self.__project_id, self.__location_id, self.__entry_group_id,
             entry_id)
 
-        entry.linked_resource = '//{}//{}'.format(self.__metadata_host_server,
-                                                  entry_id)
+        entry.linked_resource = '//{}//{}'.format(
+            self.__entry_resource_url_prefix, entry_id)
 
         return entry_id, entry
 
@@ -120,7 +120,7 @@ class DataCatalogEntryFactory(BaseEntryFactory):
         entry.description = desc
 
         entry.linked_resource = '//{}//{}'.format(
-            self.__metadata_host_server, self._format_id(table['name']))
+            self.__entry_resource_url_prefix, self._format_id(table['name']))
 
         create_time, update_time = \
             DataCatalogEntryFactory.__convert_source_system_timestamp_fields(

@@ -43,8 +43,7 @@ class Config:
             for option, choice in self._conf_content.items()
             if choice and (option != constants.REFRESH_OPTION and
                            option != constants.ENRICH_METADATA_OPTION and
-                           option != constants.SQL_OBJECTS_KEY
-                           )
+                           option != constants.SQL_OBJECTS_KEY)
         ]
         return options
 

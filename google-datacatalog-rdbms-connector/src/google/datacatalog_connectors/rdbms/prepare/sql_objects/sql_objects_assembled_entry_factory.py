@@ -25,7 +25,7 @@ from google.datacatalog_connectors.rdbms.scrape import constants
 
 class SQLObjectsAssembledEntryFactory:
 
-    def __init__(self, project_id, location_id, metadata_host_server,
+    def __init__(self, project_id, location_id, entry_resource_url_prefix,
                  entry_group_id, sql_objects_config, tag_templates_dict):
         self.__entry_group_id = entry_group_id
         self.__sql_objects_config = sql_objects_config
@@ -35,7 +35,7 @@ class SQLObjectsAssembledEntryFactory:
             SQLObjectsDataCatalogEntryFactory(
                 project_id,
                 location_id,
-                metadata_host_server,
+                entry_resource_url_prefix,
                 self.__entry_group_id,
                 self.__sql_objects_config)
         self.__datacatalog_tag_factory = sql_objects_datacatalog_tag_factory.\

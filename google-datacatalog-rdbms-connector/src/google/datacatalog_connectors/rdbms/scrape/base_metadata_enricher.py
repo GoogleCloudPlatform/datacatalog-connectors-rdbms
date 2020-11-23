@@ -32,9 +32,8 @@ class BaseMetadataEnricher(metadata_enricher.MetadataEnricher):
             table_name = self._metadata_definition[constants.TABLE_DEF_KEY][
                 constants.ASSET_NAME_KEY]
 
-            column_name = self._metadata_definition[
-                constants.COLUMN_DEF_KEY][
-                    constants.ASSET_NAME_KEY]
+            column_name = self._metadata_definition[constants.COLUMN_DEF_KEY][
+                constants.ASSET_NAME_KEY]
 
             asset_pattern_for_prefix = self._enrich_metadata_dict.get(
                 constants.METADATA_ENRICH_ENTRY_ID_PATTERN_FOR_PREFIX)

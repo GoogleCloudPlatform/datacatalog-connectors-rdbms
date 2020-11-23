@@ -125,6 +125,7 @@ class FakeCLI(datacatalog_cli.DatacatalogCli):
         args.datacatalog_project_id = 'project_id'
         args.datacatalog_location_id = 'uscentral-1'
         args.rdbms_host = 'localhost'
+        args.entry_resource_url_prefix = 'my_on_prem_system'
         args.raw_metadata_csv = utils.Utils.get_resolved_file_name(
             os.path.dirname(os.path.abspath(__file__)), 'rdbms_full_dump.csv')
         args.service_account_path = 'my_sa.json'
