@@ -103,8 +103,8 @@ class SQLObjectsMetadataNormalizer(MetadataNormalizer):
 
             target_name = target['field_name']
 
-            # The 'source' field is optional and might not be present in the scraped metadata.
-            # is not present in scraped metadata
+            # The 'source' field is optional and might not be present
+            # in the scraped metadata.
             if source in metadata:
                 value = cls._extract_value_from_first_row(metadata, source)
 

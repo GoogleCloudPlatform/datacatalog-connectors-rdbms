@@ -64,8 +64,7 @@ class Config:
                 item_name = sql_object[constants.SQL_OBJECT_ITEM_NAME]
 
                 query_path = '{}_{}_{}'.format(
-                    constants.SQL_OBJECT_ITEM_QUERY_FILENAME_PREFIX,
-                    item_name,
+                    constants.SQL_OBJECT_ITEM_QUERY_FILENAME_PREFIX, item_name,
                     constants.SQL_OBJECT_ITEM_QUERY_FILENAME_SUFFIX)
 
                 query_full_path = os.path.join(self._connector_config_path,
@@ -106,8 +105,8 @@ class Config:
 
                     logging.info(
                         'SQL Object: %s processed, metadata def: %s'
-                        ' and query: %s', item_name,
-                        metadata_def_full_path, query_full_path)
+                        ' and query: %s', item_name, metadata_def_full_path,
+                        query_full_path)
                 else:
                     logging.warning(
                         'SQL Object: %s ignored, metadata def: %s'
