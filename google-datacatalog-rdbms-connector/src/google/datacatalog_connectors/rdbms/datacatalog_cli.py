@@ -111,7 +111,7 @@ class DatacatalogCli(ABC):
         # older sql connectors versions.
         try:
             return args.datacatalog_entry_resource_url_prefix
-        except AttributeError:
+        except (AttributeError, KeyError):
             return self._get_host_arg(args)
 
     def _get_user_config_path(self):
