@@ -191,9 +191,10 @@ You can see working examples of implementing optional queries in the connectors 
 Please also refer to these samples to see how user configuration file `ingest_cfg.yaml` should look like.
 
 ### 4.2 Add support for SQL Objects
-You can use the SQL Objects mechanism from the SQL connector to ingest SQL objects such as Functions,
-Stored Procedures, Views, Materialized Views, and so on. This mechanism uses naming convention to locate
-a SQL query and a metadata definition file.
+You can use the SQL Objects mechanism from the SQL connector to ingest 
+SQL objects such as Functions, Stored Procedures, Views, Materialized Views,
+and so on. This mechanism uses naming convention to locate a SQL query and a 
+metadata definition file.
 
 You can see working examples of implementing SQL Objects in the test sources. 
 To enable it you need 3 configuration files:
