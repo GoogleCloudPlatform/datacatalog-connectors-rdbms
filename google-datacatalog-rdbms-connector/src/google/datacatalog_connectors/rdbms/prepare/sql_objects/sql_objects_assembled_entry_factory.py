@@ -16,11 +16,11 @@
 
 from google.datacatalog_connectors.commons import prepare
 
-from google.datacatalog_connectors.rdbms.scrape import constants
-
 from google.datacatalog_connectors.rdbms.prepare.sql_objects\
     import sql_objects_datacatalog_entry_factory,\
     sql_objects_datacatalog_tag_factory
+
+from google.datacatalog_connectors.rdbms.scrape import constants
 
 
 class SQLObjectsAssembledEntryFactory:
