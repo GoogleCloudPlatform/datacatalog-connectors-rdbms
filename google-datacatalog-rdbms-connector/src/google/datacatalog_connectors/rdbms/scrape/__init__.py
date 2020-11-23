@@ -14,8 +14,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from .metadata_enricher import MetadataEnricher
 from .base_metadata_enricher import BaseMetadataEnricher
+from .metadata_enricher import MetadataEnricher
 from .metadata_normalizer import MetadataNormalizer
 from .metadata_scraper import MetadataScraper
 
