@@ -23,7 +23,7 @@ with open('README.md') as readme_file:
 
 setuptools.setup(
     name='google-datacatalog-teradata-connector',
-    version='0.7.1',
+    version='0.8.0',
     author='Google LLC',
     description=
     'Library for ingesting Teradata metadata into Google Cloud Data Catalog',
@@ -37,7 +37,7 @@ setuptools.setup(
         ],
     },
     include_package_data=True,
-    install_requires=('teradatasql', 'google-datacatalog-rdbms-connector>=0.10.0<0.11.0'),
+    install_requires=('teradatasql', 'google-datacatalog-rdbms-connector>=0.11.0<0.12.0'),
     setup_requires=('pytest-runner',),
     tests_require=('pytest-cov', 'google-datacatalog-connectors-commons-test>=0.7.0<0.8.0'),
     classifiers=(

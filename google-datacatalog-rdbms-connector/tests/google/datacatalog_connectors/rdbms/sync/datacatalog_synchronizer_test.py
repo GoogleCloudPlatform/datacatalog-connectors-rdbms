@@ -14,6 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import mock
 import os
 import unittest
 
@@ -21,7 +22,8 @@ from .. import test_utils
 from google.datacatalog_connectors.commons_test import utils
 from google.datacatalog_connectors.rdbms.sync import \
     datacatalog_synchronizer
-import mock
+from google.datacatalog_connectors.rdbms.scrape import \
+    config
 
 
 @mock.patch('google.datacatalog_connectors.rdbms.scrape.metadata_scraper.'
@@ -51,11 +53,13 @@ class DatacatalogSynchronizerTestCase(unittest.TestCase):
     __RAW_METADATA_CSV = 'csv'
 
     @mock.patch('google.datacatalog_connectors.rdbms.'
-                'scrape.metadata_scraper.MetadataScraper.get_metadata')
-    @mock.patch(
-        'google.datacatalog_connectors.rdbms.'
-        'prepare.assembled_entry_factory.'
-        'AssembledEntryFactory.make_entries_from_table_container_metadata')
+                'scrape.metadata_scraper.MetadataScraper.scrape')
+    @mock.patch('google.datacatalog_connectors.rdbms.'
+                'prepare.sql_objects.sql_objects_assembled_entry_factory.'
+                'SQLObjectsAssembledEntryFactory.make_entries')
+    @mock.patch('google.datacatalog_connectors.rdbms.'
+                'prepare.assembled_entry_factory.'
+                'AssembledEntryFactory.make_entries')
     @mock.patch('google.datacatalog_connectors.commons.ingest.'
                 'datacatalog_metadata_ingestor.'
                 'DataCatalogMetadataIngestor.ingest_metadata')
@@ -74,9 +78,10 @@ class DatacatalogSynchronizerTestCase(unittest.TestCase):
     def test_synchronize_metadata_should_not_raise_error(  # noqa: E125
             self, process_entries_length_metric,
             process_metadata_payload_bytes_metric, process_elapsed_time_metric,
-            delete_obsolete_metadata, ingest_metadata,
-            make_entries_from_table_container_metadata, get_metadata):
-        make_entries_from_table_container_metadata.return_value = [({}, [])]
+            delete_obsolete_metadata, ingest_metadata, make_base_entries,
+            make_sql_objects_entries, scrape):
+        make_base_entries.return_value = [({}, [])]
+        make_sql_objects_entries.return_value = []
 
         synchronizer = datacatalog_synchronizer.DataCatalogSynchronizer(
             DatacatalogSynchronizerTestCase.__PROJECT_ID,
@@ -88,14 +93,74 @@ class DatacatalogSynchronizerTestCase(unittest.TestCase):
             enable_monitoring=True)
 
         synchronizer.run()
-        self.assertEqual(get_metadata.call_count, 1)
+        self.assertEqual(scrape.call_count, 1)
         self.assertEqual(
             synchronizer.
             _DataCatalogSynchronizer__metadata_definition['database_name'],
             'test_db')
-        self.assertEqual(make_entries_from_table_container_metadata.call_count,
-                         1)
+        self.assertEqual(make_base_entries.call_count, 1)
         self.assertEqual(ingest_metadata.call_count, 1)
+        self.assertEqual(delete_obsolete_metadata.call_count, 1)
+        self.assertEqual(process_entries_length_metric.call_count, 1)
+        self.assertEqual(process_metadata_payload_bytes_metric.call_count, 1)
+        self.assertEqual(process_elapsed_time_metric.call_count, 1)
+
+    @mock.patch('google.datacatalog_connectors.rdbms.'
+                'scrape.metadata_scraper.MetadataScraper.scrape')
+    @mock.patch('google.datacatalog_connectors.rdbms.'
+                'prepare.sql_objects.sql_objects_assembled_entry_factory.'
+                'SQLObjectsAssembledEntryFactory.make_entries')
+    @mock.patch('google.datacatalog_connectors.rdbms.'
+                'prepare.assembled_entry_factory.'
+                'AssembledEntryFactory.make_entries')
+    @mock.patch('google.datacatalog_connectors.commons.ingest.'
+                'datacatalog_metadata_ingestor.'
+                'DataCatalogMetadataIngestor.ingest_metadata')
+    @mock.patch('google.datacatalog_connectors.commons.cleanup.'
+                'datacatalog_metadata_cleaner.DataCatalogMetadataCleaner.'
+                'delete_obsolete_metadata')
+    @mock.patch('google.datacatalog_connectors.commons.monitoring.'
+                'metrics_processor.MetricsProcessor.'
+                'process_elapsed_time_metric')
+    @mock.patch('google.datacatalog_connectors.commons.monitoring.'
+                'metrics_processor.MetricsProcessor.'
+                'process_metadata_payload_bytes_metric')
+    @mock.patch('google.datacatalog_connectors.commons.monitoring.'
+                'metrics_processor.MetricsProcessor.'
+                'process_entries_length_metric')
+    def test_synchronize_metadata_with_sql_config_should_not_raise_error(  # noqa: E501
+            self, process_entries_length_metric,
+            process_metadata_payload_bytes_metric, process_elapsed_time_metric,
+            delete_obsolete_metadata, ingest_metadata, make_base_entries,
+            make_sql_objects_entries, scrape):
+        make_base_entries.return_value = [({}, [])]
+        make_sql_objects_entries.return_value = []
+
+        user_config_path = utils.Utils.get_resolved_file_name(
+            self.__MODULE_PATH, 'sql_objects_ingest_cfg.yaml')
+        connector_config_path = utils.Utils.get_test_config_path(
+            self.__MODULE_PATH)
+
+        loaded_config = config.Config(user_config_path, connector_config_path)
+
+        synchronizer = datacatalog_synchronizer.DataCatalogSynchronizer(
+            DatacatalogSynchronizerTestCase.__PROJECT_ID,
+            DatacatalogSynchronizerTestCase.__LOCATION_ID,
+            DatacatalogSynchronizerTestCase.__ENTRY_GROUP_ID,
+            DatacatalogSynchronizerTestCase.__HOST,
+            utils.Utils.get_metadata_def_obj(self.__MODULE_PATH),
+            test_utils.FakeScraper, {'database': 'test_db'},
+            enable_monitoring=True,
+            config=loaded_config)
+
+        synchronizer.run()
+        self.assertEqual(scrape.call_count, 1)
+        self.assertEqual(
+            synchronizer.
+            _DataCatalogSynchronizer__metadata_definition['database_name'],
+            'test_db')
+        self.assertEqual(make_base_entries.call_count, 1)
+        self.assertEqual(ingest_metadata.call_count, 2)
         self.assertEqual(delete_obsolete_metadata.call_count, 1)
         self.assertEqual(process_entries_length_metric.call_count, 1)
         self.assertEqual(process_metadata_payload_bytes_metric.call_count, 1)

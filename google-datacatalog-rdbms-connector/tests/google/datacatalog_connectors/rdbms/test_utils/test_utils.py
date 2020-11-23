@@ -19,7 +19,7 @@ import os
 from google.datacatalog_connectors.commons_test import utils
 from google.datacatalog_connectors.rdbms import datacatalog_cli
 from google.datacatalog_connectors.rdbms.scrape import \
-     config_constants, metadata_enricher, metadata_scraper, query_assembler
+     constants, metadata_enricher, metadata_scraper, query_assembler
 import mock
 
 
@@ -77,13 +77,12 @@ class FakeMetadataEnricher(metadata_enricher.MetadataEnricher):
 
     def enrich(self, scraped_dataframe):
         table_container_name = self._metadata_definition[
-            config_constants.TABLE_CONTAINER_DEF_KEY][
-                config_constants.ASSET_NAME_KEY]
-        table_name = self._metadata_definition[config_constants.TABLE_DEF_KEY][
-            config_constants.ASSET_NAME_KEY]
+            constants.TABLE_CONTAINER_DEF_KEY][constants.ASSET_NAME_KEY]
+        table_name = self._metadata_definition[constants.TABLE_DEF_KEY][
+            constants.ASSET_NAME_KEY]
 
         asset_prefix = self._enrich_metadata_dict[
-            config_constants.METADATA_ENRICH_ENTRY_PREFIX]
+            constants.METADATA_ENRICH_ENTRY_PREFIX]
 
         scraped_dataframe[
             table_name] = asset_prefix + scraped_dataframe[table_name]

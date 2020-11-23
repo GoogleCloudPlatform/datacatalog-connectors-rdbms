@@ -1,0 +1,5 @@
+schema_name,function_name,input_parameter_count,return_value_count,definition,is_valid,owner_name,create_time,stored_procedure_name
+"SYSTEM","CREDIT_MASK",1,1,"CREATE FUNCTION credit_mask(input varchar(19)) RETURNS output VARCHAR(19) LANGUAGE SQLSCRIPT \nAS\nBEGIN\noutput = LEFT(:input,4) || '-XXXX-XXXX-' || RIGHT(:input,4);\nEND","TRUE","SYSTEM","2020-11-10 16:53:52.0000000",
+"SYSTEM","CREDIT_MASK_2",2,2,"CREATE FUNCTION credit_mask_2(input varchar(19)) RETURNS output VARCHAR(19) LANGUAGE SQLSCRIPT \nAS\nBEGIN\noutput = LEFT(:input,4) || '-XXXX-XXXX-' || RIGHT(:input,4);\nEND","TRUE","SYSTEM","2020-11-10 16:53:52.0000000",
+"SYSTEM",,2,2,"CREATE STORED_PROCEDURE credit_mask_2(input varchar(19)) RETURNS output VARCHAR(19) LANGUAGE SQLSCRIPT \nAS\nBEGIN\noutput = LEFT(:input,4) || '-XXXX-XXXX-' || RIGHT(:input,4);\nEND","TRUE","SYSTEM","2020-11-10 16:53:52.0000000","STORED_PROCEDURE_CREDIT_MASK"
+

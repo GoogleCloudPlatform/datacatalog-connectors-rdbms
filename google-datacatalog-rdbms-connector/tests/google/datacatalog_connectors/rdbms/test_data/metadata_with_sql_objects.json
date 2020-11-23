@@ -1,0 +1,886 @@
+{
+  "schemas": [
+    {
+      "create_time": "2019-11-19T00:00:00",
+      "name": "CO",
+      "tables": [
+        {
+          "columns": [
+            {
+              "data_precision": null,
+              "data_scale": 0.0,
+              "desc": "Auto-incrementing primary key",
+              "name": "CUSTOMER_ID",
+              "nullable": "N",
+              "type": "NUMBER",
+              "type_ext": "NUMBER"
+            },
+            {
+              "data_precision": null,
+              "data_scale": null,
+              "desc": "The email address the person uses to access the account",
+              "name": "EMAIL_ADDRESS",
+              "nullable": "N",
+              "type": "VARCHAR2",
+              "type_ext": "VARCHAR2(255)"
+            },
+            {
+              "data_precision": null,
+              "data_scale": null,
+              "desc": "What this customer is called",
+              "name": "FULL_NAME",
+              "nullable": "N",
+              "type": "VARCHAR2",
+              "type_ext": "VARCHAR2(255)"
+            }
+          ],
+          "create_time": "2019-11-19T00:00:00",
+          "desc": "Details of the people placing orders",
+          "name": "CUSTOMERS",
+          "num_rows": 392.0,
+          "table_size_MB": 2.0,
+          "update_time": "2019-11-19T00:00:00"
+        },
+        {
+          "columns": [
+            {
+              "data_precision": null,
+              "data_scale": 0.0,
+              "desc": "Who placed this order",
+              "name": "CUSTOMER_ID",
+              "nullable": "N",
+              "type": "NUMBER",
+              "type_ext": "NUMBER"
+            },
+            {
+              "data_precision": null,
+              "data_scale": 6.0,
+              "desc": "When the order was placed",
+              "name": "ORDER_DATETIME",
+              "nullable": "N",
+              "type": "TIMESTAMP(6)",
+              "type_ext": "TIMESTAMP(6)"
+            },
+            {
+              "data_precision": null,
+              "data_scale": 0.0,
+              "desc": "Auto-incrementing primary key",
+              "name": "ORDER_ID",
+              "nullable": "N",
+              "type": "NUMBER",
+              "type_ext": "NUMBER"
+            },
+            {
+              "data_precision": null,
+              "data_scale": null,
+              "desc": "What state the order is in. Valid values are: OPEN - the order is in progress PAID - money has been received from the customer for this order SHIPPED - the products have been dispatched to the customer COMPLETE - the customer has received the order CANCELLED - the customer has stopped the order REFUNDED - there has been an issue with the order and the money has been returned to the customer",
+              "name": "ORDER_STATUS",
+              "nullable": "N",
+              "type": "VARCHAR2",
+              "type_ext": "VARCHAR2(10)"
+            },
+            {
+              "data_precision": null,
+              "data_scale": 0.0,
+              "desc": "Where this order was placed",
+              "name": "STORE_ID",
+              "nullable": "N",
+              "type": "NUMBER",
+              "type_ext": "NUMBER"
+            }
+          ],
+          "create_time": "2019-11-19T00:00:00",
+          "desc": "Details of who made purchases where",
+          "name": "ORDERS",
+          "num_rows": 1950.0,
+          "table_size_MB": 6.55,
+          "update_time": "2019-11-19T00:00:00"
+        },
+        {
+          "columns": [
+            {
+              "data_precision": null,
+              "data_scale": 0.0,
+              "desc": "An incrementing number; starting at one for each order",
+              "name": "LINE_ITEM_ID",
+              "nullable": "N",
+              "type": "NUMBER",
+              "type_ext": "NUMBER"
+            },
+            {
+              "data_precision": null,
+              "data_scale": 0.0,
+              "desc": "The order these products belong to",
+              "name": "ORDER_ID",
+              "nullable": "N",
+              "type": "NUMBER",
+              "type_ext": "NUMBER"
+            },
+            {
+              "data_precision": null,
+              "data_scale": 0.0,
+              "desc": "Which item was purchased",
+              "name": "PRODUCT_ID",
+              "nullable": "N",
+              "type": "NUMBER",
+              "type_ext": "NUMBER"
+            },
+            {
+              "data_precision": null,
+              "data_scale": 0.0,
+              "desc": "How many items of this product the customer purchased",
+              "name": "QUANTITY",
+              "nullable": "N",
+              "type": "NUMBER",
+              "type_ext": "NUMBER"
+            },
+            {
+              "data_precision": 10.0,
+              "data_scale": 2.0,
+              "desc": "How much the customer paid for one item of the product",
+              "name": "UNIT_PRICE",
+              "nullable": "N",
+              "type": "NUMBER",
+              "type_ext": "NUMBER"
+            }
+          ],
+          "create_time": "2019-11-19T00:00:00",
+          "desc": "Details of which products the customer has purchased in an order",
+          "name": "ORDER_ITEMS",
+          "num_rows": 3914.0,
+          "table_size_MB": 0.2,
+          "update_time": "2019-11-19T00:00:00"
+        },
+        {
+          "columns": [
+            {
+              "data_precision": null,
+              "data_scale": null,
+              "desc": "The character set used to encode the image",
+              "name": "IMAGE_CHARSET",
+              "nullable": "Y",
+              "type": "VARCHAR2",
+              "type_ext": "VARCHAR2(512)"
+            },
+            {
+              "data_precision": null,
+              "data_scale": null,
+              "desc": "The name of the file loaded in the image column",
+              "name": "IMAGE_FILENAME",
+              "nullable": "Y",
+              "type": "VARCHAR2",
+              "type_ext": "VARCHAR2(512)"
+            },
+            {
+              "data_precision": null,
+              "data_scale": null,
+              "desc": "The date the image was last changed",
+              "name": "IMAGE_LAST_UPDATED",
+              "nullable": "Y",
+              "type": "DATE",
+              "type_ext": "DATE"
+            },
+            {
+              "data_precision": null,
+              "data_scale": null,
+              "desc": "The mime-type of the product image",
+              "name": "IMAGE_MIME_TYPE",
+              "nullable": "Y",
+              "type": "VARCHAR2",
+              "type_ext": "VARCHAR2(512)"
+            },
+            {
+              "data_precision": null,
+              "data_scale": null,
+              "desc": "Further details of the product stored in JSON format",
+              "name": "PRODUCT_DETAILS",
+              "nullable": "Y",
+              "type": "BLOB",
+              "type_ext": "BLOB"
+            },
+            {
+              "data_precision": null,
+              "data_scale": 0.0,
+              "desc": "Auto-incrementing primary key",
+              "name": "PRODUCT_ID",
+              "nullable": "N",
+              "type": "NUMBER",
+              "type_ext": "NUMBER"
+            },
+            {
+              "data_precision": null,
+              "data_scale": null,
+              "desc": "A picture of the product",
+              "name": "PRODUCT_IMAGE",
+              "nullable": "Y",
+              "type": "BLOB",
+              "type_ext": "BLOB"
+            },
+            {
+              "data_precision": null,
+              "data_scale": null,
+              "desc": "What a product is called",
+              "name": "PRODUCT_NAME",
+              "nullable": "N",
+              "type": "VARCHAR2",
+              "type_ext": "VARCHAR2(255)"
+            },
+            {
+              "data_precision": 10.0,
+              "data_scale": 2.0,
+              "desc": "The monetary value of one item of this product",
+              "name": "UNIT_PRICE",
+              "nullable": "Y",
+              "type": "NUMBER",
+              "type_ext": "NUMBER"
+            }
+          ],
+          "create_time": "2019-11-19T00:00:00",
+          "desc": "Details of goods that customers can purchase",
+          "name": "PRODUCTS",
+          "num_rows": 46.0,
+          "table_size_MB": 0.2,
+          "update_time": "2019-11-19T00:00:00"
+        },
+        {
+          "columns": [
+            {
+              "data_precision": null,
+              "data_scale": null,
+              "desc": "The north-south position of a physical store",
+              "name": "LATITUDE",
+              "nullable": "Y",
+              "type": "NUMBER",
+              "type_ext": "NUMBER"
+            },
+            {
+              "data_precision": null,
+              "data_scale": null,
+              "desc": "An image used by this store",
+              "name": "LOGO",
+              "nullable": "Y",
+              "type": "BLOB",
+              "type_ext": "BLOB"
+            },
+            {
+              "data_precision": null,
+              "data_scale": null,
+              "desc": "The character set used to encode the image",
+              "name": "LOGO_CHARSET",
+              "nullable": "Y",
+              "type": "VARCHAR2",
+              "type_ext": "VARCHAR2(512)"
+            },
+            {
+              "data_precision": null,
+              "data_scale": null,
+              "desc": "The name of the file loaded in the image column",
+              "name": "LOGO_FILENAME",
+              "nullable": "Y",
+              "type": "VARCHAR2",
+              "type_ext": "VARCHAR2(512)"
+            },
+            {
+              "data_precision": null,
+              "data_scale": null,
+              "desc": "The date the image was last changed",
+              "name": "LOGO_LAST_UPDATED",
+              "nullable": "Y",
+              "type": "DATE",
+              "type_ext": "DATE"
+            },
+            {
+              "data_precision": null,
+              "data_scale": null,
+              "desc": "The mime-type of the store logo",
+              "name": "LOGO_MIME_TYPE",
+              "nullable": "Y",
+              "type": "VARCHAR2",
+              "type_ext": "VARCHAR2(512)"
+            },
+            {
+              "data_precision": null,
+              "data_scale": null,
+              "desc": "The east-west position of a physical store",
+              "name": "LONGITUDE",
+              "nullable": "Y",
+              "type": "NUMBER",
+              "type_ext": "NUMBER"
+            },
+            {
+              "data_precision": null,
+              "data_scale": null,
+              "desc": "The postal address of this location",
+              "name": "PHYSICAL_ADDRESS",
+              "nullable": "Y",
+              "type": "VARCHAR2",
+              "type_ext": "VARCHAR2(512)"
+            },
+            {
+              "data_precision": null,
+              "data_scale": 0.0,
+              "desc": "Auto-incrementing primary key",
+              "name": "STORE_ID",
+              "nullable": "N",
+              "type": "NUMBER",
+              "type_ext": "NUMBER"
+            },
+            {
+              "data_precision": null,
+              "data_scale": null,
+              "desc": "What the store is called",
+              "name": "STORE_NAME",
+              "nullable": "N",
+              "type": "VARCHAR2",
+              "type_ext": "VARCHAR2(255)"
+            },
+            {
+              "data_precision": null,
+              "data_scale": null,
+              "desc": "The URL of a virtual store",
+              "name": "WEB_ADDRESS",
+              "nullable": "Y",
+              "type": "VARCHAR2",
+              "type_ext": "VARCHAR2(100)"
+            }
+          ],
+          "create_time": "2019-11-19T00:00:00",
+          "desc": "Physical and virtual locations where people can purchase products",
+          "name": "STORES",
+          "num_rows": 23.0,
+          "table_size_MB": 1.3,
+          "update_time": "2019-11-19T00:00:00"
+        }
+      ]
+    },
+    {
+      "create_time": "2019-11-19T00:00:00",
+      "name": "HR",
+      "tables": [
+        {
+          "columns": [
+            {
+              "data_precision": null,
+              "data_scale": null,
+              "desc": "Primary key of countries table.",
+              "name": "COUNTRY_ID",
+              "nullable": "N",
+              "type": "CHAR",
+              "type_ext": "CHAR(2)"
+            },
+            {
+              "data_precision": null,
+              "data_scale": null,
+              "desc": "Country name",
+              "name": "COUNTRY_NAME",
+              "nullable": "Y",
+              "type": "VARCHAR2",
+              "type_ext": "VARCHAR2(40)"
+            },
+            {
+              "data_precision": null,
+              "data_scale": null,
+              "desc": "Region ID for the country. Foreign key to region_id column in the departments table.",
+              "name": "REGION_ID",
+              "nullable": "Y",
+              "type": "NUMBER",
+              "type_ext": "NUMBER"
+            }
+          ],
+          "create_time": "2019-11-19T00:00:00",
+          "desc": "country table. Contains 25 rows. References with locations table.",
+          "name": "COUNTRIES",
+          "num_rows": 25.0,
+          "table_size_MB": 1.3,
+          "update_time": "2019-11-19T00:00:00"
+        },
+        {
+          "columns": [
+            {
+              "data_precision": 4.0,
+              "data_scale": 0.0,
+              "desc": "Primary key column of departments table.",
+              "name": "DEPARTMENT_ID",
+              "nullable": "N",
+              "type": "NUMBER",
+              "type_ext": "NUMBER"
+            },
+            {
+              "data_precision": null,
+              "data_scale": null,
+              "desc": "A not null column that shows name of a department. Administration; Marketing; Purchasing; Human Resources; Shipping; IT; Executive; Public Relations; Sales; Finullce; and Accounting.",
+              "name": "DEPARTMENT_NAME",
+              "nullable": "N",
+              "type": "VARCHAR2",
+              "type_ext": "VARCHAR2(30)"
+            },
+            {
+              "data_precision": 4.0,
+              "data_scale": 0.0,
+              "desc": "Location id where a department is located. Foreign key to location_id column of locations table.",
+              "name": "LOCATION_ID",
+              "nullable": "Y",
+              "type": "NUMBER",
+              "type_ext": "NUMBER"
+            },
+            {
+              "data_precision": 6.0,
+              "data_scale": 0.0,
+              "desc": "Manager_id of a department. Foreign key to employee_id column of employees table. The manager_id column of the employee table references this column.",
+              "name": "MANAGER_ID",
+              "nullable": "Y",
+              "type": "NUMBER",
+              "type_ext": "NUMBER"
+            }
+          ],
+          "create_time": "2019-11-19T00:00:00",
+          "desc": "Departments table that shows details of departments where employees work. Contains 27 rows; references with locations; employees; and job_history tables.",
+          "name": "DEPARTMENTS",
+          "num_rows": 27.0,
+          "table_size_MB": 1.3,
+          "update_time": "2019-11-19T00:00:00"
+        },
+        {
+          "columns": [
+            {
+              "data_precision": 2.0,
+              "data_scale": 2.0,
+              "desc": "Commission percentage of the employee; Only employees in sales department elgible for commission percentage",
+              "name": "COMMISSION_PCT",
+              "nullable": "Y",
+              "type": "NUMBER",
+              "type_ext": "NUMBER"
+            },
+            {
+              "data_precision": 4.0,
+              "data_scale": 0.0,
+              "desc": "Department id where employee works; foreign key to department_id column of the departments table",
+              "name": "DEPARTMENT_ID",
+              "nullable": "Y",
+              "type": "NUMBER",
+              "type_ext": "NUMBER"
+            },
+            {
+              "data_precision": null,
+              "data_scale": null,
+              "desc": "Email id of the employee",
+              "name": "EMAIL",
+              "nullable": "N",
+              "type": "VARCHAR2",
+              "type_ext": "VARCHAR2(25)"
+            },
+            {
+              "data_precision": 6.0,
+              "data_scale": 0.0,
+              "desc": "Primary key of employees table.",
+              "name": "EMPLOYEE_ID",
+              "nullable": "N",
+              "type": "NUMBER",
+              "type_ext": "NUMBER"
+            },
+            {
+              "data_precision": null,
+              "data_scale": null,
+              "desc": "First name of the employee. A not null column.",
+              "name": "FIRST_NAME",
+              "nullable": "Y",
+              "type": "VARCHAR2",
+              "type_ext": "VARCHAR2(20)"
+            },
+            {
+              "data_precision": null,
+              "data_scale": null,
+              "desc": "Date when the employee started on this job. A not null column.",
+              "name": "HIRE_DATE",
+              "nullable": "N",
+              "type": "DATE",
+              "type_ext": "DATE"
+            },
+            {
+              "data_precision": null,
+              "data_scale": null,
+              "desc": "Current job of the employee; foreign key to job_id column of the jobs table. A not null column.",
+              "name": "JOB_ID",
+              "nullable": "N",
+              "type": "VARCHAR2",
+              "type_ext": "VARCHAR2(10)"
+            },
+            {
+              "data_precision": null,
+              "data_scale": null,
+              "desc": "Last name of the employee. A not null column.",
+              "name": "LAST_NAME",
+              "nullable": "N",
+              "type": "VARCHAR2",
+              "type_ext": "VARCHAR2(25)"
+            },
+            {
+              "data_precision": 6.0,
+              "data_scale": 0.0,
+              "desc": "Manager id of the employee; has same domain as manager_id in departments table. Foreign key to employee_id column of employees table. (useful for reflexive joins and CONNECT BY query)",
+              "name": "MANAGER_ID",
+              "nullable": "Y",
+              "type": "NUMBER",
+              "type_ext": "NUMBER"
+            },
+            {
+              "data_precision": null,
+              "data_scale": null,
+              "desc": "Phone number of the employee; includes country code and area code",
+              "name": "PHONE_NUMBER",
+              "nullable": "Y",
+              "type": "VARCHAR2",
+              "type_ext": "VARCHAR2(20)"
+            },
+            {
+              "data_precision": 8.0,
+              "data_scale": 2.0,
+              "desc": "Monthly salary of the employee. Must be greater than zero (enforced by constraint emp_salary_min)",
+              "name": "SALARY",
+              "nullable": "Y",
+              "type": "NUMBER",
+              "type_ext": "NUMBER"
+            }
+          ],
+          "create_time": "2019-11-19T00:00:00",
+          "desc": "employees table. Contains 107 rows. References with departments; jobs; job_history tables. Contains a self reference.",
+          "name": "EMPLOYEES",
+          "num_rows": 107.0,
+          "table_size_MB": 1.3,
+          "update_time": "2019-11-19T00:00:00"
+        },
+        {
+          "columns": [
+            {
+              "data_precision": null,
+              "data_scale": null,
+              "desc": "Primary key of jobs table.",
+              "name": "JOB_ID",
+              "nullable": "N",
+              "type": "VARCHAR2",
+              "type_ext": "VARCHAR2(10)"
+            },
+            {
+              "data_precision": null,
+              "data_scale": null,
+              "desc": "A not null column that shows job title; e.g. AD_VP; FI_ACCOUNTANT",
+              "name": "JOB_TITLE",
+              "nullable": "N",
+              "type": "VARCHAR2",
+              "type_ext": "VARCHAR2(35)"
+            },
+            {
+              "data_precision": 6.0,
+              "data_scale": 0.0,
+              "desc": "Maximum salary for a job title",
+              "name": "MAX_SALARY",
+              "nullable": "Y",
+              "type": "NUMBER",
+              "type_ext": "NUMBER"
+            },
+            {
+              "data_precision": 6.0,
+              "data_scale": 0.0,
+              "desc": "Minimum salary for a job title.",
+              "name": "MIN_SALARY",
+              "nullable": "Y",
+              "type": "NUMBER",
+              "type_ext": "NUMBER"
+            }
+          ],
+          "create_time": "2019-11-19T00:00:00",
+          "desc": "jobs table with job titles and salary ranges. Contains 19 rows. References with employees and job_history table.",
+          "name": "JOBS",
+          "num_rows": 19.0,
+          "table_size_MB": 1.3,
+          "update_time": "2019-11-19T00:00:00"
+        },
+        {
+          "columns": [
+            {
+              "data_precision": 4.0,
+              "data_scale": 0.0,
+              "desc": "Department id in which the employee worked in the past; foreign key to deparment_id column in the departments table",
+              "name": "DEPARTMENT_ID",
+              "nullable": "Y",
+              "type": "NUMBER",
+              "type_ext": "NUMBER"
+            },
+            {
+              "data_precision": 6.0,
+              "data_scale": 0.0,
+              "desc": "A not null column in the complex primary key employee_id+start_date. Foreign key to employee_id column of the employee table",
+              "name": "EMPLOYEE_ID",
+              "nullable": "N",
+              "type": "NUMBER",
+              "type_ext": "NUMBER"
+            },
+            {
+              "data_precision": null,
+              "data_scale": null,
+              "desc": "Last day of the employee in this job role. A not null column. Must be greater than the start_date of the job_history table. (enforced by constraint jhist_date_interval)",
+              "name": "END_DATE",
+              "nullable": "N",
+              "type": "DATE",
+              "type_ext": "DATE"
+            },
+            {
+              "data_precision": null,
+              "data_scale": null,
+              "desc": "Job role in which the employee worked in the past; foreign key to job_id column in the jobs table. A not null column.",
+              "name": "JOB_ID",
+              "nullable": "N",
+              "type": "VARCHAR2",
+              "type_ext": "VARCHAR2(10)"
+            },
+            {
+              "data_precision": null,
+              "data_scale": null,
+              "desc": "A not null column in the complex primary key employee_id+start_date. Must be less than the end_date of the job_history table. (enforced by constraint jhist_date_interval)",
+              "name": "START_DATE",
+              "nullable": "N",
+              "type": "DATE",
+              "type_ext": "DATE"
+            }
+          ],
+          "create_time": "2019-11-19T00:00:00",
+          "desc": "Table that stores job history of the employees. If an employee changes departments within the job or changes jobs within the department; new rows get inserted into this table with old job information of the employee. Contains a complex primary key: employee_id+start_date. Contains 25 rows. References with jobs; employees; and departments tables.",
+          "name": "JOB_HISTORY",
+          "num_rows": 10.0,
+          "table_size_MB": 1.3,
+          "update_time": "2019-11-19T00:00:00"
+        },
+        {
+          "columns": [
+            {
+              "data_precision": null,
+              "data_scale": null,
+              "desc": "A not null column that shows city where an office; warehouse; or production site of a company is located.",
+              "name": "CITY",
+              "nullable": "N",
+              "type": "VARCHAR2",
+              "type_ext": "VARCHAR2(30)"
+            },
+            {
+              "data_precision": null,
+              "data_scale": null,
+              "desc": "Country where an office; warehouse; or production site of a company is located. Foreign key to country_id column of the countries table.",
+              "name": "COUNTRY_ID",
+              "nullable": "Y",
+              "type": "CHAR",
+              "type_ext": "CHAR(2)"
+            },
+            {
+              "data_precision": 4.0,
+              "data_scale": 0.0,
+              "desc": "Primary key of locations table",
+              "name": "LOCATION_ID",
+              "nullable": "N",
+              "type": "NUMBER",
+              "type_ext": "NUMBER"
+            },
+            {
+              "data_precision": null,
+              "data_scale": null,
+              "desc": "Postal code of the location of an office; warehouse; or production site of a company.",
+              "name": "POSTAL_CODE",
+              "nullable": "Y",
+              "type": "VARCHAR2",
+              "type_ext": "VARCHAR2(12)"
+            },
+            {
+              "data_precision": null,
+              "data_scale": null,
+              "desc": "State or Province where an office; warehouse; or production site of a company is located.",
+              "name": "STATE_PROVINCE",
+              "nullable": "Y",
+              "type": "VARCHAR2",
+              "type_ext": "VARCHAR2(25)"
+            },
+            {
+              "data_precision": null,
+              "data_scale": null,
+              "desc": "Street address of an office; warehouse; or production site of a company. Contains building number and street name",
+              "name": "STREET_ADDRESS",
+              "nullable": "Y",
+              "type": "VARCHAR2",
+              "type_ext": "VARCHAR2(40)"
+            }
+          ],
+          "create_time": "2019-11-19T00:00:00",
+          "desc": "Locations table that contains specific address of a specific office; warehouse; and/or production site of a company. Does not store addresses / locations of customers. Contains 23 rows; references with the departments and countries tables.",
+          "name": "LOCATIONS",
+          "num_rows": 23.0,
+          "table_size_MB": 1.3,
+          "update_time": "2019-11-19T00:00:00"
+        },
+        {
+          "columns": [
+            {
+              "data_precision": null,
+              "data_scale": null,
+              "desc": null,
+              "name": "REGION_ID",
+              "nullable": "N",
+              "type": "NUMBER",
+              "type_ext": "NUMBER"
+            },
+            {
+              "data_precision": null,
+              "data_scale": null,
+              "desc": null,
+              "name": "REGION_NAME",
+              "nullable": "Y",
+              "type": "VARCHAR2",
+              "type_ext": "VARCHAR2(25)"
+            }
+          ],
+          "create_time": "2019-11-19T00:00:00",
+          "desc": null,
+          "name": "REGIONS",
+          "num_rows": 4.0,
+          "table_size_MB": null,
+          "update_time": "2019-11-19T00:00:00"
+        }
+      ]
+    },
+    {
+      "create_time": "2019-11-20T00:00:00",
+      "name": "NEWDW",
+      "tables": [
+        {
+          "columns": [
+            {
+              "data_precision": null,
+              "data_scale": null,
+              "desc": null,
+              "name": "CITY",
+              "nullable": "Y",
+              "type": "VARCHAR2",
+              "type_ext": "VARCHAR2(50)"
+            },
+            {
+              "data_precision": 10.0,
+              "data_scale": 0.0,
+              "desc": null,
+              "name": "CUSTOMER_ID",
+              "nullable": "N",
+              "type": "NUMBER",
+              "type_ext": "NUMBER"
+            },
+            {
+              "data_precision": null,
+              "data_scale": null,
+              "desc": null,
+              "name": "CUSTOMER_NAME",
+              "nullable": "N",
+              "type": "VARCHAR2",
+              "type_ext": "VARCHAR2(50)"
+            }
+          ],
+          "create_time": "2019-11-20T00:00:00",
+          "desc": null,
+          "name": "CUSTOMERS",
+          "num_rows": 0.0,
+          "table_size_MB": null,
+          "update_time": "2019-11-20T00:00:00"
+        }
+      ]
+    },
+    {
+      "create_time": "2019-11-21T00:00:00",
+      "name": "TRAVELS",
+      "tables": [
+        {
+          "columns": [
+            {
+              "data_precision": null,
+              "data_scale": null,
+              "desc": null,
+              "name": "CITY",
+              "nullable": "Y",
+              "type": "VARCHAR2",
+              "type_ext": "VARCHAR2(50)"
+            },
+            {
+              "data_precision": 10.0,
+              "data_scale": 0.0,
+              "desc": null,
+              "name": "CUSTOMER_ID",
+              "nullable": "N",
+              "type": "NUMBER",
+              "type_ext": "NUMBER"
+            },
+            {
+              "data_precision": null,
+              "data_scale": null,
+              "desc": null,
+              "name": "CUSTOMER_NAME",
+              "nullable": "N",
+              "type": "VARCHAR2",
+              "type_ext": "VARCHAR2(50)"
+            }
+          ],
+          "create_time": "2019-11-21T00:00:00",
+          "desc": null,
+          "name": "TRIPS",
+          "num_rows": null,
+          "table_size_MB": null,
+          "update_time": "2019-11-21T00:00:00"
+        }
+      ]
+    }
+  ],
+  "sql_objects": {
+    "functions": {
+      "type": "function",
+      "items": [
+        {
+          "name": "CREDIT_MASK",
+          "schema_name": "SYSTEM",
+          "input_parameter_count": 1,
+          "return_value_count": 1,
+          "definition": "CREATE FUNCTION credit_mask(input varchar(19)) RETURNS output VARCHAR(19) LANGUAGE SQLSCRIPT \\nAS\\nBEGIN\\noutput = LEFT(:input,4) || '-XXXX-XXXX-' || RIGHT(:input,4);\\nEND",
+          "is_valid": true,
+          "owner_name": "SYSTEM",
+          "create_time": "2020-11-10 16:53:52"
+        },
+        {
+          "name": "CREDIT_MASK_2",
+          "schema_name": "SYSTEM",
+          "input_parameter_count": 1,
+          "return_value_count": 1,
+          "definition": "CREATE FUNCTION credit_mask_2(input varchar(19)) RETURNS output VARCHAR(19) LANGUAGE SQLSCRIPT \\nAS\\nBEGIN\\noutput = LEFT(:input,4) || '-XXXX-XXXX-' || RIGHT(:input,4);\\nEND",
+          "is_valid": false,
+          "owner_name": "SYSTEM",
+          "create_time": "2020-11-10 16:53:52"
+        }
+      ]
+    },
+    "stored_procedures": {
+      "type": "stored_procedure",
+      "items": [
+        {
+          "name": "CREDIT_MASK",
+          "schema_name": "SYSTEM",
+          "input_parameter_count": null,
+          "return_value_count": 1,
+          "definition": "CREATE FUNCTION credit_mask(input varchar(19)) RETURNS output VARCHAR(19) LANGUAGE SQLSCRIPT \\nAS\\nBEGIN\\noutput = LEFT(:input,4) || '-XXXX-XXXX-' || RIGHT(:input,4);\\nEND",
+          "is_valid": null,
+          "owner_name": "SYSTEM",
+          "create_time": "2020-11-10 16:53:52"
+        },
+        {
+          "name": "CREDIT_MASK_2",
+          "schema_name": "SYSTEM",
+          "input_parameter_count": 0,
+          "return_value_count": null,
+          "definition": "CREATE FUNCTION credit_mask_2(input varchar(19)) RETURNS output VARCHAR(19) LANGUAGE SQLSCRIPT \\nAS\\nBEGIN\\noutput = LEFT(:input,4) || '-XXXX-XXXX-' || RIGHT(:input,4);\\nEND",
+          "is_valid": true,
+          "owner_name": "SYSTEM",
+          "create_time": "2020-11-10 16:53:52"
+        }
+      ]
+    }
+  }
+}
