@@ -19,6 +19,7 @@ from google.datacatalog_connectors.rdbms.scrape import \
 
 import re
 
+
 class BaseMetadataEnricher(metadata_enricher.MetadataEnricher):
 
     def enrich(self, scraped_dataframe):

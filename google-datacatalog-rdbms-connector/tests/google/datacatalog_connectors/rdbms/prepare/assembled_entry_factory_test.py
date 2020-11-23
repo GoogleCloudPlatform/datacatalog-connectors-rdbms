@@ -182,8 +182,7 @@ class AssembledEntryFactoryTestCase(unittest.TestCase):
             self.assertEqual(AssembledEntryFactoryTestCase.__MOCKED_ENTRY_PATH,
                              schema_entry.name)
             self.assertEqual('', schema_entry.description)
-            self.assertEqual('metadata_host/CO',
-                             schema_entry.linked_resource)
+            self.assertEqual('metadata_host/CO', schema_entry.linked_resource)
             self.assertEqual('oracle', schema_entry.user_specified_system)
 
             for table in tables:
@@ -243,7 +242,8 @@ class AssembledEntryFactoryTestCase(unittest.TestCase):
                              schema_entry.name)
             self.assertEqual('', schema_entry.description)
             self.assertEqual(
-                'metadata_host/CO_very_looooooooooooooooooooooooooooooooooooooooooooooooong',
+                'metadata_host/'
+                'CO_very_looooooooooooooooooooooooooooooooooooooooooooooooong',
                 schema_entry.linked_resource)
             self.assertEqual('oracle', schema_entry.user_specified_system)
 
@@ -260,9 +260,11 @@ class AssembledEntryFactoryTestCase(unittest.TestCase):
                     AssembledEntryFactoryTestCase.__MOCKED_ENTRY_PATH,
                     table_entry.name)
                 self.assertEqual(
-                    'metadata_host/CO_$/_very_looooooooooooooooooooooooooooooooooooooooooooooooong'
-                    '/CUSTOMERS_very_loooooooooooooooooooooooooooooooooooooooooong',
-                    table_entry.linked_resource)
+                    'metadata_host/CO_$/'
+                    '_very_loooooooooooooooooooooooooo'
+                    'ooooooooooooooooooooooong'
+                    '/CUSTOMERS_very_loooooooooooooooooo'
+                    'oooooooooooooooooooooooong', table_entry.linked_resource)
                 self.assertGreater(len(table_entry.schema.columns), 0)
                 first_column = table_entry.schema.columns[0]
                 self.assertEqual('NUMBER', first_column.type)
