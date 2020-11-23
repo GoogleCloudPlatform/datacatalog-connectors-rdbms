@@ -37,6 +37,8 @@ class DatacatalogCli(ABC):
         # Enable logging
         logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
 
+        logging.info('\n\n==============Starting CLI===============')
+
         if args.service_account_path:
             os.environ['GOOGLE_APPLICATION_CREDENTIALS'] \
                 = args.service_account_path
