@@ -15,13 +15,13 @@
 # limitations under the License.
 
 from google.datacatalog_connectors.rdbms.prepare.sql_objects\
-    .assembled_sql_objects_entry_factory import\
-    AssembledSQLObjectsEntryFactory
+    .sql_objects_assembled_entry_factory import\
+    SQLObjectsAssembledEntryFactory
 
 
 from google.datacatalog_connectors.rdbms.prepare.sql_objects\
-    .datacatalog_sql_objects_tag_template_factory import\
-    DataCatalogSQLObjectsTagTemplateFactory
+    .sql_objects_datacatalog_tag_template_factory import\
+    SQLObjectsDataCatalogTagTemplateFactory
 
-__all__ = ('AssembledSQLObjectsEntryFactory',
-           'DataCatalogSQLObjectsTagTemplateFactory')
+__all__ = ('SQLObjectsAssembledEntryFactory',
+           'SQLObjectsDataCatalogTagTemplateFactory')

@@ -23,10 +23,10 @@ import mock
 
 from google.datacatalog_connectors.commons_test import utils
 from google.datacatalog_connectors.rdbms.prepare.sql_objects import \
-        assembled_sql_objects_entry_factory
+        sql_objects_assembled_entry_factory
 
 
-class AssembledSQLObjectsEntryFactoryTestCase(unittest.TestCase):
+class SQLObjectsAssembledEntryFactoryTestCase(unittest.TestCase):
     __MODULE_PATH = '{}/..'.format(os.path.dirname(os.path.abspath(__file__)))
 
     __PROJECT_ID = 'test_project'
@@ -37,10 +37,10 @@ class AssembledSQLObjectsEntryFactoryTestCase(unittest.TestCase):
     __METADATA_SERVER_HOST = 'metadata_host'
     __PREPARE_PACKAGE = 'google.datacatalog_connectors.rdbms.prepare'
 
-    @mock.patch('{}.sql_objects.datacatalog_sql_objects_tag_factory'
-                '.DataCatalogSQLObjectsTagFactory'.format(__PREPARE_PACKAGE))
-    @mock.patch('{}.sql_objects.datacatalog_sql_objects_entry_factory'
-                '.DataCatalogSQLObjectsEntryFactory'.format(__PREPARE_PACKAGE))
+    @mock.patch('{}.sql_objects.sql_objects_datacatalog_tag_factory'
+                '.SQLObjectsDataCatalogTagFactory'.format(__PREPARE_PACKAGE))
+    @mock.patch('{}.sql_objects.sql_objects_datacatalog_entry_factory'
+                '.SQLObjectsDataCatalogEntryFactory'.format(__PREPARE_PACKAGE))
     def setUp(self, mock_entry_factory, mock_tag_factory):
         metadata = \
             utils.Utils.convert_json_to_object(
@@ -62,13 +62,13 @@ class AssembledSQLObjectsEntryFactoryTestCase(unittest.TestCase):
                 datacatalog.TagTemplate()
         }
 
-        self.__factory = assembled_sql_objects_entry_factory. \
-            AssembledSQLObjectsEntryFactory(
-                AssembledSQLObjectsEntryFactoryTestCase.__PROJECT_ID,
-                AssembledSQLObjectsEntryFactoryTestCase.__LOCATION_ID,
-                AssembledSQLObjectsEntryFactoryTestCase.
+        self.__factory = sql_objects_assembled_entry_factory. \
+            SQLObjectsAssembledEntryFactory(
+                SQLObjectsAssembledEntryFactoryTestCase.__PROJECT_ID,
+                SQLObjectsAssembledEntryFactoryTestCase.__LOCATION_ID,
+                SQLObjectsAssembledEntryFactoryTestCase.
                 __METADATA_SERVER_HOST,
-                AssembledSQLObjectsEntryFactoryTestCase.__ENTRY_GROUP_ID,
+                SQLObjectsAssembledEntryFactoryTestCase.__ENTRY_GROUP_ID,
                 sql_objects_config,
                 tag_templates_dict)
 
@@ -76,7 +76,7 @@ class AssembledSQLObjectsEntryFactoryTestCase(unittest.TestCase):
         attrs = self.__factory.__dict__
 
         self.assertEqual(
-            self.__entry_factory, attrs['_AssembledSQLObjectsEntryFactory'
+            self.__entry_factory, attrs['_SQLObjectsAssembledEntryFactory'
                                         '__datacatalog_entry_factory'])
 
     def test_make_entries_for_sql_objects_should_create_entries(self):

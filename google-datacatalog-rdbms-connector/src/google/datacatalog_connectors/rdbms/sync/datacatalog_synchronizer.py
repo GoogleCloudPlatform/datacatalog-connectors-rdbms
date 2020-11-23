@@ -125,7 +125,7 @@ class DataCatalogSynchronizer:
 
         if self.__is_sql_objects_sync():
             sql_objects_entry_factory = prepare_sql_objects.\
-                AssembledSQLObjectsEntryFactory(
+                SQLObjectsAssembledEntryFactory(
                     self.__project_id,
                     self.__location_id,
                     self.__rbms_host,
@@ -237,7 +237,7 @@ class DataCatalogSynchronizer:
 
         if self.__is_sql_objects_sync():
             sql_objects_tag_template_factory = \
-                prepare_sql_objects.DataCatalogSQLObjectsTagTemplateFactory(
+                prepare_sql_objects.SQLObjectsDataCatalogTagTemplateFactory(
                     self.__project_id,
                     self.__location_id,
                     self.__entry_group_id,
