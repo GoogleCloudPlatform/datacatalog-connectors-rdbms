@@ -10,7 +10,9 @@ Common resources for Data Catalog RDBMS connectors.
   ⚠️ DO NOT UPDATE THE TABLE OF CONTENTS MANUALLY ️️⚠️
   run `npx markdown-toc -i README.md`.
 
-  Please stick to 80-character line wraps as much as you can.
+  Please stick to 80-character line wraps on titles as much as you can.
+  
+  Content lines can be wrapped at 100 chars.
 -->
 
 ## Table of Contents
@@ -141,15 +143,16 @@ python setup.py test
 To set up the RDBMS connector to work with a Relational Database 3 files are needed.
 * `metadata_definition.json`
 * `metadata_query.sql`
-* Extending the `metadata_scraper` class and implementing your rdbms connection method: `_create_rdbms_connection`
+* Extending the `metadata_scraper` class and implementing your rdbms connection method: 
+`_create_rdbms_connection`
 
 for the metadata_definition file your have fields available for 3 levels:
 * `table_container_def`
 * `table_def`
 * `column_def`
 
-If you want working examples please take a look at the already implemented connectors for: Oracle, Teradata, MySQL,
-PostgreSQL, Greenplum, Redshift and SQLServer.
+If you want working examples please take a look at the already implemented connectors for: 
+Oracle, Teradata, MySQL, PostgreSQL, Greenplum, Redshift and SQLServer.
 
 For the `metadata_defition` target fields you have the following options as `target`:
 
@@ -177,24 +180,25 @@ For columns they are used to create the Data Catalog Entry schema, two `target` 
 | column_def | **desc** | Column description. |  N        |
 
 ### 4.1 Add support for optional queries
-You can use user configuration file and execute optional queries to scrape additional metadata from a database. 
-You would need to do the following:
-* Create additional SQL queries. At the moment, support for two optional queries are implemented in this common 
-RDBMS package: 
+You can use user configuration file and execute optional queries to scrape additional metadata
+from a database. You would need to do the following:
+* Create additional SQL queries. At the moment, support for two optional queries are implemented
+in this common RDBMS package: 
     - Statement for refreshing metadata (e.g. ANALYZE)
     - Query to scrape number of rows in each table
-* Extend the `query_assembler` class and implement a methods for getting optional queries: `_get_refresh_statement` 
-and `_get_path_to_num_rows_query`.
-* Implement `_get_query_assembler` and `_execute_refresh_query` on the extension of the `matadata_scraper` class.
+* Extend the `query_assembler` class and implement a methods for getting optional queries: 
+`_get_refresh_statement` and `_get_path_to_num_rows_query`.
+* Implement `_get_query_assembler` and `_execute_refresh_query` on the extension of the 
+`matadata_scraper` class.
 
-You can see working examples of implementing optional queries in the connectors code for PostgreSQL and MySQL. 
-Please also refer to these samples to see how user configuration file `ingest_cfg.yaml` should look like.
+You can see working examples of implementing optional queries in the connectors code for 
+PostgreSQL and MySQL. Please also refer to these samples to see how user configuration file 
+`ingest_cfg.yaml` should look like.
 
 ### 4.2 Add support for SQL Objects
-You can use the SQL Objects mechanism from the SQL connector to ingest 
-SQL objects such as Functions, Stored Procedures, Views, Materialized Views,
-and so on. This mechanism uses naming convention to locate a SQL query and a 
-metadata definition file.
+You can use the SQL Objects mechanism from the SQL connector to ingest SQL objects such as 
+Functions, Stored Procedures, Views, Materialized Views, and so on. This mechanism uses naming 
+convention to locate a SQL query and a metadata definition file.
 
 You can see working examples of implementing SQL Objects in the test sources.
 To enable it you need 3 configuration files:
@@ -208,35 +212,30 @@ To enable it you need 3 configuration files:
         enabled: True
     ```
 
-    The `ingest_cfg.yaml` file must be located at the connection
-    execution directory. You can find a sample in the 
+    The `ingest_cfg.yaml` file must be located at the connection execution directory.
+    You can find a sample in the 
     [SAP HANA connector](../google-datacatalog-saphanaconnector/src/google/datacatalog_connectors/saphana/ingest_cfg.yaml).
     
-    You can specify a list of SQL Objects with a flag to enable/disable
-    the SQL Objects mechanism.It will be only considered for objects 
-    whose `enabled` flag is set to `True`.
+    You can specify a list of SQL Objects with a flag to enable/disable the SQL Objects mechanism.
+    It will be only considered for objects whose `enabled` flag is set to `True`.
     
-    The related `query` and `metadata_definition` files are
-    located by the `sql_objects.name` value. From the above sample,
-     the `function` SQL Object requires two files: 
-    `query_functions_sql_object.sql` and 
-    `metadata_definition_functions_sql_object.sql`.
+    The related `query` and `metadata_definition` files are located by the `sql_objects.name` value.
+    From the above sample, the `function` SQL Object requires two files: 
+    `query_functions_sql_object.sql` and `metadata_definition_functions_sql_object.sql`.
     
-    And the `stored_procedures` SQL Object requires:
-    `query_stored_procedures_sql_object.sql` and 
+    And the `stored_procedures` SQL Object requires: `query_stored_procedures_sql_object.sql` and 
     `metadata_definition_stored_procedures_sql_object.sql`.
 
 1.  [query_functions_sql_object.sql](tests/google/datacatalog_connectors/rdbms/test_data/query_functions_sql_object.sql)  
-    Implement a query file that matches the SQL Object name,
-    with the following pattern:`query_{name}_sql_object.sql` 
-    this file must be located at the connector `config` directory.
-     You can find a sample in the [SAP HANA connector](../google-datacatalog-saphanaconnector/src/google/datacatalog_connectors/saphana/config).
+    Implement a query file that matches the SQL Object name, with the following pattern:
+    `query_{name}_sql_object.sql` this file must be located at the connector `config` directory.
+    You can find a sample in the [SAP HANA connector](../google-datacatalog-saphanaconnector/src/google/datacatalog_connectors/saphana/config/query_functions_sql_object.sql).
 
 1.  [metadata_definition_functions_sql_object.json](tests/google/datacatalog_connectors/rdbms/test_data/metadata_definition_functions_sql_object.json)  
-    Implement a metadata definition file that matches the SQL Object name,
-    with the following pattern:`metadata_definition_{sql_objects.name}_sql_object.sql`
-    this file must be located at the connector `config` directory.
-    You can find a sample in the [SAP HANA connector](../google-datacatalog-saphanaconnector/src/google/datacatalog_connectors/saphana/config).
+    Implement a metadata definition file that matches the SQL Object name, with the following 
+    pattern:`metadata_definition_{sql_objects.name}_sql_object.sql` this file must be located at 
+    the connector `config` directory. You can find a sample in the 
+    [SAP HANA connector](../google-datacatalog-saphanaconnector/src/google/datacatalog_connectors/saphana/config/metadata_definition_functions_sql_object.json).
     
     These are the required attributes for `metadata_definition` file:
     

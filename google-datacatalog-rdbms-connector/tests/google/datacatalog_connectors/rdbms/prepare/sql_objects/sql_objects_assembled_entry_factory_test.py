@@ -14,12 +14,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import mock
 import os
 import unittest
 
 from google.cloud import datacatalog
-
-import mock
 
 from google.datacatalog_connectors.commons_test import utils
 from google.datacatalog_connectors.rdbms.prepare.sql_objects import \
