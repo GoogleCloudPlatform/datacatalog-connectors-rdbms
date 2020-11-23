@@ -63,7 +63,7 @@ class SQLObjectsDataCatalogEntryFactory(BaseEntryFactory):
             self.__project_id, self.__location_id, self.__entry_group_id,
             entry_id)
 
-        entry.linked_resource = '/{}/{}'.format(
+        entry.linked_resource = '{}/{}'.format(
             self.__entry_resource_url_prefix, entry_id)
 
         return entry_id, entry
