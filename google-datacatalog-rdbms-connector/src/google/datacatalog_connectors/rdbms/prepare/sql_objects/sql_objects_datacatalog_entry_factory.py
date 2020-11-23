@@ -23,7 +23,7 @@ from google.datacatalog_connectors.commons.prepare.base_entry_factory import \
 from google.datacatalog_connectors.rdbms.scrape import constants
 
 
-class DataCatalogSQLObjectsEntryFactory(BaseEntryFactory):
+class SQLObjectsDataCatalogEntryFactory(BaseEntryFactory):
 
     def __init__(self, project_id, location_id, metadata_host_server,
                  entry_group_id, sql_objects_config):

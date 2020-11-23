@@ -21,7 +21,7 @@ from google.cloud import datacatalog
 
 from google.datacatalog_connectors.commons_test import utils
 from google.datacatalog_connectors.rdbms.prepare.sql_objects import \
-    datacatalog_sql_objects_tag_template_factory
+    sql_objects_datacatalog_tag_template_factory
 
 
 class DataCatalogSQLObjectsTagTemplateFactoryTestCase(unittest.TestCase):
@@ -45,8 +45,8 @@ class DataCatalogSQLObjectsTagTemplateFactoryTestCase(unittest.TestCase):
             utils.Utils.convert_json_to_object(self.__MODULE_PATH,
                                                'sql_objects_config.json')
 
-        factory = datacatalog_sql_objects_tag_template_factory. \
-            DataCatalogSQLObjectsTagTemplateFactory(
+        factory = sql_objects_datacatalog_tag_template_factory. \
+            SQLObjectsDataCatalogTagTemplateFactory(
                 self.__PROJECT_ID,
                 self.__LOCATION_ID,
                 self.__ENTRY_GROUP_ID,

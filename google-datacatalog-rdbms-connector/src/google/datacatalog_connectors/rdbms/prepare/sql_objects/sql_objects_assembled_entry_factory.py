@@ -16,14 +16,14 @@
 
 from google.datacatalog_connectors.commons import prepare
 
+from google.datacatalog_connectors.rdbms.prepare.sql_objects\
+    import sql_objects_datacatalog_entry_factory,\
+    sql_objects_datacatalog_tag_factory
+
 from google.datacatalog_connectors.rdbms.scrape import constants
 
-from google.datacatalog_connectors.rdbms.prepare.sql_objects\
-    import datacatalog_sql_objects_entry_factory,\
-    datacatalog_sql_objects_tag_factory
 
-
-class AssembledSQLObjectsEntryFactory:
+class SQLObjectsAssembledEntryFactory:
 
     def __init__(self, project_id, location_id, metadata_host_server,
                  entry_group_id, sql_objects_config, tag_templates_dict):
@@ -31,15 +31,15 @@ class AssembledSQLObjectsEntryFactory:
         self.__sql_objects_config = sql_objects_config
         self.__tag_templates_dict = tag_templates_dict
         self.__datacatalog_entry_factory = \
-            datacatalog_sql_objects_entry_factory.\
-            DataCatalogSQLObjectsEntryFactory(
+            sql_objects_datacatalog_entry_factory.\
+            SQLObjectsDataCatalogEntryFactory(
                 project_id,
                 location_id,
                 metadata_host_server,
                 self.__entry_group_id,
                 self.__sql_objects_config)
-        self.__datacatalog_tag_factory = datacatalog_sql_objects_tag_factory.\
-            DataCatalogSQLObjectsTagFactory(sql_objects_config)
+        self.__datacatalog_tag_factory = sql_objects_datacatalog_tag_factory.\
+            SQLObjectsDataCatalogTagFactory(sql_objects_config)
 
     def make_entries(self, sql_objects_metadata):
         assembled_entries = []
