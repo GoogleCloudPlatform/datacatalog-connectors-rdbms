@@ -14,12 +14,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from google.datacatalog_connectors.rdbms.scrape.sql_objects\
-    .sql_objects_metadata_normalizer import\
+from .sql_objects_metadata_normalizer import\
     SQLObjectsMetadataNormalizer
 
-from google.datacatalog_connectors.rdbms.scrape.sql_objects\
-    .sql_objects_metadata_scraper import\
+from .sql_objects_metadata_scraper import\
     SQLObjectsMetadataScraper
 
 __all__ = ('SQLObjectsMetadataNormalizer', 'SQLObjectsMetadataScraper')
