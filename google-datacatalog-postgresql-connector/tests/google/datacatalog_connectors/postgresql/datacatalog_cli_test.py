@@ -61,6 +61,7 @@ class DatacatalogCLITestCase(unittest.TestCase):
                     or '--postgresql-user' in command \
                     or '--postgresql-pass' in command \
                     or '--postgresql-database' in command \
+                    or '--datacatalog-entry-resource-url-prefix' in command \
                     or '--raw-metadata-csv' in command \
                     or '--enable-monitoring' in command \
                     or '--datacatalog-entry-group-id' in command:

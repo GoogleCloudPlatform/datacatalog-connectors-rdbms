@@ -59,6 +59,7 @@ class DatacatalogCLITestCase(unittest.TestCase):
                     or '--mysql-user' in command \
                     or '--mysql-pass' in command \
                     or '--mysql-database' in command \
+                    or '--datacatalog-entry-resource-url-prefix' in command \
                     or '--raw-metadata-csv' in command \
                     or '--enable-monitoring' in command \
                     or '--datacatalog-entry-group-id' in command:

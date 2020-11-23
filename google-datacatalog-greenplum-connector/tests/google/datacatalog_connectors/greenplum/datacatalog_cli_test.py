@@ -59,6 +59,7 @@ class DatacatalogCLITestCase(unittest.TestCase):
                     or '--greenplum-user' in command \
                     or '--greenplum-pass' in command \
                     or '--greenplum-database' in command \
+                    or '--datacatalog-entry-resource-url-prefix' in command \
                     or '--raw-metadata-csv' in command \
                     or '--enable-monitoring' in command \
                     or '--datacatalog-entry-group-id' in command:

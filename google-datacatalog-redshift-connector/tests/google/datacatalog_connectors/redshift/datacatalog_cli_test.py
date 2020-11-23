@@ -61,6 +61,7 @@ class DatacatalogCLITestCase(unittest.TestCase):
                     or '--redshift-pass' in command \
                     or '--redshift-database' in command \
                     or '--redshift-port' in command \
+                    or '--datacatalog-entry-resource-url-prefix' in command \
                     or '--raw-metadata-csv' in command \
                     or '--enable-monitoring' in command \
                     or '--datacatalog-entry-group-id' in command:
