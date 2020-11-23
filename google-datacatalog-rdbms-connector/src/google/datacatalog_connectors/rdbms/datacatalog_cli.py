@@ -110,7 +110,7 @@ class DatacatalogCli(ABC):
         # try/except clause for backwards compatibility with
         # older sql connectors versions.
         try:
-            return args.entry_resource_url_prefix
+            return args.datacatalog_entry_resource_url_prefix
         except AttributeError:
             return self._get_host_arg(args)
 
