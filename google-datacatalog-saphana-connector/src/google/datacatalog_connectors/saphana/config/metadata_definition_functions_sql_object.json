@@ -1,0 +1,63 @@
+{
+  "key": "functions",
+  "type": "function",
+  "name": "function_name",
+  "fields": [
+    {
+      "source": "schema_name",
+      "target": {
+        "field_name": "schema_name",
+        "model": "tag",
+        "type": "string"
+      }
+    },
+    {
+      "source": "input_parameter_count",
+      "target": {
+        "field_name": "input_parameter_count",
+        "model": "tag",
+        "type": "double"
+      }
+    },
+    {
+      "source": "return_value_count",
+      "target": {
+        "field_name": "return_value_count",
+        "model": "tag",
+        "type": "double"
+      }
+    },
+    {
+      "source": "definition",
+      "target": {
+        "field_name": "definition",
+        "model": "tag",
+        "type": "string"
+      }
+    },
+    {
+      "source": "is_valid",
+      "target": {
+        "field_name": "is_valid",
+        "model": "tag",
+        "type": "bool"
+      }
+    },
+    {
+      "source": "owner_name",
+      "target": {
+        "field_name": "owner_name",
+        "model": "tag",
+        "type": "string"
+      }
+    },
+    {
+      "source": "create_time",
+      "target": {
+        "field_name": "create_time",
+        "model": "entry",
+        "type": "timestamp"
+      }
+    }
+  ]
+}
