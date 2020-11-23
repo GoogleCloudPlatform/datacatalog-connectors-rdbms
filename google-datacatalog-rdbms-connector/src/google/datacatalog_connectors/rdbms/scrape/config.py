@@ -55,62 +55,64 @@ class Config:
             return parsed_config
 
         for sql_object in sql_objects:
-            if sql_object.get(constants.SQL_OBJECT_ITEM_ENABLED_FLAG) is True:
-                # Check to avoid breaking changes,
-                # older versions of connector will skip this.
-                if self._connector_config_path:
-                    item_name = sql_object[constants.SQL_OBJECT_ITEM_NAME]
+            if not sql_object.get(constants.SQL_OBJECT_ITEM_ENABLED_FLAG):
+                continue
 
-                    query_path = '{}_{}_{}'.format(
-                        constants.SQL_OBJECT_ITEM_QUERY_FILENAME_PREFIX,
-                        item_name,
-                        constants.SQL_OBJECT_ITEM_QUERY_FILENAME_SUFFIX)
+            # Check to avoid breaking changes,
+            # older versions of connector will skip this.
+            if self._connector_config_path:
+                item_name = sql_object[constants.SQL_OBJECT_ITEM_NAME]
 
-                    query_full_path = os.path.join(self._connector_config_path,
-                                                   query_path)
+                query_path = '{}_{}_{}'.format(
+                    constants.SQL_OBJECT_ITEM_QUERY_FILENAME_PREFIX,
+                    item_name,
+                    constants.SQL_OBJECT_ITEM_QUERY_FILENAME_SUFFIX)
 
-                    metadata_def_path = '{}_{}_{}'.format(
-                        constants.SQL_OBJECT_ITEM_METADATA_DEF_FILENAME_PREFIX,
-                        item_name,
-                        constants.SQL_OBJECT_ITEM_METADATA_DEF_FILENAME_SUFFIX)
+                query_full_path = os.path.join(self._connector_config_path,
+                                               query_path)
 
-                    metadata_def_full_path = os.path.join(
-                        self._connector_config_path, metadata_def_path)
+                metadata_def_path = '{}_{}_{}'.format(
+                    constants.SQL_OBJECT_ITEM_METADATA_DEF_FILENAME_PREFIX,
+                    item_name,
+                    constants.SQL_OBJECT_ITEM_METADATA_DEF_FILENAME_SUFFIX)
 
-                    if self.__connector_has_config_files_for_sql_objects(
-                            query_full_path, metadata_def_full_path):
+                metadata_def_full_path = os.path.join(
+                    self._connector_config_path, metadata_def_path)
 
-                        sql_object_item_key =\
-                            constants.SQL_OBJECT_ITEM_NAME
+                if self.__connector_has_config_files_for_sql_objects(
+                        query_full_path, metadata_def_full_path):
 
-                        sql_object_query_key =\
-                            constants.SQL_OBJECT_ITEM_QUERY_KEY
+                    sql_object_item_key =\
+                        constants.SQL_OBJECT_ITEM_NAME
 
-                        sql_object_metadata_def_key =\
-                            constants.\
-                            SQL_OBJECT_ITEM_METADATA_DEF_KEY
+                    sql_object_query_key =\
+                        constants.SQL_OBJECT_ITEM_QUERY_KEY
 
-                        query_value = self.\
-                            __read_sql_query_file(query_full_path)
+                    sql_object_metadata_def_key =\
+                        constants.\
+                        SQL_OBJECT_ITEM_METADATA_DEF_KEY
 
-                        parsed_config[item_name] = {
-                            sql_object_item_key:
-                                item_name,
-                            sql_object_query_key:
-                                query_value,
-                            sql_object_metadata_def_key:
-                                self.__read_json_file(metadata_def_full_path)
-                        }
+                    query_value = self.\
+                        __read_sql_query_file(query_full_path)
 
-                        logging.info(
-                            'SQL Object: %s processed, metadata def: %s'
-                            ' and query: %s', item_name,
-                            metadata_def_full_path, query_full_path)
-                    else:
-                        logging.warning(
-                            'SQL Object: %s ignored, metadata def: %s'
-                            ' or query: %s dont exist', item_name,
-                            metadata_def_full_path, query_full_path)
+                    parsed_config[item_name] = {
+                        sql_object_item_key:
+                            item_name,
+                        sql_object_query_key:
+                            query_value,
+                        sql_object_metadata_def_key:
+                            self.__read_json_file(metadata_def_full_path)
+                    }
+
+                    logging.info(
+                        'SQL Object: %s processed, metadata def: %s'
+                        ' and query: %s', item_name,
+                        metadata_def_full_path, query_full_path)
+                else:
+                    logging.warning(
+                        'SQL Object: %s ignored, metadata def: %s'
+                        ' or query: %s dont exist', item_name,
+                        metadata_def_full_path, query_full_path)
 
         return parsed_config
 
