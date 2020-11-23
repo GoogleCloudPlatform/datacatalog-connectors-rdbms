@@ -21,7 +21,7 @@ from google.datacatalog_connectors.commons import prepare
 from google.datacatalog_connectors.rdbms.scrape import constants
 
 
-class DataCatalogSQLObjectsTagFactory(prepare.BaseTagFactory):
+class SQLObjectsDataCatalogTagFactory(prepare.BaseTagFactory):
     __TRUTHS = {1, '1', 't', 'T', 'true', 'True', 'TRUE'}
 
     def __init__(self, sql_objects_config):

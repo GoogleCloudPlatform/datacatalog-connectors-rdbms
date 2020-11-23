@@ -18,6 +18,8 @@ import logging
 import warnings
 import time
 
+import pandas as pd
+
 from google.datacatalog_connectors.rdbms.scrape.metadata_normalizer \
     import MetadataNormalizer
 
@@ -25,8 +27,6 @@ from google.datacatalog_connectors.rdbms.scrape.sql_objects \
     import SQLObjectsMetadataScraper
 
 from google.datacatalog_connectors.rdbms.scrape import constants
-
-import pandas as pd
 
 
 class MetadataScraper:

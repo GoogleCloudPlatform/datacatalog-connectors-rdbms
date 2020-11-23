@@ -55,8 +55,8 @@ class DatacatalogSynchronizerTestCase(unittest.TestCase):
     @mock.patch('google.datacatalog_connectors.rdbms.'
                 'scrape.metadata_scraper.MetadataScraper.scrape')
     @mock.patch('google.datacatalog_connectors.rdbms.'
-                'prepare.sql_objects.assembled_sql_objects_entry_factory.'
-                'AssembledSQLObjectsEntryFactory.make_entries')
+                'prepare.sql_objects.sql_objects_assembled_entry_factory.'
+                'SQLObjectsAssembledEntryFactory.make_entries')
     @mock.patch('google.datacatalog_connectors.rdbms.'
                 'prepare.assembled_entry_factory.'
                 'AssembledEntryFactory.make_entries')
@@ -108,8 +108,8 @@ class DatacatalogSynchronizerTestCase(unittest.TestCase):
     @mock.patch('google.datacatalog_connectors.rdbms.'
                 'scrape.metadata_scraper.MetadataScraper.scrape')
     @mock.patch('google.datacatalog_connectors.rdbms.'
-                'prepare.sql_objects.assembled_sql_objects_entry_factory.'
-                'AssembledSQLObjectsEntryFactory.make_entries')
+                'prepare.sql_objects.sql_objects_assembled_entry_factory.'
+                'SQLObjectsAssembledEntryFactory.make_entries')
     @mock.patch('google.datacatalog_connectors.rdbms.'
                 'prepare.assembled_entry_factory.'
                 'AssembledEntryFactory.make_entries')

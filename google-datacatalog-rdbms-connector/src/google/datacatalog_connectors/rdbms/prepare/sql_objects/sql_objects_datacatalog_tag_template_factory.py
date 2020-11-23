@@ -24,7 +24,7 @@ from google.datacatalog_connectors.commons import prepare
 from google.datacatalog_connectors.rdbms.scrape import constants
 
 
-class DataCatalogSQLObjectsTagTemplateFactory(prepare.BaseTagTemplateFactory):
+class SQLObjectsDataCatalogTagTemplateFactory(prepare.BaseTagTemplateFactory):
     __SNAKE_CASE_FIELDS_SEPARATOR = '_'
 
     __BOOL_TYPE = datacatalog.FieldType.PrimitiveType.BOOL
