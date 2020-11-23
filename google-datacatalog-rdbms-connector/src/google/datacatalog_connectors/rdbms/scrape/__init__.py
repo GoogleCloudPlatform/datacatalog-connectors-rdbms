@@ -14,10 +14,21 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from .metadata_enricher import MetadataEnricher
-from .base_metadata_enricher import BaseMetadataEnricher
-from .metadata_normalizer import MetadataNormalizer
-from .metadata_scraper import MetadataScraper
+from google.datacatalog_connectors.rdbms.scrape\
+    .metadata_enricher import\
+    MetadataEnricher
+
+from google.datacatalog_connectors.rdbms.scrape\
+    .base_metadata_enricher import\
+    BaseMetadataEnricher
+
+from google.datacatalog_connectors.rdbms.scrape\
+    .metadata_normalizer import\
+    MetadataNormalizer
+
+from google.datacatalog_connectors.rdbms.scrape\
+    .metadata_scraper import\
+    MetadataScraper
 
 __all__ = ('BaseMetadataEnricher', 'MetadataEnricher', 'MetadataNormalizer',
            'MetadataScraper')
