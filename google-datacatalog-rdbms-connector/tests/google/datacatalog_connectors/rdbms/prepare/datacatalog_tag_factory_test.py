@@ -225,7 +225,7 @@ class DataCatalogTagFactoryTest(unittest.TestCase):
         tags = factory. \
             make_tags_for_columns_metadata(tag_template, tables_dict)
 
-        tag_1 = tags[0]
+        tag = tags[0]
 
         self.assertEqual(True, tag_1.fields['masked'].bool_value)
         self.assertEqual('XXX-XXX-XXX',
