@@ -182,7 +182,7 @@ class AssembledEntryFactoryTestCase(unittest.TestCase):
             self.assertEqual(AssembledEntryFactoryTestCase.__MOCKED_ENTRY_PATH,
                              schema_entry.name)
             self.assertEqual('', schema_entry.description)
-            self.assertEqual('//metadata_host//CO',
+            self.assertEqual('/metadata_host/CO',
                              schema_entry.linked_resource)
             self.assertEqual('oracle', schema_entry.user_specified_system)
 

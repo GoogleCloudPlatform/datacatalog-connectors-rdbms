@@ -105,7 +105,12 @@ class DatacatalogCli(ABC):
         pass
 
     def _get_entry_resource_url_prefix(self, args):
-        return args.entry_resource_url_prefix or self._get_host_arg(args)
+        # try/except clause for backwards compatibility with
+        # older sql connectors versions.
+        try:
+            return args.entry_resource_url_prefix
+        except AttributeError:
+            return self._get_host_arg(args)
 
     def _get_user_config_path(self):
         user_config_path = os.path.join(os.getcwd(), 'ingest_cfg.yaml')

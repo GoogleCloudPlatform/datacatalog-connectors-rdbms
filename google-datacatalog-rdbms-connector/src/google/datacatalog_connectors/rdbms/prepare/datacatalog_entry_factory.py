@@ -74,7 +74,7 @@ class DataCatalogEntryFactory(BaseEntryFactory):
             self.__project_id, self.__location_id, self.__entry_group_id,
             entry_id)
 
-        entry.linked_resource = '//{}//{}'.format(
+        entry.linked_resource = '/{}/{}'.format(
             self.__entry_resource_url_prefix, entry_id)
 
         return entry_id, entry
@@ -119,8 +119,9 @@ class DataCatalogEntryFactory(BaseEntryFactory):
 
         entry.description = desc
 
-        entry.linked_resource = '//{}//{}'.format(
-            self.__entry_resource_url_prefix, self._format_id(table['name']))
+        entry.linked_resource = '/{}/{}/{}'.format(
+            self.__entry_resource_url_prefix, table_container_name,
+            self._format_id(table['name']))
 
         create_time, update_time = \
             DataCatalogEntryFactory.__convert_source_system_timestamp_fields(
