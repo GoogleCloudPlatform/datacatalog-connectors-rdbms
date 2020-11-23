@@ -33,7 +33,7 @@ jobs:
         # Update the commons RDBMS library with the local version
         pip install ../google-datacatalog-rdbms-connector
         # Update the commons PostgreSQL library with the local version
-        # Greenplum and Redshift connectors leverage this.
+        # because the Greenplum and Redshift connectors depend on it.
         pip install ../google-datacatalog-postgresql-connector
         pip install .
     - name: Formatting rules with yapf

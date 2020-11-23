@@ -56,7 +56,7 @@ class Config:
 
         for sql_object in sql_objects:
             if sql_object.get(constants.SQL_OBJECT_ITEM_ENABLED_FLAG) is True:
-                # test to avoid breaking changes,
+                # Check to avoid breaking changes,
                 # older versions of connector will skip this.
                 if self._connector_config_path:
                     item_name = sql_object[constants.SQL_OBJECT_ITEM_NAME]

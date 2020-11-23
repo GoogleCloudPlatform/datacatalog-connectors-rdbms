@@ -22,4 +22,4 @@ from google.datacatalog_connectors.rdbms.scrape.sql_objects\
     .sql_objects_metadata_scraper import\
     SQLObjectsMetadataScraper
 
-__all__ = ('SQLObjectsMetadataScraper', 'SQLObjectsMetadataNormalizer')
+__all__ = ('SQLObjectsMetadataNormalizer', 'SQLObjectsMetadataScraper')
