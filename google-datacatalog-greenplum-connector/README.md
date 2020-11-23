@@ -31,7 +31,8 @@ Library for ingesting Greenplum metadata into Google Cloud Data Catalog.
   * [2.2 Set environment variables](#22-set-environment-variables)
 - [3. Run entry point](#3-run-entry-point)
   * [3.1. Run Python entry point](#31-run-python-entry-point)
-  * [3.2. Run Docker entry point](#32-run-docker-entry-point)
+  * [3.2. Run Python entry point with user defined entry resource URL prefix](#32-run-python-entry-point-with-user-defined-entry-resource-url-prefix)
+  * [3.3. Run Docker entry point](#33-run-docker-entry-point)
 - [4 Scripts inside tools](#4-scripts-inside-tools)
   * [4.1. Run clean up](#41-run-clean-up)
   * [4.2. Extract CSV](#42-extract-csv)
@@ -145,7 +146,28 @@ google-datacatalog-greenplum-connector \
 --raw-metadata-csv=$GREENPLUM2DC_RAW_METADATA_CSV      
 ```
 
-### 3.2. Run Docker entry point
+### 3.2. Run Python entry point with user defined entry resource URL prefix
+
+This option is useful when users don't have control over the database host.  
+For example when running under proxies, load balancers or database read replicas,
+you can specify the prefix of your master instance so the resource URL will point
+to the exact database where the data is stored.
+
+- Virtualenv
+
+```bash
+google-datacatalog-greenplum-connector \
+--datacatalog-project-id=$GREENPLUM2DC_DATACATALOG_PROJECT_ID \
+--datacatalog-location-id=$GREENPLUM2DC_DATACATALOG_LOCATION_ID \
+--datacatalog-entry-resource-url-prefix project/database-instance \
+--greenplum-host=$GREENPLUM2DC_GREENPLUM_SERVER \
+--greenplum-user=$GREENPLUM2DC_GREENPLUM_USERNAME \
+--greenplum-pass=$GREENPLUM2DC_GREENPLUM_PASSWORD \
+--greenplum-database=$GREENPLUM2DC_GREENPLUM_DATABASE \
+--raw-metadata-csv=$GREENPLUM2DC_RAW_METADATA_CSV
+```
+
+### 3.3. Run Docker entry point
 
 ```bash
 docker build -t greenplum2datacatalog .

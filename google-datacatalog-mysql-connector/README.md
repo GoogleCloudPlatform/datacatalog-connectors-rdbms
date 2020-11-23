@@ -32,7 +32,8 @@ Library for ingesting MySQL metadata into Google Cloud Data Catalog.
 - [3. Adapt user configurations](#3-adapt-user-configurations)
 - [4. Run entry point](#4-run-entry-point)
   * [4.1. Run Python entry point](#41-run-python-entry-point)
-  * [4.2. Run Docker entry point](#42-run-docker-entry-point)
+  * [4.2. Run Python entry point with user defined entry resource URL prefix](#42-run-python-entry-point-with-user-defined-entry-resource-url-prefix)
+  * [4.3. Run Docker entry point](#43-run-docker-entry-point)
 - [5 Scripts inside tools](#5-scripts-inside-tools)
   * [5.1. Run clean up](#51-run-clean-up)
 - [6. Developer environment](#6-developer-environment)
@@ -172,7 +173,28 @@ google-datacatalog-mysql-connector \
 --raw-metadata-csv=$MYSQL2DC_RAW_METADATA_CSV
 ```
 
-### 4.2. Run Docker entry point
+### 4.2. Run Python entry point with user defined entry resource URL prefix
+
+This option is useful when users don't have control over the database host.  
+For example when running under proxies, load balancers or database read replicas,
+you can specify the prefix of your master instance so the resource URL will point
+to the exact database where the data is stored.
+
+- Virtualenv
+
+```bash
+google-datacatalog-mysql-connector \
+--datacatalog-project-id=$MYSQL2DC_DATACATALOG_PROJECT_ID \
+--datacatalog-location-id=$MYSQL2DC_DATACATALOG_LOCATION_ID \
+--datacatalog-entry-resource-url-prefix project/database-instance \
+--mysql-host=$MYSQL2DC_MYSQL_SERVER \
+--mysql-user=$MYSQL2DC_MYSQL_USERNAME \
+--mysql-pass=$MYSQL2DC_MYSQL_PASSWORD \
+--mysql-database=$MYSQL2DC_MYSQL_DATABASE \
+--raw-metadata-csv=$MYSQL2DC_RAW_METADATA_CSV
+```
+
+### 4.3. Run Docker entry point
 
 ```bash
 docker build -t mysql2datacatalog .
