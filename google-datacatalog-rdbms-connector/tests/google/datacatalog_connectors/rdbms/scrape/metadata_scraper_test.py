@@ -57,11 +57,51 @@ class MetadataScraperTestCase(unittest.TestCase):
 
         scraper = test_utils.FakeScraper()
 
+        default_query = 'SELECT * from default_db'
+
         schemas_metadata = scraper.scrape({},
                                           connection_args={
                                               'host': 'localhost',
                                               'port': 1234
-                                          })
+                                          },
+                                          query=default_query)
+
+        self.assertEqual(default_query, scraper.cur.execute.call_args[0][0])
+
+        self.assertEqual(1, len(schemas_metadata))
+
+    @mock.patch('{}.'.format(__SCRAPE_PACKAGE) +
+                'metadata_scraper.MetadataNormalizer.normalize')
+    def test_scrape_metadata_with_credentials_overriding_base_metadata_query_should_return_objects(  # noqa: E501
+            self, normalize):
+        metadata = \
+            utils.Utils.convert_json_to_object(self.__MODULE_PATH,
+                                               'metadata.json')
+
+        user_config_path = utils.Utils.get_resolved_file_name(
+            self.__MODULE_PATH, 'base_metadata_query_ingest_cfg.yaml')
+        connector_config_path = utils.Utils.get_test_config_path(
+            self.__MODULE_PATH)
+
+        loaded_config = config.Config(user_config_path, connector_config_path)
+
+        normalize.return_value = metadata
+
+        scraper = test_utils.FakeScraper()
+
+        default_query = 'SELECT * from default_db'
+        user_defined_override_query = 'SELECT  * from db'
+
+        schemas_metadata = scraper.scrape({},
+                                          connection_args={
+                                              'host': 'localhost',
+                                              'port': 1234
+                                          },
+                                          query=default_query,
+                                          config=loaded_config)
+
+        self.assertEqual(user_defined_override_query,
+                         scraper.cur.execute.call_args[0][0])
 
         self.assertEqual(1, len(schemas_metadata))
 

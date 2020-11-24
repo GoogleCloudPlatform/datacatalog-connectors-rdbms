@@ -16,6 +16,7 @@
 
 # User defined config keys
 ENRICH_METADATA_OPTION = 'enrich_metadata'
+BASE_METADATA_QUERY_FILENAME = 'base_metadata_query_filename'
 REFRESH_OPTION = 'refresh_metadata_tables'
 ROW_COUNT_OPTION = 'sync_row_counts'
 

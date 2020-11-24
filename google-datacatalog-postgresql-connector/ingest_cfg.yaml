@@ -1,7 +1,12 @@
 ---
 # Using this configuration file, you can turn on or off the scraping of optional pieces of data.
 
-# Runs ANALYZE command for each user table, to update metadata tables and make database statistics more accurate.
+# This arg when informed overrides the default metadata_query.sql file at
+# the sql connector config directory
+# base_metadata_query_filename: 'metadata_pgcatalog_query.sql'
+
+# Runs ANALYZE command for each user table,
+# to update metadata tables and make database statistics more accurate.
 # Note, that it might take some time to ANALYZE big tables
 refresh_metadata_tables: true
 

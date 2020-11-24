@@ -43,11 +43,29 @@ class Config:
             for option, choice in self._conf_content.items()
             if choice and (option != constants.REFRESH_OPTION and
                            option != constants.ENRICH_METADATA_OPTION and
+                           option != constants.BASE_METADATA_QUERY_FILENAME and
                            option != constants.SQL_OBJECTS_KEY)
         ]
         return options
 
-    def get_sql_objects_config(self):
+    def get_enrich_metadata_dict(self):
+        return self.__get_content_dict_attribute(
+            constants.ENRICH_METADATA_OPTION)
+
+    def __get_base_metadata_query_config(self):
+        base_metadata_query_filename = self._conf_content.get(
+            constants.BASE_METADATA_QUERY_FILENAME)
+
+        if not base_metadata_query_filename:
+            return
+
+        query_full_path = os.path.join(self._connector_config_path,
+                                       base_metadata_query_filename)
+
+        if self.__file_exists(query_full_path):
+            return self.__read_sql_query_file(query_full_path)
+
+    def __get_sql_objects_config(self):
         parsed_config = {}
 
         sql_objects = self._conf_content.get(constants.SQL_OBJECTS_KEY)
@@ -116,10 +134,6 @@ class Config:
 
         return parsed_config
 
-    def get_enrich_metadata_dict(self):
-        return self.__get_content_dict_attribute(
-            constants.ENRICH_METADATA_OPTION)
-
     def __get_content_dict_attribute(self, attribute_name):
         content_attribute = self._conf_content.get(attribute_name)
 
@@ -137,7 +151,9 @@ class Config:
 
         options = self.get_chosen_metadata_options()
 
-        self.sql_objects_config = self.get_sql_objects_config()
+        self.sql_objects_config = self.__get_sql_objects_config()
+
+        self.base_metadata_query = self.__get_base_metadata_query_config()
 
         if len(options):
             self.scrape_optional_metadata = True
@@ -162,5 +178,9 @@ class Config:
     @classmethod
     def __connector_has_config_files_for_sql_objects(cls, query_full_path,
                                                      metadata_def_full_path):
-        return os.path.exists(query_full_path) and os.path.exists(
+        return cls.__file_exists(query_full_path) and cls.__file_exists(
             metadata_def_full_path)
+
+    @classmethod
+    def __file_exists(cls, file_path):
+        return os.path.exists(file_path)
