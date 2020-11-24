@@ -2,8 +2,6 @@
 # Using this configuration file, you can turn on or off the scraping of optional pieces of data.
 # and change the behavior of ingested attributes and names.
 
-# Properties used to enrich metadata
-
 # Config to enable ingestion of sql objects.
 sql_objects:
   - name: 'functions'
@@ -13,6 +11,7 @@ sql_objects:
   - name: 'triggers'
     enabled: True
 
+# Properties used to enrich metadata
 enrich_metadata:
   # ADD any string here that comply with Data Catalog Entry ID requirements,
   # check the README.md file for the Entry ID requirements.

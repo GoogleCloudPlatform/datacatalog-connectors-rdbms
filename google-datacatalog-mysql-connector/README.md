@@ -153,8 +153,19 @@ rows in each table. The table below shows what metadata is scraped by default, a
 
 Sample configuration file [ingest_cfg.yaml](https://github.com/GoogleCloudPlatform/datacatalog-connectors-rdbms/blob/master/google-datacatalog-mysql-connector/ingest_cfg.yaml) in the repository root shows what kind of configuration is expected. 
 
-**If you want to run optional queries, please add ingest_cfg.yaml to the directory from which you execute the connector 
-and adapt it to your needs.** 
+**If you want to run optional queries, please add ingest_cfg.yaml to the directory from which you
+execute the connector and adapt it to your needs.** 
+
+**When running the `ANALYZE TABLE` statement, the connector credentials need INSERT privilege 
+in the database system tables, otherwise you will receive the following error:**
+
+```text
+mysql.connector.errors.ProgrammingError: 1142 (42000): INSERT command denied to user
+ 'read-only'@'{HOST}' for table '{TABLE_NAME}'
+```
+
+**If it is desired to have only READ privilege make sure the flag `refresh_metadata_tables`
+is disabled**
 
 ## 4. Run entry point
 
