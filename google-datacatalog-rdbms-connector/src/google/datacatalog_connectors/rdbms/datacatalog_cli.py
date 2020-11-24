@@ -110,9 +110,16 @@ class DatacatalogCli(ABC):
         # try/except clause to be used as a fallback
         # in case the arg is not present.
         try:
-            return args.datacatalog_entry_resource_url_prefix
+            if args.datacatalog_entry_resource_url_prefix:
+                return args.datacatalog_entry_resource_url_prefix
         except (AttributeError, KeyError):
-            return self._get_host_arg(args)
+            logging.info('This SQL connector does not implement '
+                         'the user defined '
+                         'datacatalog-entry-resource-url-prefix')
+
+        logging.info('This SQL connector uses the default entry resoure URL')
+
+        return self._get_host_arg(args)
 
     def _get_user_config_path(self):
         user_config_path = os.path.join(os.getcwd(), 'ingest_cfg.yaml')

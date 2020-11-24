@@ -63,6 +63,8 @@ class Config:
                                        base_metadata_query_filename)
 
         if self.__file_exists(query_full_path):
+            logging.info('Loading the override base metadata query at: %s',
+                         query_full_path)
             return self.__read_sql_query_file(query_full_path)
 
     def __get_sql_objects_config(self):

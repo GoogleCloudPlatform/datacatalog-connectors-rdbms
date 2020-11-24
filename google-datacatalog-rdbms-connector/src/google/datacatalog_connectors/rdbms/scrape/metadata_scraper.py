@@ -43,6 +43,8 @@ class MetadataScraper:
                query=None,
                csv_path=None,
                config=None):
+        query = self.__resolve_base_metadata_query(config, query)
+
         dataframe = self.get_metadata_as_dataframe(metadata_definition,
                                                    connection_args, query,
                                                    csv_path, config)
@@ -69,9 +71,6 @@ class MetadataScraper:
             dataframe = self._get_metadata_from_csv(csv_path)
         elif self._is_metadata_from_connection(connection_args):
             logging.info('Scrapping metadata from connection_args')
-
-            query = self.__resolve_base_metadata_query(config, query)
-
             dataframe = self._get_base_metadata_from_rdbms_connection(
                 connection_args, query)
         else:
