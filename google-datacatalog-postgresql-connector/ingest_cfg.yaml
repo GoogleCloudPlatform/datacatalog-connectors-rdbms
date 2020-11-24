@@ -1,7 +1,7 @@
 ---
 # Using this configuration file, you can turn on or off the scraping of optional pieces of data.
 
-# This arg when informed overrides the default metadata_query.sql file at
+# When provided, this arg overrides the default metadata_query.sql file at
 # the sql connector config directory
 # base_metadata_query_filename: 'metadata_pgcatalog_query.sql'
 
