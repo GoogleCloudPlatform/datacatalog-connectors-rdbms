@@ -68,7 +68,7 @@ class DataCatalogSQLObjectsEntryFactoryTestCase(unittest.TestCase):
         self.assertEqual('CREDIT_MASK', entry.display_name)
         self.assertEqual('sql_database', entry.user_specified_system)
         self.assertEqual('function', entry.user_specified_type)
-        self.assertEqual('//metadata_host//CREDIT_MASK', entry.linked_resource)
+        self.assertEqual('metadata_host/CREDIT_MASK', entry.linked_resource)
         self.assertEqual('2020-11-10 16:53:52+00:00',
                          str(entry.source_system_timestamps.create_time))
         self.assertEqual('2020-11-10 16:53:52+00:00',
@@ -110,7 +110,7 @@ class DataCatalogSQLObjectsEntryFactoryTestCase(unittest.TestCase):
         self.assertEqual('CREDIT_MASK', entry.display_name)
         self.assertEqual('sql_database', entry.user_specified_system)
         self.assertEqual('stored_procedure', entry.user_specified_type)
-        self.assertEqual('//metadata_host//CREDIT_MASK', entry.linked_resource)
+        self.assertEqual('metadata_host/CREDIT_MASK', entry.linked_resource)
         self.assertEqual('2020-11-10 16:53:52+00:00',
                          str(entry.source_system_timestamps.create_time))
         self.assertEqual('2020-11-10 16:53:52+00:00',

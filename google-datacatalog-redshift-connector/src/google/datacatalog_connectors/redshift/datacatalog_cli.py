@@ -58,6 +58,9 @@ class Redshift2DatacatalogCli(datacatalog_cli.PostgreSQL2DatacatalogCli):
         parser.add_argument('--datacatalog-entry-group-id',
                             help='Entry group ID to be used for your Google '
                             'Cloud Datacatalog')
+        parser.add_argument('--datacatalog-entry-resource-url-prefix',
+                            help='Entry resource URL prefix '
+                            'used in the ingested Data Catalog Entries')
         parser.add_argument(
             '--redshift-host',
             help='Your Redshift server host, this is required even'

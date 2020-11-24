@@ -1,11 +1,11 @@
 {
     "schemas": [
         {
-            "name": "CO_$/\\_very_looooooooooooooooooooooooooooooooooooooooooooooooong",
+            "name": "CO_$/_very_looooooooooooooooooooooooooooooooooooooooooooooooong",
             "create_time": "2019-11-19 00:00:00",
             "tables": [
                 {
-                    "name": "CUSTOMERS_$/\\_very_loooooooooooooooooooooooooooooooooooooooooong",
+                    "name": "CUSTOMERS_$/_very_loooooooooooooooooooooooooooooooooooooooooong",
                     "desc": "Details of the people placing orders",
                     "create_time": "2019-11-19 00:00:00",
                     "update_time": "2019-11-19 00:00:00",

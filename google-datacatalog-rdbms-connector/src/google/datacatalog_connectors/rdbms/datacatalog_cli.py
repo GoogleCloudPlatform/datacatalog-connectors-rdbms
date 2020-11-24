@@ -37,6 +37,8 @@ class DatacatalogCli(ABC):
         # Enable logging
         logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
 
+        logging.info('\n\n==============Starting CLI===============')
+
         if args.service_account_path:
             os.environ['GOOGLE_APPLICATION_CREDENTIALS'] \
                 = args.service_account_path
@@ -45,7 +47,8 @@ class DatacatalogCli(ABC):
             project_id=args.datacatalog_project_id,
             location_id=args.datacatalog_location_id,
             entry_group_id=self._get_entry_group_id(args),
-            rbms_host=self._get_host_arg(args),
+            entry_resource_url_prefix=self._get_entry_resource_url_prefix(
+                args),
             metadata_definition=self._metadata_definition(),
             metadata_scraper=self._get_metadata_scraper(),
             connection_args=self._get_connection_args(args),
@@ -102,6 +105,14 @@ class DatacatalogCli(ABC):
     @abstractmethod
     def _parse_args(self, argv):
         pass
+
+    def _get_entry_resource_url_prefix(self, args):
+        # try/except clause to be used as a fallback
+        # in case the arg is not present.
+        try:
+            return args.datacatalog_entry_resource_url_prefix
+        except (AttributeError, KeyError):
+            return self._get_host_arg(args)
 
     def _get_user_config_path(self):
         user_config_path = os.path.join(os.getcwd(), 'ingest_cfg.yaml')
