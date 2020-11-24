@@ -49,7 +49,7 @@ class DataCatalogSynchronizer:
                  project_id,
                  location_id,
                  entry_group_id,
-                 rbms_host,
+                 entry_resource_url_prefix,
                  metadata_definition,
                  metadata_scraper,
                  connection_args=None,
@@ -60,7 +60,7 @@ class DataCatalogSynchronizer:
         self.__entry_group_id = entry_group_id
         self.__metadata_definition = metadata_definition
         self.__metadata_scraper = metadata_scraper
-        self.__rbms_host = rbms_host
+        self.__entry_resource_url_prefix = entry_resource_url_prefix
         self.__project_id = project_id
         self.__location_id = location_id
         self.__connection_args = connection_args
@@ -128,7 +128,7 @@ class DataCatalogSynchronizer:
                 SQLObjectsAssembledEntryFactory(
                     self.__project_id,
                     self.__location_id,
-                    self.__rbms_host,
+                    self.__entry_resource_url_prefix,
                     self.__entry_group_id,
                     self.__config.sql_objects_config,
                     tag_templates_dict)
@@ -208,7 +208,7 @@ class DataCatalogSynchronizer:
 
     def __create_entry_factory(self):
         return self._get_entry_factory()(self.__project_id, self.__location_id,
-                                         self.__rbms_host,
+                                         self.__entry_resource_url_prefix,
                                          self.__entry_group_id,
                                          self.__metadata_definition)
 

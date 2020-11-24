@@ -129,6 +129,8 @@ class Config:
         return None
 
     def __determine_scraping_steps(self):
+        logging.info('\n\n==============Loading Config===============')
+
         if self._conf_content.get(constants.REFRESH_OPTION) is not None:
             self.refresh_metadata_tables = self._conf_content[
                 constants.REFRESH_OPTION]

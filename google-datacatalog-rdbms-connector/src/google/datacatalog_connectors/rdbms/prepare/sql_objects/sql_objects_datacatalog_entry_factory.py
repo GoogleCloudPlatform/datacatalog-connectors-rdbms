@@ -25,11 +25,11 @@ from google.datacatalog_connectors.rdbms.scrape import constants
 
 class SQLObjectsDataCatalogEntryFactory(BaseEntryFactory):
 
-    def __init__(self, project_id, location_id, metadata_host_server,
+    def __init__(self, project_id, location_id, entry_resource_url_prefix,
                  entry_group_id, sql_objects_config):
         self.__project_id = project_id
         self.__location_id = location_id
-        self.__metadata_host_server = metadata_host_server
+        self.__entry_resource_url_prefix = entry_resource_url_prefix
         self.__entry_group_id = entry_group_id
         self.__sql_objects_config = sql_objects_config
 
@@ -63,8 +63,8 @@ class SQLObjectsDataCatalogEntryFactory(BaseEntryFactory):
             self.__project_id, self.__location_id, self.__entry_group_id,
             entry_id)
 
-        entry.linked_resource = '//{}//{}'.format(self.__metadata_host_server,
-                                                  entry_id)
+        entry.linked_resource = '{}/{}'.format(
+            self.__entry_resource_url_prefix, entry_id)
 
         return entry_id, entry
 

@@ -20,6 +20,9 @@ import time
 
 import pandas as pd
 
+from google.datacatalog_connectors.rdbms.scrape import \
+    base_metadata_enricher
+
 from google.datacatalog_connectors.rdbms.scrape.metadata_normalizer \
     import MetadataNormalizer
 
@@ -232,8 +235,7 @@ class MetadataScraper:
                                   'to run multiple optional queries')
 
     def _get_metadata_enricher(self):
-        raise NotImplementedError('Implementing this method is required '
-                                  'to enrich metadata attributes')
+        return base_metadata_enricher.BaseMetadataEnricher
 
     def _execute_refresh_query(self, cursor, query):
         """

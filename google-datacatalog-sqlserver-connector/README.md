@@ -34,7 +34,8 @@ Currently supports SQL Server 2017 Standard.
 - [3. Adapt user configurations](#3-adapt-user-configurations)
 - [4. Run entry point](#4-run-entry-point)
   * [4.1. Run Python entry point](#41-run-python-entry-point)
-  * [4.2. Run Docker entry point](#42-run-docker-entry-point)
+  * [4.2. Run the Python entry point with a user-defined entry resource URL prefix](#42-run-the-python-entry-point-with-a-user-defined-entry-resource-url-prefix)
+  * [4.3. Run Docker entry point](#43-run-docker-entry-point)
 - [5 Scripts inside tools](#5-scripts-inside-tools)
   * [5.1. Run clean up](#51-run-clean-up)
 - [6. Developer environment](#6-developer-environment)
@@ -185,7 +186,28 @@ google-datacatalog-sqlserver-connector \
 --raw-metadata-csv=$SQLSERVER2DC_RAW_METADATA_CSV      
 ```
 
-### 4.2. Run Docker entry point
+### 4.2. Run the Python entry point with a user-defined entry resource URL prefix
+
+This option is useful when the connector cannot accurately determine the database hostname.
+For example when running under proxies, load balancers or database read replicas,
+you can specify the prefix of your master instance so the resource URL will point
+to the exact database where the data is stored.
+
+- Virtualenv
+
+```bash
+google-datacatalog-sqlserver-connector \
+--datacatalog-project-id=$SQLSERVER2DC_DATACATALOG_PROJECT_ID \
+--datacatalog-location-id=$SQLSERVER2DC_DATACATALOG_LOCATION_ID \
+--datacatalog-entry-resource-url-prefix project/database-instance \
+--sqlserver-host=$SQLSERVER2DC_SQLSERVER_SERVER \
+--sqlserver-user=$SQLSERVER2DC_SQLSERVER_USERNAME \
+--sqlserver-pass=$SQLSERVER2DC_SQLSERVER_PASSWORD \
+--sqlserver-database=$SQLSERVER2DC_SQLSERVER_DATABASE  \
+--raw-metadata-csv=$SQLSERVER2DC_RAW_METADATA_CSV 
+```
+
+### 4.3. Run Docker entry point
 
 ```bash
 docker build -t sqlserver2datacatalog .

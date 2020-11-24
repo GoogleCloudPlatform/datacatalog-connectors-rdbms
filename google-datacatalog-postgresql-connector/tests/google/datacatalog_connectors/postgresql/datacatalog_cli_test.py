@@ -38,6 +38,8 @@ class DatacatalogCLITestCase(unittest.TestCase):
         mocked_parse_args.datacatalog_project_id = 'test_project_id'
         mocked_parse_args.datacatalog_location_id = 'location_id'
         mocked_parse_args.datacatalog_entry_group_id = 'entry_group_id'
+        mocked_parse_args.datacatalog_entry_resource_url_prefix =\
+            'user_defined_host'
         mocked_parse_args.postgresql_host = 'host'
         mocked_parse_args.postgresql_port = 5432
         mocked_parse_args.postgresql_user = 'user'
@@ -59,6 +61,7 @@ class DatacatalogCLITestCase(unittest.TestCase):
                     or '--postgresql-user' in command \
                     or '--postgresql-pass' in command \
                     or '--postgresql-database' in command \
+                    or '--datacatalog-entry-resource-url-prefix' in command \
                     or '--raw-metadata-csv' in command \
                     or '--enable-monitoring' in command \
                     or '--datacatalog-entry-group-id' in command:
