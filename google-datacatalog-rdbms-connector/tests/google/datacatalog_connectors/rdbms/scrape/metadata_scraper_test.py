@@ -307,7 +307,7 @@ class MetadataScraperTestCase(unittest.TestCase):
                 'get_exact_table_names_from_dataframe')
     @mock.patch('{}.'.format(__SCRAPE_PACKAGE) +
                 'metadata_scraper.MetadataNormalizer.normalize')
-    def test_scrape_metadata_with_enrich_metadata_config_and_no_enricher_should_not_raise_error(  # noqa:E501
+    def test_scrape_metadata_with_enrich_metadata_config_and_no_enricher_should_succeed(  # noqa:E501
             self, normalize, _):  # noqa
         metadata = \
             utils.Utils.convert_json_to_object(self.__MODULE_PATH,

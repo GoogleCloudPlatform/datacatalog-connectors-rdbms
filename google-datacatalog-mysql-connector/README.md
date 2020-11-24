@@ -173,9 +173,9 @@ google-datacatalog-mysql-connector \
 --raw-metadata-csv=$MYSQL2DC_RAW_METADATA_CSV
 ```
 
-### 4.2. Run Python entry point with user defined entry resource URL prefix
+### 4.2. Run the Python entry point with a user-defined entry resource URL prefix
 
-This option is useful when users don't have control over the database host.  
+This option is useful when the connector cannot accurately determine the database hostname.
 For example when running under proxies, load balancers or database read replicas,
 you can specify the prefix of your master instance so the resource URL will point
 to the exact database where the data is stored.
