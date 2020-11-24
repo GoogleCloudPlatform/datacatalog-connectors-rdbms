@@ -70,8 +70,8 @@ class SQLServer2DatacatalogCli(datacatalog_cli.DatacatalogCli):
                             help='Entry group ID to be used for your Google '
                             'Cloud Datacatalog')
         parser.add_argument('--datacatalog-entry-resource-url-prefix',
-                            help='Entry resource URL prefix'
-                            'Cloud Datacatalog')
+                            help='Entry resource URL prefix '
+                            'used in the ingested Data Catalog Entries')
         parser.add_argument(
             '--sqlserver-host',
             help='Your sqlserver server host, this is required even'

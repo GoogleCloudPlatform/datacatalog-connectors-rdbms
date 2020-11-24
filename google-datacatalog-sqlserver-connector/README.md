@@ -34,7 +34,7 @@ Currently supports SQL Server 2017 Standard.
 - [3. Adapt user configurations](#3-adapt-user-configurations)
 - [4. Run entry point](#4-run-entry-point)
   * [4.1. Run Python entry point](#41-run-python-entry-point)
-  * [4.2. Run Python entry point with user defined entry resource URL prefix](#42-run-python-entry-point-with-user-defined-entry-resource-url-prefix)
+  * [4.2. Run the Python entry point with a user-defined entry resource URL prefix](#42-run-the-python-entry-point-with-a-user-defined-entry-resource-url-prefix)
   * [4.3. Run Docker entry point](#43-run-docker-entry-point)
 - [5 Scripts inside tools](#5-scripts-inside-tools)
   * [5.1. Run clean up](#51-run-clean-up)

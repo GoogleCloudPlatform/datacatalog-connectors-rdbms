@@ -14,10 +14,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import re
+
 from google.datacatalog_connectors.rdbms.scrape import \
     constants, metadata_enricher
-
-import re
 
 
 class BaseMetadataEnricher(metadata_enricher.MetadataEnricher):

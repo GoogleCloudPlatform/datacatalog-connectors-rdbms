@@ -31,7 +31,7 @@ Library for ingesting Greenplum metadata into Google Cloud Data Catalog.
   * [2.2 Set environment variables](#22-set-environment-variables)
 - [3. Run entry point](#3-run-entry-point)
   * [3.1. Run Python entry point](#31-run-python-entry-point)
-  * [3.2. Run Python entry point with user defined entry resource URL prefix](#32-run-python-entry-point-with-user-defined-entry-resource-url-prefix)
+  * [3.2. Run the Python entry point with a user-defined entry resource URL prefix](#32-run-the-python-entry-point-with-a-user-defined-entry-resource-url-prefix)
   * [3.3. Run Docker entry point](#33-run-docker-entry-point)
 - [4 Scripts inside tools](#4-scripts-inside-tools)
   * [4.1. Run clean up](#41-run-clean-up)

@@ -107,8 +107,8 @@ class DatacatalogCli(ABC):
         pass
 
     def _get_entry_resource_url_prefix(self, args):
-        # try/except clause for backwards compatibility with
-        # older sql connectors versions.
+        # try/except clause to be used as a fallback
+        # in case the arg is not present.
         try:
             return args.datacatalog_entry_resource_url_prefix
         except (AttributeError, KeyError):
