@@ -43,6 +43,8 @@ class MetadataScraper:
                query=None,
                csv_path=None,
                config=None):
+        query = self.__resolve_base_metadata_query(config, query)
+
         dataframe = self.get_metadata_as_dataframe(metadata_definition,
                                                    connection_args, query,
                                                    csv_path, config)
@@ -217,18 +219,29 @@ class MetadataScraper:
         return dataframe
 
     @classmethod
+    def _get_metadata_from_csv(cls, csv_path):
+        return pd.read_csv(csv_path)
+
+    @classmethod
     def _is_metadata_from_connection(cls, connection_args):
         return connection_args and len(connection_args.keys()) > 0
+
+    @classmethod
+    def __resolve_base_metadata_query(cls, config, query):
+        # If user provided a different base metadata query
+        # override the default query.
+        resolved_query = query
+
+        if config and config.base_metadata_query:
+            resolved_query = config.base_metadata_query
+
+        return resolved_query
 
     # To connect to the RDBMS, it's required to override this method.
     # If you are ingesting from a CSV file, this method is not used.
     def _create_rdbms_connection(self, connection_args):
         raise NotImplementedError(
             'Implementing this method is required to connect to a RDBMS!')
-
-    @classmethod
-    def _get_metadata_from_csv(cls, csv_path):
-        return pd.read_csv(csv_path)
 
     def _get_query_assembler(self):
         raise NotImplementedError('Implementing this method is required '

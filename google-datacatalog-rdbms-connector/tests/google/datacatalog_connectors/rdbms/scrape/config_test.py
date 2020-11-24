@@ -107,3 +107,19 @@ class ConfigTestCase(unittest.TestCase):
 
         self.assertIsNotNone(loaded_config.sql_objects_config['functions'][
             constants.SQL_OBJECT_ITEM_METADATA_DEF_KEY])
+
+    @mock.patch('yaml.load')
+    def test_config_should_retrieve_base_metadata_query(self, yaml_load):
+        yaml_load.return_value = {
+            constants.BASE_METADATA_QUERY_FILENAME: 'my_override_query.sql'
+        }
+
+        user_config_path = utils.Utils.get_resolved_file_name(
+            self.__MODULE_PATH, 'base_metadata_query_ingest_cfg.yaml')
+        connector_config_path = utils.Utils.get_test_config_path(
+            self.__MODULE_PATH)
+
+        loaded_config = config.Config(user_config_path, connector_config_path)
+
+        self.assertEqual('SELECT  * from db',
+                         loaded_config.base_metadata_query)

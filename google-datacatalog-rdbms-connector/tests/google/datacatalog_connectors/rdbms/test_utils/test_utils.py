@@ -28,6 +28,10 @@ class FakeScraper(metadata_scraper.MetadataScraper):
     def _create_rdbms_connection(self, connection_args):
         con = mock.Mock()
         cur = mock.Mock()
+
+        self.con = con
+        self.cur = cur
+
         cur.fetchall.return_value = utils.Utils.convert_json_to_object(
             os.path.dirname(os.path.abspath(__file__)), 'rows.json')
         cur.description = utils.Utils.convert_json_to_object(
