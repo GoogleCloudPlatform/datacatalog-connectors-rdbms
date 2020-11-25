@@ -347,6 +347,55 @@ class MetadataScraperTestCase(unittest.TestCase):
                 'get_exact_table_names_from_dataframe')
     @mock.patch('{}.'.format(__SCRAPE_PACKAGE) +
                 'metadata_scraper.MetadataNormalizer.normalize')
+    @mock.patch('{}.sql_objects.'.format(__SCRAPE_PACKAGE) +
+                'sql_objects_metadata_normalizer.'
+                'SQLObjectsMetadataNormalizer.normalize')
+    def test_scrape_metadata_with_csv_and_sql_objects_should_return_base_metadata(  # noqa: E501
+            self, sql_objects_normalize, base_normalize,
+            get_exact_table_names_from_dataframe):  # noqa
+        base_metadata = \
+            utils.Utils.convert_json_to_object(self.__MODULE_PATH,
+                                               'metadata.json')
+
+        base_normalize.return_value = base_metadata
+
+        functions_metadata = \
+            utils.Utils.convert_json_to_object(self.__MODULE_PATH,
+                                               'normalized_sql_objects.json')
+
+        sql_objects_normalize.return_value = functions_metadata
+
+        get_exact_table_names_from_dataframe.return_value = [
+            "schema0.table0", "schema1.table1"
+        ]
+
+        scraper = test_utils.FakeScraper()
+
+        user_config_path = utils.Utils.get_resolved_file_name(
+            self.__MODULE_PATH, 'sql_objects_ingest_cfg.yaml')
+        connector_config_path = utils.Utils.get_test_config_path(
+            self.__MODULE_PATH)
+
+        loaded_config = config.Config(user_config_path, connector_config_path)
+
+        metada_def = utils.Utils.get_metadata_def_obj(self.__MODULE_PATH)
+
+        scraped_metadata = scraper.scrape(
+            metada_def,
+            csv_path=utils.Utils.get_resolved_file_name(
+                self.__MODULE_PATH, 'rdbms_full_dump.csv'),
+            config=loaded_config)
+
+        self.assertEqual(1, len(scraped_metadata))
+        self.assertIn('schemas', scraped_metadata)
+        self.assertNotIn('sql_objects', scraped_metadata)
+        self.assertDictEqual(base_metadata, scraped_metadata)
+
+    @mock.patch('{}.'.format(__SCRAPE_PACKAGE) +
+                'metadata_scraper.MetadataNormalizer.' +
+                'get_exact_table_names_from_dataframe')
+    @mock.patch('{}.'.format(__SCRAPE_PACKAGE) +
+                'metadata_scraper.MetadataNormalizer.normalize')
     def test_scrape_metadata_with_enrich_metadata_config_and_no_enricher_should_succeed(  # noqa:E501
             self, normalize, _):  # noqa
         metadata = \

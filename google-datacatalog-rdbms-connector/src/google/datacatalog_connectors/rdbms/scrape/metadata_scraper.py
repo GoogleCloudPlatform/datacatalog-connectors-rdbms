@@ -51,6 +51,10 @@ class MetadataScraper:
 
         base_metadata = MetadataNormalizer.normalize(dataframe,
                                                      metadata_definition)
+        # CSV ingestion does not support SQL Objects
+        # so we return early.
+        if csv_path:
+            return base_metadata
 
         sql_objects_metadata = self.__sql_objects_scraper.scrape(
             config, connection_args)
