@@ -254,12 +254,9 @@ To enable it you need 3 configuration files:
     | fields.target              | Object with target field attributes                           | 
     | fields.target.field_name   | Name of the field when translated to Data Catalog attributes  |
     | fields.target.model        | Type of Data Catalog model, can be (tag or entry)             |
-    | fields.target.type         | Type of the field to be translated to Data Catalog attributes |
+    | fields.target.type         | Type of the field to be translated to Data Catalog attributes |  
 
-    
-**The SQL Object will be skipped if any of the 3 configuration files are missing. **
-
-
+**The SQL Object will be skipped if any of the 3 configuration files are missing.**
 
 [1]: https://virtualenv.pypa.io/en/latest/
 [2]: https://github.com/GoogleCloudPlatform/datacatalog-connectors-rdbms/workflows/Python%20package/badge.svg?branch=master
