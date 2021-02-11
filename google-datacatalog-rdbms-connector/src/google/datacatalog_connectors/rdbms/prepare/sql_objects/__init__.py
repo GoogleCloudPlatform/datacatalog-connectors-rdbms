@@ -17,8 +17,11 @@
 from .sql_objects_assembled_entry_factory import\
     SQLObjectsAssembledEntryFactory
 
+from .sql_objects_metadata_config import \
+    SQLObjectsMetadataConfig
+
 from .sql_objects_datacatalog_tag_template_factory import\
     SQLObjectsDataCatalogTagTemplateFactory
 
-__all__ = ('SQLObjectsAssembledEntryFactory',
+__all__ = ('SQLObjectsAssembledEntryFactory', 'SQLObjectsMetadataConfig',
            'SQLObjectsDataCatalogTagTemplateFactory')

@@ -17,8 +17,8 @@
 import logging
 import json
 import os
-import yaml
 
+from google.datacatalog_connectors.commons.config import yaml_config
 from google.datacatalog_connectors.rdbms.scrape import constants
 
 
@@ -163,7 +163,7 @@ class Config:
     @classmethod
     def __read_yaml_file(cls, path):
         with open(path, 'r') as f:
-            conf = yaml.load(f, Loader=yaml.FullLoader)
+            conf = yaml_config.YamlConfig.parse_as_dict(f)
         return conf or dict()
 
     @classmethod
