@@ -33,9 +33,9 @@ class Config:
         self.__determine_scraping_steps()
 
     def get_chosen_metadata_options(self):
-        '''
+        """
         Retrieve options the user has marked as true from the config contents.
-        '''
+        """
         options = [
             # TODO put the scrape_options in a parent
             #  key in the user def config

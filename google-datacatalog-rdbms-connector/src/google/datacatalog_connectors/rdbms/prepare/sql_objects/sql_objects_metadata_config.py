@@ -39,6 +39,10 @@ class SQLObjectsMetadataConfig:
 
     @classmethod
     def parse_as_dict(cls, content):
+        """
+        Parses and validates the sql objects metadata config.
+        Raises schema.SchemaError if the attributes don't match the schema.
+        """
         parsed_config = yaml_config.YamlConfig.parse_as_dict(content)
         cls.__schema.validate(parsed_config)
         return parsed_config
