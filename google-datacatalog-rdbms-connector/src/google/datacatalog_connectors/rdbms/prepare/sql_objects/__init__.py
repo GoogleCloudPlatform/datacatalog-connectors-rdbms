@@ -14,13 +14,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from .sql_objects_assembled_entry_factory import\
+from .sql_objects_assembled_entry_factory import \
     SQLObjectsAssembledEntryFactory
 
 from .sql_objects_metadata_config import \
     SQLObjectsMetadataConfig
 
-from .sql_objects_datacatalog_tag_template_factory import\
+from .sql_objects_datacatalog_tag_template_factory import \
     SQLObjectsDataCatalogTagTemplateFactory
 
 __all__ = ('SQLObjectsAssembledEntryFactory', 'SQLObjectsMetadataConfig',
