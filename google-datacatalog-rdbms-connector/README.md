@@ -214,7 +214,7 @@ To enable it you need 3 configuration files:
 
     The `ingest_cfg.yaml` file must be located at the connection execution directory.
     You can find a sample in the 
-    [SAP HANA connector](../google-datacatalog-saphanaconnector/src/google/datacatalog_connectors/saphana/ingest_cfg.yaml).
+    [SAP HANA connector](../google-datacatalog-saphana-connector/ingest_cfg.yaml).
     
     You can specify a list of SQL Objects with a flag to enable/disable the SQL Objects mechanism.
     It will be only considered for objects whose `enabled` flag is set to `True`.
@@ -229,13 +229,13 @@ To enable it you need 3 configuration files:
 1.  [query_functions_sql_object.sql](tests/google/datacatalog_connectors/rdbms/test_data/query_functions_sql_object.sql)  
     Implement a query file that matches the SQL Object name, with the following pattern:
     `query_{name}_sql_object.sql` this file must be located at the connector `config` directory.
-    You can find a sample in the [SAP HANA connector](../google-datacatalog-saphanaconnector/src/google/datacatalog_connectors/saphana/config/query_functions_sql_object.sql).
+    You can find a sample in the [SAP HANA connector](../google-datacatalog-saphana-connector/src/google/datacatalog_connectors/saphana/config/query_functions_sql_object.sql).
 
 1.  [metadata_definition_functions_sql_object.json](tests/google/datacatalog_connectors/rdbms/test_data/metadata_definition_functions_sql_object.json)  
     Implement a metadata definition file that matches the SQL Object name, with the following 
     pattern:`metadata_definition_{sql_objects.name}_sql_object.sql` this file must be located at 
     the connector `config` directory. You can find a sample in the 
-    [SAP HANA connector](../google-datacatalog-saphanaconnector/src/google/datacatalog_connectors/saphana/config/metadata_definition_functions_sql_object.json).
+    [SAP HANA connector](../google-datacatalog-saphana-connector/src/google/datacatalog_connectors/saphana/config/metadata_definition_functions_sql_object.json).
     
     These are the required attributes for `metadata_definition` file:
     
@@ -254,12 +254,9 @@ To enable it you need 3 configuration files:
     | fields.target              | Object with target field attributes                           | 
     | fields.target.field_name   | Name of the field when translated to Data Catalog attributes  |
     | fields.target.model        | Type of Data Catalog model, can be (tag or entry)             |
-    | fields.target.type         | Type of the field to be translated to Data Catalog attributes |
+    | fields.target.type         | Type of the field to be translated to Data Catalog attributes |  
 
-    
-**The SQL Object will be skipped if any of the 3 configuration files are missing. **
-
-
+**The SQL Object will be skipped if any of the 3 configuration files are missing.**
 
 [1]: https://virtualenv.pypa.io/en/latest/
 [2]: https://github.com/GoogleCloudPlatform/datacatalog-connectors-rdbms/workflows/Python%20package/badge.svg?branch=master
