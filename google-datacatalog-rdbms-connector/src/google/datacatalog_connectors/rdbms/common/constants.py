@@ -74,7 +74,19 @@ SQL_OBJECT_FIELD_TARGET_NAME = 'field_name'
 SQL_OBJECT_FIELD_TARGET_MODEL = 'model'
 SQL_OBJECT_FIELD_TARGET_TYPE = 'type'
 
-# Metadata scrape sql objects pre defined tag fields
+# SQL Objects schema attribute names
+"""
+Pre defined fields used to map the following schema:
+        metadata_definition:
+          name: 1231
+          purpose: 1233
+          inputs:
+            - name: 'in1'
+              type: 'string'
+          outputs:
+            - name: 'out1'
+              type: 'int'
+"""
 SQL_OBJECT_CONFIG_FIELD_METADATA_DEFINITION = 'metadata_definition'
 SQL_OBJECT_CONFIG_FIELD_NAME = 'name'
 SQL_OBJECT_CONFIG_FIELD_PURPOSE = 'purpose'

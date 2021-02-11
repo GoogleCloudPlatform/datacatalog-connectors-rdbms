@@ -16,7 +16,6 @@
 
 import os
 
-
 from google.datacatalog_connectors.commons_test import utils
 from google.datacatalog_connectors.rdbms import datacatalog_cli
 from google.datacatalog_connectors.rdbms.common import constants

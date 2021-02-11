@@ -24,9 +24,7 @@ import schema
 
 class SQLObjectsMetadataConfigTestCase(unittest.TestCase):
 
-    def test_parse_as_dict_valid_schema_should_succeed(self):
-        config = sql_objects_metadata_config.SQLObjectsMetadataConfig()
-
+    def test_new_instance_valid_schema_should_succeed(self):
         content = '''
         metadata_definition:
           name: 'sp_calculateOrder'
@@ -39,13 +37,12 @@ class SQLObjectsMetadataConfigTestCase(unittest.TestCase):
               type: 'int'
         '''
 
-        config_dict = config.parse_as_dict(content)
+        config_dict = sql_objects_metadata_config.\
+            SQLObjectsMetadataConfig(content)
 
         self.assertIsNotNone(config_dict)
 
-    def test_parse_as_dict_valid_schema_extra_attributes_should_succeed(self):
-        config = sql_objects_metadata_config.SQLObjectsMetadataConfig()
-
+    def test_new_instance_valid_schema_extra_attributes_should_succeed(self):
         content = '''
         metadata_definition:
           name: 'sp_calculateOrder'
@@ -59,26 +56,24 @@ class SQLObjectsMetadataConfigTestCase(unittest.TestCase):
               type: 'int'
         '''
 
-        config_dict = config.parse_as_dict(content)
+        config_dict = sql_objects_metadata_config.\
+            SQLObjectsMetadataConfig(content)
 
         self.assertIsNotNone(config_dict)
 
-    def test_parse_as_dict_missing_optional_attributes_should_succeed(self):
-        config = sql_objects_metadata_config.SQLObjectsMetadataConfig()
-
+    def test_new_instance_missing_optional_attributes_should_succeed(self):
         content = '''
         metadata_definition:
           name: 'sp_calculateOrder'
           purpose: 'This stored procedure will calculate orders.'
         '''
 
-        config_dict = config.parse_as_dict(content)
+        config_dict = sql_objects_metadata_config.\
+            SQLObjectsMetadataConfig(content)
 
         self.assertIsNotNone(config_dict)
 
-    def test_parse_as_dict_invalid_attributes_should_raise(self):
-        config = sql_objects_metadata_config.SQLObjectsMetadataConfig()
-
+    def test_new_instance_invalid_attributes_should_raise(self):
         content = '''
         metadata_definition:
           name: 1231
@@ -91,11 +86,11 @@ class SQLObjectsMetadataConfigTestCase(unittest.TestCase):
               type: 'int'
         '''
 
-        self.assertRaises(schema.SchemaError, config.parse_as_dict, content)
+        self.assertRaises(schema.SchemaError,
+                          sql_objects_metadata_config.SQLObjectsMetadataConfig,
+                          content)
 
-    def test_parse_as_dict_invalid_nested_attributes_should_raise(self):
-        config = sql_objects_metadata_config.SQLObjectsMetadataConfig()
-
+    def test_new_instance_invalid_nested_attributes_should_raise(self):
         content = '''
         metadata_definition:
           name: 'sp_calculateOrder'
@@ -108,11 +103,11 @@ class SQLObjectsMetadataConfigTestCase(unittest.TestCase):
               type: 123
         '''
 
-        self.assertRaises(schema.SchemaError, config.parse_as_dict, content)
+        self.assertRaises(schema.SchemaError,
+                          sql_objects_metadata_config.SQLObjectsMetadataConfig,
+                          content)
 
-    def test_parse_as_dict_missing_attributes_should_raise(self):
-        config = sql_objects_metadata_config.SQLObjectsMetadataConfig()
-
+    def test_new_instance_missing_attributes_should_raise(self):
         content = '''
         metadata_definition:
           inputs:
@@ -123,4 +118,50 @@ class SQLObjectsMetadataConfigTestCase(unittest.TestCase):
               type: 'int'
         '''
 
-        self.assertRaises(schema.SchemaError, config.parse_as_dict, content)
+        self.assertRaises(schema.SchemaError,
+                          sql_objects_metadata_config.SQLObjectsMetadataConfig,
+                          content)
+
+    def test_get_attributes_missing_optional_attributes_should_succeed(self):
+        content = '''
+        metadata_definition:
+          name: 'sp_calculateOrder'
+          purpose: 'This stored procedure will calculate orders.'
+        '''
+
+        config_dict = sql_objects_metadata_config.\
+            SQLObjectsMetadataConfig(content)
+
+        self.assertEqual('sp_calculateOrder', config_dict.get_name())
+        self.assertEqual('This stored procedure will calculate orders.',
+                         config_dict.get_purpose())
+        self.assertIsNone(config_dict.get_inputs_formatted())
+        self.assertIsNone(config_dict.get_outputs_formatted())
+
+    def test_get_attributes_valid_schema_should_succeed(self):
+        content = '''
+        metadata_definition:
+          name: 'sp_calculateOrder'
+          purpose: 'This stored procedure will calculate orders.'
+          inputs:
+            - name: 'in1'
+              type: 'string'
+            - name: 'in2'
+              type: 'double'
+          outputs:
+            - name: 'out1'
+              type: 'int'
+            - name: 'out2'
+              type: 'string'
+        '''
+
+        config_dict = sql_objects_metadata_config.\
+            SQLObjectsMetadataConfig(content)
+
+        self.assertEqual('sp_calculateOrder', config_dict.get_name())
+        self.assertEqual('This stored procedure will calculate orders.',
+                         config_dict.get_purpose())
+        self.assertEqual('in1 (string),in2 (double)',
+                         config_dict.get_inputs_formatted())
+        self.assertEqual('out1 (int),out2 (string)',
+                         config_dict.get_outputs_formatted())

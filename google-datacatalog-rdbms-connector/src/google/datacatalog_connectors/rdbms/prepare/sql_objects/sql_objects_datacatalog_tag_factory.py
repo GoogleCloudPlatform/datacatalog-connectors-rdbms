@@ -14,11 +14,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import logging
+
 from google.cloud import datacatalog
 
 from google.datacatalog_connectors.commons import prepare
 
 from google.datacatalog_connectors.rdbms.common import constants
+from google.datacatalog_connectors.rdbms.prepare.sql_objects import \
+    sql_objects_metadata_config
 
 
 class SQLObjectsDataCatalogTagFactory(prepare.BaseTagFactory):
@@ -80,6 +84,9 @@ class SQLObjectsDataCatalogTagFactory(prepare.BaseTagFactory):
             elif constants.SQL_OBJECT_STRING_FIELD ==\
                     sql_object_target_type:
                 self._set_string_field(tag, sql_object_target_name, value)
+                if constants.SQL_OBJECT_FIELD_TARGET_DEFINITION == \
+                        sql_object_target_name:
+                    self.__add_predefined_tags_for_definition(tag, value)
             elif constants.SQL_OBJECT_TIMESTAMP_FIELD ==\
                     sql_object_target_type:
                 self._set_timestamp_field(tag, sql_object_target_name, value)
@@ -90,6 +97,29 @@ class SQLObjectsDataCatalogTagFactory(prepare.BaseTagFactory):
             else:
                 raise Exception('Unrecognised field type: {}'.format(
                     sql_object_target_type))
+
+    def __add_predefined_tags_for_definition(self, tag, value):
+        try:
+            metadata_config = sql_objects_metadata_config. \
+                SQLObjectsMetadataConfig.parse_as_dict(value)
+
+            self._set_string_field(tag, constants.SQL_OBJECT_CONFIG_FIELD_NAME,
+                                   metadata_config.get_name())
+            self._set_string_field(tag,
+                                   constants.SQL_OBJECT_CONFIG_FIELD_PURPOSE,
+                                   metadata_config.get_purpose())
+            self._set_string_field(tag,
+                                   constants.SQL_OBJECT_CONFIG_FIELD_INPUTS,
+                                   metadata_config.get_inputs_formatted())
+            self._set_string_field(tag,
+                                   constants.SQL_OBJECT_CONFIG_FIELD_OUTPUTS,
+                                   metadata_config.get_outputs_formatted())
+
+        # Ignores all errors since definition maybe have any input
+        # and this could lead to unexpected exceptions.
+        except:  # noqa: E722
+            logging.warning('Error when parsing sql object definition',
+                            exc_info=True)
 
     @classmethod
     def __convert_to_boolean(cls, value):
