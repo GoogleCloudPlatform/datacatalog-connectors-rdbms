@@ -16,11 +16,9 @@
 
 import logging
 
+from google.datacatalog_connectors.rdbms.common import constants
 from google.datacatalog_connectors.rdbms.scrape.sql_objects \
     import SQLObjectsMetadataNormalizer
-
-from google.datacatalog_connectors.rdbms.scrape \
-    import constants
 
 
 class SQLObjectsMetadataScraper:

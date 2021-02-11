@@ -18,10 +18,9 @@ import os
 import unittest
 
 from google.datacatalog_connectors.commons_test import utils
+from google.datacatalog_connectors.rdbms.common import constants
 from google.datacatalog_connectors.rdbms.prepare.sql_objects import \
     sql_objects_datacatalog_entry_factory
-
-from google.datacatalog_connectors.rdbms.scrape import constants
 
 
 class DataCatalogSQLObjectsEntryFactoryTestCase(unittest.TestCase):

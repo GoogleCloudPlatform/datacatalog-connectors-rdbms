@@ -20,6 +20,8 @@ import time
 
 import pandas as pd
 
+from google.datacatalog_connectors.rdbms.common import constants
+
 from google.datacatalog_connectors.rdbms.scrape import \
     base_metadata_enricher
 
@@ -28,8 +30,6 @@ from google.datacatalog_connectors.rdbms.scrape.metadata_normalizer \
 
 from google.datacatalog_connectors.rdbms.scrape.sql_objects \
     import SQLObjectsMetadataScraper
-
-from google.datacatalog_connectors.rdbms.scrape import constants
 
 
 class MetadataScraper:

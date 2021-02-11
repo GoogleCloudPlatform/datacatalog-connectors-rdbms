@@ -20,10 +20,9 @@ import unittest
 from google.cloud import datacatalog
 
 from google.datacatalog_connectors.commons_test import utils
+from google.datacatalog_connectors.rdbms.common import constants
 from google.datacatalog_connectors.rdbms.prepare.sql_objects import \
     sql_objects_datacatalog_tag_factory
-
-from google.datacatalog_connectors.rdbms.scrape import constants
 
 
 class DataCatalogSQLObjectsTagFactoryTestCase(unittest.TestCase):

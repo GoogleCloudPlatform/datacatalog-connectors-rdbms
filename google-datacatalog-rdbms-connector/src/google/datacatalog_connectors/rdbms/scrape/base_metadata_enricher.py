@@ -16,8 +16,9 @@
 
 import re
 
+from google.datacatalog_connectors.rdbms.common import constants
 from google.datacatalog_connectors.rdbms.scrape import \
-    constants, metadata_enricher
+    metadata_enricher
 
 
 class BaseMetadataEnricher(metadata_enricher.MetadataEnricher):

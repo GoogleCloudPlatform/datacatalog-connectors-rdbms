@@ -69,9 +69,19 @@ SQL_OBJECT_TIMESTAMP_FIELD = 'timestamp'
 # Metadata scrape sql objects fields
 SQL_OBJECT_FIELDS = 'fields'
 SQL_OBJECT_FIELD_TARGET = 'target'
+SQL_OBJECT_FIELD_TARGET_DEFINITION = 'definition'
 SQL_OBJECT_FIELD_TARGET_NAME = 'field_name'
 SQL_OBJECT_FIELD_TARGET_MODEL = 'model'
 SQL_OBJECT_FIELD_TARGET_TYPE = 'type'
+
+# Metadata scrape sql objects pre defined tag fields
+SQL_OBJECT_CONFIG_FIELD_METADATA_DEFINITION = 'metadata_definition'
+SQL_OBJECT_CONFIG_FIELD_NAME = 'name'
+SQL_OBJECT_CONFIG_FIELD_PURPOSE = 'purpose'
+SQL_OBJECT_CONFIG_FIELD_INPUTS = 'inputs'
+SQL_OBJECT_CONFIG_FIELD_OUTPUTS = 'outputs'
+SQL_OBJECT_CONFIG_FIELD_INOUT_NAME = 'name'
+SQL_OBJECT_CONFIG_FIELD_INOUT_TYPE = 'type'
 
 # Metadata scrape sql objects entry pre defined field
 SQL_OBJECT_ENTRY_CREATE_TIME = 'create_time'

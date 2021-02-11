@@ -21,7 +21,7 @@ from google.cloud import datacatalog
 
 from google.datacatalog_connectors.commons import prepare
 
-from google.datacatalog_connectors.rdbms.scrape import constants
+from google.datacatalog_connectors.rdbms.common import constants
 
 
 class SQLObjectsDataCatalogTagTemplateFactory(prepare.BaseTagTemplateFactory):

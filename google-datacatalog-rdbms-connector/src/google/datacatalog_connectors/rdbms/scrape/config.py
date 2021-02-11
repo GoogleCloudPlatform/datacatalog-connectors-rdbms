@@ -19,7 +19,7 @@ import json
 import os
 
 from google.datacatalog_connectors.commons.config import yaml_config
-from google.datacatalog_connectors.rdbms.scrape import constants
+from google.datacatalog_connectors.rdbms.common import constants
 
 
 class Config:

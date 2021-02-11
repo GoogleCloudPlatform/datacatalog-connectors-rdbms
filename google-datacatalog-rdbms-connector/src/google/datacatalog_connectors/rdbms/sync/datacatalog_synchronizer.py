@@ -25,10 +25,9 @@ from google.datacatalog_connectors.commons.monitoring\
     import metrics_processor
 
 from google.datacatalog_connectors.rdbms import prepare
+from google.datacatalog_connectors.rdbms.common import constants
 from google.datacatalog_connectors.rdbms.prepare import\
     sql_objects as prepare_sql_objects
-
-from google.datacatalog_connectors.rdbms.scrape import constants
 
 
 class DataCatalogSynchronizer:
