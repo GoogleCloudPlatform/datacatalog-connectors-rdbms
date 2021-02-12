@@ -15,26 +15,25 @@
 # limitations under the License.
 
 from google.datacatalog_connectors.commons.config import yaml_config
-from google.datacatalog_connectors.rdbms.common import constants
 
 from schema import Schema, And, Optional
 
 
 class SQLObjectsMetadataConfig:
+    __METADATA_DEFINITION_KEY = 'metadata_definition'
+
     __schema = Schema(
         {
-            constants.SQL_OBJECT_CONFIG_FIELD_METADATA_DEFINITION: {
-                constants.SQL_OBJECT_CONFIG_FIELD_NAME:
-                    And(str),
-                constants.SQL_OBJECT_CONFIG_FIELD_PURPOSE:
-                    And(str),
-                Optional(constants.SQL_OBJECT_CONFIG_FIELD_INPUTS): [{
-                    constants.SQL_OBJECT_CONFIG_FIELD_INOUT_NAME: And(str),
-                    constants.SQL_OBJECT_CONFIG_FIELD_INOUT_TYPE: And(str)
+            __METADATA_DEFINITION_KEY: {
+                'name': And(str),
+                'purpose': And(str),
+                Optional('inputs'): [{
+                    'name': And(str),
+                    'type': And(str)
                 }],
-                Optional(constants.SQL_OBJECT_CONFIG_FIELD_OUTPUTS): [{
-                    constants.SQL_OBJECT_CONFIG_FIELD_INOUT_NAME: And(str),
-                    constants.SQL_OBJECT_CONFIG_FIELD_INOUT_TYPE: And(str)
+                Optional('outputs'): [{
+                    'name': And(str),
+                    'type': And(str)
                 }]
             }
         },
@@ -50,23 +49,18 @@ class SQLObjectsMetadataConfig:
         self.__config = parsed_config
 
     def get_name(self):
-        metadata_definition = self.__config.get(
-            constants.SQL_OBJECT_CONFIG_FIELD_METADATA_DEFINITION, {})
-        return metadata_definition.get(constants.SQL_OBJECT_CONFIG_FIELD_NAME)
+        metadata_definition = self.__config.get(self.__METADATA_DEFINITION_KEY, {})
+        return metadata_definition.get('name')
 
     def get_purpose(self):
-        metadata_definition = self.__config.get(
-            constants.SQL_OBJECT_CONFIG_FIELD_METADATA_DEFINITION, {})
-        return metadata_definition.get(
-            constants.SQL_OBJECT_CONFIG_FIELD_PURPOSE)
+        metadata_definition = self.__config.get(self.__METADATA_DEFINITION_KEY, {})
+        return metadata_definition.get('purpose')
 
     def get_inputs_formatted(self):
-        return self.__get_attribute_list_formatted(
-            constants.SQL_OBJECT_CONFIG_FIELD_INPUTS)
+        return self.__get_attribute_list_formatted('inputs')
 
     def get_outputs_formatted(self):
-        return self.__get_attribute_list_formatted(
-            constants.SQL_OBJECT_CONFIG_FIELD_OUTPUTS)
+        return self.__get_attribute_list_formatted('outputs')
 
     def __get_attribute_list_formatted(self, attribute_name):
         """
@@ -75,14 +69,13 @@ class SQLObjectsMetadataConfig:
 
         Such as: in1 (string),in2 (double)
         """
-        metadata_definition = self.__config.get(
-            constants.SQL_OBJECT_CONFIG_FIELD_METADATA_DEFINITION, {})
+        metadata_definition = self.__config.get(self.__METADATA_DEFINITION_KEY, {})
         inputs = metadata_definition.get(attribute_name)
 
         if inputs:
             return ','.join([
                 '{} ({})'.format(
-                    item.get(constants.SQL_OBJECT_CONFIG_FIELD_INOUT_NAME),
-                    item.get(constants.SQL_OBJECT_CONFIG_FIELD_INOUT_TYPE))
+                    item.get('name'),
+                    item.get('type'))
                 for item in inputs
             ])
