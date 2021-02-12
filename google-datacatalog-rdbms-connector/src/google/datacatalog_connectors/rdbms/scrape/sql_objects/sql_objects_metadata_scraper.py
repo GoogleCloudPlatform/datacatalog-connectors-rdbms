@@ -40,10 +40,10 @@ class SQLObjectsMetadataScraper:
                 logging.info(
                     'Scraping metadata for sql objects: {}'.format(key))
 
-                dataframe = self.main_scraper.get_metadata_as_dataframe(
-                    metadata_def, connection_args, query)
-
                 try:
+                    dataframe = self.main_scraper.get_metadata_as_dataframe(
+                        metadata_def, connection_args, query)
+
                     sql_objects[name] = SQLObjectsMetadataNormalizer.normalize(
                         dataframe, metadata_def)
                 except:  # noqa:E722

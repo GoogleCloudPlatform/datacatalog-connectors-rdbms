@@ -19,6 +19,7 @@ import logging
 from google.cloud import datacatalog
 
 from google.datacatalog_connectors.commons import prepare
+from google.datacatalog_connectors.commons.utils import region_tag_helper
 
 from google.datacatalog_connectors.rdbms.common import constants
 from google.datacatalog_connectors.rdbms.prepare.sql_objects import \
@@ -27,6 +28,7 @@ from google.datacatalog_connectors.rdbms.prepare.sql_objects import \
 
 class SQLObjectsDataCatalogTagFactory(prepare.BaseTagFactory):
     __TRUTHS = {1, '1', 't', 'T', 'true', 'True', 'TRUE'}
+    __REGION_TAG_NAME = 'GOOGLE_DATA_CATALOG_METADATA_DEFINITION'
 
     def __init__(self, sql_objects_config):
         self.__sql_objects_config = sql_objects_config
@@ -83,10 +85,11 @@ class SQLObjectsDataCatalogTagFactory(prepare.BaseTagFactory):
                 self._set_double_field(tag, sql_object_target_name, value)
             elif constants.SQL_OBJECT_STRING_FIELD ==\
                     sql_object_target_type:
-                self._set_string_field(tag, sql_object_target_name, value)
                 if constants.SQL_OBJECT_FIELD_TARGET_DEFINITION == \
                         sql_object_target_name:
                     self.__add_predefined_tags_for_definition(tag, value)
+                else:
+                    self._set_string_field(tag, sql_object_target_name, value)
             elif constants.SQL_OBJECT_TIMESTAMP_FIELD ==\
                     sql_object_target_type:
                 self._set_timestamp_field(tag, sql_object_target_name, value)
@@ -100,20 +103,29 @@ class SQLObjectsDataCatalogTagFactory(prepare.BaseTagFactory):
 
     def __add_predefined_tags_for_definition(self, tag, value):
         try:
-            metadata_config = sql_objects_metadata_config. \
-                SQLObjectsMetadataConfig.parse_as_dict(value)
 
-            self._set_string_field(tag, constants.SQL_OBJECT_CONFIG_FIELD_NAME,
-                                   metadata_config.get_name())
-            self._set_string_field(tag,
-                                   constants.SQL_OBJECT_CONFIG_FIELD_PURPOSE,
-                                   metadata_config.get_purpose())
-            self._set_string_field(tag,
-                                   constants.SQL_OBJECT_CONFIG_FIELD_INPUTS,
-                                   metadata_config.get_inputs_formatted())
-            self._set_string_field(tag,
-                                   constants.SQL_OBJECT_CONFIG_FIELD_OUTPUTS,
-                                   metadata_config.get_outputs_formatted())
+            content = region_tag_helper.RegionTagHelper.extract_content(
+                self.__REGION_TAG_NAME, value)
+
+            if content:
+                metadata_config = sql_objects_metadata_config. \
+                    SQLObjectsMetadataConfig(content)
+
+                self._set_string_field(tag, constants.SQL_OBJECT_CONFIG_FIELD_NAME,
+                                       metadata_config.get_name())
+                self._set_string_field(tag,
+                                       constants.SQL_OBJECT_CONFIG_FIELD_PURPOSE,
+                                       metadata_config.get_purpose())
+                self._set_string_field(tag,
+                                       constants.SQL_OBJECT_CONFIG_FIELD_INPUTS,
+                                       metadata_config.get_inputs_formatted())
+                self._set_string_field(tag,
+                                       constants.SQL_OBJECT_CONFIG_FIELD_OUTPUTS,
+                                       metadata_config.get_outputs_formatted())
+            else:
+                # If there is no content we use the definition value.
+                self._set_string_field(
+                    tag, constants.SQL_OBJECT_FIELD_TARGET_DEFINITION, value)
 
         # Ignores all errors since definition maybe have any input
         # and this could lead to unexpected exceptions.
