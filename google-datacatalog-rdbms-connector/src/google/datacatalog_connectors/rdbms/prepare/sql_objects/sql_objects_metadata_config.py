@@ -73,7 +73,7 @@ class SQLObjectsMetadataConfig:
         inputs = metadata_definition.get(attribute_name)
 
         if inputs:
-            return ','.join([
+            return ', '.join([
                 '{} ({})'.format(
                     item.get('name'),
                     item.get('type'))

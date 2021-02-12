@@ -161,7 +161,7 @@ class SQLObjectsMetadataConfigTestCase(unittest.TestCase):
         self.assertEqual('sp_calculateOrder', config_dict.get_name())
         self.assertEqual('This stored procedure will calculate orders.',
                          config_dict.get_purpose())
-        self.assertEqual('in1 (string),in2 (double)',
+        self.assertEqual('in1 (string), in2 (double)',
                          config_dict.get_inputs_formatted())
-        self.assertEqual('out1 (int),out2 (string)',
+        self.assertEqual('out1 (int), out2 (string)',
                          config_dict.get_outputs_formatted())
