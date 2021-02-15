@@ -1,0 +1,35 @@
+{
+  "schemas": [],
+  "sql_objects": {
+    "functions": {
+      "type": "function",
+      "items": [
+        {
+          "name": "CREDIT_MASK",
+          "schema_name": "SYSTEM",
+          "input_parameter_count": 1,
+          "return_value_count": 1,
+          "definition": "/*\n    [GOOGLE_DATA_CATALOG_METADATA_DEFINITION_START]\n        metadata_definition:\n          name: 'fn_calculateOrder'\n          purpose: 'This function will calculate orders.'\n          inputs:\n            - name: 'in1'\n              type: 'string'\n            - name: 'in2'\n              type: 'string'\n            - name: 'in3'\n              type: 'double'\n          outputs:\n            - name: 'out1'\n              type: 'int'\n            - name: 'out2'\n              type: 'int'\n            - name: 'out3'\n              type: 'string'\n    [GOOGLE_DATA_CATALOG_METADATA_DEFINITION_END]\n    */ CREATE FUNCTION credit_mask(input varchar(19)) RETURNS output VARCHAR(19) LANGUAGE SQLSCRIPT \\nAS\\nBEGIN\\noutput = LEFT(:input,4) || '-XXXX-XXXX-' || RIGHT(:input,4);\\nEND",
+          "is_valid": true,
+          "owner_name": "SYSTEM",
+          "create_time": "2020-11-10 16:53:52"
+        }
+      ]
+    },
+    "stored_procedures": {
+      "type": "stored_procedure",
+      "items": [
+        {
+          "name": "CREDIT_MASK",
+          "schema_name": "SYSTEM",
+          "input_parameter_count": null,
+          "return_value_count": 1,
+          "definition": "USE \"AdventureWorks\";\nGO\n\nGO\n\nCREATE PROCEDURE [dbo].[uspGetWhereUsedProductID_4]\n    @StartProductID [int],\n    @CheckDate [datetime]\nAS\nBEGIN\n    SET NOCOUNT ON;\n\n    /*\n    [GOOGLE_DATA_CATALOG_METADATA_DEFINITION_START]\n        metadata_definition:\n          name: 'sp_calculateOrder'\n          purpose: 'This stored procedure will calculate orders.'\n          inputs:\n            - name: 'in1'\n              type: 'string'\n            - name: 'in2'\n              type: 'string'\n            - name: 'in3'\n              type: 'double'\n          outputs:\n            - name: 'out1'\n              type: 'int'\n            - name: 'out2'\n              type: 'int'\n            - name: 'out3'\n              type: 'string'\n    [GOOGLE_DATA_CATALOG_METADATA_DEFINITION_END]\n    */\n\n    --Use recursive query to generate a multi-level Bill of Material (i.e. all level 1 components of a level 0 assembly, all level 2 components of a level 1 assembly)\n    WITH [BOM_cte]([ProductAssemblyID], [ComponentID], [ComponentDesc], [PerAssemblyQty], [StandardCost], [ListPrice], [BOMLevel], [RecursionLevel]) -- CTE name and columns\n    AS (\n        SELECT b.[ProductAssemblyID], b.[ComponentID], p.[Name], b.[PerAssemblyQty], p.[StandardCost], p.[ListPrice], b.[BOMLevel], 0 -- Get the initial list of components for the bike assembly\n        FROM [Production].[BillOfMaterials] b\n            INNER JOIN [Production].[Product] p \n            ON b.[ProductAssemblyID] = p.[ProductID] \n        WHERE b.[ComponentID] = @StartProductID \n            AND @CheckDate >= b.[StartDate] \n            AND @CheckDate <= ISNULL(b.[EndDate], @CheckDate)\n        UNION ALL\n        SELECT b.[ProductAssemblyID], b.[ComponentID], p.[Name], b.[PerAssemblyQty], p.[StandardCost], p.[ListPrice], b.[BOMLevel], [RecursionLevel] + 1 -- Join recursive member to anchor\n        FROM [BOM_cte] cte\n            INNER JOIN [Production].[BillOfMaterials] b \n            ON cte.[ProductAssemblyID] = b.[ComponentID]\n            INNER JOIN [Production].[Product] p \n            ON b.[ProductAssemblyID] = p.[ProductID] \n        WHERE @CheckDate >= b.[StartDate] \n            AND @CheckDate <= ISNULL(b.[EndDate], @CheckDate)\n        )\n    -- Outer select from the CTE\n    SELECT b.[ProductAssemblyID], b.[ComponentID], b.[ComponentDesc], SUM(b.[PerAssemblyQty]) AS [TotalQuantity] , b.[StandardCost], b.[ListPrice], b.[BOMLevel], b.[RecursionLevel]\n    FROM [BOM_cte] b\n    GROUP BY b.[ComponentID], b.[ComponentDesc], b.[ProductAssemblyID], b.[BOMLevel], b.[RecursionLevel], b.[StandardCost], b.[ListPrice]\n    ORDER BY b.[BOMLevel], b.[ProductAssemblyID], b.[ComponentID]\n    OPTION (MAXRECURSION 25) \nEND;",
+          "is_valid": null,
+          "owner_name": "SYSTEM",
+          "create_time": "2020-11-10 16:53:52"
+        }
+      ]
+    }
+  }
+}

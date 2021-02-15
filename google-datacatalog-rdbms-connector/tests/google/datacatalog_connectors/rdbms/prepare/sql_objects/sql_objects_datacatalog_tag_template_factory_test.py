@@ -20,6 +20,7 @@ import unittest
 from google.cloud import datacatalog
 
 from google.datacatalog_connectors.commons_test import utils
+from google.datacatalog_connectors.rdbms.common import constants
 from google.datacatalog_connectors.rdbms.prepare.sql_objects import \
     sql_objects_datacatalog_tag_template_factory
 
@@ -157,3 +158,31 @@ class DataCatalogSQLObjectsTagTemplateFactoryTestCase(unittest.TestCase):
         self.assertEqual(
             'Return Value Count', stored_procedure_template.
             fields['return_value_count'].display_name)
+
+        self.assertEqual(
+            self.__STRING_TYPE, stored_procedure_template.
+            fields[constants.SQL_OBJECT_CONFIG_FIELD_NAME].type.primitive_type)
+        self.assertEqual(
+            'Name', stored_procedure_template.
+            fields[constants.SQL_OBJECT_CONFIG_FIELD_NAME].display_name)
+
+        self.assertEqual(
+            self.__STRING_TYPE, stored_procedure_template.
+            fields[constants.SQL_OBJECT_CONFIG_FIELD_PURPOSE].type.primitive_type)
+        self.assertEqual(
+            'Purpose', stored_procedure_template.
+            fields[constants.SQL_OBJECT_CONFIG_FIELD_PURPOSE].display_name)
+
+        self.assertEqual(
+            self.__STRING_TYPE, stored_procedure_template.
+            fields[constants.SQL_OBJECT_CONFIG_FIELD_INPUTS].type.primitive_type)
+        self.assertEqual(
+            'Inputs', stored_procedure_template.
+            fields[constants.SQL_OBJECT_CONFIG_FIELD_INPUTS].display_name)
+
+        self.assertEqual(
+            self.__STRING_TYPE, stored_procedure_template.
+            fields[constants.SQL_OBJECT_CONFIG_FIELD_OUTPUTS].type.primitive_type)
+        self.assertEqual(
+            'Outputs', stored_procedure_template.
+            fields[constants.SQL_OBJECT_CONFIG_FIELD_OUTPUTS].display_name)
