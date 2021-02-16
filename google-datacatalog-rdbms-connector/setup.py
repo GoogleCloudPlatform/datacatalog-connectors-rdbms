@@ -33,7 +33,7 @@ setuptools.setup(
     include_package_data=True,
     install_requires=('pandas>=1.1.4,<1.2.0', 'gcsfs',
                       'google-datacatalog-connectors-commons>=0.6.0<0.7.0',
-                      'pyYAML', 'schema'),
+                      'schema'),
     setup_requires=('pytest-runner'),
     tests_require=('mock==3.0.5', 'pytest', 'pytest-cov',
                    'google-datacatalog-connectors-commons-test>=0.7.0<0.8.0'),
