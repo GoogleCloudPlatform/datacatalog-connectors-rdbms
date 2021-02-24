@@ -19,16 +19,15 @@ import logging
 from google.cloud import datacatalog
 
 from google.datacatalog_connectors.commons import prepare
-from google.datacatalog_connectors.commons.utils import region_tag_helper
+from google.datacatalog_connectors.commons import utils
 
 from google.datacatalog_connectors.rdbms.common import constants
-from google.datacatalog_connectors.rdbms.prepare.sql_objects import \
-    sql_objects_metadata_config
+from google.datacatalog_connectors.rdbms.prepare import sql_objects
 
 
 class SQLObjectsDataCatalogTagFactory(prepare.BaseTagFactory):
-    __TRUTHS = {1, '1', 't', 'T', 'true', 'True', 'TRUE'}
     __REGION_TAG_NAME = 'GOOGLE_DATA_CATALOG_METADATA_DEFINITION'
+    __TRUTHS = {1, '1', 't', 'T', 'true', 'True', 'TRUE'}
 
     def __init__(self, sql_objects_config):
         self.__sql_objects_config = sql_objects_config
@@ -104,24 +103,25 @@ class SQLObjectsDataCatalogTagFactory(prepare.BaseTagFactory):
     def __add_predefined_tags_for_definition(self, tag, value):
         try:
 
-            content = region_tag_helper.RegionTagHelper.extract_content(
+            content = utils.region_tag_helper.RegionTagHelper.extract_content(
                 self.__REGION_TAG_NAME, value)
 
             if content:
-                metadata_config = sql_objects_metadata_config. \
+                metadata_config = sql_objects.sql_objects_metadata_config. \
                     SQLObjectsMetadataConfig(content)
 
-                self._set_string_field(tag, constants.SQL_OBJECT_CONFIG_FIELD_NAME,
+                self._set_string_field(tag,
+                                       constants.SQL_OBJECT_CONFIG_FIELD_NAME,
                                        metadata_config.get_name())
-                self._set_string_field(tag,
-                                       constants.SQL_OBJECT_CONFIG_FIELD_PURPOSE,
-                                       metadata_config.get_purpose())
-                self._set_string_field(tag,
-                                       constants.SQL_OBJECT_CONFIG_FIELD_INPUTS,
-                                       metadata_config.get_inputs_formatted())
-                self._set_string_field(tag,
-                                       constants.SQL_OBJECT_CONFIG_FIELD_OUTPUTS,
-                                       metadata_config.get_outputs_formatted())
+                self._set_string_field(
+                    tag, constants.SQL_OBJECT_CONFIG_FIELD_PURPOSE,
+                    metadata_config.get_purpose())
+                self._set_string_field(
+                    tag, constants.SQL_OBJECT_CONFIG_FIELD_INPUTS,
+                    metadata_config.get_inputs_formatted())
+                self._set_string_field(
+                    tag, constants.SQL_OBJECT_CONFIG_FIELD_OUTPUTS,
+                    metadata_config.get_outputs_formatted())
             else:
                 # If there is no content we use the definition value.
                 self._set_string_field(

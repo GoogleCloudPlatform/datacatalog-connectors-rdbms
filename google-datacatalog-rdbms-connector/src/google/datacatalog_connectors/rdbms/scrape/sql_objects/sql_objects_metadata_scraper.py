@@ -17,8 +17,7 @@
 import logging
 
 from google.datacatalog_connectors.rdbms.common import constants
-from google.datacatalog_connectors.rdbms.scrape.sql_objects \
-    import SQLObjectsMetadataNormalizer
+from google.datacatalog_connectors.rdbms.scrape import sql_objects
 
 
 class SQLObjectsMetadataScraper:
@@ -27,7 +26,7 @@ class SQLObjectsMetadataScraper:
         self.main_scraper = main_scraper
 
     def scrape(self, config, connection_args):
-        sql_objects = {}
+        scraped_sql_object = {}
         if connection_args and config and config.sql_objects_config:
             sql_objects_config = config.sql_objects_config
 
@@ -44,11 +43,12 @@ class SQLObjectsMetadataScraper:
                     dataframe = self.main_scraper.get_metadata_as_dataframe(
                         metadata_def, connection_args, query)
 
-                    sql_objects[name] = SQLObjectsMetadataNormalizer.normalize(
-                        dataframe, metadata_def)
+                    scraped_sql_object[name] = \
+                        sql_objects.SQLObjectsMetadataNormalizer.normalize(
+                            dataframe, metadata_def)
                 except:  # noqa:E722
                     logging.exception(
                         'Failed to scrape sql object, ignoring: {}'.format(
                             key))
 
-        return sql_objects
+        return scraped_sql_object

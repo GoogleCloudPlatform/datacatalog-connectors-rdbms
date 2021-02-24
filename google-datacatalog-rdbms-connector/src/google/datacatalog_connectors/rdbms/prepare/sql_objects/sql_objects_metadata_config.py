@@ -14,7 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from google.datacatalog_connectors.commons.config import yaml_config
+from google.datacatalog_connectors.commons import config
 
 from schema import Schema, And, Optional
 
@@ -44,16 +44,18 @@ class SQLObjectsMetadataConfig:
         Validates and creates the sql objects metadata config.
         Raises schema.SchemaError if the attributes don't match the schema.
         """
-        parsed_config = yaml_config.YamlConfig.parse_as_dict(content)
+        parsed_config = config.yaml_config.YamlConfig.parse_as_dict(content)
         self.__schema.validate(parsed_config)
         self.__config = parsed_config
 
     def get_name(self):
-        metadata_definition = self.__config.get(self.__METADATA_DEFINITION_KEY, {})
+        metadata_definition = self.__config.get(self.__METADATA_DEFINITION_KEY,
+                                                {})
         return metadata_definition.get('name')
 
     def get_purpose(self):
-        metadata_definition = self.__config.get(self.__METADATA_DEFINITION_KEY, {})
+        metadata_definition = self.__config.get(self.__METADATA_DEFINITION_KEY,
+                                                {})
         return metadata_definition.get('purpose')
 
     def get_inputs_formatted(self):
@@ -69,13 +71,12 @@ class SQLObjectsMetadataConfig:
 
         Such as: in1 (string),in2 (double)
         """
-        metadata_definition = self.__config.get(self.__METADATA_DEFINITION_KEY, {})
+        metadata_definition = self.__config.get(self.__METADATA_DEFINITION_KEY,
+                                                {})
         inputs = metadata_definition.get(attribute_name)
 
         if inputs:
             return ', '.join([
-                '{} ({})'.format(
-                    item.get('name'),
-                    item.get('type'))
+                '{} ({})'.format(item.get('name'), item.get('type'))
                 for item in inputs
             ])

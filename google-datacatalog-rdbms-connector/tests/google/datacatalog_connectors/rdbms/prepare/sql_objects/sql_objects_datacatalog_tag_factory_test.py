@@ -21,8 +21,7 @@ from google.cloud import datacatalog
 
 from google.datacatalog_connectors.commons_test import utils
 from google.datacatalog_connectors.rdbms.common import constants
-from google.datacatalog_connectors.rdbms.prepare.sql_objects import \
-    sql_objects_datacatalog_tag_factory
+from google.datacatalog_connectors.rdbms.prepare import sql_objects
 
 
 class DataCatalogSQLObjectsTagFactoryTestCase(unittest.TestCase):
@@ -37,7 +36,7 @@ class DataCatalogSQLObjectsTagFactoryTestCase(unittest.TestCase):
         sql_objects_config = \
             utils.Utils.convert_json_to_object(self.__MODULE_PATH,
                                                'sql_objects_config.json')
-        factory = sql_objects_datacatalog_tag_factory.\
+        factory = sql_objects.sql_objects_datacatalog_tag_factory.\
             SQLObjectsDataCatalogTagFactory(sql_objects_config)
 
         tag_template = datacatalog.TagTemplate()
@@ -73,7 +72,7 @@ class DataCatalogSQLObjectsTagFactoryTestCase(unittest.TestCase):
         sql_objects_config = \
             utils.Utils.convert_json_to_object(self.__MODULE_PATH,
                                                'sql_objects_config.json')
-        factory = sql_objects_datacatalog_tag_factory.\
+        factory = sql_objects.sql_objects_datacatalog_tag_factory.\
             SQLObjectsDataCatalogTagFactory(sql_objects_config)
 
         tag_template = datacatalog.TagTemplate()
@@ -109,7 +108,7 @@ class DataCatalogSQLObjectsTagFactoryTestCase(unittest.TestCase):
         sql_objects_config = \
             utils.Utils.convert_json_to_object(self.__MODULE_PATH,
                                                'sql_objects_config.json')
-        factory = sql_objects_datacatalog_tag_factory.\
+        factory = sql_objects.sql_objects_datacatalog_tag_factory.\
             SQLObjectsDataCatalogTagFactory(sql_objects_config)
 
         tag_template = datacatalog.TagTemplate()
@@ -126,14 +125,18 @@ class DataCatalogSQLObjectsTagFactoryTestCase(unittest.TestCase):
         self.assertEqual(tag_template.name, tag.template)
         self.assertIsNone(tag.fields.get('definition'))
         self.assertEqual(0.0, tag.fields['input_parameter_count'].double_value)
-        self.assertEqual('sp_calculateOrder',
-                         tag.fields[constants.SQL_OBJECT_CONFIG_FIELD_NAME].string_value)
-        self.assertEqual('This stored procedure will calculate orders.',
-                         tag.fields[constants.SQL_OBJECT_CONFIG_FIELD_PURPOSE].string_value)
-        self.assertEqual('in1 (string), in2 (string), in3 (double)',
-                         tag.fields[constants.SQL_OBJECT_CONFIG_FIELD_INPUTS].string_value)
-        self.assertEqual('out1 (int), out2 (int), out3 (string)',
-                         tag.fields[constants.SQL_OBJECT_CONFIG_FIELD_OUTPUTS].string_value)
+        self.assertEqual(
+            'sp_calculateOrder',
+            tag.fields[constants.SQL_OBJECT_CONFIG_FIELD_NAME].string_value)
+        self.assertEqual(
+            'This stored procedure will calculate orders.',
+            tag.fields[constants.SQL_OBJECT_CONFIG_FIELD_PURPOSE].string_value)
+        self.assertEqual(
+            'in1 (string), in2 (string), in3 (double)',
+            tag.fields[constants.SQL_OBJECT_CONFIG_FIELD_INPUTS].string_value)
+        self.assertEqual(
+            'out1 (int), out2 (int), out3 (string)',
+            tag.fields[constants.SQL_OBJECT_CONFIG_FIELD_OUTPUTS].string_value)
 
         self.assertEqual(False, tag.fields['is_valid'].bool_value)
         self.assertEqual('SYSTEM', tag.fields['owner_name'].string_value)
@@ -149,7 +152,7 @@ class DataCatalogSQLObjectsTagFactoryTestCase(unittest.TestCase):
         sql_objects_config = \
             utils.Utils.convert_json_to_object(self.__MODULE_PATH,
                                                'sql_objects_config.json')
-        factory = sql_objects_datacatalog_tag_factory.\
+        factory = sql_objects.sql_objects_datacatalog_tag_factory.\
             SQLObjectsDataCatalogTagFactory(sql_objects_config)
 
         tag_template = datacatalog.TagTemplate()
@@ -166,14 +169,18 @@ class DataCatalogSQLObjectsTagFactoryTestCase(unittest.TestCase):
         self.assertEqual(tag_template.name, tag.template)
         self.assertIsNone(tag.fields.get('definition'))
         self.assertEqual(1.0, tag.fields['input_parameter_count'].double_value)
-        self.assertEqual('fn_calculateOrder',
-                         tag.fields[constants.SQL_OBJECT_CONFIG_FIELD_NAME].string_value)
-        self.assertEqual('This function will calculate orders.',
-                         tag.fields[constants.SQL_OBJECT_CONFIG_FIELD_PURPOSE].string_value)
-        self.assertEqual('in1 (string), in2 (string), in3 (double)',
-                         tag.fields[constants.SQL_OBJECT_CONFIG_FIELD_INPUTS].string_value)
-        self.assertEqual('out1 (int), out2 (int), out3 (string)',
-                         tag.fields[constants.SQL_OBJECT_CONFIG_FIELD_OUTPUTS].string_value)
+        self.assertEqual(
+            'fn_calculateOrder',
+            tag.fields[constants.SQL_OBJECT_CONFIG_FIELD_NAME].string_value)
+        self.assertEqual(
+            'This function will calculate orders.',
+            tag.fields[constants.SQL_OBJECT_CONFIG_FIELD_PURPOSE].string_value)
+        self.assertEqual(
+            'in1 (string), in2 (string), in3 (double)',
+            tag.fields[constants.SQL_OBJECT_CONFIG_FIELD_INPUTS].string_value)
+        self.assertEqual(
+            'out1 (int), out2 (int), out3 (string)',
+            tag.fields[constants.SQL_OBJECT_CONFIG_FIELD_OUTPUTS].string_value)
 
         self.assertEqual(True, tag.fields['is_valid'].bool_value)
         self.assertEqual('SYSTEM', tag.fields['owner_name'].string_value)

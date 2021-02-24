@@ -19,8 +19,7 @@ import unittest
 
 from google.datacatalog_connectors.commons_test import utils
 from google.datacatalog_connectors.rdbms.common import constants
-from google.datacatalog_connectors.rdbms.prepare.sql_objects import \
-    sql_objects_datacatalog_entry_factory
+from google.datacatalog_connectors.rdbms.prepare import sql_objects
 
 
 class DataCatalogSQLObjectsEntryFactoryTestCase(unittest.TestCase):
@@ -41,7 +40,7 @@ class DataCatalogSQLObjectsEntryFactoryTestCase(unittest.TestCase):
             utils.Utils.convert_json_to_object(self.__MODULE_PATH,
                                                'sql_objects_config.json')
 
-        factory = sql_objects_datacatalog_entry_factory.\
+        factory = sql_objects.sql_objects_datacatalog_entry_factory.\
             SQLObjectsDataCatalogEntryFactory(
                 DataCatalogSQLObjectsEntryFactoryTestCase.__PROJECT_ID,
                 DataCatalogSQLObjectsEntryFactoryTestCase.__LOCATION_ID,
@@ -83,7 +82,7 @@ class DataCatalogSQLObjectsEntryFactoryTestCase(unittest.TestCase):
             utils.Utils.convert_json_to_object(self.__MODULE_PATH,
                                                'sql_objects_config.json')
 
-        factory = sql_objects_datacatalog_entry_factory.\
+        factory = sql_objects.sql_objects_datacatalog_entry_factory.\
             SQLObjectsDataCatalogEntryFactory(
                 DataCatalogSQLObjectsEntryFactoryTestCase.__PROJECT_ID,
                 DataCatalogSQLObjectsEntryFactoryTestCase.__LOCATION_ID,
