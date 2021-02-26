@@ -1,6 +1,6 @@
 # google-datacatalog-redshift-connector
 
-Library for ingesting Greenplum metadata into Google Cloud Data Catalog.
+Library for ingesting Redshift metadata into Google Cloud Data Catalog.
 
 [![Python package][2]][2] [![PyPi][3]][4] [![License][5]][5] [![Issues][6]][7]
 
