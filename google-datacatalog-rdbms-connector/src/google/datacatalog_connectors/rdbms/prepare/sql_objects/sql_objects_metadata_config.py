@@ -16,6 +16,7 @@
 
 from google.datacatalog_connectors.commons import config
 
+# we use class imports here to improve the schema definition readability.
 from schema import Schema, And, Optional
 
 
@@ -67,9 +68,9 @@ class SQLObjectsMetadataConfig:
     def __get_attribute_list_formatted(self, attribute_name):
         """
         Formats an attribute list using the following pattern:
-        {name} ({type}),{name}  ({type} )
+        {name} ({type}), {name} ({type})
 
-        Such as: in1 (string),in2 (double)
+        Such as: in1 (string), in2 (double)
         """
         metadata_definition = self.__config.get(self.__METADATA_DEFINITION_KEY,
                                                 {})

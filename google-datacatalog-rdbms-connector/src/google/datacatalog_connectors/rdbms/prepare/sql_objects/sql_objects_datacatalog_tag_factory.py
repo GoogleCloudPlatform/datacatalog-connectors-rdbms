@@ -127,7 +127,7 @@ class SQLObjectsDataCatalogTagFactory(prepare.BaseTagFactory):
                 self._set_string_field(
                     tag, constants.SQL_OBJECT_FIELD_TARGET_DEFINITION, value)
 
-        # Ignores all errors since definition maybe have any input
+        # Ignores all errors since the definition may have any input
         # and this could lead to unexpected exceptions.
         except:  # noqa: E722
             logging.warning('Error when parsing sql object definition',

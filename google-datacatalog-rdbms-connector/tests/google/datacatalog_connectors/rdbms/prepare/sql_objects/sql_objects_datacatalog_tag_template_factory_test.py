@@ -45,7 +45,7 @@ class DataCatalogSQLObjectsTagTemplateFactoryTestCase(unittest.TestCase):
             utils.Utils.convert_json_to_object(self.__MODULE_PATH,
                                                'sql_objects_config.json')
 
-        factory = sql_objects.sql_objects_datacatalog_tag_template_factory. \
+        factory = sql_objects. \
             SQLObjectsDataCatalogTagTemplateFactory(
                 self.__PROJECT_ID,
                 self.__LOCATION_ID,

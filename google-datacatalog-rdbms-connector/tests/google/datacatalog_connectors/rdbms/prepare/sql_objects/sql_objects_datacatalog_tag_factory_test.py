@@ -36,7 +36,7 @@ class DataCatalogSQLObjectsTagFactoryTestCase(unittest.TestCase):
         sql_objects_config = \
             utils.Utils.convert_json_to_object(self.__MODULE_PATH,
                                                'sql_objects_config.json')
-        factory = sql_objects.sql_objects_datacatalog_tag_factory.\
+        factory = sql_objects.\
             SQLObjectsDataCatalogTagFactory(sql_objects_config)
 
         tag_template = datacatalog.TagTemplate()
@@ -72,7 +72,7 @@ class DataCatalogSQLObjectsTagFactoryTestCase(unittest.TestCase):
         sql_objects_config = \
             utils.Utils.convert_json_to_object(self.__MODULE_PATH,
                                                'sql_objects_config.json')
-        factory = sql_objects.sql_objects_datacatalog_tag_factory.\
+        factory = sql_objects.\
             SQLObjectsDataCatalogTagFactory(sql_objects_config)
 
         tag_template = datacatalog.TagTemplate()
@@ -108,7 +108,7 @@ class DataCatalogSQLObjectsTagFactoryTestCase(unittest.TestCase):
         sql_objects_config = \
             utils.Utils.convert_json_to_object(self.__MODULE_PATH,
                                                'sql_objects_config.json')
-        factory = sql_objects.sql_objects_datacatalog_tag_factory.\
+        factory = sql_objects.\
             SQLObjectsDataCatalogTagFactory(sql_objects_config)
 
         tag_template = datacatalog.TagTemplate()
@@ -152,7 +152,7 @@ class DataCatalogSQLObjectsTagFactoryTestCase(unittest.TestCase):
         sql_objects_config = \
             utils.Utils.convert_json_to_object(self.__MODULE_PATH,
                                                'sql_objects_config.json')
-        factory = sql_objects.sql_objects_datacatalog_tag_factory.\
+        factory = sql_objects.\
             SQLObjectsDataCatalogTagFactory(sql_objects_config)
 
         tag_template = datacatalog.TagTemplate()

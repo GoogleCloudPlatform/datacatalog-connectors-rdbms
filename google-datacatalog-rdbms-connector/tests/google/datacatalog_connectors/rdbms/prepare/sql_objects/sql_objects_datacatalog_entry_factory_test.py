@@ -39,14 +39,12 @@ class DataCatalogSQLObjectsEntryFactoryTestCase(unittest.TestCase):
         sql_objects_config = \
             utils.Utils.convert_json_to_object(self.__MODULE_PATH,
                                                'sql_objects_config.json')
-
-        factory = sql_objects.sql_objects_datacatalog_entry_factory.\
+        factory = sql_objects.\
             SQLObjectsDataCatalogEntryFactory(
-                DataCatalogSQLObjectsEntryFactoryTestCase.__PROJECT_ID,
-                DataCatalogSQLObjectsEntryFactoryTestCase.__LOCATION_ID,
-                DataCatalogSQLObjectsEntryFactoryTestCase.
-                __METADATA_SERVER_HOST,
-                DataCatalogSQLObjectsEntryFactoryTestCase.__ENTRY_GROUP_ID,
+                self.__PROJECT_ID,
+                self.__LOCATION_ID,
+                self.__METADATA_SERVER_HOST,
+                self.__ENTRY_GROUP_ID,
                 sql_objects_config)
 
         sql_object_key = 'functions'
@@ -82,13 +80,12 @@ class DataCatalogSQLObjectsEntryFactoryTestCase(unittest.TestCase):
             utils.Utils.convert_json_to_object(self.__MODULE_PATH,
                                                'sql_objects_config.json')
 
-        factory = sql_objects.sql_objects_datacatalog_entry_factory.\
+        factory = sql_objects.\
             SQLObjectsDataCatalogEntryFactory(
-                DataCatalogSQLObjectsEntryFactoryTestCase.__PROJECT_ID,
-                DataCatalogSQLObjectsEntryFactoryTestCase.__LOCATION_ID,
-                DataCatalogSQLObjectsEntryFactoryTestCase.
-                __METADATA_SERVER_HOST,
-                DataCatalogSQLObjectsEntryFactoryTestCase.__ENTRY_GROUP_ID,
+                self.__PROJECT_ID,
+                self.__LOCATION_ID,
+                self.__METADATA_SERVER_HOST,
+                self.__ENTRY_GROUP_ID,
                 sql_objects_config)
 
         sql_object_key = 'stored_procedures'
