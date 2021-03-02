@@ -16,7 +16,7 @@
 
 from google.datacatalog_connectors.commons import config
 
-# we use class imports here to improve the schema definition readability.
+# We use class imports here to improve the schema definition readability.
 from schema import Schema, And, Optional
 
 

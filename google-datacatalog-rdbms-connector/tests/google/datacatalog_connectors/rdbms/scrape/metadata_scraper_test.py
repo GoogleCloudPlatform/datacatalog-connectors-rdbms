@@ -25,11 +25,11 @@ import mock
 
 class MetadataScraperTestCase(unittest.TestCase):
     __MODULE_PATH = os.path.dirname(os.path.abspath(__file__))
-    __NORMALIZER_PATH = 'metadata_normalizer.MetadataNormalizer.normalize'
     __SCRAPE_PACKAGE = 'google.datacatalog_connectors.rdbms.scrape'
+    __NORMALIZER_CLASS = '{}.metadata_normalizer.MetadataNormalizer'.format(
+        __SCRAPE_PACKAGE)
 
-    @mock.patch('{}.'.format(__SCRAPE_PACKAGE) + 'metadata_scraper.' +
-                __NORMALIZER_PATH)
+    @mock.patch('{}.normalize'.format(__NORMALIZER_CLASS))
     def test_scrape_metadata_with_csv_should_return_objects(self,
                                                             normalize):  # noqa
         metadata = \
@@ -46,7 +46,7 @@ class MetadataScraperTestCase(unittest.TestCase):
 
         self.assertEqual(1, len(schemas_metadata))
 
-    @mock.patch('{}.'.format(__SCRAPE_PACKAGE) + __NORMALIZER_PATH)
+    @mock.patch('{}.normalize'.format(__NORMALIZER_CLASS))
     def test_scrape_metadata_with_credentials_should_return_objects(
             self, normalize):  # noqa
         metadata = \
@@ -70,7 +70,7 @@ class MetadataScraperTestCase(unittest.TestCase):
 
         self.assertEqual(1, len(schemas_metadata))
 
-    @mock.patch('{}.'.format(__SCRAPE_PACKAGE) + __NORMALIZER_PATH)
+    @mock.patch('{}.normalize'.format(__NORMALIZER_CLASS))
     def test_scrape_metadata_with_credentials_overriding_base_metadata_query_should_return_objects(  # noqa: E501
             self, normalize):
         metadata = \
@@ -104,10 +104,9 @@ class MetadataScraperTestCase(unittest.TestCase):
 
         self.assertEqual(1, len(schemas_metadata))
 
-    @mock.patch('{}.'.format(__SCRAPE_PACKAGE) +
-                'metadata_scraper.metadata_normalizer.MetadataNormalizer.' +
+    @mock.patch('{}.'.format(__NORMALIZER_CLASS) +
                 'get_exact_table_names_from_dataframe')
-    @mock.patch('{}.'.format(__SCRAPE_PACKAGE) + __NORMALIZER_PATH)
+    @mock.patch('{}.normalize'.format(__NORMALIZER_CLASS))
     def test_scrape_metadata_with_config_should_return_objects(
             self, normalize, get_exact_table_names_from_dataframe):  # noqa
         metadata = \
@@ -139,10 +138,9 @@ class MetadataScraperTestCase(unittest.TestCase):
 
         self.assertEqual(1, len(schemas_metadata))
 
-    @mock.patch('{}.'.format(__SCRAPE_PACKAGE) +
-                'metadata_scraper.metadata_normalizer.MetadataNormalizer.' +
+    @mock.patch('{}.'.format(__NORMALIZER_CLASS) +
                 'get_exact_table_names_from_dataframe')
-    @mock.patch('{}.'.format(__SCRAPE_PACKAGE) + __NORMALIZER_PATH)
+    @mock.patch('{}.normalize'.format(__NORMALIZER_CLASS))
     @mock.patch('{}.sql_objects.'.format(__SCRAPE_PACKAGE) +
                 'sql_objects_metadata_normalizer.'
                 'SQLObjectsMetadataNormalizer.normalize')
@@ -190,10 +188,9 @@ class MetadataScraperTestCase(unittest.TestCase):
         self.assertDictEqual(functions_metadata,
                              scraped_metadata['sql_objects']['functions'])
 
-    @mock.patch('{}.'.format(__SCRAPE_PACKAGE) +
-                'metadata_scraper.metadata_normalizer.MetadataNormalizer.' +
+    @mock.patch('{}.'.format(__NORMALIZER_CLASS) +
                 'get_exact_table_names_from_dataframe')
-    @mock.patch('{}.'.format(__SCRAPE_PACKAGE) + __NORMALIZER_PATH)
+    @mock.patch('{}.normalize'.format(__NORMALIZER_CLASS))
     @mock.patch('{}.sql_objects.'.format(__SCRAPE_PACKAGE) +
                 'sql_objects_metadata_normalizer.'
                 'SQLObjectsMetadataNormalizer.normalize')
@@ -251,10 +248,9 @@ class MetadataScraperTestCase(unittest.TestCase):
             stored_procedure_metadata,
             scraped_metadata['sql_objects']['stored_procedures'])
 
-    @mock.patch('{}.'.format(__SCRAPE_PACKAGE) +
-                'metadata_scraper.metadata_normalizer.MetadataNormalizer.' +
+    @mock.patch('{}.'.format(__NORMALIZER_CLASS) +
                 'get_exact_table_names_from_dataframe')
-    @mock.patch('{}.'.format(__SCRAPE_PACKAGE) + __NORMALIZER_PATH)
+    @mock.patch('{}.normalize'.format(__NORMALIZER_CLASS))
     def test_scrape_metadata_with_enrich_metadata_config_should_return_objects(  # noqa:E501
             self, normalize, get_exact_table_names_from_dataframe):  # noqa
         metadata = \
@@ -294,10 +290,9 @@ class MetadataScraperTestCase(unittest.TestCase):
         self.assertTrue(
             metadata_dataframe['table_name'][0].startswith('mycompany'))
 
-    @mock.patch('{}.'.format(__SCRAPE_PACKAGE) +
-                'metadata_scraper.metadata_normalizer.MetadataNormalizer.' +
+    @mock.patch('{}.'.format(__NORMALIZER_CLASS) +
                 'get_exact_table_names_from_dataframe')
-    @mock.patch('{}.'.format(__SCRAPE_PACKAGE) + __NORMALIZER_PATH)
+    @mock.patch('{}.normalize'.format(__NORMALIZER_CLASS))
     def test_scrape_metadata_with_csv_and_config_should_return_objects(
             self, normalize, get_exact_table_names_from_dataframe):  # noqa
 
@@ -336,10 +331,9 @@ class MetadataScraperTestCase(unittest.TestCase):
         self.assertTrue(
             metadata_dataframe['table_name'][0].startswith('mycompany'))
 
-    @mock.patch('{}.'.format(__SCRAPE_PACKAGE) +
-                'metadata_scraper.metadata_normalizer.MetadataNormalizer.' +
+    @mock.patch('{}.'.format(__NORMALIZER_CLASS) +
                 'get_exact_table_names_from_dataframe')
-    @mock.patch('{}.'.format(__SCRAPE_PACKAGE) + __NORMALIZER_PATH)
+    @mock.patch('{}.normalize'.format(__NORMALIZER_CLASS))
     @mock.patch('{}.sql_objects.'.format(__SCRAPE_PACKAGE) +
                 'sql_objects_metadata_normalizer.'
                 'SQLObjectsMetadataNormalizer.normalize')
@@ -384,10 +378,9 @@ class MetadataScraperTestCase(unittest.TestCase):
         self.assertNotIn('sql_objects', scraped_metadata)
         self.assertDictEqual(base_metadata, scraped_metadata)
 
-    @mock.patch('{}.'.format(__SCRAPE_PACKAGE) +
-                'metadata_scraper.metadata_normalizer.MetadataNormalizer.' +
+    @mock.patch('{}.'.format(__NORMALIZER_CLASS) +
                 'get_exact_table_names_from_dataframe')
-    @mock.patch('{}.'.format(__SCRAPE_PACKAGE) + __NORMALIZER_PATH)
+    @mock.patch('{}.normalize'.format(__NORMALIZER_CLASS))
     def test_scrape_metadata_with_enrich_metadata_config_and_no_enricher_should_succeed(  # noqa:E501
             self, normalize, _):  # noqa
         metadata = \
@@ -414,7 +407,7 @@ class MetadataScraperTestCase(unittest.TestCase):
                        },
                        config=loaded_config)
 
-    @mock.patch('{}.'.format(__SCRAPE_PACKAGE) + __NORMALIZER_PATH)
+    @mock.patch('{}.normalize'.format(__NORMALIZER_CLASS))
     def test_scrape_metadata_on_exception_should_re_raise(self,
                                                           normalize):  # noqa
         scraper = test_utils.FakeScraper()
@@ -423,7 +416,7 @@ class MetadataScraperTestCase(unittest.TestCase):
 
         self.assertEqual(normalize.call_count, 0)
 
-    @mock.patch('{}.'.format(__SCRAPE_PACKAGE) + __NORMALIZER_PATH)
+    @mock.patch('{}.normalize'.format(__NORMALIZER_CLASS))
     def test_scrape_metadata_on_connection_exception_should_re_raise(
             self, normalize):  # noqa
         scraper = test_utils.FakeScraperWithConError()
@@ -437,7 +430,7 @@ class MetadataScraperTestCase(unittest.TestCase):
 
         self.assertEqual(normalize.call_count, 0)
 
-    @mock.patch('{}.'.format(__SCRAPE_PACKAGE) + __NORMALIZER_PATH)
+    @mock.patch('{}.normalize'.format(__NORMALIZER_CLASS))
     @mock.patch('{}.'.format(__SCRAPE_PACKAGE) +
                 'query_assembler.QueryAssembler.' +
                 'get_refresh_metadata_queries')
@@ -459,7 +452,7 @@ class MetadataScraperTestCase(unittest.TestCase):
         self.assertEqual(1, len(schemas_metadata))
         self.assertEqual(0, get_refresh_metadata_queries.call_count)
 
-    @mock.patch('{}.'.format(__SCRAPE_PACKAGE) + __NORMALIZER_PATH)
+    @mock.patch('{}.normalize'.format(__NORMALIZER_CLASS))
     @mock.patch('{}.'.format(__SCRAPE_PACKAGE) +
                 'query_assembler.QueryAssembler.get_optional_queries')
     def test_optional_metadata_should_not_be_pulled_without_config(
@@ -480,7 +473,7 @@ class MetadataScraperTestCase(unittest.TestCase):
         self.assertEqual(1, len(schemas_metadata))
         self.assertEqual(0, get_optional_queries.call_count)
 
-    @mock.patch('{}.'.format(__SCRAPE_PACKAGE) + __NORMALIZER_PATH)
+    @mock.patch('{}.normalize'.format(__NORMALIZER_CLASS))
     @mock.patch('{}.'.format(__SCRAPE_PACKAGE) +
                 'query_assembler.QueryAssembler.' +
                 'get_refresh_metadata_queries')
@@ -507,7 +500,7 @@ class MetadataScraperTestCase(unittest.TestCase):
         self.assertEqual(1, len(schemas_metadata))
         self.assertEqual(0, get_refresh_metadata_queries.call_count)
 
-    @mock.patch('{}.'.format(__SCRAPE_PACKAGE) + __NORMALIZER_PATH)
+    @mock.patch('{}.normalize'.format(__NORMALIZER_CLASS))
     @mock.patch('{}.'.format(__SCRAPE_PACKAGE) +
                 'query_assembler.QueryAssembler.get_optional_queries')
     def test_optional_metadata_should_not_be_pulled_with_empty_config(
