@@ -26,11 +26,11 @@ from google.datacatalog_connectors.teradata.scrape import metadata_scraper
 class MetadataScraperTestCase(unittest.TestCase):
     __MODULE_PATH = os.path.dirname(os.path.abspath(__file__))
     __SCRAPE_PACKAGE = 'google.datacatalog_connectors.rdbms.scrape'
+    __NORMALIZER_CLASS = '{}.metadata_normalizer.MetadataNormalizer'.format(
+        __SCRAPE_PACKAGE)
 
     @patch('pandas.read_csv')
-    @patch('{}.'
-           'metadata_scraper.MetadataNormalizer.'
-           'normalize'.format(__SCRAPE_PACKAGE))
+    @mock.patch('{}.normalize'.format(__NORMALIZER_CLASS))
     def test_scrape_databases_metadata_with_csv_should_return_objects(
             self, normalize, read_csv):  # noqa
 
@@ -48,9 +48,7 @@ class MetadataScraperTestCase(unittest.TestCase):
 
     @patch('teradatasql.connect')
     @patch('teradatasql.TeradataConnection.cursor')
-    @patch('{}.'
-           'metadata_scraper.MetadataNormalizer.'
-           'normalize'.format(__SCRAPE_PACKAGE))
+    @mock.patch('{}.normalize'.format(__NORMALIZER_CLASS))
     def test_scrape_databases_metadata_with_credentials_should_return_objects(
             self, normalize, cursor, connect):  # noqa
 
@@ -89,8 +87,7 @@ class MetadataScraperTestCase(unittest.TestCase):
 
     @patch('teradatasql.connect')
     @patch('teradatasql.TeradataConnection.cursor')
-    @patch('{}.metadata_scraper.'
-           'MetadataNormalizer.normalize'.format(__SCRAPE_PACKAGE))
+    @mock.patch('{}.normalize'.format(__NORMALIZER_CLASS))
     def test_scrape_databases_metadata_on_exception_should_re_raise(
             self, normalize, cursor, connect):  # noqa
 
