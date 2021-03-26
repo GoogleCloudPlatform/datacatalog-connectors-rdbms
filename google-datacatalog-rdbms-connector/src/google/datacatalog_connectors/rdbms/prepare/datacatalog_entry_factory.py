@@ -20,7 +20,7 @@ from google.protobuf import timestamp_pb2
 from google.datacatalog_connectors.commons.prepare.base_entry_factory import \
     BaseEntryFactory
 
-from google.datacatalog_connectors.rdbms.scrape import constants
+from google.datacatalog_connectors.rdbms.common import constants
 
 
 class DataCatalogEntryFactory(BaseEntryFactory):

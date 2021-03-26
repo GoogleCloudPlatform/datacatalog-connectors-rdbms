@@ -31,9 +31,9 @@ COPY . .
 RUN yapf --diff --recursive src tests
 RUN flake8 src tests
 
-RUN python setup.py test
-
 # Install oracle2datacatalog package from source files.
 RUN pip install .
+
+RUN python setup.py test
 
 ENTRYPOINT ["google-datacatalog-oracle-connector"]

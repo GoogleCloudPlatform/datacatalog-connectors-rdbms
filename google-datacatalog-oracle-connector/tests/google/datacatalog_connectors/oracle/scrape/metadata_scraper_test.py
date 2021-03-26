@@ -25,10 +25,10 @@ from google.datacatalog_connectors.oracle.scrape import metadata_scraper
 class MetadataScraperTestCase(unittest.TestCase):
     __MODULE_PATH = os.path.dirname(os.path.abspath(__file__))
     __SCRAPE_PACKAGE = 'google.datacatalog_connectors.rdbms.scrape'
+    __NORMALIZER_CLASS = '{}.metadata_normalizer.MetadataNormalizer'.format(
+        __SCRAPE_PACKAGE)
 
-    @mock.patch('{}.'
-                'metadata_scraper.MetadataNormalizer.'
-                'normalize'.format(__SCRAPE_PACKAGE))
+    @mock.patch('{}.normalize'.format(__NORMALIZER_CLASS))
     def test_scrape_schemas_metadata_with_csv_should_return_objects(
             self, normalize):  # noqa:E125
 
@@ -47,9 +47,7 @@ class MetadataScraperTestCase(unittest.TestCase):
         self.assertEqual(1, len(schemas_metadata))
 
     @mock.patch('cx_Oracle.connect')
-    @mock.patch('{}.'
-                'metadata_scraper.MetadataNormalizer.'
-                'normalize'.format(__SCRAPE_PACKAGE))
+    @mock.patch('{}.normalize'.format(__NORMALIZER_CLASS))
     def test_scrape_schemas_metadata_with_credentials_should_return_objects(
             self, normalize, connect):  # noqa:E125
 
@@ -89,8 +87,7 @@ class MetadataScraperTestCase(unittest.TestCase):
         self.assertEqual(connect.call_count, 1)
 
     @mock.patch('cx_Oracle.connect')
-    @mock.patch('{}.metadata_scraper.'
-                'MetadataNormalizer.normalize'.format(__SCRAPE_PACKAGE))
+    @mock.patch('{}.normalize'.format(__NORMALIZER_CLASS))
     def test_scrape_schemas_metadata_on_exception_should_re_raise(
             self, normalize, connect):  # noqa:E125
 

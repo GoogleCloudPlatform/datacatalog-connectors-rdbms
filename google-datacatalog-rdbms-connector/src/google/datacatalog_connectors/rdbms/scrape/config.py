@@ -17,9 +17,9 @@
 import logging
 import json
 import os
-import yaml
 
-from google.datacatalog_connectors.rdbms.scrape import constants
+from google.datacatalog_connectors.commons import config
+from google.datacatalog_connectors.rdbms.common import constants
 
 
 class Config:
@@ -33,9 +33,9 @@ class Config:
         self.__determine_scraping_steps()
 
     def get_chosen_metadata_options(self):
-        '''
+        """
         Retrieve options the user has marked as true from the config contents.
-        '''
+        """
         options = [
             # TODO put the scrape_options in a parent
             #  key in the user def config
@@ -163,7 +163,9 @@ class Config:
     @classmethod
     def __read_yaml_file(cls, path):
         with open(path, 'r') as f:
-            conf = yaml.load(f, Loader=yaml.FullLoader)
+            conf = config.yaml_config.YamlConfig.parse_as_dict(f)
+
+        # needs to return an empty config since file may not exist.
         return conf or dict()
 
     @classmethod

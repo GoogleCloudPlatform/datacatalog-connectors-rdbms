@@ -25,10 +25,7 @@ from google.datacatalog_connectors.commons.monitoring\
     import metrics_processor
 
 from google.datacatalog_connectors.rdbms import prepare
-from google.datacatalog_connectors.rdbms.prepare import\
-    sql_objects as prepare_sql_objects
-
-from google.datacatalog_connectors.rdbms.scrape import constants
+from google.datacatalog_connectors.rdbms.common import constants
 
 
 class DataCatalogSynchronizer:
@@ -124,7 +121,7 @@ class DataCatalogSynchronizer:
         prepared_entries = {constants.BASE_ENTRIES_KEY: base_entries}
 
         if self.__is_sql_objects_sync():
-            sql_objects_entry_factory = prepare_sql_objects.\
+            sql_objects_entry_factory = prepare.sql_objects.\
                 SQLObjectsAssembledEntryFactory(
                     self.__project_id,
                     self.__location_id,
@@ -237,7 +234,7 @@ class DataCatalogSynchronizer:
 
         if self.__is_sql_objects_sync():
             sql_objects_tag_template_factory = \
-                prepare_sql_objects.SQLObjectsDataCatalogTagTemplateFactory(
+                prepare.sql_objects.SQLObjectsDataCatalogTagTemplateFactory(
                     self.__project_id,
                     self.__location_id,
                     self.__entry_group_id,
