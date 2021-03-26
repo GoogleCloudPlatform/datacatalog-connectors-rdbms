@@ -14,13 +14,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import pandas as pd
 from google.cloud import datacatalog
 from google.protobuf import timestamp_pb2
+import pandas as pd
+
 from google.datacatalog_connectors.commons.prepare.base_entry_factory import \
     BaseEntryFactory
-
-from google.datacatalog_connectors.rdbms.scrape import constants
+from google.datacatalog_connectors.rdbms.common import constants
 
 
 class SQLObjectsDataCatalogEntryFactory(BaseEntryFactory):

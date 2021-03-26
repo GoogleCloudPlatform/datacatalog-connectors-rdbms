@@ -19,7 +19,8 @@ import os
 import unittest
 
 from google.datacatalog_connectors.commons_test import utils
-from google.datacatalog_connectors.rdbms.scrape import config, constants
+from google.datacatalog_connectors.rdbms.common import constants
+from google.datacatalog_connectors.rdbms.scrape import config
 
 
 class ConfigTestCase(unittest.TestCase):

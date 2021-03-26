@@ -63,11 +63,10 @@ class SQLObjectsAssembledEntryFactoryTestCase(unittest.TestCase):
 
         self.__factory = sql_objects_assembled_entry_factory. \
             SQLObjectsAssembledEntryFactory(
-                SQLObjectsAssembledEntryFactoryTestCase.__PROJECT_ID,
-                SQLObjectsAssembledEntryFactoryTestCase.__LOCATION_ID,
-                SQLObjectsAssembledEntryFactoryTestCase.
-                __METADATA_SERVER_HOST,
-                SQLObjectsAssembledEntryFactoryTestCase.__ENTRY_GROUP_ID,
+                self.__PROJECT_ID,
+                self.__LOCATION_ID,
+                self.__METADATA_SERVER_HOST,
+                self.__ENTRY_GROUP_ID,
                 sql_objects_config,
                 tag_templates_dict)
 

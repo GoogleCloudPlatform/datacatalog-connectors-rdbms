@@ -20,22 +20,17 @@ import time
 
 import pandas as pd
 
-from google.datacatalog_connectors.rdbms.scrape import \
-    base_metadata_enricher
-
-from google.datacatalog_connectors.rdbms.scrape.metadata_normalizer \
-    import MetadataNormalizer
-
-from google.datacatalog_connectors.rdbms.scrape.sql_objects \
-    import SQLObjectsMetadataScraper
-
-from google.datacatalog_connectors.rdbms.scrape import constants
+from google.datacatalog_connectors.rdbms import scrape
+from google.datacatalog_connectors.rdbms.common import constants
+from google.datacatalog_connectors.rdbms.scrape import metadata_normalizer
+from google.datacatalog_connectors.rdbms.scrape import sql_objects
 
 
 class MetadataScraper:
 
     def __init__(self):
-        self.__sql_objects_scraper = SQLObjectsMetadataScraper(self)
+        self.__sql_objects_scraper = sql_objects.SQLObjectsMetadataScraper(
+            self)
 
     def scrape(self,
                metadata_definition,
@@ -49,8 +44,8 @@ class MetadataScraper:
                                                    connection_args, query,
                                                    csv_path, config)
 
-        base_metadata = MetadataNormalizer.normalize(dataframe,
-                                                     metadata_definition)
+        base_metadata = metadata_normalizer.MetadataNormalizer.normalize(
+            dataframe, metadata_definition)
         # CSV ingestion does not support SQL Objects
         # so we return early.
         if csv_path:
@@ -124,7 +119,7 @@ class MetadataScraper:
         if not csv_path:
             if config.refresh_metadata_tables:
                 query_assembler = self._get_query_assembler()
-                exact_table_names = MetadataNormalizer.\
+                exact_table_names = metadata_normalizer.MetadataNormalizer.\
                     get_exact_table_names_from_dataframe(
                         base_dataframe, metadata_definition)
                 refresh_queries = query_assembler.get_refresh_metadata_queries(
@@ -252,7 +247,7 @@ class MetadataScraper:
                                   'to run multiple optional queries')
 
     def _get_metadata_enricher(self):
-        return base_metadata_enricher.BaseMetadataEnricher
+        return scrape.base_metadata_enricher.BaseMetadataEnricher
 
     def _execute_refresh_query(self, cursor, query):
         """

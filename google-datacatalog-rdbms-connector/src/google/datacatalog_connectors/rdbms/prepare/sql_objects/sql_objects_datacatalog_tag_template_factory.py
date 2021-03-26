@@ -20,8 +20,7 @@ import string
 from google.cloud import datacatalog
 
 from google.datacatalog_connectors.commons import prepare
-
-from google.datacatalog_connectors.rdbms.scrape import constants
+from google.datacatalog_connectors.rdbms.common import constants
 
 
 class SQLObjectsDataCatalogTagTemplateFactory(prepare.BaseTagTemplateFactory):
@@ -77,6 +76,8 @@ class SQLObjectsDataCatalogTagTemplateFactory(prepare.BaseTagTemplateFactory):
             self.___add_field_for_sql_object_field(sql_object_field,
                                                    tag_template)
 
+        self.___add_predefined_fields(tag_template)
+
         return tag_template_id, tag_template
 
     def ___add_field_for_sql_object_field(self, sql_object_item, tag_template):
@@ -113,6 +114,27 @@ class SQLObjectsDataCatalogTagTemplateFactory(prepare.BaseTagTemplateFactory):
             self._add_primitive_type_field(
                 tag_template, sql_object_target_name, field_type,
                 self.__capitalize_word(sql_object_target_name))
+
+    def ___add_predefined_fields(self, tag_template):
+        self._add_primitive_type_field(
+            tag_template, constants.SQL_OBJECT_CONFIG_FIELD_NAME,
+            self.__STRING_TYPE,
+            self.__capitalize_word(constants.SQL_OBJECT_CONFIG_FIELD_NAME))
+
+        self._add_primitive_type_field(
+            tag_template, constants.SQL_OBJECT_CONFIG_FIELD_PURPOSE,
+            self.__STRING_TYPE,
+            self.__capitalize_word(constants.SQL_OBJECT_CONFIG_FIELD_PURPOSE))
+
+        self._add_primitive_type_field(
+            tag_template, constants.SQL_OBJECT_CONFIG_FIELD_INPUTS,
+            self.__STRING_TYPE,
+            self.__capitalize_word(constants.SQL_OBJECT_CONFIG_FIELD_INPUTS))
+
+        self._add_primitive_type_field(
+            tag_template, constants.SQL_OBJECT_CONFIG_FIELD_OUTPUTS,
+            self.__STRING_TYPE,
+            self.__capitalize_word(constants.SQL_OBJECT_CONFIG_FIELD_OUTPUTS))
 
     @classmethod
     def __capitalize_word(cls, word):

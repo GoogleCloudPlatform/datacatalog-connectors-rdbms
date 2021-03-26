@@ -19,6 +19,9 @@ RUN pip install flake8 yapf
 RUN yapf --diff --recursive src tests
 RUN flake8 src tests
 
+# Install the connector from source files.
+RUN pip install .
+
 # Run the unit tests.
 RUN python setup.py test
 # END OF QUALITY ASSURANCE STEPS

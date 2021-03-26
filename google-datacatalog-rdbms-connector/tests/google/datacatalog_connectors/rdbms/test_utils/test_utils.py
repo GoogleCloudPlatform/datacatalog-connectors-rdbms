@@ -18,12 +18,13 @@ import os
 
 from google.datacatalog_connectors.commons_test import utils
 from google.datacatalog_connectors.rdbms import datacatalog_cli
-from google.datacatalog_connectors.rdbms.scrape import \
-     constants, metadata_enricher, metadata_scraper, query_assembler
+from google.datacatalog_connectors.rdbms.common import constants
+from google.datacatalog_connectors.rdbms import scrape
+
 import mock
 
 
-class FakeScraper(metadata_scraper.MetadataScraper):
+class FakeScraper(scrape.metadata_scraper.MetadataScraper):
 
     def _create_rdbms_connection(self, connection_args):
         con = mock.Mock()
@@ -56,7 +57,7 @@ class FakeScraperWithMetadataEnricher(FakeScraper):
         return FakeMetadataEnricher
 
 
-class FakeScraperWithConError(metadata_scraper.MetadataScraper):
+class FakeScraperWithConError(scrape.metadata_scraper.MetadataScraper):
 
     def _create_rdbms_connection(self, connection_args):
         con = mock.Mock()
@@ -65,7 +66,7 @@ class FakeScraperWithConError(metadata_scraper.MetadataScraper):
         return con, cur
 
 
-class FakeQueryAssembler(query_assembler.QueryAssembler):
+class FakeQueryAssembler(scrape.query_assembler.QueryAssembler):
 
     def _get_refresh_statement(self, tbl_name):
         return "Fake query for {}".format(tbl_name)
@@ -77,7 +78,7 @@ class FakeQueryAssembler(query_assembler.QueryAssembler):
         return resolved_name
 
 
-class FakeMetadataEnricher(metadata_enricher.MetadataEnricher):
+class FakeMetadataEnricher(scrape.metadata_enricher.MetadataEnricher):
 
     def enrich(self, scraped_dataframe):
         table_container_name = self._metadata_definition[

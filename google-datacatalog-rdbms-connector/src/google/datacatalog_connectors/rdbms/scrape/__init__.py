@@ -18,6 +18,7 @@ from .base_metadata_enricher import BaseMetadataEnricher
 from .metadata_enricher import MetadataEnricher
 from .metadata_normalizer import MetadataNormalizer
 from .metadata_scraper import MetadataScraper
+from .query_assembler import QueryAssembler
 
 __all__ = ('BaseMetadataEnricher', 'MetadataEnricher', 'MetadataNormalizer',
-           'MetadataScraper')
+           'MetadataScraper', 'QueryAssembler')
