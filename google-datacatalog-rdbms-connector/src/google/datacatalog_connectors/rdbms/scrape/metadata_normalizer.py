@@ -63,6 +63,7 @@ class MetadataNormalizer:
             ...            'key': 'columns',
             ...            'type': 'column',
             ...            'name': 'column_name',
+            ...            'desc': 'description',
             ...            'fields': [
             ...                {
             ...                    'source': 'data_length',
@@ -195,6 +196,11 @@ class MetadataNormalizer:
         fields = column_def['fields']
 
         normalized_dict = {'name': name}
+
+        if column_def['desc'] in column_metadata.columns:
+            value = cls._extract_value_from_first_row(column_metadata, column_def['desc']) 
+            if not pd.isna(value):
+                normalized_dict['desc'] = value
 
         normalized_dict.update(cls._normalize_fields(fields, column_metadata))
 
