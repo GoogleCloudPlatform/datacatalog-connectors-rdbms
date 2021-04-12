@@ -148,6 +148,7 @@ rows in each table. The table below shows what metadata is scraped by default, a
 | column_char_length           | Char length of values in a column           | Y                  | ---                          | 
 | column_numeric_precision     | Numeric precision of values in a column     | Y                  | ---                          | 
 | column_enum_values           | List of enum values for a column            | Y                  | ---                          | 
+| description                  | Description of a column (COMMENT statement) | Y                  | ---                          | 
 | ANALYZE statement            | Statement to refresh metadata information   | N                  | refresh_metadata_tables      |
 | table_rows                   | Number of rows in a table                   | N                  | sync_row_counts              |
 | base_metadata_query_filename | Overrides the base metadata query file name | N/A                | base_metadata_query_filename |
