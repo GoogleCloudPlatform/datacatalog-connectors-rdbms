@@ -29,6 +29,7 @@
         "key": "columns",
         "type": "column",
         "name": "column_name",
+        "desc": "description",
         "fields": [
             {
                 "source": "column_type",
