@@ -197,7 +197,8 @@ class MetadataNormalizer:
 
         normalized_dict = {'name': name}
 
-        if 'desc' in column_def and column_def['desc'] in column_metadata.columns:
+        if 'desc' in column_def \
+            and column_def['desc'] in column_metadata.columns:
             value = cls._extract_value_from_first_row(column_metadata,
                                                       column_def['desc'])
             if not pd.isna(value):
