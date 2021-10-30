@@ -272,6 +272,67 @@ class AssembledEntryFactoryTestCase(unittest.TestCase):
                 self.assertEqual('Auto-incrementing primary key',
                                  first_column.description)
 
+    def test_should_be_converted_to_dc_entries_column_type_as_bytes(  # noqa
+            self, entry_path):
+        entry_path.return_value = \
+            AssembledEntryFactoryTestCase.__MOCKED_ENTRY_PATH
+        entry_factory = self.__assembled_entry_factory
+
+        schema_metadata = utils.Utils.convert_json_to_object(
+            self.__MODULE_PATH, 'metadata_column_type_as_bytes.json')
+
+        # we can't set the bytes value directly in the JSON file
+        # so for this test case, we just convert the str value to the bytes representation.
+        varchar_type = schema_metadata['schemas'][0]['tables'][0]['columns'][0]['type']
+        schema_metadata['schemas'][0]['tables'][0]['columns'][0]['type'] = varchar_type.encode("utf-8")
+
+        prepared_entries = \
+            entry_factory. \
+            make_entries(schema_metadata)
+
+        tables = prepared_entries[0][1]
+        self.assertEqual(len(tables), 1)
+
+        for schema, tables in prepared_entries:
+            schema_entry = schema.entry
+            self.assertEqual(
+                'CO_very_looooooooooooooooooooooooooooooooooooooooooooooooong',
+                schema.entry_id)
+            self.assertEqual('schema', schema_entry.user_specified_type)
+            self.assertEqual(AssembledEntryFactoryTestCase.__MOCKED_ENTRY_PATH,
+                             schema_entry.name)
+            self.assertEqual('', schema_entry.description)
+            self.assertEqual(
+                'metadata_host/'
+                'CO_very_looooooooooooooooooooooooooooooooooooooooooooooooong',
+                schema_entry.linked_resource)
+            self.assertEqual('oracle', schema_entry.user_specified_system)
+
+            for table in tables:
+                print(table.entry_id)
+                table_entry = table.entry
+                self.assertEqual(
+                    'CO_very_looooooooooooooooooooooooooooooooooooooooooooooo'
+                    'oong_CUS', table.entry_id)
+                # Assert specific fields for table
+                self.assertEqual('table', table_entry.user_specified_type)
+                self.assertEqual('oracle', table_entry.user_specified_system)
+                self.assertEqual(
+                    AssembledEntryFactoryTestCase.__MOCKED_ENTRY_PATH,
+                    table_entry.name)
+                self.assertEqual(
+                    'metadata_host/CO_$/'
+                    '_very_loooooooooooooooooooooooooo'
+                    'ooooooooooooooooooooooong'
+                    '/CUSTOMERS_very_loooooooooooooooooo'
+                    'oooooooooooooooooooooooong', table_entry.linked_resource)
+                self.assertGreater(len(table_entry.schema.columns), 0)
+                first_column = table_entry.schema.columns[0]
+                self.assertEqual('varchar', first_column.type)
+                self.assertEqual('CUSTOMER_ID_2', first_column.column)
+                self.assertEqual('Auto-incrementing primary key',
+                                 first_column.description)
+
     def test_schema_no_tables_should_be_converted_to_dc_entries(  # noqa
             self, entry_path):
         entry_path.return_value = \
