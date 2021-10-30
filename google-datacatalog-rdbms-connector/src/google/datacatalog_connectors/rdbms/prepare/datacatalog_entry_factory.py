@@ -177,6 +177,8 @@ class DataCatalogEntryFactory(BaseEntryFactory):
             # other RDBMS connectors we should set the encode type as a config
             # that each RDBMS connector has to set up, and could be exposed
             # as a CLI arg, so users can easily change that.
+            # There is also the option to scrape that config directly
+            # from the DB.
             source_name = source_name.decode("utf-8")
 
         formatted_name = source_name.replace('&', '_')
