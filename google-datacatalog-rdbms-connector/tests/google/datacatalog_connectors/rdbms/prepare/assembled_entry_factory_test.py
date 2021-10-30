@@ -282,9 +282,12 @@ class AssembledEntryFactoryTestCase(unittest.TestCase):
             self.__MODULE_PATH, 'metadata_column_type_as_bytes.json')
 
         # we can't set the bytes value directly in the JSON file
-        # so for this test case, we just convert the str value to the bytes representation.
-        varchar_type = schema_metadata['schemas'][0]['tables'][0]['columns'][0]['type']
-        schema_metadata['schemas'][0]['tables'][0]['columns'][0]['type'] = varchar_type.encode("utf-8")
+        # so for this test case, we just convert the str value
+        # to the bytes representation.
+        varchar_type = schema_metadata['schemas'][0]['tables'][0]['columns'][
+            0]['type']
+        schema_metadata['schemas'][0]['tables'][0]['columns'][0][
+            'type'] = varchar_type.encode("utf-8")
 
         prepared_entries = \
             entry_factory. \
