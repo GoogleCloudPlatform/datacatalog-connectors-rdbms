@@ -172,13 +172,13 @@ class DataCatalogEntryFactory(BaseEntryFactory):
     def __format_entry_column_type(source_name):
         if isinstance(source_name, bytes):
             # Use UTF-8 default encoding observed in MySQL, other RDBMS'
-            # don't seem to have scenarios where the column type is returned as bytes
-            # if we observe other issues like this in the other RDBMS connectors
-            # we should set the encode type as a config that each RDBMS connector
-            # has to set up, and could be exposed as a CLI arg, so users can easily
-            # change that.
+            # don't seem to have scenarios where the column type is
+            # returned as bytes if we observe other issues like this in the
+            # other RDBMS connectors we should set the encode type as a config
+            # that each RDBMS connector has to set up, and could be exposed
+            # as a CLI arg, so users can easily change that.
             source_name = source_name.decode("utf-8")
-            
+
         formatted_name = source_name.replace('&', '_')
         formatted_name = formatted_name.replace(':', '_')
         formatted_name = formatted_name.replace('/', '_')
