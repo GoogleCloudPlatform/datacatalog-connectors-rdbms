@@ -298,37 +298,21 @@ class AssembledEntryFactoryTestCase(unittest.TestCase):
 
         for schema, tables in prepared_entries:
             schema_entry = schema.entry
-            self.assertEqual(
-                'CO_very_looooooooooooooooooooooooooooooooooooooooooooooooong',
-                schema.entry_id)
             self.assertEqual('schema', schema_entry.user_specified_type)
             self.assertEqual(AssembledEntryFactoryTestCase.__MOCKED_ENTRY_PATH,
                              schema_entry.name)
             self.assertEqual('', schema_entry.description)
-            self.assertEqual(
-                'metadata_host/'
-                'CO_very_looooooooooooooooooooooooooooooooooooooooooooooooong',
-                schema_entry.linked_resource)
             self.assertEqual('oracle', schema_entry.user_specified_system)
 
             for table in tables:
                 print(table.entry_id)
                 table_entry = table.entry
-                self.assertEqual(
-                    'CO_very_looooooooooooooooooooooooooooooooooooooooooooooo'
-                    'oong_CUS', table.entry_id)
                 # Assert specific fields for table
                 self.assertEqual('table', table_entry.user_specified_type)
                 self.assertEqual('oracle', table_entry.user_specified_system)
                 self.assertEqual(
                     AssembledEntryFactoryTestCase.__MOCKED_ENTRY_PATH,
                     table_entry.name)
-                self.assertEqual(
-                    'metadata_host/CO_$/'
-                    '_very_loooooooooooooooooooooooooo'
-                    'ooooooooooooooooooooooong'
-                    '/CUSTOMERS_very_loooooooooooooooooo'
-                    'oooooooooooooooooooooooong', table_entry.linked_resource)
                 self.assertGreater(len(table_entry.schema.columns), 0)
                 first_column = table_entry.schema.columns[0]
                 self.assertEqual('varchar', first_column.type)

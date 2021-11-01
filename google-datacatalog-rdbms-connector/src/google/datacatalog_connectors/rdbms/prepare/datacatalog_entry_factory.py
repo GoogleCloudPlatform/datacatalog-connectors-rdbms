@@ -171,14 +171,16 @@ class DataCatalogEntryFactory(BaseEntryFactory):
     @staticmethod
     def __format_entry_column_type(source_name):
         if isinstance(source_name, bytes):
-            # Use UTF-8 default encoding observed in MySQL, other RDBMS'
-            # don't seem to have scenarios where the column type is
-            # returned as bytes if we observe other issues like this in the
-            # other RDBMS connectors we should set the encode type as a config
-            # that each RDBMS connector has to set up, and could be exposed
-            # as a CLI arg, so users can easily change that.
-            # There is also the option to scrape that config directly
-            # from the DB.
+            # We've noticed some MySQL instances use bytes-like objects
+            # instead of `str` to specify the column types. We are using UTF-8
+            # to decode such objects when it happens because UTF-8 is the
+            # default character set for MySQL 8.0 onwards.
+            #
+            # We didn't notice similar behavior with other RDBMS but, if so,
+            # we should handle encoding as a configuration option that each
+            # RDBMS connector would have to set up. It might be exposed as a
+            # CLI arg, so users could easily change that. There is also the
+            # option to  scrape that config directly from the DB.
             source_name = source_name.decode("utf-8")
 
         formatted_name = source_name.replace('&', '_')
