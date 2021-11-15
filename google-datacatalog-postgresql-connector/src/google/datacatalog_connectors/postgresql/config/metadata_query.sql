@@ -37,7 +37,9 @@ SELECT t.table_schema as schema_name,
        c.character_maximum_length as column_char_length,
        c.numeric_precision as column_numeric_precision,
        e.enum_values as column_enum_values,
-       CAST (pg_total_relation_size(pc.oid) AS FLOAT) / 1024 / 1024 as table_size_mb
+       ROUND((CAST (pg_total_relation_size(pc.oid) AS FLOAT) / 1024 / 1024)::numeric, 2) as table_size_mb,
+       pg_catalog.obj_description(pc.oid, 'pg_class') AS table_description,
+       pg_catalog.col_description(format('%s.%s', c.table_schema, c.table_name)::regclass::oid, c.ordinal_position) AS column_description
     FROM information_schema.tables t
         JOIN  information_schema.columns c
         on c.table_name = t.table_name and c.table_schema = t.table_schema
