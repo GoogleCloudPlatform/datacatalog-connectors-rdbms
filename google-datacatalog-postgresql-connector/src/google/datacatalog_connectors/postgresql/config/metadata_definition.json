@@ -22,6 +22,10 @@
             {
                 "source": "table_size_mb",
                 "target": "table_size_MB"
+            },
+            {
+                "source": "table_description",
+                "target": "desc"
             }
         ]
     },
@@ -41,6 +45,10 @@
             {
                 "source": "column_nullable",
                 "target": "nullable"
+            },
+            {
+                "source": "column_description",
+                "target": "desc"
             }
         ]
     }
