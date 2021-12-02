@@ -232,7 +232,7 @@ COPY (
     select t.table_schema as schema_name, t.table_name, t.table_type, c.column_name, c.column_default as column_default_value, c.is_nullable as column_nullable, c.data_type as column_type,
             c.character_maximum_length as column_char_length, c.numeric_precision as column_numeric_precision  
         from information_schema.tables t
-            join  information_schema.columns c on c.table_name = t.table_name
+            join  information_schema.columns c on c.table_name = t.table_name and c.table_schema = t.table_schema
         where t.table_schema not in ('pg_catalog', 'information_schema', 'pg_toast', 'gp_toolkit')
             and c.table_schema not in ('pg_catalog', 'information_schema', 'pg_toast', 'gp_toolkit')
     ) 
